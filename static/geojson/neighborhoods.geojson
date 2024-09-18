@@ -1,0 +1,36 @@
+{
+    "type": "FeatureCollection",
+    "features": [
+      {
+        "type": "Feature",
+        "properties": {
+          "name": "Neighborhood A",
+          "rent": 500,
+          "family_friendly": true,
+          "party_animal": false,
+          "pets_friendly": true,
+          "cultural": true
+        },
+        "geometry": {
+          "type": "Polygon",
+          "coordinates": [[[13.404954, 52.520006], [13.405354, 52.520406], [13.405754, 52.520106], [13.404954, 52.520006]]]
+        }
+      },
+      {
+        "type": "Feature",
+        "properties": {
+          "name": "Neighborhood B",
+          "rent": 800,
+          "family_friendly": false,
+          "party_animal": true,
+          "pets_friendly": false,
+          "cultural": true
+        },
+        "geometry": {
+          "type": "Polygon",
+          "coordinates": [[[13.414954, 52.530006], [13.415354, 52.530406], [13.415754, 52.530106], [13.414954, 52.530006]]]
+        }
+      }
+    ]
+  }
+  
