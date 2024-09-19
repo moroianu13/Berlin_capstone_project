@@ -1,58 +1,145 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-    <meta charset="utf-8" />
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>3D Neighborhoods in Berlin</title>
-    <meta name="viewport" content="initial-scale=1,maximum-scale=1,user-scalable=no" />
-    <script src="https://api.mapbox.com/mapbox-gl-js/v2.13.0/mapbox-gl.js"></script>
+    
+    <!-- Include Bootstrap for UI styling -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    
+    <!-- Include Font Awesome for icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    
+    <!-- Include Mapbox CSS -->
     <link href="https://api.mapbox.com/mapbox-gl-js/v2.13.0/mapbox-gl.css" rel="stylesheet" />
+    
+    <!-- Custom CSS for layout -->
     <style>
-        body { margin: 0; padding: 0; }
-        #map { position: absolute; top: 0; bottom: 0; width: 100%; }
-        form { position: absolute; top: 10px; left: 10px; z-index: 1; background: white; padding: 10px; }
+        body { 
+            margin: 0; 
+            padding: 0; 
+            font-family: Arial, sans-serif; 
+        }
+
+        #map { 
+            height: 80vh; 
+            width: 100%; 
+        }
+
+        form { 
+            position: fixed; 
+            top: 10px; 
+            left: 10px; 
+            z-index: 1; 
+            background: white; 
+            padding: 20px; 
+            border-radius: 10px; 
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); 
+            max-width: 300px;
+        }
+
+        .spinner-border {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            z-index: 9999;
+        }
+
+        #tooltip {
+            position: absolute;
+            background-color: white;
+            padding: 5px;
+            border-radius: 4px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+            display: none;
+            pointer-events: none;
+        }
     </style>
-    {% load static %} <!-- This is for Django's static files -->
+    
+    <!-- Load Django static files -->
+    {% load static %}
 </head>
 <body>
 
+<!-- Map Container -->
 <div id="map"></div>
 
 <!-- Filter form -->
-<form id="filterForm">
-    <label for="maxRent">Max Rent (€):</label>
-    <input type="number" id="maxRent" name="maxRent" placeholder="Enter max rent">
+<form id="filterForm" class="p-3 bg-light rounded shadow-sm">
+    <div class="mb-3">
+        <label for="maxRent" class="form-label">Max Rent (€):</label>
+        <input type="range" class="form-range" id="maxRent" name="maxRent" min="0" max="3000" step="100">
+        <span id="rentValue">1000€</span>
+    </div>
 
-    <!-- Lifestyle Filter -->
-    <label for="family_friendly">Family Friendly</label>
-    <input type="checkbox" id="family_friendly" name="family_friendly">
+    <div class="form-check">
+        <input class="form-check-input" type="checkbox" id="family_friendly" name="family_friendly">
+        <label class="form-check-label" for="family_friendly">
+            <i class="fas fa-child"></i> Family Friendly
+        </label>
+    </div>
 
-    <label for="pets_friendly">Pets Friendly</label>
-    <input type="checkbox" id="pets_friendly" name="pets_friendly">
+    <div class="form-check">
+        <input class="form-check-input" type="checkbox" id="pets_friendly" name="pets_friendly">
+        <label class="form-check-label" for="pets_friendly">
+            <i class="fas fa-paw"></i> Pets Friendly
+        </label>
+    </div>
 
-    <label for="cultural">Cultural</label>
-    <input type="checkbox" id="cultural" name="cultural">
+    <div class="form-check">
+        <input class="form-check-input" type="checkbox" id="cultural" name="cultural">
+        <label class="form-check-label" for="cultural">
+            <i class="fas fa-theater-masks"></i> Cultural
+        </label>
+    </div>
 
-    <label for="party_animal">Party Animal</label>
-    <input type="checkbox" id="party_animal" name="party_animal">
+    <div class="form-check">
+        <input class="form-check-input" type="checkbox" id="party_animal" name="party_animal">
+        <label class="form-check-label" for="party_animal">
+            <i class="fas fa-music"></i> Party Animal
+        </label>
+    </div>
 
-    <button type="submit">Apply Filters</button>
+    <button type="submit" class="btn btn-primary mt-3">Apply Filters</button>
 </form>
 
-<script>
-    mapboxgl.accessToken = 'pk.eyJ1IjoibW9yb3dpbmQiLCJhIjoiY20xN3NoODc2MHEwaDJxcXhnZjBqOHZreiJ9.hE85kqOC-_iHDHTlwcMf-A';  // Replace with your actual token
+<!-- Loading spinner -->
+<div id="loading" class="spinner-border" style="display: none;" role="status">
+    <span class="visually-hidden">Loading...</span>
+</div>
 
+<!-- Tooltip -->
+<div id="tooltip"></div>
+
+<!-- Include Mapbox JS and initialize the map -->
+<script src="https://api.mapbox.com/mapbox-gl-js/v2.13.0/mapbox-gl.js"></script>
+
+<script>
+    mapboxgl.accessToken = 'pk.eyJ1IjoibW9yb3dpbmQiLCJhIjoiY20xN3NoODc2MHEwaDJxcXhnZjBqOHZreiJ9.hE85kqOC-_iHDHTlwcMf-A';
+
+    // Initialize the map
     var map = new mapboxgl.Map({
-        container: 'map',  // Container ID
-        style: 'mapbox://styles/mapbox/light-v10',  // Map style
-        center: [13.4050, 52.5200],  // Center on Berlin (latitude, longitude)
-        zoom: 12,  // Starting zoom level
-        pitch: 45,  // Tilt the map for 3D effect
-        bearing: -17.6,  // Rotate the map
-        maxBounds: [[13.1, 52.3], [13.7, 52.7]]  // Restrict the bounds to the Berlin area
+        container: 'map',
+        style: 'mapbox://styles/mapbox/light-v10',
+        center: [13.4050, 52.5200],
+        zoom: 12,
+        pitch: 45,
+        bearing: -17.6,
+        maxBounds: [[13.1, 52.3], [13.7, 52.7]]
     });
 
-    // Load 3D buildings on map load
+    // Handle rent slider change
+    document.getElementById('maxRent').addEventListener('input', function (e) {
+        document.getElementById('rentValue').textContent = e.target.value + '€';
+    });
+
+    // Ensure all data is loaded before applying any filters
+    var neighborhoodsData = null;
+
     map.on('load', function () {
+        // Add 3D buildings
         map.addLayer({
             'id': '3d-buildings',
             'source': 'composite',
@@ -76,8 +163,6 @@
                 });
 
                 map.addSource('postal-codes', { type: 'geojson', data: data });
-
-                // Add postal code lines
                 map.addLayer({
                     'id': 'postal-codes-layer',
                     'type': 'line',
@@ -86,8 +171,8 @@
                         'line-color': [
                             'case',
                             ['boolean', ['feature-state', 'valid'], false],
-                            '#008000',  // Green for valid
-                            '#FF0000'   // Red for off-limits
+                            '#008000', 
+                            '#FF0000'
                         ],
                         'line-width': 2
                     }
@@ -95,14 +180,15 @@
             });
 
         // Load Neighborhood data
-        fetch("{% static 'geojson/neighborhoods.geojson' %}")
+        fetch("{% static 'geojson/neighborhoods_mock.geojson' %}")
             .then(response => response.json())
             .then(data => {
+                neighborhoodsData = data;
                 data.features.forEach((feature, index) => {
-                    feature.id = index;
+                    feature.id = index;  // Assign an ID to each neighborhood
                 });
 
-                map.addSource('neighborhoods', { type: 'geojson', data: data });
+                map.addSource('neighborhoods', { type: 'geojson', data: neighborhoodsData });
 
                 // Add neighborhoods layer
                 map.addLayer({
@@ -110,67 +196,91 @@
                     'type': 'fill',
                     'source': 'neighborhoods',
                     'paint': {
-                        'fill-color': '#FFA500',  // Default orange color for neighborhoods
+                        'fill-color': '#FFA500',  // Default color for neighborhoods
                         'fill-opacity': 0.6
                     }
                 });
-
-                // Add filtering functionality
-                document.getElementById('filterForm').addEventListener('submit', function(e) {
-                    e.preventDefault();
-
-                    // Get filter values
-                    var maxRent = parseInt(document.getElementById('maxRent').value, 10);
-                    var familyFriendlyChecked = document.getElementById('family_friendly').checked;
-                    var petsFriendlyChecked = document.getElementById('pets_friendly').checked;
-                    var culturalChecked = document.getElementById('cultural').checked;
-                    var partyAnimalChecked = document.getElementById('party_animal').checked;
-
-                    // Apply the filter to the neighborhoods layer
-                    map.setFilter('neighborhoods-layer', [
-                        'all',
-                        ['<=', ['get', 'rent'], maxRent],
-                        familyFriendlyChecked ? ['==', ['get', 'family_friendly'], true] : true,
-                        petsFriendlyChecked ? ['==', ['get', 'pets_friendly'], true] : true,
-                        culturalChecked ? ['==', ['get', 'cultural'], true] : true,
-                        partyAnimalChecked ? ['==', ['get', 'party_animal'], true] : true
-                    ]);
-
-                    // Change line color dynamically based on filters
-                    map.setPaintProperty('postal-codes-layer', 'line-color', [
-                        'case',
-                        ['boolean', ['feature-state', 'valid'], false],
-                        '#008000', // Green for valid (matching the filter)
-                        '#FF0000'  // Red for not valid (doesn't match filter)
-                    ]);
-
-                    // Loop through the features to set state based on filter criteria
-                    data.features.forEach(function (feature) {
-                        var rent = feature.properties.rent;
-                        var isFamilyFriendly = feature.properties.family_friendly;
-                        var isPetsFriendly = feature.properties.pets_friendly;
-                        var isCultural = feature.properties.cultural;
-                        var isPartyAnimal = feature.properties.party_animal;
-
-                        // Determine if the feature matches the filters
-                        var isValid = (!isNaN(maxRent) && rent <= maxRent) &&
-                                      (!familyFriendlyChecked || isFamilyFriendly) &&
-                                      (!petsFriendlyChecked || isPetsFriendly) &&
-                                      (!culturalChecked || isCultural) &&
-                                      (!partyAnimalChecked || isPartyAnimal);
-
-                        console.log(`Neighborhood ${feature.properties.name} Valid: ${isValid}`);
-
-                        // Set feature state for postal codes based on validity
-                        map.setFeatureState(
-                            { source: 'postal-codes', id: feature.id },
-                            { valid: isValid }
-                        );
-                    });
-                });
             });
+    });
+
+    // Filter form submission
+    document.getElementById('filterForm').addEventListener('submit', function (e) {
+        e.preventDefault();
+
+        // Display loading spinner
+        document.getElementById('loading').style.display = 'block';
+
+        var maxRent = parseInt(document.getElementById('maxRent').value, 10);
+        var familyFriendlyChecked = document.getElementById('family_friendly').checked;
+        var petsFriendlyChecked = document.getElementById('pets_friendly').checked;
+        var culturalChecked = document.getElementById('cultural').checked;
+        var partyAnimalChecked = document.getElementById('party_animal').checked;
+
+        // Apply filter to neighborhoods layer
+        if (map.getLayer('neighborhoods-layer')) {
+            map.setFilter('neighborhoods-layer', [
+                'all',
+                ['<=', ['get', 'rent'], maxRent],
+                familyFriendlyChecked ? ['==', ['get', 'family_friendly'], true] : true,
+                petsFriendlyChecked ? ['==', ['get', 'pets_friendly'], true] : true,
+                culturalChecked ? ['==', ['get', 'cultural'], true] : true,
+                partyAnimalChecked ? ['==', ['get', 'party_animal'], true] : true
+            ]);
+        }
+
+        // Dynamically update postal code colors
+        if (neighborhoodsData) {
+            neighborhoodsData.features.forEach(function (feature) {
+                var rent = feature.properties.rent;
+                var isFamilyFriendly = feature.properties.family_friendly;
+                var isPetsFriendly = feature.properties.pets_friendly;
+                var isCultural = feature.properties.cultural;
+                var isPartyAnimal = feature.properties.party_animal;
+
+                // Determine if the feature matches the filters
+                var isValid = (!isNaN(maxRent) && rent <= maxRent) &&
+                              (!familyFriendlyChecked || isFamilyFriendly) &&
+                              (!petsFriendlyChecked || isPetsFriendly) &&
+                              (!culturalChecked || isCultural) &&
+                              (!partyAnimalChecked || isPartyAnimal);
+
+                // Set feature state for postal codes based on validity
+                map.setFeatureState(
+                    { source: 'postal-codes', id: feature.id },
+                    { valid: isValid }
+                );
+            });
+        }
+
+        // Hide loading spinner after the filters are applied
+        document.getElementById('loading').style.display = 'none';
+    });
+
+    // Tooltip for neighborhood hover
+    map.on('mousemove', 'neighborhoods-layer', function (e) {
+        var coordinates = e.lngLat;
+        var properties = e.features[0].properties;
+        var description = `
+            <strong>${properties.name}</strong><br>
+            Rent: ${properties.rent}€<br>
+            Family Friendly: ${properties.family_friendly ? 'Yes' : 'No'}<br>
+            Pets Friendly: ${properties.pets_friendly ? 'Yes' : 'No'}<br>
+            Cultural: ${properties.cultural ? 'Yes' : 'No'}<br>
+            Party Animal: ${properties.party_animal ? 'Yes' : 'No'}
+        `;
+
+        var tooltip = document.getElementById('tooltip');
+        tooltip.style.display = 'block';
+        tooltip.style.left = `${e.originalEvent.pageX}px`;
+        tooltip.style.top = `${e.originalEvent.pageY}px`;
+        tooltip.innerHTML = description;
+    });
+
+    map.on('mouseleave', 'neighborhoods-layer', function () {
+        document.getElementById('tooltip').style.display = 'none';
     });
 </script>
 
 </body>
 </html>
+
