@@ -24,19 +24,34 @@
     #back-button:hover {
       background-color: #f0f0f0;
     }
+    #neighborhood-list {
+      position: absolute;
+      top: 60px;  /* Place below back button */
+      left: 20px;
+      background-color: rgba(255, 255, 255, 0.9);
+      padding: 10px;
+      z-index: 1000;
+      max-height: 400px;
+      overflow-y: auto;
+    }
   </style>
 </head>
 <body>
 
   <a href="{% url 'borough_list' %}" id="back-button">← Back to Boroughs</a>
 
-  <div id="map"></div>
-  <!-- Sidebar to list boroughs -->
-  <ul>
-    {% for borough in boroughs %}
-    <li><a href="{% url 'neighborhood_list' borough.slug %}">{{ borough.name }}</a></li>
-    {% endfor %}
-  </ul>
+  <!-- Sidebar to list neighborhoods in the current borough -->
+  <div id="neighborhood-list">
+    <h2>{{ borough.name }} Neighborhoods</h2>
+    <ul id="neighborhood-items">
+      <!-- Loop over neighborhoods of the current borough to link to their detail page -->
+      {% for neighborhood in neighborhoods %}
+        <li data-neighborhood="{{ neighborhood.name }}">
+          <a href="{% url 'neighborhood_detail' neighborhood.id %}">{{ neighborhood.name }}</a>
+        </li>
+      {% endfor %}
+    </ul>
+  </div>
 
   <div id="map"></div>
 
@@ -46,9 +61,9 @@
 
   <script type="text/javascript">
     const boroughSlug = "{{ borough.slug }}";  // Pass the slug to JavaScript
-</script>
+  </script>
 
-<script>
+  <script>
     mapboxgl.accessToken = 'pk.eyJ1IjoibW9yb3dpbmQiLCJhIjoiY20xN3NoODc2MHEwaDJxcXhnZjBqOHZreiJ9.hE85kqOC-_iHDHTlwcMf-A';
 
     // Initialize the map
@@ -58,10 +73,6 @@
         center: [13.4, 52.52],  // Center on Berlin
         zoom: 12
     });
-
-    // Add zoom and rotation controls to the map.
-    map.addControl(new mapboxgl.NavigationControl());
-
 
     map.on('load', function() {
         // Fetch the neighborhood data for this borough
@@ -98,10 +109,33 @@
                     center: center,
                     zoom : 11
                 });
+
+                // Add event listeners to each neighborhood list item for hover effect
+                document.querySelectorAll('#neighborhood-items li').forEach(item => {
+                    item.addEventListener('mouseover', function() {
+                        const neighborhoodName = this.dataset.neighborhood;
+
+                        // Change the color of the polygon on the map
+                        map.setPaintProperty('neighborhoods-layer', 'fill-color', [
+                            'case',
+                            ['==', ['get', 'name'], neighborhoodName], '#00FF00', // Green for hovered
+                            '#888888' // Default color
+                        ]);
+                    });
+
+                    item.addEventListener('mouseout', function() {
+                        map.setPaintProperty('neighborhoods-layer', 'fill-color', [
+                           'case',
+                           ['boolean', ['feature-state', 'hover'], false], '#888888',
+                          '#888888'
+                         ]);
+                      });
+
+                });
             })
             .catch(error => console.error('Error fetching neighborhood data:', error));
     });
-</script>
+  </script>
 
 </body>
 </html>

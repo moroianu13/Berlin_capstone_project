@@ -1,0 +1,318 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>{{ neighborhood.name }}</title>
+  <style>
+    body { 
+        margin: 20px; 
+        font-family: Arial, sans-serif; 
+        display: flex; 
+    }
+    #info {
+        width: 60%;
+        padding: 20px;
+        background-color: #f8f9fa;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        border-radius: 8px;
+        margin-right: 20px;
+    }
+    #map {
+        width: 40%;
+        height: 500px;
+        margin-left: 20px;
+        border: 2px solid #4CAF50;
+        border-radius: 8px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    }
+    #back-button {
+        display: inline-block;
+        margin-bottom: 20px;
+        padding: 10px 15px;
+        background-color: #4CAF50;
+        color: #ffffff;
+        text-decoration: none;
+        border-radius: 5px;
+        font-weight: bold;
+        transition: background-color 0.3s ease;
+    }
+    #back-button:hover {
+        background-color: #45a049;
+    }
+    h1, h2 {
+        color: #333;
+    }
+    h1 {
+        font-size: 2em;
+        margin-bottom: 10px;
+    }
+    h2 {
+        font-size: 1.5em;
+        margin-top: 20px;
+    }
+    p {
+        margin: 5px 0;
+        color: #555;
+    }
+    ul {
+        list-style-type: disc;
+        padding-left: 20px;
+    }
+    ul li {
+        margin: 5px 0;
+    }
+    .chart-container {
+        width: 90%; /* Adjust the size to your liking */
+        max-width: 400px; /* Max width for each chart */
+        margin: auto; /* Center the charts */
+    }
+  </style>
+  
+  <!-- Include Mapbox GL JS and Chart.js -->
+  <link href="https://api.mapbox.com/mapbox-gl-js/v2.14.1/mapbox-gl.css" rel="stylesheet">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/Turf.js/6.5.0/turf.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels"></script>
+
+</head>
+<body>
+
+<div id="info">
+  <!-- Back Button to go to the neighborhoods page -->
+  <a href="{% url 'neighborhood_list' neighborhood.borough.slug %}" id="back-button">← Back to Neighborhoods</a>
+
+  <h1>{{ neighborhood.name }}</h1>
+
+  <!-- Crime Data Visualization -->
+  <h2>Crime Data</h2>
+  {% if crime_data %}
+      <p>Type: {{ crime_data.crime_type }}</p>
+      <p>Date Collected: {{ crime_data.date_collected }}</p>
+      <div class="chart-container">
+        <canvas id="crimeChart"></canvas>
+      </div>
+  {% else %}
+      <p>No crime data available.</p>
+  {% endif %}
+  
+  <!-- Demographics Visualization -->
+  <h2>Demographics</h2>
+  <div class="chart-container">
+    <canvas id="demographicsChart"></canvas>
+  </div>
+  
+   <!-- Age Distribution Visualization -->
+   <h2>Median Age: {{ demographics.median_age }}</h2>
+  <div class="chart-container">
+    <canvas id="ageDistributionChart"></canvas>
+  </div>
+
+  <!-- Rent Data Visualization -->
+  <h2>Rent Data</h2>
+  <div class="chart-container">
+    <canvas id="rentDataChart"></canvas>
+  </div>
+
+  <!-- Amenities Visualization -->
+  <h2>Amenities</h2>
+  <div class="chart-container">
+    <canvas id="amenitiesChart"></canvas>
+  </div>
+
+</div>
+
+<!-- Mapbox map container -->
+<div id="map"></div>
+
+<!-- Mapbox GL JS -->
+<script src="https://api.mapbox.com/mapbox-gl-js/v2.14.1/mapbox-gl.js"></script>
+
+<script type="text/javascript">
+  mapboxgl.accessToken = 'pk.eyJ1IjoibW9yb3dpbmQiLCJhIjoiY20xN3NoODc2MHEwaDJxcXhnZjBqOHZreiJ9.hE85kqOC-_iHDHTlwcMf-A';
+
+  // Initialize the map
+  const neighborhoodLongitude = parseFloat("{{ neighborhood.longitude }}");
+  const neighborhoodLatitude = parseFloat("{{ neighborhood.latitude }}");
+
+  const map = new mapboxgl.Map({
+      container: 'map',
+      style: 'mapbox://styles/mapbox/streets-v11',
+      center: [neighborhoodLongitude, neighborhoodLatitude],
+      zoom: 16
+  });
+
+  fetch(`/neighborhood_data_api/{{ neighborhood.borough.slug }}/`)
+    .then(response => response.json())
+    .then(geojsonData => {
+      if (geojsonData.error) {
+        console.error(geojsonData.error);
+        return;
+      }
+      const neighborhoodFeature = geojsonData.features.find(feature => feature.properties.name === "{{ neighborhood.name }}");
+      if (!neighborhoodFeature) {
+        console.error("Neighborhood GeoJSON not found.");
+        return;
+      }
+      const center = turf.centroid(neighborhoodFeature).geometry.coordinates;
+
+      map.flyTo({
+        center: center,
+        zoom: 12
+      });
+
+      map.addSource('neighborhood-border', {
+        'type': 'geojson',
+        'data': {
+          "type": "FeatureCollection",
+          "features": [neighborhoodFeature]
+        }
+      });
+
+      map.addLayer({
+        'id': 'neighborhood-border-layer',
+        'type': 'line',
+        'source': 'neighborhood-border',
+        'paint': {
+          'line-color': '#ff0000',
+          'line-width': 2
+        }
+      });
+    })
+    .catch(error => console.error('Error fetching neighborhood data:', error));
+
+  // Helper function to round values
+function roundValue(value) {
+    return Math.round(value * 100) / 100;
+}
+
+// Chart.js: Crime Data Visualization
+const crimeData = {
+    labels: ['Rate'],
+    datasets: [{
+        label: 'Crime Rate',
+        data: [roundValue({{ crime_data.crime_rate|default:"0" }})],
+        backgroundColor: ['#FF6384'],
+    }]
+};
+
+new Chart(document.getElementById('crimeChart'), {
+    type: 'bar',
+    data: crimeData,
+    options: {
+        responsive: true,
+        maintainAspectRatio: false,
+        plugins: {
+            datalabels: {
+                anchor: 'end',
+                align: 'top',
+                formatter: function(value) {
+                    return roundValue(value);
+                }
+            }
+        }
+    },
+    plugins: [ChartDataLabels]
+});
+
+// Chart.js: Demographics Visualization
+const demographicsData = {
+    labels: ['Family-Friendly %', 'Foreign Residents %'],
+    datasets: [{
+        label: 'Demographics',
+        data: [
+            roundValue({{ demographics.family_friendly_percentage|default:"0" }}),
+            roundValue({{ demographics.foreign_residents_percentage|default:"0" }})
+        ],
+        backgroundColor: ['#FFCE56', '#FF6384'],
+    }]
+};
+new Chart(document.getElementById('demographicsChart'), {
+    type: 'bar',
+    data: demographicsData,
+    options: {
+        responsive: true,
+        maintainAspectRatio: false,
+        plugins: {
+            datalabels: {
+                display: true,
+                color: 'black',
+                anchor: 'end',
+                align: 'top',
+                formatter: function(value) {
+                  return roundValue(value) + '%';
+                }
+            }
+        }
+    },
+    plugins: [ChartDataLabels]
+});
+
+// Properly parse `age_distribution`
+const ageDistribution = JSON.parse(`{{ age_distribution_json|safe }}`);
+const ageLabels = Object.keys(ageDistribution);
+const ageValues = Object.values(ageDistribution);
+
+new Chart(document.getElementById('ageDistributionChart'), {
+    type: 'pie',
+    data: {
+        labels: ageLabels,
+        datasets: [{
+            data: ageValues,
+            backgroundColor: ['#36A2EB', '#FFCE56', '#FF6384', '#4BC0C0'],
+        }]
+    },
+    options: {
+        responsive: true,
+        maintainAspectRatio: false
+    }
+});
+
+// Chart.js: Rent Data Visualization
+const rentData = {
+    labels: ['Average', 'Median', 'Min', 'Max'],
+    datasets: [{
+        label: 'Rent (€)',
+        data: [roundValue({{ rent_data.average_rent|default:"0" }}), roundValue({{ rent_data.median_rent|default:"0" }}), roundValue({{ rent_data.min_rent|default:"0" }}), roundValue({{ rent_data.max_rent|default:"0" }})],
+        backgroundColor: ['#FF6384', '#36A2EB', '#FFCE56', '#4BC0C0'],
+    }]
+};
+new Chart(document.getElementById('rentDataChart'), {
+    type: 'bar',
+    data: rentData,
+    options: {
+        responsive: true,
+        maintainAspectRatio: false,
+        plugins: {
+            datalabels: {
+                anchor: 'end',
+                align: 'top',
+                formatter: function(value) {
+                    return Math.round(value) + '€';
+                }
+            }
+        }
+    },
+    plugins: [ChartDataLabels]
+});
+
+// Chart.js: Amenities Visualization
+const amenityLabels = JSON.parse(`{{ amenities_labels|escapejs }}`);
+const amenityCounts = JSON.parse(`{{ amenities_counts|escapejs }}`);
+new Chart(document.getElementById('amenitiesChart'), {
+    type: 'pie',
+    data: {
+        labels: amenityLabels,
+        datasets: [{
+            data: amenityCounts,
+            backgroundColor: ['#36A2EB', '#FFCE56', '#FF6384', '#4BC0C0', '#9966FF', '#FF9F40'],
+        }]
+    },
+    options: {
+        responsive: true,
+        maintainAspectRatio: false
+    }
+});
+</script>
+
+</body>
+</html>

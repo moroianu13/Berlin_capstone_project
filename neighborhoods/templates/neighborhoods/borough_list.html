@@ -39,7 +39,12 @@
   </style>
 </head>
 <body>
-
+  <h2>Neighborhoods in {{ borough.name }}</h2>
+  <ul>
+    {% for neighborhood in borough.neighborhood_set.all %}
+      <li><a href="{% url 'neighborhood_detail' neighborhood.id %}">{{ neighborhood.name }}</a></li>
+    {% endfor %}
+  </ul>
   <h1>List of Boroughs</h1>
   <ul>
       {% for borough in boroughs %}

@@ -1,12 +1,13 @@
 import json
 import os
 import logging
+from collections import Counter
 from django.conf import settings
 from django.shortcuts import render, get_object_or_404
 from django.http import Http404, JsonResponse, HttpResponse
 from django.core.exceptions import ValidationError
 from django.db.models import Q
-from .models import Borough, Neighborhood
+from .models import Borough, Neighborhood,  CrimeData, Demographics, RentData, Amenity
 
 logger = logging.getLogger(__name__)
 
@@ -57,6 +58,40 @@ def neighborhood_list(request, borough_slug):
         'borough': borough,
         'neighborhoods': neighborhoods
     })
+
+def neighborhood_detail(request, neighborhood_id):
+    neighborhood = get_object_or_404(Neighborhood, id=neighborhood_id)
+    crime_data = CrimeData.objects.filter(neighborhood=neighborhood).first()
+    demographics = Demographics.objects.filter(neighborhood=neighborhood).first()
+    rent_data = RentData.objects.filter(neighborhood=neighborhood).first()
+    amenities = Amenity.objects.filter(neighborhood=neighborhood)
+    
+    # Group and count amenities by type
+    amenities_grouped = Counter([a.amenity_type for a in amenities])
+    amenities_labels = list(amenities_grouped.keys())
+    amenities_counts = list(amenities_grouped.values())
+
+    # Debugging: Print statements to verify data
+    print(f"Crime Data: {crime_data}")
+    print(f"Demographics: {demographics}")
+    print(f"Rent Data: {rent_data}")
+    print(f"Amenities: {amenities}")
+
+    context = {
+        'neighborhood': neighborhood,
+        'crime_data': crime_data,
+        'demographics': demographics,
+        'rent_data': rent_data,
+        'amenities': amenities,
+        'amenities_labels': json.dumps(amenities_labels),  # Pass labels as JSON
+        'amenities_counts': json.dumps(amenities_counts),  # Pass counts as JSON
+        'age_distribution_json': json.dumps(demographics.age_distribution),  # Convert to JSON here
+    }
+    if demographics:
+        context['age_distribution'] = json.dumps(demographics.age_distribution)
+    print(context)
+
+    return render(request, 'neighborhoods/neighborhood_detail.html', context)
 
     
     
@@ -128,4 +163,5 @@ def borough_data_api(request):
     }
 
     return JsonResponse(geojson)
+
 
