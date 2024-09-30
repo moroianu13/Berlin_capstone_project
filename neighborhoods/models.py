@@ -40,7 +40,8 @@ class Neighborhood(models.Model):
     borough = models.ForeignKey(Borough, on_delete=models.CASCADE)
     latitude = models.FloatField()
     longitude = models.FloatField()
-
+    slug = models.SlugField(unique=True, blank=True, null=True)
+    
     def __str__(self):
         return self.name
 
@@ -51,6 +52,11 @@ class Neighborhood(models.Model):
         if not (-180 <= self.longitude <= 180):
             raise ValidationError({'longitude': 'Longitude must be between -180 and 180.'})
 
+    def save(self, *args, **kwargs):
+        # Automatically generate slug if it doesn't exist
+        if not self.slug:
+            self.slug = slugify(self.name)  # Generates a URL-safe version of the name
+        super(Neighborhood, self).save(*args, **kwargs)
 
 class RentData(models.Model):
     neighborhood = models.ForeignKey(Neighborhood, on_delete=models.CASCADE)

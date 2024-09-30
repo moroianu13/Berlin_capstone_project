@@ -8,7 +8,21 @@ from django.http import Http404, JsonResponse, HttpResponse
 from django.core.exceptions import ValidationError
 from django.db.models import Q
 from .models import Borough, Neighborhood,  CrimeData, Demographics, RentData, Amenity
+from .serializers import NeighborhoodSerializer
+from rest_framework import viewsets
+from rest_framework.permissions import IsAuthenticated
 
+
+class NeighborhoodViewSet(viewsets.ModelViewSet):
+    queryset = Neighborhood.objects.all()
+    serializer_class = NeighborhoodSerializer
+    permission_classes = [IsAuthenticated]  # Ensure only authenticated users can access the API
+
+class NeighborhoodViewSet(viewsets.ModelViewSet):
+    queryset = Neighborhood.objects.all()
+    serializer_class = NeighborhoodSerializer
+    
+    
 logger = logging.getLogger(__name__)
 
 def home(request):
