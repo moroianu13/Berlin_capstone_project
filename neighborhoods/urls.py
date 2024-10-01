@@ -3,7 +3,8 @@ from . import views
 from rest_framework.routers import DefaultRouter
 from .views import NeighborhoodViewSet
 from django.contrib.auth import views as auth_views
-from rest_framework import permissions
+from rest_framework import permissions 
+from rest_framework.authentication import TokenAuthentication
 from drf_yasg.views import get_schema_view
 from drf_yasg import openapi
 
@@ -23,6 +24,7 @@ schema_view = get_schema_view(
     ),
     public=True,
     permission_classes=(permissions.AllowAny,),  # Change to IsAuthenticated if you want to restrict access
+    authentication_classes=[TokenAuthentication],
 )
 
 # Define URL patterns for the Django project
