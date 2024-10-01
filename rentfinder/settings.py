@@ -40,6 +40,7 @@ INSTALLED_APPS = [
     'neighborhoods',
     'rest_framework',
     'rest_framework.authtoken',
+    'drf_yasg',
 ]
 
 
@@ -58,7 +59,7 @@ ROOT_URLCONF = 'rentfinder.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [os.path.join(BASE_DIR, 'templates')],
+        'DIRS': [os.path.join(BASE_DIR, 'neighborhoods','templates')],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -134,5 +135,12 @@ REST_FRAMEWORK = {
     ],
     'DEFAULT_AUTHENTICATION_CLASSES': [
         'rest_framework.authentication.TokenAuthentication',
+        'rest_framework.authentication.SessionAuthentication',
     ],
 }
+
+
+LOGIN_URL = '/login/'
+LOGIN_REDIRECT_URL = '/'
+LOGOUT_REDIRECT_URL = '/'
+

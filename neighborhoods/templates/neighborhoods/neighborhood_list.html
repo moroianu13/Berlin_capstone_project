@@ -8,37 +8,54 @@
   <style>
     body { margin: 0; padding: 0; font-family: Arial, sans-serif; }
     #map { position: absolute; top: 0; bottom: 0; width: 100%; }
-    #back-button {
+    
+    /* Style for buttons */
+    #home-button, #back-button {
       position: absolute;
       top: 20px;
-      left: 20px;
-      background-color: #ffffff;
-      color: #000000;
+      background-color: #4CAF50;
+      color: #ffffff;
       padding: 10px 20px;
       border-radius: 5px;
       z-index: 1000; /* Ensure it’s above the map */
       text-decoration: none;
       font-weight: bold;
       box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+      margin-right: 10px;
     }
-    #back-button:hover {
-      background-color: #f0f0f0;
+
+    #home-button {
+      left: 20px;
     }
+    #back-button {
+      left: 160px;
+    }
+
+    #home-button:hover, #back-button:hover {
+      background-color: #45a049;
+    }
+
+    /* Style the neighborhood list box */
     #neighborhood-list {
       position: absolute;
-      top: 60px;  /* Place below back button */
+      top: 70px; /* Place below buttons */
       left: 20px;
       background-color: rgba(255, 255, 255, 0.9);
-      padding: 10px;
+      padding: 15px;
       z-index: 1000;
       max-height: 400px;
       overflow-y: auto;
+      border-radius: 5px;
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
     }
   </style>
 </head>
 <body>
 
-  <a href="{% url 'borough_list' %}" id="back-button">← Back to Boroughs</a>
+  <!-- Back to Home Button -->
+  <a href="{% url 'home' %}" id="home-button">← Home</a>
+  <!-- Back to Boroughs Button -->
+  <a href="{% url 'borough_list' %}" id="back-button">← Boroughs</a>
 
   <!-- Sidebar to list neighborhoods in the current borough -->
   <div id="neighborhood-list">

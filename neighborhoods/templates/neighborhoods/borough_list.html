@@ -36,15 +36,36 @@
       margin-top: 10px;
       padding: 5px 10px;
     }
+    /* Home button styles */
+    #home-button {
+      position: absolute;
+      top: 10px;
+      right: 10px;
+      background: #007bff;
+      color: white;
+      padding: 10px 15px;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      z-index: 2;
+      font-family: Arial, sans-serif;
+    }
+    #home-button:hover {
+      background: #0056b3;
+    }
   </style>
 </head>
 <body>
+  <!-- Home button to return to the home page -->
+  <a href="{% url 'home' %}" id="home-button">Home</a>
+
   <h2>Neighborhoods in {{ borough.name }}</h2>
   <ul>
     {% for neighborhood in borough.neighborhood_set.all %}
       <li><a href="{% url 'neighborhood_detail' neighborhood.id %}">{{ neighborhood.name }}</a></li>
     {% endfor %}
   </ul>
+  
   <h1>List of Boroughs</h1>
   <ul>
       {% for borough in boroughs %}
@@ -53,6 +74,7 @@
           </li>
       {% endfor %}
   </ul>
+  
   <div id="filters">
     <h3>Filters</h3>
     <div>
@@ -80,6 +102,7 @@
     </div>
     <button id="apply-filters">Apply Filters</button>
   </div>
+  
   <div id="map"></div>
 
   <!-- Mapbox GL JS -->
@@ -181,16 +204,15 @@
 
       // Add interactivity: On click, redirect to borough's neighborhood page
       map.on('click', 'borough-borders-layer', function(e) {
-    const boroughSlug = e.features[0].properties.slug;
-    console.log("Borough clicked:", e.features[0].properties);  // Log clicked borough's properties
-    if (boroughSlug) {
-        console.log("Redirecting to:", `/borough/${encodeURIComponent(boroughSlug)}/`);
-        window.location.href = `/borough/${encodeURIComponent(boroughSlug)}/`;
-    } else {
-        console.error("Slug not found in borough properties");
-    }
-});
-
+        const boroughSlug = e.features[0].properties.slug;
+        console.log("Borough clicked:", e.features[0].properties);  // Log clicked borough's properties
+        if (boroughSlug) {
+            console.log("Redirecting to:", `/borough/${encodeURIComponent(boroughSlug)}/`);
+            window.location.href = `/borough/${encodeURIComponent(boroughSlug)}/`;
+        } else {
+            console.error("Slug not found in borough properties");
+        }
+      });
 
       // Change cursor on hover
       map.on('mouseenter', 'borough-borders-layer', function() {

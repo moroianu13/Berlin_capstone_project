@@ -25,7 +25,7 @@
         border-radius: 8px;
         box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     }
-    #back-button {
+    #home-button, #back-button {
         display: inline-block;
         margin-bottom: 20px;
         padding: 10px 15px;
@@ -35,8 +35,9 @@
         border-radius: 5px;
         font-weight: bold;
         transition: background-color 0.3s ease;
+        margin-right: 10px; /* Add space between buttons */
     }
-    #back-button:hover {
+    #home-button:hover, #back-button:hover {
         background-color: #45a049;
     }
     h1, h2 {
@@ -79,6 +80,7 @@
 
 <div id="info">
   <!-- Back Button to go to the neighborhoods page -->
+  <a href="{% url 'home' %}" id="home-button">← Back to Home</a>
   <a href="{% url 'neighborhood_list' neighborhood.borough.slug %}" id="back-button">← Back to Neighborhoods</a>
 
   <h1>{{ neighborhood.name }}</h1>
@@ -101,8 +103,8 @@
     <canvas id="demographicsChart"></canvas>
   </div>
   
-   <!-- Age Distribution Visualization -->
-   <h2>Median Age: {{ demographics.median_age }}</h2>
+  <!-- Age Distribution Visualization -->
+  <h2>Median Age: {{ demographics.median_age }}</h2>
   <div class="chart-container">
     <canvas id="ageDistributionChart"></canvas>
   </div>

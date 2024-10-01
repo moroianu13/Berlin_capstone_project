@@ -8,13 +8,32 @@
         body {
             font-family: Arial, sans-serif;
             display: flex;
+            flex-direction: column;
             justify-content: center;
             align-items: center;
             height: 100vh;
             margin: 0;
         }
+        nav {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+        }
+        nav ul {
+            list-style: none;
+            padding: 0;
+        }
+        nav ul li {
+            display: inline;
+            margin: 0 10px;
+        }
+        nav ul li a {
+            text-decoration: none;
+            color: #4CAF50;
+            font-weight: bold;
+        }
         .welcome-button {
-            background-color: #4CAF50; /* Green */
+            background-color: #4CAF50;
             border: none;
             color: white;
             padding: 15px 32px;
@@ -29,6 +48,27 @@
     </style>
 </head>
 <body>
+    <!-- Navigation Section -->
+    <nav>
+        <ul>
+            {% if user.is_authenticated %}
+                <!-- Logout Form -->
+                <li>
+                    <form action="{% url 'logout' %}" method="POST" style="display:inline;">
+                        {% csrf_token %}
+                        <button type="submit" style="background:none; border:none; color:#4CAF50; font-weight:bold; cursor:pointer;">
+                            Logout
+                        </button>
+                    </form>
+                </li>
+            {% else %}
+                <li><a href="{% url 'login' %}">Login</a></li>
+                <li><a href="{% url 'register' %}">Register</a></li>
+            {% endif %}
+        </ul>
+    </nav>
+
+    <!-- Welcome Button -->
     <a href="{% url 'borough_list' %}" class="welcome-button">Welcome to RentFinder!</a>
 </body>
 </html>

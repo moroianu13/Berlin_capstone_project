@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}RentFinder{% endblock %}</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+        header {
+            background-color: #4CAF50;
+            padding: 10px;
+            color: white;
+            text-align: center;
+        }
+        nav ul {
+            list-style-type: none;
+            padding: 0;
+            margin: 0;
+            text-align: center;
+        }
+        nav ul li {
+            display: inline;
+            margin-right: 15px;
+        }
+        nav ul li a {
+            color: white;
+            text-decoration: none;
+            font-weight: bold;
+        }
+        nav ul li a:hover {
+            text-decoration: underline;
+        }
+        .content {
+            padding: 20px;
+        }
+        footer {
+            margin-top: 20px;
+            text-align: center;
+            padding: 10px;
+            background-color: #f2f2f2;
+        }
+        ul.messages {
+            list-style: none;
+            padding: 0;
+            margin: 10px 0;
+        }
+        ul.messages li {
+            margin-bottom: 10px;
+            padding: 10px;
+            border-radius: 4px;
+        }
+        ul.messages li.info {
+            background-color: #d9edf7;
+            color: #31708f;
+        }
+        ul.messages li.success {
+            background-color: #dff0d8;
+            color: #3c763d;
+        }
+        ul.messages li.error {
+            background-color: #f2dede;
+            color: #a94442;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>RentFinder</h1>
+        <nav>
+            <ul>
+                <li><a href="{% url 'home' %}">Home</a></li>
+                {% if user.is_authenticated %}
+                    <li><a href="{% url 'logout' %}">Logout</a></li>
+                {% else %}
+                    <li><a href="{% url 'login' %}">Login</a></li>
+                    <li><a href="{% url 'register' %}">Register</a></li>
+                {% endif %}
+            </ul>
+        </nav>
+    </header>
+
+    {% if messages %}
+    <ul class="messages">
+        {% for message in messages %}
+            <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+        {% endfor %}
+    </ul>
+    {% endif %}
+
+    <div class="content">
+        {% block content %}
+        <!-- Content will be injected here from child templates -->
+        {% endblock %}
+    </div>
+
+    <footer>
+        <p>© 2024 RentFinder</p>
+    </footer>
+</body>
+</html>
