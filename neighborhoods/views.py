@@ -15,6 +15,7 @@ from .forms import UserRegisterForm
 from django.contrib import messages
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.forms import AuthenticationForm
+from .permissions import IsAdminOrReadOnly  # Import the custom permission
 
 # Set up logger
 logger = logging.getLogger(__name__)
@@ -23,12 +24,12 @@ logger = logging.getLogger(__name__)
 class NeighborhoodViewSet(viewsets.ModelViewSet):
     queryset = Neighborhood.objects.all()
     serializer_class = NeighborhoodSerializer
-    permission_classes = [IsAuthenticated]  # Restrict access to authenticated users
+    permission_classes = [IsAuthenticated, IsAdminOrReadOnly]  # Restrict access to admin for modifying
 
 class BoroughViewSet(viewsets.ModelViewSet):
     queryset = Borough.objects.all()
     serializer_class = BoroughSerializer
-    permission_classes = [IsAuthenticated]  # Restrict access to authenticated users
+    permission_classes = [IsAuthenticated, IsAdminOrReadOnly]  # Restrict access to admin for modifying
 
 # Home view
 def home(request):
@@ -110,11 +111,15 @@ def neighborhood_data_api(request, borough_slug):
     except FileNotFoundError:
         return JsonResponse({"error": "GeoJSON file not found."}, status=404)
 
+    # Only retrieve neighborhoods linked to the specified borough
     neighborhoods = Neighborhood.objects.filter(borough=borough)
     neighborhood_names = neighborhoods.values_list('name', flat=True)
 
-    filtered_features = [feature for feature in geojson_data['features']
-                         if feature['properties'].get('name') in neighborhood_names]
+    # Filter GeoJSON features to match only neighborhoods from the specified borough
+    filtered_features = [
+        feature for feature in geojson_data['features']
+        if feature['properties'].get('name', '').strip().lower() in [name.strip().lower() for name in neighborhood_names]
+    ]
 
     if not filtered_features:
         return JsonResponse({"error": "No neighborhoods found for this borough."}, status=404)
@@ -125,6 +130,7 @@ def neighborhood_data_api(request, borough_slug):
     }
 
     return JsonResponse(filtered_geojson)
+
 
 # API view to provide borough data with GeoJSON structure
 def borough_data_api(request):

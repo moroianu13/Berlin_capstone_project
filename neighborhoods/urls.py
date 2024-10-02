@@ -1,7 +1,7 @@
 from django.urls import path, include
 from . import views
 from rest_framework.routers import DefaultRouter
-from .views import NeighborhoodViewSet
+from .views import NeighborhoodViewSet, BoroughViewSet
 from django.contrib.auth import views as auth_views
 from rest_framework import permissions 
 from rest_framework.authentication import TokenAuthentication
@@ -10,6 +10,7 @@ from drf_yasg import openapi
 
 # Initialize the DefaultRouter for the API endpoints
 router = DefaultRouter()
+router.register(r'boroughs', BoroughViewSet, basename='borough')
 router.register(r'neighborhoods', NeighborhoodViewSet, basename='neighborhood')
 
 # Schema view for API documentation using drf-yasg
