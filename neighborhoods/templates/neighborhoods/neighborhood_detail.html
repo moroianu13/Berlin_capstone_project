@@ -67,6 +67,32 @@
         max-width: 400px; /* Max width for each chart */
         margin: auto; /* Center the charts */
     }
+    #rental-links {
+        margin-top: 20px;
+        padding: 20px;
+        background-color: #e0f7fa;
+        border-radius: 8px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    }
+    #rental-links h2 {
+        font-size: 1.5em;
+        color: #00796b;
+    }
+    #rental-links ul {
+        list-style-type: none;
+        padding-left: 0;
+    }
+    #rental-links ul li {
+        margin: 10px 0;
+    }
+    #rental-links ul li a {
+        color: #00796b;
+        text-decoration: none;
+        font-weight: bold;
+    }
+    #rental-links ul li a:hover {
+        text-decoration: underline;
+    }
   </style>
   
   <!-- Include Mapbox GL JS and Chart.js -->
@@ -119,6 +145,18 @@
   <h2>Amenities</h2>
   <div class="chart-container">
     <canvas id="amenitiesChart"></canvas>
+  </div>
+
+  <!-- Rental Links Section -->
+  <div id="rental-links">
+    <h2>Find Rentals on Popular Websites</h2>
+    <ul>
+      <li><a href="https://www.immobilienscout24.de" target="_blank">ImmobilienScout24</a></li>
+      <li><a href="https://www.immowelt.de" target="_blank">Immowelt</a></li>
+      <li><a href="https://www.ebay-kleinanzeigen.de/s-wohnung-mieten/c223l3331" target="_blank">eBay Kleinanzeigen</a></li>
+      <li><a href="https://www.wg-gesucht.de" target="_blank">WG-Gesucht</a></li>
+      <li><a href="https://www.wohnungsboerse.net" target="_blank">Wohnungsboerse</a></li>
+    </ul>
   </div>
 
 </div>
