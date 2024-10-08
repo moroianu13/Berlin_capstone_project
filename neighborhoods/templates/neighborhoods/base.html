@@ -5,65 +5,159 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{% block title %}RentFinder{% endblock %}</title>
     <style>
+        /* Style de base pour la page */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
         body {
             font-family: Arial, sans-serif;
-            margin: 0;
-            padding: 0;
+            background-color: #f4f4f4;
+            color: #333;
         }
+        
+        /* Header */
         header {
-            background-color: #4CAF50;
-            padding: 10px;
+            background-color: #ff5a5f;
+            padding: 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        header h1 {
             color: white;
-            text-align: center;
+            font-size: 40px;
+            margin-left: 750px;
         }
+        
         nav ul {
-            list-style-type: none;
-            padding: 0;
-            margin: 0;
-            text-align: center;
+            list-style: none;
+            display: flex;
         }
+        
         nav ul li {
-            display: inline;
-            margin-right: 15px;
+            margin-left: 20px;
         }
+        
         nav ul li a {
             color: white;
             text-decoration: none;
-            font-weight: bold;
+            font-size: 18px;
         }
+        
         nav ul li a:hover {
             text-decoration: underline;
         }
-        .content {
+        
+        /* Section de recherche */
+        .search-section {
+            background-color: white;
+            padding: 40px;
+            text-align: center;
+            margin-top: 20px;
+        }
+        
+        .search-section h2 {
+            margin-bottom: 20px;
+        }
+        
+        .search-form {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+        
+        .search-bar, .filter {
+            padding: 10px;
+            font-size: 12px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+        }
+        
+        button {
+            padding: 10px 20px;
+            background-color: #ff5a5f;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        
+        button:hover {
+            background-color: #e04e4f;
+        }
+        
+        /* Section des annonces */
+        .listing-section {
+            padding: 40px;
+        }
+        
+        .grid-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+        }
+        
+        .property-card {
+            background-color: white;
+            border: 1px solid #ddd;
+            border-radius: 10px;
+            overflow: hidden;
+        }
+        
+        .property-card img {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+        }
+        
+        .property-info {
             padding: 20px;
         }
-        footer {
-            margin-top: 20px;
-            text-align: center;
-            padding: 10px;
-            background-color: #f2f2f2;
-        }
-        ul.messages {
-            list-style: none;
-            padding: 0;
-            margin: 10px 0;
-        }
-        ul.messages li {
+        
+        .property-info h3 {
             margin-bottom: 10px;
-            padding: 10px;
-            border-radius: 4px;
+            font-size: 20px;
+            color: #333;
         }
-        ul.messages li.info {
-            background-color: #d9edf7;
-            color: #31708f;
+        
+        .property-info p {
+            margin-bottom: 5px;
+            color: #555;
         }
-        ul.messages li.success {
-            background-color: #dff0d8;
-            color: #3c763d;
+        
+        /* Footer */
+        footer {
+            background-color: #333;
+            color: white;
+            text-align: center;
+            padding: 20px;
+            margin-top: 20px;
         }
-        ul.messages li.error {
-            background-color: #f2dede;
-            color: #a94442;
+        
+        .ads-section {
+            padding: 40px;
+            background-color: #fff;
+        }
+        
+        .ads-container {
+            display: flex;
+            justify-content: space-around;
+        }
+        
+        .ad-block {
+            background-color: #ddd;
+            width: 300px;
+            height: 200px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+            color: #333;
         }
     </style>
 </head>
@@ -98,7 +192,7 @@
     </div>
 
     <footer>
-        <p>© 2024 RentFinder</p>
+        <p>© 2024 RentFinder. All Right Reserved.</p>
     </footer>
 </body>
 </html>

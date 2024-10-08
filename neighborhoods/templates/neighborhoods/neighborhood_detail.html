@@ -8,6 +8,7 @@
         margin: 20px; 
         font-family: Arial, sans-serif; 
         display: flex; 
+        justify-content: space-between; /* Keep space between info and map container */
     }
     #info {
         width: 60%;
@@ -17,11 +18,28 @@
         border-radius: 8px;
         margin-right: 20px;
     }
-    #map {
+    /* New container for map and rental links */
+    #map-links-container {
         width: 40%;
+        display: flex;
+        flex-direction: column; /* Stack map and links vertically */
+    }
+    #map {
+        position: sticky;
+        top: 20px; /* Set the top position where the map sticks */
         height: 500px;
-        margin-left: 20px;
         border: 2px solid #4CAF50;
+        border-radius: 8px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        margin-bottom: 20px; /* Space between map and links */
+    }
+    /* Same for rental links section */
+    #rental-links {
+        height: 200px;
+        position: sticky;
+        top: 540px; /* Ensure it sticks below the map */
+        padding: 20px;
+        background-color: #e0f7fa;
         border-radius: 8px;
         box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     }
@@ -29,7 +47,7 @@
         display: inline-block;
         margin-bottom: 20px;
         padding: 10px 15px;
-        background-color: #4CAF50;
+        background-color: #ff5a5f;
         color: #ffffff;
         text-decoration: none;
         border-radius: 5px;
@@ -66,13 +84,6 @@
         width: 90%; /* Adjust the size to your liking */
         max-width: 400px; /* Max width for each chart */
         margin: auto; /* Center the charts */
-    }
-    #rental-links {
-        margin-top: 20px;
-        padding: 20px;
-        background-color: #e0f7fa;
-        border-radius: 8px;
-        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     }
     #rental-links h2 {
         font-size: 1.5em;
@@ -146,8 +157,14 @@
   <div class="chart-container">
     <canvas id="amenitiesChart"></canvas>
   </div>
+</div>
 
-  <!-- Rental Links Section -->
+<!-- New container to hold map and rental links -->
+<div id="map-links-container">
+  <!-- Mapbox map container -->
+  <div id="map"></div>
+
+  <!-- Rental Links Section (now below the map) -->
   <div id="rental-links">
     <h2>Find Rentals on Popular Websites</h2>
     <ul>
@@ -158,11 +175,7 @@
       <li><a href="https://www.wohnungsboerse.net" target="_blank">Wohnungsboerse</a></li>
     </ul>
   </div>
-
 </div>
-
-<!-- Mapbox map container -->
-<div id="map"></div>
 
 <!-- Mapbox GL JS -->
 <script src="https://api.mapbox.com/mapbox-gl-js/v2.14.1/mapbox-gl.js"></script>
