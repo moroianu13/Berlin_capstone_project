@@ -80,8 +80,12 @@ WSGI_APPLICATION = 'rentfinder.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        'ENGINE': 'django.db.backends.sqlite3',  #Sophia !!!! 'ENGINE' : 'django.db.backends.postgresql',
+        'NAME': BASE_DIR / 'db.sqlite3',         #Sophia !!!! 'NAME': 'das_project_Berlin',
+        #'USER': 'postgres',                      #Sophia !!!! 'USER': 'postgres',
+        #'PASSWORD': '123',                       #Sophia !!!! 'PASSWORD': '123',
+        # 'HOST': 'localhost',                     #Sophia !!!! 'HOST': 'localhost',
+        #'PORT': '5432',                          #Sophia !!!! 'PORT': '5432',        dont forget to install : pip install psycopg2-binary
     }
 }
 
