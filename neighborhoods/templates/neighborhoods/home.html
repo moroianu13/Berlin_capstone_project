@@ -1,63 +1,24 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    {% load static %}
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>RentFinder</title>
+    <title>RentWise Berlin</title>
+    <link rel="stylesheet" href="static/css/styles.css">
     <style>
-        {% comment %} body {
-            font-family: Arial, sans-serif;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-            margin: 0;
-        }
-        nav {
-            position: absolute;
-            top: 20px;
-            right: 20px;
-        }
-        nav ul {
-            list-style: none;
-            padding: 0;
-        }
-        nav ul li {
-            display: inline;
-            margin: 0 10px;
-        }
-        nav ul li a {
-            text-decoration: none;
-            color: #4CAF50;
-            font-weight: bold;
-        }
-        .welcome-button {
-            background-color: #4CAF50;
-            border: none;
-            color: white;
-            padding: 15px 32px;
-            text-align: center;
-            text-decoration: none;
-            display: inline-block;
-            font-size: 16px;
-            margin: 4px 2px;
-            cursor: pointer;
-            border-radius: 8px;
-        } {% endcomment %}
-        /* Style de base pour la page */
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
         }
-        
+
         body {
             font-family: Arial, sans-serif;
             background-color: #f4f4f4;
             color: #333;
         }
-        
+
         /* Header */
         header {
             background-color: #ff5a5f;
@@ -66,58 +27,55 @@
             justify-content: space-between;
             align-items: center;
         }
-        
+
+        header .logo img {
+            height: 50px;
+        }
+
         header h1 {
             color: white;
             font-size: 40px;
-            margin-left: 750px;
+            margin-left: 20px;
         }
-        
+
         nav ul {
             list-style: none;
             display: flex;
         }
-        
+
         nav ul li {
             margin-left: 20px;
         }
-        
+
         nav ul li a {
             color: white;
             text-decoration: none;
             font-size: 18px;
         }
-        
+
         nav ul li a:hover {
             text-decoration: underline;
         }
-        
-        /* Section de recherche */
+
+        /* Search Section */
         .search-section {
             background-color: white;
             padding: 40px;
             text-align: center;
             margin-top: 20px;
         }
-        
+
         .search-section h2 {
             margin-bottom: 20px;
         }
-        
+
         .search-form {
             display: flex;
             justify-content: center;
             gap: 10px;
             flex-wrap: wrap;
         }
-        
-        .search-bar, .filter {
-            padding: 10px;
-            font-size: 12px;
-            border: 1px solid #ddd;
-            border-radius: 5px;
-        }
-        
+
         button {
             padding: 10px 20px;
             background-color: #ff5a5f;
@@ -126,50 +84,68 @@
             border-radius: 5px;
             cursor: pointer;
         }
-        
+
         button:hover {
             background-color: #e04e4f;
         }
-        
-        /* Section des annonces */
+
+        /* Listing Section */
         .listing-section {
             padding: 40px;
         }
-        
+
         .grid-container {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
             gap: 20px;
         }
-        
+
         .property-card {
             background-color: white;
             border: 1px solid #ddd;
             border-radius: 10px;
             overflow: hidden;
+            position: relative;
         }
-        
-        .property-card img {
+
+        .slideshow-container {
+            position: relative;
             width: 100%;
-            height: 200px;
-            object-fit: cover;
+            height: 350px; /* Adjusted height for better image display */
+            overflow: hidden;
         }
-        
+
+        .slides {
+            display: flex;
+            transition: transform 0.5s ease-in-out;
+        }
+
+        .slide {
+            min-width: 100%;
+            transition: transform 0.5s ease-in-out;
+        }
+
+        .slide img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover; /* Ensure the image covers the area while keeping the aspect ratio */
+        }
+
         .property-info {
             padding: 20px;
         }
-        
+
         .property-info h3 {
             margin-bottom: 10px;
             font-size: 20px;
             color: #333;
         }
-        
+
         .property-info p {
             margin-bottom: 5px;
             color: #555;
         }
-        
+
         /* Footer */
         footer {
             background-color: #333;
@@ -178,125 +154,124 @@
             padding: 20px;
             margin-top: 20px;
         }
-        
-        .ads-section {
-            padding: 40px;
-            background-color: #fff;
-        }
-        
-        .ads-container {
-            display: flex;
-            justify-content: space-around;
-        }
-        
-        .ad-block {
-            background-color: #ddd;
-            width: 300px;
-            height: 200px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 24px;
-            color: #333;
-        }
-        
     </style>
 </head>
 <body>
     <!-- Navigation Section -->
     <header>
         <div class="logo">
-            <h1>RentFinder</h1>
+            <img src="{% static 'images/rentwise_logo.jpg' %}" alt="RentWise Berlin Logo">
         </div>
+        <h1>RentWise Berlin</h1>
         <nav>
-            <nav>
-                <ul>
-                    {% if user.is_authenticated %}
-                        <!-- Logout Form -->
-                        <li>
-                            <form action="{% url 'logout' %}" method="POST" style="display:inline;">
-                                {% csrf_token %}
-                                <button type="submit" style="background:none; border:none; color:#4CAF50; font-weight:bold; cursor:pointer;">
-                                    Logout
-                                </button>
-                            </form>
-                        </li>
-                    {% else %}
-                        <li><a href="{% url 'login' %}">Login</a></li>
-                        <li><a href="{% url 'register' %}">Register</a></li>
-                    {% endif %}
-                </ul>
-            </nav>
+            <ul>
+                {% if user.is_authenticated %}
+                    <!-- Logout Form -->
+                    <li>
+                        <form action="{% url 'logout' %}" method="POST" style="display:inline;">
+                            {% csrf_token %}
+                            <button type="submit" style="background:none; border:none; color:#fff; font-weight:bold; cursor:pointer;">
+                                Logout
+                            </button>
+                        </form>
+                    </li>
+                {% else %}
+                    <li><a href="{% url 'login' %}">Login</a></li>
+                    <li><a href="{% url 'register' %}">Register</a></li>
+                {% endif %}
+            </ul>
+        </nav>
     </header>
 
-    <section class="ads-section">
-        <h2>Sponsored Ads</h2>
-        <div class="ads-container">
-            <div class="ad-block">Ad 1</div>
-            <div class="ad-block">Ad 2</div>
-            <div class="ad-block">Ad 3</div>
-        </div>
-    </section>
-
+    <!-- Search Section -->
     <section class="search-section">
-        <h2>Are you seeking for the perfect matching appartment ?</h2>
+        <h2>Are you seeking the perfect neighborhood to settle in?</h2>
         <form class="search-form">
             <button type="submit">
-            <a href="{% url 'borough_list' %}" class="button">Discover your new home!</a></button>
+                <a href="{% url 'borough_list' %}" class="button">Discover Your Ideal Neighborhood!</a>
+            </button>
         </form>
     </section>
 
+    <!-- Listing Section with Neighborhood Highlights -->
     <section class="listing-section">
-        <h2>Previous researchs</h2>
+        <h2>Explore Berlin's Neighborhoods</h2>
         <div class="grid-container">
-            <!-- Annonce 1 -->
+            <!-- Friedrichshain Neighborhood -->
             <div class="property-card">
-                <img src="https://via.placeholder.com/300" alt="Property Image">
+                <div class="slideshow-container" id="friedrichshain-slideshow">
+                    <div class="slides">
+                        <div class="slide">
+                            <img src="{% static 'images/A_vibrant_and_welcoming_view_of_Friedrichshain.jpg' %}" alt="Friedrichshain">
+                        </div>
+                        <div class="slide">
+                            <img src="{% static 'images/A_cozy_evening_scene_in_Friedrichshain.jpg' %}" alt="Friedrichshain Evening">
+                        </div>
+                    </div>
+                </div>
                 <div class="property-info">
-                    <h3>Appartment in Friedrishchain</h3>
-                    <p>1200€ / month</p>
-                    <p>Balcony, culutural interest</p>
+                    <h3>Friedrichshain</h3>
+                    <p>A trendy neighborhood known for its vibrant nightlife and cultural landmarks.</p>
                 </div>
             </div>
-            <!-- Annonce 2 -->
+            <!-- Mitte Neighborhood -->
             <div class="property-card">
-                <img src="https://via.placeholder.com/300" alt="Property Image">
+                <div class="slideshow-container" id="mitte-slideshow">
+                    <div class="slides">
+                        <div class="slide">
+                            <img src="{% static 'images/A_peaceful_evening_scene_in_Mitte.jpg' %}" alt="Mitte">
+                        </div>
+                        <div class="slide">
+                            <img src="{% static 'images/A_scene_in_Mitte.jpg' %}" alt="Mitte Daytime">
+                        </div>
+                    </div>
+                </div>
                 <div class="property-info">
-                    <h3>House in Mitte</h3>
-                    <p>1900€ / month</p>
-                    <p>Big garden, calm neighborhood, ideal for family</p>
+                    <h3>Mitte</h3>
+                    <p>The heart of Berlin, with iconic landmarks, art galleries, and bustling cafes.</p>
                 </div>
             </div>
-            <!-- Annonce 3 -->
+            <!-- Kreuzberg Neighborhood -->
             <div class="property-card">
-                <img src="https://via.placeholder.com/300" alt="Property Image">
+                <div class="slideshow-container" id="kreuzberg-slideshow">
+                    <div class="slides">
+                        <div class="slide">
+                            <img src="{% static 'images/A_peaceful_afternoon_scene_in_Kreuzberg.jpg' %}" alt="Kreuzberg">
+                        </div>
+                        <div class="slide">
+                            <img src="{% static 'images/A_scene_in_Kreuzberg.jpg' %}" alt="Kreuzberg Scene">
+                        </div>
+                    </div>
+                </div>
                 <div class="property-info">
-                    <h3>Studio in Alexanderplatz</h3>
-                    <p>950€ / month</p>
-                    <p>Perfect to feel the real life of a Berliner</p>
+                    <h3>Kreuzberg</h3>
+                    <p>A neighborhood with a unique blend of history, multiculturalism, and street art.</p>
                 </div>
             </div>
         </div>
     </section>
 
-    <section class="ads-section">
-        <h2>Sponsored Ads</h2>
-        <div class="ads-container">
-            <div class="ad-block">Ad 1</div>
-            <div class="ad-block">Ad 2</div>
-            <div class="ad-block">Ad 3</div>
-        </div>
-    </section>
-
+    <!-- Footer -->
     <footer>
-        <p>&copy; 2024 RentFinder. All Right Reserved.</p>
-        <!-- Adveristing 3 -->
-        <div class="footer-ad">
-            <img src="https://via.placeholder.com/300" alt="Adveristing 3">
-        </div>
+        <p>&copy; 2024 RentWise Berlin. All Rights Reserved.</p>
     </footer>
 
-    {% comment %} <!-- Welcome Button -->
-    <a href="{% url 'borough_list' %}" class="welcome-button">Welcome to RentFinder!</a> {% endcomment %}
+    <script>
+        function startSlideShow(slideshowId) {
+            const slideshow = document.getElementById(slideshowId);
+            const slides = slideshow.querySelector('.slides');
+            const totalSlides = slides.children.length;
+            let currentIndex = 0;
+
+            setInterval(() => {
+                currentIndex = (currentIndex + 1) % totalSlides;
+                slides.style.transform = `translateX(-${currentIndex * 100}%)`;
+            }, 5000);
+        }
+
+        startSlideShow('friedrichshain-slideshow');
+        startSlideShow('mitte-slideshow');
+        startSlideShow('kreuzberg-slideshow');
+    </script>
 </body>
 </html>
