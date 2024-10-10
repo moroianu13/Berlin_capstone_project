@@ -5,168 +5,18 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>RentWise Berlin</title>
-    <link rel="stylesheet" href="static/css/styles.css">
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        body {
-            font-family: Arial, sans-serif;
-            background-color: #f4f4f4;
-            color: #333;
-        }
-
-        /* Header */
-        header {
-            background-color: #ff5a5f;
-            padding: 20px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-
-        header .logo img {
-            height: 50px;
-        }
-
-        header h1 {
-            color: white;
-            font-size: 40px;
-            margin-left: 20px;
-        }
-
-        nav ul {
-            list-style: none;
-            display: flex;
-        }
-
-        nav ul li {
-            margin-left: 20px;
-        }
-
-        nav ul li a {
-            color: white;
-            text-decoration: none;
-            font-size: 18px;
-        }
-
-        nav ul li a:hover {
-            text-decoration: underline;
-        }
-
-        /* Search Section */
-        .search-section {
-            background-color: white;
-            padding: 40px;
-            text-align: center;
-            margin-top: 20px;
-        }
-
-        .search-section h2 {
-            margin-bottom: 20px;
-        }
-
-        .search-form {
-            display: flex;
-            justify-content: center;
-            gap: 10px;
-            flex-wrap: wrap;
-        }
-
-        button {
-            padding: 10px 20px;
-            background-color: #ff5a5f;
-            color: white;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-        }
-
-        button:hover {
-            background-color: #e04e4f;
-        }
-
-        /* Listing Section */
-        .listing-section {
-            padding: 40px;
-        }
-
-        .grid-container {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 20px;
-        }
-
-        .property-card {
-            background-color: white;
-            border: 1px solid #ddd;
-            border-radius: 10px;
-            overflow: hidden;
-            position: relative;
-        }
-
-        .slideshow-container {
-            position: relative;
-            width: 100%;
-            height: 350px; /* Adjusted height for better image display */
-            overflow: hidden;
-        }
-
-        .slides {
-            display: flex;
-            transition: transform 0.5s ease-in-out;
-        }
-
-        .slide {
-            min-width: 100%;
-            transition: transform 0.5s ease-in-out;
-        }
-
-        .slide img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover; /* Ensure the image covers the area while keeping the aspect ratio */
-        }
-
-        .property-info {
-            padding: 20px;
-        }
-
-        .property-info h3 {
-            margin-bottom: 10px;
-            font-size: 20px;
-            color: #333;
-        }
-
-        .property-info p {
-            margin-bottom: 5px;
-            color: #555;
-        }
-
-        /* Footer */
-        footer {
-            background-color: #333;
-            color: white;
-            text-align: center;
-            padding: 20px;
-            margin-top: 20px;
-        }
-    </style>
+    <link rel="stylesheet" href="{% static 'css/styles.css' %}">
 </head>
 <body>
     <!-- Navigation Section -->
     <header>
         <div class="logo">
-            <img src="{% static 'images/rentwise_logo.jpg' %}" alt="RentWise Berlin Logo">
+            <img src="{% static 'images/rentwise_logo.png' %}" alt="RentWise Berlin Logo">
         </div>
         <h1>RentWise Berlin</h1>
         <nav>
             <ul>
                 {% if user.is_authenticated %}
-                    <!-- Logout Form -->
                     <li>
                         <form action="{% url 'logout' %}" method="POST" style="display:inline;">
                             {% csrf_token %}
@@ -263,12 +113,35 @@
             const totalSlides = slides.children.length;
             let currentIndex = 0;
 
+            // Create navigation dots
+            const dotsContainer = document.createElement('div');
+            dotsContainer.className = 'dots';
+            for (let i = 0; i < totalSlides; i++) {
+                const dot = document.createElement('div');
+                dot.className = 'dot';
+                if (i === 0) dot.classList.add('active');
+                dot.addEventListener('click', () => {
+                    currentIndex = i;
+                    updateSlides();
+                });
+                dotsContainer.appendChild(dot);
+            }
+            slideshow.appendChild(dotsContainer);
+
+            function updateSlides() {
+                slides.style.transform = `translateX(-${currentIndex * 100}%)`;
+                const allDots = dotsContainer.querySelectorAll('.dot');
+                allDots.forEach(dot => dot.classList.remove('active'));
+                allDots[currentIndex].classList.add('active');
+            }
+
             setInterval(() => {
                 currentIndex = (currentIndex + 1) % totalSlides;
-                slides.style.transform = `translateX(-${currentIndex * 100}%)`;
+                updateSlides();
             }, 5000);
         }
 
+        // Initialize slideshows
         startSlideShow('friedrichshain-slideshow');
         startSlideShow('mitte-slideshow');
         startSlideShow('kreuzberg-slideshow');
