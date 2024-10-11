@@ -12,9 +12,6 @@ html, body {
     height: 100%;
 }
 
-
-
-/* Header Button Styles */
 /* Header Button Styles */
 .header-button {
     border: 2px solid rgba(255, 255, 255, 0.6); /* Semi-transparent white border for a subtle outline */
@@ -42,7 +39,6 @@ html, body {
     background: rgba(255, 255, 255, 0.15); /* A bit more solid on click */
     box-shadow: 0 3px 10px rgba(0, 0, 0, 0.2); /* Reduced shadow for active state */
 }
-
 
 /* Body Button Styles */
 .body-button {
@@ -73,8 +69,7 @@ html, body {
     box-shadow: 0 3px 10px rgba(255, 90, 95, 0.2); /* Reduced shadow for active state */
 }
 
-
-/* Header with Background Image */
+/* Header Styles */
 header {
     background: linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.4)), url('/static/images/berlin_header_image.jpg') no-repeat center center/cover;
     height: 350px;
@@ -88,8 +83,8 @@ header {
 }
 
 header .logo img {
-    height: 100px; /* Increase the height */
-    width: auto; /* Maintain the aspect ratio */
+    height: 100px;
+    width: auto;
 }
 
 header h1 {
@@ -100,6 +95,7 @@ header h1 {
     border-radius: 5px;
 }
 
+/* Navigation Styles */
 nav ul {
     list-style: none;
     display: flex;
@@ -169,6 +165,7 @@ nav ul li a:hover {
     box-shadow: 0 12px 24px rgba(0, 0, 0, 0.2);
 }
 
+/* Slideshow Dots */
 .dots {
     position: absolute;
     bottom: 15px;
@@ -195,6 +192,7 @@ nav ul li a:hover {
     transform: scale(1.2);
 }
 
+/* Slideshow Container */
 .slideshow-container {
     position: relative;
     width: 100%;
@@ -218,6 +216,7 @@ nav ul li a:hover {
     object-position: center;
 }
 
+/* Property Info */
 .property-info {
     padding: 20px;
 }
@@ -233,43 +232,18 @@ nav ul li a:hover {
     color: #555;
 }
 
-/* Footer */
+/* Footer Styles */
 footer {
     background-color: #333;
     color: white;
     text-align: center;
     padding: 20px;
     margin-top: 20px;
-}
-
-@media (max-width: 768px) {
-    header {
-        flex-direction: column;
-        align-items: flex-start;
-        padding: 20px;
-    }
-
-    header h1 {
-        margin: 10px 0;
-        font-size: 30px;
-    }
-
-    nav ul {
-        flex-direction: column;
-        gap: 10px;
-    }
-
-    .grid-container {
-        grid-template-columns: 1fr;
-    }
-
-    .property-info h3 {
-        font-size: 18px;
-    }
+    border-radius: 8px;
+    font-size: 0.9em;
 }
 
 /* Borough List Page Styles */
-/* Add styles specific to borough_list.html here */
 body {
     margin: 0;
     padding: 20px;
@@ -307,39 +281,37 @@ body {
 #filters {
     margin-top: 20px;
     padding: 20px;
-    background-color: rgba(255, 255, 255, 0.8); /* Light, semi-transparent background */
+    background-color: rgba(255, 255, 255, 0.8);
     border-radius: 15px;
-    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1); /* Soft shadow for depth */
-    backdrop-filter: blur(10px); /* Frosted glass effect */
-    border: 1px solid rgba(255, 255, 255, 0.5); /* Subtle border */
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.5);
 }
-
-
 
 #filters label {
     display: flex;
     align-items: center;
     margin: 10px 0;
-    font-weight: 500; /* Slightly bold for better readability */
+    font-weight: 500;
     font-size: 16px;
     color: #333;
-    cursor: pointer; /* Changes cursor to pointer on hover */
+    cursor: pointer;
 }
 
 #filters input[type="checkbox"] {
-    appearance: none; /* Remove default checkbox style */
+    appearance: none;
     background-color: #e0e0e0;
     border: 2px solid #ccc;
     width: 20px;
     height: 20px;
-    margin-right: 10px; /* Space between checkbox and label */
-    border-radius: 5px; /* Rounded corners for a modern look */
-    cursor: pointer; /* Changes cursor to pointer */
+    margin-right: 10px;
+    border-radius: 5px;
+    cursor: pointer;
     transition: background-color 0.3s ease, border-color 0.3s ease;
 }
 
 #filters input[type="checkbox"]:checked {
-    background-color: #ff5a5f; /* Use the same red-pink tone as the button */
+    background-color: #ff5a5f;
     border-color: #ff5a5f;
 }
 
@@ -349,7 +321,7 @@ body {
     color: white;
     font-size: 14px;
     text-align: center;
-    line-height: 20px; /* Center the checkmark */
+    line-height: 20px;
 }
 
 #filters h3 {
@@ -364,41 +336,88 @@ body {
     margin-top: 10px;
 }
 
-
-footer {
-    background-color: #333;
-    color: white;
-    text-align: center;
+/* Neighborhood List Page Styles */
+.container {
+    display: flex;
+    justify-content: space-between;
     padding: 20px;
-    margin-top: 20px;
-    border-radius: 8px;
-    font-size: 0.9em;
 }
 
-/* Responsive Design */
+/* Neighborhood List Sidebar */
+#neighborhood-list {
+    width: 25%;
+    padding: 20px;
+    background: rgba(255, 255, 255, 0.9);
+    border-radius: 15px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+    backdrop-filter: blur(10px);
+    margin-right: 20px;
+    max-height: 60vh;
+    overflow-y: auto;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+#neighborhood-list:hover {
+    transform: translateX(-5px);
+    box-shadow: 0 12px 24px rgba(0, 0, 0, 15);
+}
+
+#neighborhood-list h2 {
+    margin-bottom: 15px;
+    font-size: 20px;
+    color: #333;
+    font-weight: bold;
+    text-align: center;
+    font-family: 'Poppins', sans-serif;
+}
+
+#neighborhood-items {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+#neighborhood-items li {
+    margin-bottom: 12px;
+    padding: 10px;
+    border-radius: 8px;
+    transition: background 0.3s ease, transform 0.2s ease;
+    cursor: pointer;
+    background: rgba(225, 90, 95, 0.05);
+}
+
+#neighborhood-items li:hover {
+    background: rgba(255, 90, 95, 0.1);
+    transform: translateX(5px);
+}
+
+#neighborhood-items a {
+    color: #ff5a5f;
+    text-decoration: none;
+    font-weight: 600;
+    transition: color 0.3s ease;
+    font-family: 'Roboto', sans-serif;
+}
+
+#neighborhood-items a:hover {
+    color: #333;
+}
+
+#map {
+    width: 70%;
+    height: 500px;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
 @media (max-width: 768px) {
     .container {
         flex-direction: column;
     }
 
-    #info {
+    #neighborhood-list {
         width: 100%;
         margin-right: 0;
         margin-bottom: 20px;
-    }
-
-    #map-links-container {
-        width: 100%;
-    }
-
-    header {
-        flex-direction: column;
-        height: auto;
-        text-align: center;
-    }
-
-    nav ul {
-        flex-direction: column;
-        gap: 10px;
     }
 }
