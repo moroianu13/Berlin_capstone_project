@@ -8,7 +8,7 @@
   <link href="https://api.mapbox.com/mapbox-gl-js/v2.14.1/mapbox-gl.css" rel="stylesheet">
   <link rel="stylesheet" href="{% static 'css/styles.css' %}">
 </head>
-<body>
+<body class="borough-list-page">
   <header>
     <div class="logo">
       <img src="{% static 'images/rentwise_logo.png' %}" alt="RentWise Berlin Logo">
@@ -20,11 +20,7 @@
       </ul>
     </nav>
   </header>
-  <!-- Rest of the body content -->
-</body>
-</html>
 
-  
   <div class="container">
     <div id="info">
       <h1>Boroughs</h1>
@@ -57,7 +53,7 @@
       </div>
     </div>
     <div id="map-links-container">
-      <div id="map"></div>
+      <div id="borough-map"></div>
     </div>
   </div>
 
@@ -66,14 +62,17 @@
     <p>&copy; 2024 RentWise Berlin. All Rights Reserved.</p>
   </footer>
 
-  <!-- Mapbox GL JS -->
+  <!-- JavaScript Libraries -->
   <script src="https://api.mapbox.com/mapbox-gl-js/v2.14.1/mapbox-gl.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/Turf.js/6.5.0/turf.min.js"></script>
+
+  <!-- Map Initialization Script -->
   <script>
     mapboxgl.accessToken = 'pk.eyJ1IjoibW9yb3dpbmQiLCJhIjoiY20xN3NoODc2MHEwaDJxcXhnZjBqOHZreiJ9.hE85kqOC-_iHDHTlwcMf-A';
 
-    const map = new mapboxgl.Map({
-      container: 'map',
+    // Initialize the map
+    const boroughMap = new mapboxgl.Map({
+      container: 'borough-map',
       style: 'mapbox://styles/mapbox/streets-v11',
       center: [13.4, 52.52], // Center on Berlin
       zoom: 9.5
@@ -132,17 +131,17 @@
       return geojson;
     }
 
-    map.on('load', async function() {
+    boroughMap.on('load', async function() {
       const geojson = await fetchGeoJSONPolygons();
       const boroughData = await fetchBoroughDataFromAPI();
       const mergedData = mergeData(geojson, boroughData);
 
-      map.addSource('borough-borders', {
+      boroughMap.addSource('borough-borders', {
         'type': 'geojson',
         'data': mergedData
       });
 
-      map.addLayer({
+      boroughMap.addLayer({
         'id': 'borough-borders-layer',
         'type': 'fill',
         'source': 'borough-borders',
@@ -153,7 +152,7 @@
         }
       });
 
-      map.on('click', 'borough-borders-layer', function(e) {
+      boroughMap.on('click', 'borough-borders-layer', function(e) {
         const boroughSlug = e.features[0].properties.slug;
         if (boroughSlug) {
             window.location.href = `/borough/${encodeURIComponent(boroughSlug)}/`;
@@ -166,9 +165,9 @@
         const lifestyles = Array.from(lifestyleElements).map(el => el.value);
 
         const filteredGeoJSON = applyFiltersToPolygons(geojson, rent, lifestyles);
-        map.getSource('borough-borders').setData(filteredGeoJSON);
+        boroughMap.getSource('borough-borders').setData(filteredGeoJSON);
 
-        map.setPaintProperty('borough-borders-layer', 'fill-color', [
+        boroughMap.setPaintProperty('borough-borders-layer', 'fill-color', [
           'case',
           ['==', ['get', 'filter_match'], true], '#00FF00',
           ['==', ['get', 'filter_match'], false], '#FF0000',

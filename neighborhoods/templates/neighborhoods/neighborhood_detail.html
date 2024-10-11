@@ -1,239 +1,144 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="utf-8">
-  <title>{{ neighborhood.name }}</title>
-  <style>
-    body { 
-        margin: 20px; 
-        font-family: Arial, sans-serif; 
-        display: flex; 
-        justify-content: space-between; /* Keep space between info and map container */
-    }
-    #info {
-        width: 60%;
-        padding: 20px;
-        background-color: #f8f9fa;
-        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-        border-radius: 8px;
-        margin-right: 20px;
-    }
-    /* New container for map and rental links */
-    #map-links-container {
-        width: 40%;
-        display: flex;
-        flex-direction: column; /* Stack map and links vertically */
-    }
-    #map {
-        position: sticky;
-        top: 20px; /* Set the top position where the map sticks */
-        height: 500px;
-        border: 2px solid #4CAF50;
-        border-radius: 8px;
-        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-        margin-bottom: 20px; /* Space between map and links */
-    }
-    /* Same for rental links section */
-    #rental-links {
-        height: 200px;
-        position: sticky;
-        top: 540px; /* Ensure it sticks below the map */
-        padding: 20px;
-        background-color: #e0f7fa;
-        border-radius: 8px;
-        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    }
-    #home-button, #back-button {
-        display: inline-block;
-        margin-bottom: 20px;
-        padding: 10px 15px;
-        background-color: #ff5a5f;
-        color: #ffffff;
-        text-decoration: none;
-        border-radius: 5px;
-        font-weight: bold;
-        transition: background-color 0.3s ease;
-        margin-right: 10px; /* Add space between buttons */
-    }
-    #home-button:hover, #back-button:hover {
-        background-color: #45a049;
-    }
-    h1, h2 {
-        color: #333;
-    }
-    h1 {
-        font-size: 2em;
-        margin-bottom: 10px;
-    }
-    h2 {
-        font-size: 1.5em;
-        margin-top: 20px;
-    }
-    p {
-        margin: 5px 0;
-        color: #555;
-    }
-    ul {
-        list-style-type: disc;
-        padding-left: 20px;
-    }
-    ul li {
-        margin: 5px 0;
-    }
-    .chart-container {
-        width: 90%; /* Adjust the size to your liking */
-        max-width: 400px; /* Max width for each chart */
-        margin: auto; /* Center the charts */
-    }
-    #rental-links h2 {
-        font-size: 1.5em;
-        color: #00796b;
-    }
-    #rental-links ul {
-        list-style-type: none;
-        padding-left: 0;
-    }
-    #rental-links ul li {
-        margin: 10px 0;
-    }
-    #rental-links ul li a {
-        color: #00796b;
-        text-decoration: none;
-        font-weight: bold;
-    }
-    #rental-links ul li a:hover {
-        text-decoration: underline;
-    }
-  </style>
-  
-  <!-- Include Mapbox GL JS and Chart.js -->
-  <link href="https://api.mapbox.com/mapbox-gl-js/v2.14.1/mapbox-gl.css" rel="stylesheet">
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/Turf.js/6.5.0/turf.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels"></script>
-
+    {% load static %}
+    <meta charset="utf-8">
+    <title>{{ neighborhood.name }} Details</title>
+    <meta name="viewport" content="initial-scale=1,maximum-scale=1,user-scalable=no">
+    <link href="https://api.mapbox.com/mapbox-gl-js/v2.14.1/mapbox-gl.css" rel="stylesheet">
+    <link rel="stylesheet" href="{% static 'css/styles.css' %}">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels"></script>
 </head>
-<body>
+<body class="neighborhood-details-page">
+    <!-- Header Section -->
+    <header>
+        <div class="logo">
+            <img src="{% static 'images/rentwise_logo.png' %}" alt="RentWise Berlin Logo">
+        </div>
+        <h1>RentWise Berlin</h1>
+        <nav>
+            <ul>
+                <li>
+                    <a href="{% url 'home' %}" class="header-button">← Back to Home</a>
+                    <a href="{% url 'neighborhood_list' neighborhood.borough.slug %}" class="header-button">← Back to Neighborhoods</a>
+                </li>
+            </ul>
+        </nav>
+    </header>
 
-<div id="info">
-  <!-- Back Button to go to the neighborhoods page -->
-  <a href="{% url 'home' %}" id="home-button">← Back to Home</a>
-  <a href="{% url 'neighborhood_list' neighborhood.borough.slug %}" id="back-button">← Back to Neighborhoods</a>
+    <!-- Main Content -->
+    <div class="container">
+        <div id="info">
+            <h1>{{ neighborhood.name }} Details</h1>
 
-  <h1>{{ neighborhood.name }}</h1>
+            <!-- Crime Data Visualization -->
+            <h2>Crime Data</h2>
+            {% if crime_data %}
+                <p>Type: {{ crime_data.crime_type }}</p>
+                <p>Date Collected: {{ crime_data.date_collected }}</p>
+                <div class="chart-container">
+                    <canvas id="crimeChart"></canvas>
+                </div>
+            {% else %}
+                <p>No crime data available.</p>
+            {% endif %}
 
-  <!-- Crime Data Visualization -->
-  <h2>Crime Data</h2>
-  {% if crime_data %}
-      <p>Type: {{ crime_data.crime_type }}</p>
-      <p>Date Collected: {{ crime_data.date_collected }}</p>
-      <div class="chart-container">
-        <canvas id="crimeChart"></canvas>
-      </div>
-  {% else %}
-      <p>No crime data available.</p>
-  {% endif %}
-  
-  <!-- Demographics Visualization -->
-  <h2>Demographics</h2>
-  <div class="chart-container">
-    <canvas id="demographicsChart"></canvas>
-  </div>
-  
-  <!-- Age Distribution Visualization -->
-  <h2>Median Age: {{ demographics.median_age }}</h2>
-  <div class="chart-container">
-    <canvas id="ageDistributionChart"></canvas>
-  </div>
+            <!-- Demographics Visualization -->
+            <h2>Demographics</h2>
+            <div class="chart-container">
+                <canvas id="demographicsChart"></canvas>
+            </div>
 
-  <!-- Rent Data Visualization -->
-  <h2>Rent Data</h2>
-  <div class="chart-container">
-    <canvas id="rentDataChart"></canvas>
-  </div>
+            <!-- Age Distribution Visualization -->
+            <h2>Median Age: {{ demographics.median_age }}</h2>
+            <div class="chart-container">
+                <canvas id="ageDistributionChart"></canvas>
+            </div>
 
-  <!-- Amenities Visualization -->
-  <h2>Amenities</h2>
-  <div class="chart-container">
-    <canvas id="amenitiesChart"></canvas>
-  </div>
-</div>
+            <!-- Rent Data Visualization -->
+            <h2>Rent Data</h2>
+            <div class="chart-container">
+                <canvas id="rentDataChart"></canvas>
+            </div>
 
-<!-- New container to hold map and rental links -->
-<div id="map-links-container">
-  <!-- Mapbox map container -->
-  <div id="map"></div>
+            <!-- Amenities Visualization -->
+            <h2>Amenities</h2>
+            <div class="chart-container">
+                <canvas id="amenitiesChart"></canvas>
+            </div>
+        </div>
 
-  <!-- Rental Links Section (now below the map) -->
-  <div id="rental-links">
-    <h2>Find Rentals on Popular Websites</h2>
-    <ul>
-      <li><a href="https://www.immobilienscout24.de" target="_blank">ImmobilienScout24</a></li>
-      <li><a href="https://www.immowelt.de" target="_blank">Immowelt</a></li>
-      <li><a href="https://www.ebay-kleinanzeigen.de/s-wohnung-mieten/c223l3331" target="_blank">eBay Kleinanzeigen</a></li>
-      <li><a href="https://www.wg-gesucht.de" target="_blank">WG-Gesucht</a></li>
-      <li><a href="https://www.wohnungsboerse.net" target="_blank">Wohnungsboerse</a></li>
-    </ul>
-  </div>
-</div>
+        <!-- New container to hold map and rental links -->
+        <div id="map-links-container">
+            <!-- Mapbox map container -->
+            <div id="neighborhood-map"></div>
 
-<!-- Mapbox GL JS -->
-<script src="https://api.mapbox.com/mapbox-gl-js/v2.14.1/mapbox-gl.js"></script>
+            <!-- Rental Links Section -->
+            <div id="rental-links">
+                <h2>Find Rentals on Popular Websites</h2>
+                <ul>
+                    <li><a href="https://www.immobilienscout24.de" target="_blank">ImmobilienScout24</a></li>
+                    <li><a href="https://www.immowelt.de" target="_blank">Immowelt</a></li>
+                    <li><a href="https://www.ebay-kleinanzeigen.de/s-wohnung-mieten/c223l3331" target="_blank">eBay Kleinanzeigen</a></li>
+                    <li><a href="https://www.wg-gesucht.de" target="_blank">WG-Gesucht</a></li>
+                    <li><a href="https://www.wohnungsboerse.net" target="_blank">Wohnungsboerse</a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
 
-<script type="text/javascript">
-  mapboxgl.accessToken = 'pk.eyJ1IjoibW9yb3dpbmQiLCJhIjoiY20xN3NoODc2MHEwaDJxcXhnZjBqOHZreiJ9.hE85kqOC-_iHDHTlwcMf-A';
+    <!-- Footer Section -->
+    <footer>
+        <p>© 2024 RentWise Berlin. All rights reserved.</p>
+    </footer>
 
-  // Initialize the map
-  const neighborhoodLongitude = parseFloat("{{ neighborhood.longitude }}");
-  const neighborhoodLatitude = parseFloat("{{ neighborhood.latitude }}");
+    <!-- Mapbox GL JS -->
+    <script src="https://api.mapbox.com/mapbox-gl-js/v2.14.1/mapbox-gl.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Turf.js/6.5.0/turf.min.js"></script>
 
-  const map = new mapboxgl.Map({
-      container: 'map',
-      style: 'mapbox://styles/mapbox/streets-v11',
-      center: [neighborhoodLongitude, neighborhoodLatitude],
-      zoom: 16
-  });
+    <!-- JavaScript for Charts and Map -->
+    <script type="text/javascript">
+        mapboxgl.accessToken = 'pk.eyJ1IjoibW9yb3dpbmQiLCJhIjoiY20xN3NoODc2MHEwaDJxcXhnZjBqOHZreiJ9.hE85kqOC-_iHDHTlwcMf-A';
 
-  fetch(`/neighborhood_data_api/{{ neighborhood.borough.slug }}/`)
-    .then(response => response.json())
-    .then(geojsonData => {
-      if (geojsonData.error) {
-        console.error(geojsonData.error);
-        return;
-      }
-      const neighborhoodFeature = geojsonData.features.find(feature => feature.properties.name === "{{ neighborhood.name }}");
-      if (!neighborhoodFeature) {
-        console.error("Neighborhood GeoJSON not found.");
-        return;
-      }
-      const center = turf.centroid(neighborhoodFeature).geometry.coordinates;
+        // Initialize the map
+        const neighborhoodLongitude = parseFloat("{{ neighborhood.longitude }}");
+        const neighborhoodLatitude = parseFloat("{{ neighborhood.latitude }}");
 
-      map.flyTo({
-        center: center,
-        zoom: 12
-      });
+        const neighborhoodMap  = new mapboxgl.Map({
+            container: 'neighborhood-map',
+            style: 'mapbox://styles/mapbox/streets-v11',
+            center: [neighborhoodLongitude, neighborhoodLatitude],
+            zoom: 16
+        });
 
-      map.addSource('neighborhood-border', {
-        'type': 'geojson',
-        'data': {
-          "type": "FeatureCollection",
-          "features": [neighborhoodFeature]
-        }
-      });
+        fetch(`/neighborhood_data_api/{{ neighborhood.borough.slug }}/`)
+            .then(response => response.json())
+            .then(geojsonData => {
+                const neighborhoodFeature = geojsonData.features.find(
+                    feature => feature.properties.name === "{{ neighborhood.name }}"
+                );
+                if (!neighborhoodFeature) {
+                    console.error("Neighborhood GeoJSON not found.");
+                    return;
+                }
+                const center = turf.centroid(neighborhoodFeature).geometry.coordinates;
+                neighborhoodMap.flyTo({ center: center, zoom: 12 });
+                neighborhoodMap.addSource('neighborhood-border', {
+                    'type': 'geojson',
+                    'data': { "type": "FeatureCollection", "features": [neighborhoodFeature] }
+                });
+                neighborhoodMap.addLayer({
+                    'id': 'neighborhood-border-layer',
+                    'type': 'line',
+                    'source': 'neighborhood-border',
+                    'paint': { 'line-color': '#ff0000', 'line-width': 2 }
+                });
+            })
+            .catch(error => console.error('Error fetching neighborhood data:', error));
 
-      map.addLayer({
-        'id': 'neighborhood-border-layer',
-        'type': 'line',
-        'source': 'neighborhood-border',
-        'paint': {
-          'line-color': '#ff0000',
-          'line-width': 2
-        }
-      });
-    })
-    .catch(error => console.error('Error fetching neighborhood data:', error));
-
-  // Helper function to round values
+       // Helper function to round values
 function roundValue(value) {
     return Math.round(value * 100) / 100;
 }
@@ -279,6 +184,7 @@ const demographicsData = {
         backgroundColor: ['#FFCE56', '#FF6384'],
     }]
 };
+
 new Chart(document.getElementById('demographicsChart'), {
     type: 'bar',
     data: demographicsData,
@@ -300,7 +206,7 @@ new Chart(document.getElementById('demographicsChart'), {
     plugins: [ChartDataLabels]
 });
 
-// Properly parse `age_distribution`
+// Chart.js: Age Distribution Visualization
 const ageDistribution = JSON.parse(`{{ age_distribution_json|safe }}`);
 const ageLabels = Object.keys(ageDistribution);
 const ageValues = Object.values(ageDistribution);
@@ -325,10 +231,16 @@ const rentData = {
     labels: ['Average', 'Median', 'Min', 'Max'],
     datasets: [{
         label: 'Rent (€)',
-        data: [roundValue({{ rent_data.average_rent|default:"0" }}), roundValue({{ rent_data.median_rent|default:"0" }}), roundValue({{ rent_data.min_rent|default:"0" }}), roundValue({{ rent_data.max_rent|default:"0" }})],
+        data: [
+            roundValue({{ rent_data.average_rent|default:"0" }}), 
+            roundValue({{ rent_data.median_rent|default:"0" }}), 
+            roundValue({{ rent_data.min_rent|default:"0" }}), 
+            roundValue({{ rent_data.max_rent|default:"0" }})
+        ],
         backgroundColor: ['#FF6384', '#36A2EB', '#FFCE56', '#4BC0C0'],
     }]
 };
+
 new Chart(document.getElementById('rentDataChart'), {
     type: 'bar',
     data: rentData,
@@ -351,6 +263,7 @@ new Chart(document.getElementById('rentDataChart'), {
 // Chart.js: Amenities Visualization
 const amenityLabels = JSON.parse(`{{ amenities_labels|escapejs }}`);
 const amenityCounts = JSON.parse(`{{ amenities_counts|escapejs }}`);
+
 new Chart(document.getElementById('amenitiesChart'), {
     type: 'pie',
     data: {
@@ -365,7 +278,6 @@ new Chart(document.getElementById('amenitiesChart'), {
         maintainAspectRatio: false
     }
 });
-</script>
-
+    </script>
 </body>
 </html>
