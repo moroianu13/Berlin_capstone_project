@@ -1,3 +1,4 @@
+/* Global Styles */
 * {
     margin: 0;
     padding: 0;
@@ -9,6 +10,67 @@ html, body {
     background: linear-gradient(135deg, #e0f7fa, #ffffff); /* Light blue to white gradient */
     color: #333;
     height: 100%;
+}
+
+
+
+/* Header Button Styles */
+/* Header Button Styles */
+.header-button {
+    border: 2px solid rgba(255, 255, 255, 0.6); /* Semi-transparent white border for a subtle outline */
+    background: rgba(255, 255, 255, 0.1); /* Light transparent background to give a glassy effect */
+    color: white;
+    font-weight: bold;
+    padding: 12px 25px;
+    border-radius: 25px;
+    text-decoration: none;
+    display: inline-block;
+    text-align: center;
+    cursor: pointer;
+    transition: background 0.3s ease, transform 0.2s ease, box-shadow 0.3s ease;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2); /* Soft shadow for a floating effect */
+}
+
+.header-button:hover {
+    background: rgba(255, 255, 255, 0.2); /* Slightly more opaque on hover */
+    transform: translateY(-3px) scale(1.05); /* Gentle lift effect */
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3); /* Deeper shadow on hover */
+}
+
+.header-button:active {
+    transform: translateY(1px); /* Slight "press-down" effect */
+    background: rgba(255, 255, 255, 0.15); /* A bit more solid on click */
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.2); /* Reduced shadow for active state */
+}
+
+
+/* Body Button Styles */
+.body-button {
+    padding: 12px 25px;
+    background: linear-gradient(135deg, rgba(255, 90, 95, 0.6), rgba(255, 122, 133, 0.6)); /* Transparent red-pink gradient */
+    color: white;
+    border: 2px solid rgba(255, 255, 255, 0.5); /* Semi-transparent white border for a frosted effect */
+    border-radius: 25px;
+    cursor: pointer;
+    transition: background 0.3s ease, transform 0.2s ease, box-shadow 0.3s ease;
+    box-shadow: 0 5px 15px rgba(255, 90, 95, 0.2); /* Subtle colored shadow for a soft glow */
+    font-weight: bold;
+    text-decoration: none;
+    display: inline-block;
+    text-align: center;
+    backdrop-filter: blur(10px); /* Adds a frosted glass effect (for supported browsers) */
+}
+
+.body-button:hover {
+    background: linear-gradient(135deg, rgba(255, 90, 95, 0.8), rgba(255, 122, 133, 0.8)); /* Slightly more solid on hover */
+    transform: translateY(-3px) scale(1.05); /* Gentle lift effect */
+    box-shadow: 0 8px 20px rgba(255, 90, 95, 0.4); /* Enhanced glow on hover */
+}
+
+.body-button:active {
+    transform: translateY(1px); /* Pressed down effect */
+    background: linear-gradient(135deg, rgba(255, 90, 95, 0.7), rgba(255, 122, 133, 0.7)); /* A bit more solid on active */
+    box-shadow: 0 3px 10px rgba(255, 90, 95, 0.2); /* Reduced shadow for active state */
 }
 
 
@@ -53,13 +115,18 @@ nav ul li a {
     font-size: 18px;
 }
 
+nav ul li a.button-style {
+    font-size: 16px;
+    padding: 12px 25px;
+}
+
 nav ul li a:hover {
     text-decoration: underline;
 }
 
 /* Search Section */
 .search-section {
-    background-color:transparent;
+    background-color: transparent;
     padding: 40px;
     text-align: center;
     margin-top: 20px;
@@ -74,31 +141,6 @@ nav ul li a:hover {
     justify-content: center;
     gap: 10px;
     flex-wrap: wrap;
-}
-
-button {
-    padding: 12px 25px;
-    background: linear-gradient(135deg, #ff5a5f, #ff7a85);
-    color: white;
-    border: none;
-    border-radius: 25px;
-    cursor: pointer;
-    transition: background 0.3s ease, transform 0.2s ease, box-shadow 0.3s ease;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-    font-weight: bold;
-}
-
-button:hover {
-    background: linear-gradient(135deg, #ff7a85, #ff5a5f);
-    transform: translateY(-3px) scale(1.05);
-    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
-}
-
-button a {
-    color: white;
-    text-decoration: none;
-    font-size: 16px;
-    font-weight: bold;
 }
 
 /* Listing Section */
@@ -223,5 +265,140 @@ footer {
 
     .property-info h3 {
         font-size: 18px;
+    }
+}
+
+/* Borough List Page Styles */
+/* Add styles specific to borough_list.html here */
+body {
+    margin: 0;
+    padding: 20px;
+    font-family: Arial, sans-serif;
+    background: linear-gradient(135deg, #e0f7fa, #ffffff);
+    color: #333;
+}
+
+.container {
+    display: flex;
+    justify-content: space-between;
+}
+
+#info {
+    width: 25%;
+    padding: 20px;
+    background-color: #f8f9fa;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+    margin-right: 20px;
+}
+
+#map-links-container {
+    width: 70%;
+    display: flex;
+    flex-direction: column;
+}
+
+#map {
+    height: 600px;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+#filters {
+    margin-top: 20px;
+    padding: 20px;
+    background-color: rgba(255, 255, 255, 0.8); /* Light, semi-transparent background */
+    border-radius: 15px;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1); /* Soft shadow for depth */
+    backdrop-filter: blur(10px); /* Frosted glass effect */
+    border: 1px solid rgba(255, 255, 255, 0.5); /* Subtle border */
+}
+
+
+
+#filters label {
+    display: flex;
+    align-items: center;
+    margin: 10px 0;
+    font-weight: 500; /* Slightly bold for better readability */
+    font-size: 16px;
+    color: #333;
+    cursor: pointer; /* Changes cursor to pointer on hover */
+}
+
+#filters input[type="checkbox"] {
+    appearance: none; /* Remove default checkbox style */
+    background-color: #e0e0e0;
+    border: 2px solid #ccc;
+    width: 20px;
+    height: 20px;
+    margin-right: 10px; /* Space between checkbox and label */
+    border-radius: 5px; /* Rounded corners for a modern look */
+    cursor: pointer; /* Changes cursor to pointer */
+    transition: background-color 0.3s ease, border-color 0.3s ease;
+}
+
+#filters input[type="checkbox"]:checked {
+    background-color: #ff5a5f; /* Use the same red-pink tone as the button */
+    border-color: #ff5a5f;
+}
+
+#filters input[type="checkbox"]:checked::after {
+    content: '✔';
+    display: block;
+    color: white;
+    font-size: 14px;
+    text-align: center;
+    line-height: 20px; /* Center the checkmark */
+}
+
+#filters h3 {
+    font-size: 18px;
+    font-weight: bold;
+    margin-bottom: 15px;
+    color: #333;
+    letter-spacing: 0.5px;
+}
+
+#filters button {
+    margin-top: 10px;
+}
+
+
+footer {
+    background-color: #333;
+    color: white;
+    text-align: center;
+    padding: 20px;
+    margin-top: 20px;
+    border-radius: 8px;
+    font-size: 0.9em;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .container {
+        flex-direction: column;
+    }
+
+    #info {
+        width: 100%;
+        margin-right: 0;
+        margin-bottom: 20px;
+    }
+
+    #map-links-container {
+        width: 100%;
+    }
+
+    header {
+        flex-direction: column;
+        height: auto;
+        text-align: center;
+    }
+
+    nav ul {
+        flex-direction: column;
+        gap: 10px;
     }
 }

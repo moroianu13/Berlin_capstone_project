@@ -1,128 +1,84 @@
 <!DOCTYPE html>
-{% load static %}
-
 <html lang="en">
 <head>
+  {% load static %}
   <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1,user-scalable=no">
   <title>Boroughs Map</title>
-  <meta name="viewport" content="initial-scale=1,maximum-scale=1,user-scalable=no">
-  <!-- Mapbox GL JS CSS -->
   <link href="https://api.mapbox.com/mapbox-gl-js/v2.14.1/mapbox-gl.css" rel="stylesheet">
-  <style>
-    body { margin: 0; padding: 0; font-family: Arial, sans-serif; }
-    #map { position: fixed; top: 0; bottom: 0; width: 100%; }
-    #filters {
-      position: absolute;
-      top: 10px;
-      left: 10px;
-      background: white;
-      padding: 15px;
-      border-radius: 5px;
-      z-index: 1;
-      font-family: Arial, sans-serif;
-      max-width: 300px;
-    }
-    #filters h3 {
-      margin-top: 0;
-    }
-    #filters label {
-      display: block;
-      margin: 5px 0;
-    }
-    #filters input[type="number"] {
-      width: 100%;
-    }
-    #filters button {
-      margin-top: 10px;
-      padding: 5px 10px;
-    }
-    /* Home button styles */
-    #home-button {
-      position: absolute;
-      top: 10px;
-      right: 10px;
-      background-color: #ff5a5f;
-      color: white;
-      padding: 10px 15px;
-      border: none;
-      border-radius: 5px;
-      cursor: pointer;
-      z-index: 2;
-      font-family: Arial, sans-serif;
-      padding: 10px 20px;
-    }
-    #home-button:hover {
-      background: #0056b3;
-    }
-  </style>
+  <link rel="stylesheet" href="{% static 'css/styles.css' %}">
 </head>
 <body>
-  <!-- Home button to return to the home page -->
-  <a href="{% url 'home' %}" id="home-button">Home</a>
+  <header>
+    <div class="logo">
+      <img src="{% static 'images/rentwise_logo.png' %}" alt="RentWise Berlin Logo">
+    </div>
+    <h1>RentWise Berlin</h1>
+    <nav>
+      <ul>
+        <li><a href="{% url 'home' %}" class="header-button">← Back to Home</a></li>
+      </ul>
+    </nav>
+  </header>
+  <!-- Rest of the body content -->
+</body>
+</html>
 
-  <h2>Neighborhoods in {{ borough.name }}</h2>
-  <ul>
-    {% for neighborhood in borough.neighborhood_set.all %}
-      <li><a href="{% url 'neighborhood_detail' neighborhood.id %}">{{ neighborhood.name }}</a></li>
-    {% endfor %}
-  </ul>
   
-  <h1>List of Boroughs</h1>
-  <ul>
-      {% for borough in boroughs %}
-          <li>
-              <a href="{% url 'neighborhood_list' borough.slug %}">{{ borough.name }}</a>
-          </li>
-      {% endfor %}
-  </ul>
-  
-  <div id="filters">
-    <h3>Filters</h3>
-    <div>
-      <label for="rent">Maximum Rent (€/month):</label>
-      <input type="number" id="rent" name="rent" min="0" placeholder="e.g., 1000">
-    </div>
-    <div>
-      <label>Life Style Preferences:</label>
-      <div>
-        <input type="checkbox" id="family-friendly" name="lifestyle" value="family-friendly">
-        <label for="family-friendly">Family Friendly</label>
-      </div>
-      <div>
-        <input type="checkbox" id="cultural" name="lifestyle" value="cultural">
-        <label for="cultural">Cultural</label>
-      </div>
-      <div>
-        <input type="checkbox" id="pet-friendly" name="lifestyle" value="pet-friendly">
-        <label for="pet-friendly">Pet Friendly</label>
-      </div>
-      <div>
-        <input type="checkbox" id="night-life" name="lifestyle" value="night-life">
-        <label for="night-life">Night Life</label>
+  <div class="container">
+    <div id="info">
+      <h1>Boroughs</h1>
+      <div id="filters">
+        <h3>Filters</h3>
+        <div>
+          <label for="rent">Maximum Rent (€/month):</label>
+          <input type="number" id="rent" name="rent" min="0" placeholder="e.g., 1000">
+        </div>
+        <div>
+          <label>Life Style Preferences:</label>
+          <div>
+            <input type="checkbox" id="family-friendly" name="lifestyle" value="family-friendly">
+            <label for="family-friendly">Family Friendly</label>
+          </div>
+          <div>
+            <input type="checkbox" id="cultural" name="lifestyle" value="cultural">
+            <label for="cultural">Cultural</label>
+          </div>
+          <div>
+            <input type="checkbox" id="pet-friendly" name="lifestyle" value="pet-friendly">
+            <label for="pet-friendly">Pet Friendly</label>
+          </div>
+          <div>
+            <input type="checkbox" id="night-life" name="lifestyle" value="night-life">
+            <label for="night-life">Night Life</label>
+          </div>
+        </div>
+        <button id="apply-filters" class="body-button">Apply Filters</button>
       </div>
     </div>
-    <button id="apply-filters">Apply Filters</button>
+    <div id="map-links-container">
+      <div id="map"></div>
+    </div>
   </div>
-  
-  <div id="map"></div>
+
+  <!-- Footer Section -->
+  <footer>
+    <p>&copy; 2024 RentWise Berlin. All Rights Reserved.</p>
+  </footer>
 
   <!-- Mapbox GL JS -->
   <script src="https://api.mapbox.com/mapbox-gl-js/v2.14.1/mapbox-gl.js"></script>
-  <!-- Include Turf.js for spatial calculations -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/Turf.js/6.5.0/turf.min.js"></script>
-
   <script>
-    mapboxgl.accessToken = 'pk.eyJ1IjoibW9yb3dpbmQiLCJhIjoiY20xN3NoODc2MHEwaDJxcXhnZjBqOHZreiJ9.hE85kqOC-_iHDHTlwcMf-A'; // Replace with your Mapbox access token
+    mapboxgl.accessToken = 'pk.eyJ1IjoibW9yb3dpbmQiLCJhIjoiY20xN3NoODc2MHEwaDJxcXhnZjBqOHZreiJ9.hE85kqOC-_iHDHTlwcMf-A';
 
-    // Initialize the map
     const map = new mapboxgl.Map({
       container: 'map',
       style: 'mapbox://styles/mapbox/streets-v11',
-      center: [13.4, 52.52], // Centering on Berlin
-      zoom: 10
+      center: [13.4, 52.52], // Center on Berlin
+      zoom: 9.5
     });
 
-    // Load GeoJSON data from file (for polygons)
     async function fetchGeoJSONPolygons() {
       try {
         const response = await fetch('/static/geojson/Charlottenburg-Wilmersdorf.geojson');
@@ -136,7 +92,6 @@
       }
     }
 
-    // Load borough filter data from Django API (for rent, lifestyles, etc.)
     async function fetchBoroughDataFromAPI() {
       try {
         const response = await fetch('/borough_data_api/');
@@ -146,16 +101,14 @@
         const boroughData = await response.json();
         return boroughData;
       } catch (error) {
-        console.error('Error fetching borough data from API:', error);
+        console.error('Error fetching borough data:', error);
       }
     }
 
-    // Merge filter data into GeoJSON polygons
     function mergeData(geojson, boroughData) {
       boroughData.features.forEach(boroughFeature => {
         const matchingFeature = geojson.features.find(f => f.properties.name === boroughFeature.properties.name);
         if (matchingFeature) {
-          // Add filter-related properties to the polygon feature
           matchingFeature.properties.average_rent = boroughFeature.properties.average_rent;
           matchingFeature.properties.lifestyles = boroughFeature.properties.lifestyles;
         }
@@ -163,7 +116,6 @@
       return geojson;
     }
 
-    // Filter function for rent and lifestyles
     function applyFiltersToPolygons(geojson, rent, lifestyles) {
       geojson.features.forEach(feature => {
         const averageRent = feature.properties.average_rent;
@@ -185,7 +137,6 @@
       const boroughData = await fetchBoroughDataFromAPI();
       const mergedData = mergeData(geojson, boroughData);
 
-      // Add polygons to the map
       map.addSource('borough-borders', {
         'type': 'geojson',
         'data': mergedData
@@ -195,7 +146,6 @@
         'id': 'borough-borders-layer',
         'type': 'fill',
         'source': 'borough-borders',
-        'layout': {},
         'paint': {
           'fill-color': '#888888',
           'fill-opacity': 0.5,
@@ -203,42 +153,26 @@
         }
       });
 
-      // Add interactivity: On click, redirect to borough's neighborhood page
       map.on('click', 'borough-borders-layer', function(e) {
         const boroughSlug = e.features[0].properties.slug;
-        console.log("Borough clicked:", e.features[0].properties);  // Log clicked borough's properties
         if (boroughSlug) {
-            console.log("Redirecting to:", `/borough/${encodeURIComponent(boroughSlug)}/`);
             window.location.href = `/borough/${encodeURIComponent(boroughSlug)}/`;
-        } else {
-            console.error("Slug not found in borough properties");
         }
       });
 
-      // Change cursor on hover
-      map.on('mouseenter', 'borough-borders-layer', function() {
-        map.getCanvas().style.cursor = 'pointer';
-      });
-      map.on('mouseleave', 'borough-borders-layer', function() {
-        map.getCanvas().style.cursor = '';
-      });
-
-      // Handle filter application
       document.getElementById('apply-filters').addEventListener('click', function() {
         const rent = parseFloat(document.getElementById('rent').value);
         const lifestyleElements = document.querySelectorAll('input[name="lifestyle"]:checked');
         const lifestyles = Array.from(lifestyleElements).map(el => el.value);
 
         const filteredGeoJSON = applyFiltersToPolygons(geojson, rent, lifestyles);
-
-        // Update the color based on the filter match
         map.getSource('borough-borders').setData(filteredGeoJSON);
 
         map.setPaintProperty('borough-borders-layer', 'fill-color', [
           'case',
-          ['==', ['get', 'filter_match'], true], '#00FF00', // Green for matches
-          ['==', ['get', 'filter_match'], false], '#FF0000', // Red for non-matches
-          '#888888' // Default color
+          ['==', ['get', 'filter_match'], true], '#00FF00',
+          ['==', ['get', 'filter_match'], false], '#FF0000',
+          '#888888'
         ]);
       });
     });

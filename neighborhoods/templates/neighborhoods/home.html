@@ -8,7 +8,6 @@
     <link rel="stylesheet" href="{% static 'css/styles.css' %}">
 </head>
 <body>
-    <!-- Navigation Section -->
     <header>
         <div class="logo">
             <img src="{% static 'images/rentwise_logo.png' %}" alt="RentWise Berlin Logo">
@@ -20,25 +19,27 @@
                     <li>
                         <form action="{% url 'logout' %}" method="POST" style="display:inline;">
                             {% csrf_token %}
-                            <button type="submit" style="background:none; border:none; color:#fff; font-weight:bold; cursor:pointer;">
-                                Logout
-                            </button>
+                            <button type="submit" class="header-button">Logout</button>
                         </form>
                     </li>
                 {% else %}
-                    <li><a href="{% url 'login' %}">Login</a></li>
-                    <li><a href="{% url 'register' %}">Register</a></li>
+                    <li><a href="{% url 'login' %}" class="header-button">Log in</a></li>
+                    <li><a href="{% url 'register' %}" class="header-button">Register</a></li>
                 {% endif %}
             </ul>
         </nav>
     </header>
+    <!-- Rest of the body content -->
+</body>
+</html>
+
 
     <!-- Search Section -->
     <section class="search-section">
         <h2>Are you seeking the perfect neighborhood to settle in?</h2>
         <form class="search-form">
             <button type="submit">
-                <a href="{% url 'borough_list' %}" class="button">Discover Your Ideal Neighborhood!</a>
+                <a href="{% url 'borough_list' %}" class="body-button">Discover Your Ideal Neighborhood!</a>
             </button>
         </form>
     </section>
