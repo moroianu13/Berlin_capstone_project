@@ -1,3 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    {% load static %}
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>RentWise Berlin</title>
+    <link rel="stylesheet" href="{% static 'css/styles.css' %}">
+</head>
+<body>
+    <header>
+        <div class="logo">
+            <img src="{% static 'images/rentwise_logo.png' %}" alt="RentWise Berlin Logo">
+        </div>
+        <h1>RentWise Berlin</h1>
+    </header>
+</body>
+</html>
+
 {% extends "base.html" %}
 
 {% block content %}

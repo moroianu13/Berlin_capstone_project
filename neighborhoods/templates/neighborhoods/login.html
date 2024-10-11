@@ -1,12 +1,43 @@
-{% extends "neighborhoods/base.html" %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    {% load static %}
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>RentWise Berlin</title>
+    <link rel="stylesheet" href="{% static 'css/styles.css' %}">
+</head>
+<body>
+    <header>
+        <div class="logo">
+            <img src="{% static 'images/rentwise_logo.png' %}" alt="RentWise Berlin Logo">
+        </div>
+        <nav>
+            <ul>
+                <li>
+                    <a href="{% url 'home' %}" class="header-button">Home</a>
+                </li>
+            </ul>
+        </nav>
+    </header>
 
-{% block content %}
-    <div class="login-container">
-        <h2>Login</h2>
-        <form method="POST">
-            {% csrf_token %}
-            {{ form.as_p }}
-            <button type="submit">Login</button>
-        </form>
+    <!-- Moves the content block inside the body -->
+    <div class="content">
+        {% block content %}
+        <div class="login-container">
+            <h2>Login</h2>
+            <form method="POST">
+                {% csrf_token %}
+                {{ form.as_p }}
+                <button type="submit">Login</button>
+            </form>
+        </div>
+        {% endblock %}
     </div>
-{% endblock %}
+</body>
+
+<footer>
+    <p>&copy; 2024 RentWise Berlin. All Rights Reserved.</p>
+</footer>
+
+</html>
