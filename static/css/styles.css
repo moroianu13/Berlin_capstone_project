@@ -269,12 +269,13 @@ body {
 }
 
 #map-links-container {
-    width: 70%;
+    width: 75%; /* Increase the width to make the map larger */
     display: flex;
     flex-direction: column;
 }
 
-#map {
+#borough-map{
+    width: 100%;
     height: 600px;
     border-radius: 8px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
@@ -424,6 +425,7 @@ body {
     }
 }
 
+<<<<<<< HEAD
 /* Centering the form container */
 .login-container {
     background-color: white;
@@ -444,10 +446,26 @@ body {
 }
 
 .login-container form {
+=======
+
+/* Neighborhood Details Page Styles */
+body.neighborhood-details-page #info {
+    width: 40%;
+    padding: 20px;
+    background-color: #f8f9fa;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+    margin-right: 20px;
+}
+
+body.neighborhood-details-page #map-links-container {
+    width: 60%;
+>>>>>>> 55ece299ca0948e966010384434162a665ae02ca
     display: flex;
     flex-direction: column;
 }
 
+<<<<<<< HEAD
 .login-container form input, 
 .login-container form button {
     padding: 10px;
@@ -468,3 +486,100 @@ body {
     background-color: #f39c12; /* Change button color on hover */
 }
 
+=======
+body.neighborhood-details-page #neighborhood-map {
+    position: relative;
+    top: 20px;
+    height: 500px;
+    border: 2px solid #4CAF50;
+    border-radius: 12px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    margin-bottom: 20px;
+}
+
+body.neighborhood-details-page #rental-links {
+    height: auto;
+    position: relative;
+    top:top calc(20px + 500px + 20px);
+    padding: 20px;
+    background-color: #e0f7fa;
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    margin-top: 20px; /* Space between map and rental links */
+    transition: transform 0.3s ease;
+}
+
+body.neighborhood-details-page #rental-links:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+}
+
+body.neighborhood-details-page #rental-links h2 {
+    font-size: 1.5em;
+    color: #00796b;
+    margin-bottom: 15px;
+    text-align: center;
+}
+body.neighborhood-details-page #rental-links ul {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+}
+
+body.neighborhood-details-page #rental-links ul li {
+    margin-bottom: 10px;
+}
+
+body.neighborhood-details-page #rental-links ul li a {
+    display: block;
+    padding: 10px;
+    background: #ffffff;
+    border-radius: 8px;
+    text-align: center;
+    text-decoration: none;
+    color: #00796b;
+    font-weight: bold;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    transition: background 0.3s ease, box-shadow 0.3s ease;
+}
+
+body.neighborhood-details-page #rental-links ul li a:hover {
+    background: #00796b;
+    color: #ffffff;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
+}
+
+/* Chart Container Styling */
+body.neighborhood-details-page .chart-container {
+    background: #fff;
+    border-radius: 10px;
+    padding: 15px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    margin-bottom: 20px;
+    transition: box-shadow 0.3s ease;
+}
+
+body.neighborhood-details-page .chart-container:hover {
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+}
+
+h1, h2 {
+    color: #2c3e50;
+}
+
+h1 {
+    font-size: 2em;
+    margin-bottom: 10px;
+}
+
+h2 {
+    font-size: 1.5em;
+    margin-top: 15px;
+    margin-bottom: 10px;
+}
+
+p {
+    margin: 5px 0;
+    color: #555;
+}
+>>>>>>> 55ece299ca0948e966010384434162a665ae02ca
