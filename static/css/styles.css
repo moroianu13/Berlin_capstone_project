@@ -233,15 +233,16 @@ nav ul li a:hover {
     color: #555;
 }
 
-/* Footer Styles */
+/* Footer styling */
 footer {
+    text-align: center;
+    padding: 10px;
     background-color: #333;
     color: white;
-    text-align: center;
-    padding: 20px;
-    margin-top: 20px;
-    border-radius: 8px;
-    font-size: 0.9em;
+    position: relative;
+    margin-top: auto;
+    bottom: 0;
+    width: 100%;
 }
 
 /* Borough List Page Styles */
@@ -422,3 +423,48 @@ body {
         margin-bottom: 20px;
     }
 }
+
+/* Centering the form container */
+.login-container {
+    background-color: white;
+    width: 80%;
+    margin: 100px auto; /* Centers the form horizontally and adds margin from top */
+    padding: 30px;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1); /* Adds a shadow for depth */
+    border-radius: 8px; /* Smooth corners */
+    text-align: center;
+}
+
+/* Form styling */
+.login-container h2 {
+    text-align: center;
+    color: #333;
+    font-size: 24px;
+    margin-bottom: 20px;
+}
+
+.login-container form {
+    display: flex;
+    flex-direction: column;
+}
+
+.login-container form input, 
+.login-container form button {
+    padding: 10px;
+    margin-bottom: 15px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+.login-container form button {
+    background-color: #333; /* Button color */
+    color: white;
+    cursor: pointer;
+    font-weight: bold;
+    transition: background-color 0.3s ease;
+}
+
+.login-container form button:hover {
+    background-color: #f39c12; /* Change button color on hover */
+}
+
