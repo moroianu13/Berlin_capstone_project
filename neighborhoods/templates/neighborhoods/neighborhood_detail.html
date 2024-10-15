@@ -17,12 +17,11 @@
         <div class="logo">
             <img src="{% static 'images/rentwise_logo.png' %}" alt="RentWise Berlin Logo">
         </div>
-        <h1>RentWise Berlin</h1>
         <nav>
             <ul>
                 <li>
-                    <a href="{% url 'home' %}" class="header-button">← Back to Home</a>
-                    <a href="{% url 'neighborhood_list' neighborhood.borough.slug %}" class="header-button">← Back to Neighborhoods</a>
+                    <a href="{% url 'home' %}" class="header-button">Home</a>
+                    <a href="{% url 'neighborhood_list' neighborhood.borough.slug %}" class="header-button">Neighborhoods</a>
                 </li>
             </ul>
         </nav>
