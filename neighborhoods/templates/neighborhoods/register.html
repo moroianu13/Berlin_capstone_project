@@ -4,7 +4,7 @@
     {% load static %}
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>RentWise Berlin</title>
+    <title>RentWise Berlin - Register</title>
     <link rel="stylesheet" href="{% static 'css/styles.css' %}">
 </head>
 <body>
@@ -22,16 +22,33 @@
     </header>
 
     <div class="content">
-        {% block content %}
         <div class="login-container">
-            <h2>Register</h2>
-            <form method="POST">
+            <h2>Create Your Account</h2>
+            <form method="POST" class="register-form">
                 {% csrf_token %}
-                {{ form.as_p }}
-                <button type="submit">Register</button>
+                <div class="form-group">
+                    <label for="id_username">Username</label>
+                    {{ form.username }}
+                </div>
+                
+                <div class="form-group">
+                    <label for="id_email">Email Address</label>
+                    {{ form.email }}
+                </div>
+                
+                <div class="form-group">
+                    <label for="id_password1">Password</label>
+                    {{ form.password1 }}
+                </div>
+                
+                <div class="form-group">
+                    <label for="id_password2">Confirm Password</label>
+                    {{ form.password2 }}
+                </div>
+                
+                <button type="submit" class="submit-button">Register</button>
             </form>
         </div>
-        {% endblock %}
     </div>
 
     <footer>

@@ -11,11 +11,11 @@ from .serializers import NeighborhoodSerializer, BoroughSerializer
 from rest_framework import viewsets
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
-from .forms import UserRegisterForm
 from django.contrib import messages
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.forms import AuthenticationForm
 from .permissions import IsAdminOrReadOnly  # Import the custom permission
+from .forms import CustomUserCreationForm
 
 # Set up logger
 logger = logging.getLogger(__name__)
@@ -172,7 +172,7 @@ def register(request):
             messages.success(request, f'Account created for {username}! You can now log in.')
             return redirect('login')
     else:
-        form = UserRegisterForm()
+        form = CustomUserCreationForm()
     return render(request, 'neighborhoods/register.html', {'form': form})
 
 # User login view

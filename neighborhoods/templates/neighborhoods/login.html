@@ -21,22 +21,28 @@
         </nav>
     </header>
 
-    <!-- Moves the content block inside the body -->
     <div class="content">
-        {% block content %}
         <div class="login-container">
-            <h2>Login</h2>
-            <form method="POST">
+            <h2>Log in To Your Account</h2>
+            <form method="POST" class="register-form">
                 {% csrf_token %}
-                {{ form.as_p }}
-                <button type="submit">Login</button>
+                <div class="form-group">
+                    <label for="id_username">Username</label>
+                    {{ form.username }}
+                </div>
+                
+                <div class="form-group">
+                    <label for="id_password1">Password</label>
+                    {{ form.password }}
+                </div>
+                
+                <button type="submit" class="submit-button">Login</button>
             </form>
         </div>
-        {% endblock %}
     </div>
 
     <footer>
-        <p>&copy; 2024 RentWise Berlin. All Rights Reserved.</p>
+      <p>&copy; 2024 RentWise Berlin. All Rights Reserved.</p>
     </footer>
 </body>
 </html>
