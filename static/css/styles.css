@@ -425,7 +425,7 @@ body {
     }
 }
 
-<<<<<<< HEAD
+
 /* Centering the form container */
 .login-container {
     background-color: white;
@@ -445,8 +445,7 @@ body {
     margin-bottom: 20px;
 }
 
-.login-container form {
-=======
+
 
 /* Neighborhood Details Page Styles */
 body.neighborhood-details-page #info {
@@ -460,12 +459,11 @@ body.neighborhood-details-page #info {
 
 body.neighborhood-details-page #map-links-container {
     width: 60%;
->>>>>>> 55ece299ca0948e966010384434162a665ae02ca
     display: flex;
     flex-direction: column;
 }
 
-<<<<<<< HEAD
+
 .login-container form input, 
 .login-container form button {
     padding: 10px;
@@ -486,7 +484,7 @@ body.neighborhood-details-page #map-links-container {
     background-color: #f39c12; /* Change button color on hover */
 }
 
-=======
+
 body.neighborhood-details-page #neighborhood-map {
     position: relative;
     top: 20px;
@@ -495,6 +493,8 @@ body.neighborhood-details-page #neighborhood-map {
     border-radius: 12px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     margin-bottom: 20px;
+    display: block;
+    visibility: visible;
 }
 
 body.neighborhood-details-page #rental-links {
@@ -582,4 +582,4 @@ p {
     margin: 5px 0;
     color: #555;
 }
->>>>>>> 55ece299ca0948e966010384434162a665ae02ca
+
