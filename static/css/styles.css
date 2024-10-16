@@ -12,6 +12,25 @@ html, body {
     height: 100%;
 }
 
+/* Header Styles */
+header {
+    display: flex; /* Use Flexbox for layout */
+    align-items: center; /* Center elements vertically */
+    padding: 20px; /* Spacing around the content */
+    height: 350px; /* Adjust header height as needed */
+    background: linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.4)), url('/static/images/berlin_header_image.jpg') no-repeat center center/cover; /* Background image */
+    position: relative; /* For title positioning */
+}
+
+header .logo {
+    margin-right: auto; /* Push the title towards the center */
+}
+
+header .logo img {
+    height: 200px; /* Adjust logo height as needed */
+    width: auto; /* Maintain proportions */
+}
+
 /* Header Button Styles */
 .header-button {
     border: 2px solid rgba(255, 255, 255, 0.6); /* Semi-transparent white border for a subtle outline */
@@ -43,7 +62,7 @@ html, body {
 /* Body Button Styles */
 .body-button {
     padding: 12px 25px;
-    background: linear-gradient(135deg, rgba(255, 90, 95, 0.6), rgba(255, 122, 133, 0.6)); /* Transparent red-pink gradient */
+    background: linear-gradient(135deg, rgba(40, 21, 150, 0.6), rgba(255, 122, 133, 0.6)); /* Transparent red-pink gradient */
     color: white;
     border: 2px solid rgba(255, 255, 255, 0.5); /* Semi-transparent white border for a frosted effect */
     border-radius: 25px;
@@ -67,33 +86,6 @@ html, body {
     transform: translateY(1px); /* Pressed down effect */
     background: linear-gradient(135deg, rgba(255, 90, 95, 0.7), rgba(255, 122, 133, 0.7)); /* A bit more solid on active */
     box-shadow: 0 3px 10px rgba(255, 90, 95, 0.2); /* Reduced shadow for active state */
-}
-
-/* Header Styles */
-header {
-    display: flex; /* Use Flexbox for layout */
-    align-items: center; /* Center elements vertically */
-    padding: 20px; /* Spacing around the content */
-    height: 300px; /* Adjust header height as needed */
-    background: linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.4)), url('/static/images/berlin_header_image.jpg') no-repeat center center/cover; /* Background image */
-    position: relative; /* For title positioning */
-}
-
-header .logo {
-    margin-right: auto; /* Push the title towards the center */
-}
-
-header .logo img {
-    height: 150px; /* Adjust logo height as needed */
-    width: auto; /* Maintain proportions */
-}
-
-header h1 {
-    flex-grow: 1; /* Allow title to take remaining space */
-    text-align: center; /* Center the title text */
-    margin: 0; /* Remove default margins for better centering */
-    font-size: 40px; /* Adjust font size as needed */
-    color: white; /* Ensure good visibility on the background */
 }
 
 /* Navigation Styles */
@@ -233,27 +225,21 @@ nav ul li a:hover {
     color: #555;
 }
 
-/* Footer styling */
+/* -------------------------------------------------- */
+/* Footer Section */
+/* -------------------------------------------------- */
+
 footer {
     text-align: center;
     padding: 10px;
-    background-color: #333;
-    color: white;
+    background-color: #020000;
+    color: #fff;
     position: relative;
-    margin-top: auto;
     bottom: 0;
     width: 100%;
 }
 
 /* Borough List Page Styles */
-body {
-    margin: 0;
-    padding: 20px;
-    font-family: Arial, sans-serif;
-    background: linear-gradient(135deg, #e0f7fa, #ffffff);
-    color: #333;
-}
-
 .container {
     display: flex;
     justify-content: space-between;
@@ -346,33 +332,7 @@ body {
     padding: 20px;
 }
 
-/* Neighborhood List Sidebar */
-#neighborhood-list {
-    width: 25%;
-    padding: 20px;
-    background: rgba(255, 255, 255, 0.9);
-    border-radius: 15px;
-    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
-    backdrop-filter: blur(10px);
-    margin-right: 20px;
-    max-height: 60vh;
-    overflow-y: auto;
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
-}
-
-#neighborhood-list:hover {
-    transform: translateX(-5px);
-    box-shadow: 0 12px 24px rgba(0, 0, 0, 15);
-}
-
-#neighborhood-list h2 {
-    margin-bottom: 15px;
-    font-size: 20px;
-    color: #333;
-    font-weight: bold;
-    text-align: center;
-    font-family: 'Poppins', sans-serif;
-}
+/* Neighborhood Items Sidebar */
 
 #neighborhood-items {
     list-style: none;
@@ -428,9 +388,9 @@ body {
 
 /* Centering the form container */
 .login-container {
-    max-width: 30%;
-    margin: 50px auto;
-    padding: 30px;
+    max-width: 25%;
+    margin: 25px auto;
+    padding: 25px;
     background-color: #fff;
     border-radius: 8px;
     box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
@@ -509,15 +469,6 @@ body.neighborhood-details-page #map-links-container {
     flex-direction: column;
 }
 
-
-.login-container form input, 
-.login-container form button {
-    padding: 10px;
-    margin-bottom: 15px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-}
-
 .login-container form button {
     background-color: #333; /* Button color */
     color: white;
@@ -529,7 +480,6 @@ body.neighborhood-details-page #map-links-container {
 .login-container form button:hover {
     background-color: #f39c12; /* Change button color on hover */
 }
-
 
 body.neighborhood-details-page #neighborhood-map {
     position: relative;
@@ -628,4 +578,3 @@ p {
     margin: 5px 0;
     color: #555;
 }
-
