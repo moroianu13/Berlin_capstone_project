@@ -28,16 +28,17 @@
             </ul>
         </nav>
     </header>
-    <!-- Rest of the body content -->
-</body>
-</html>
 
+    <!-- Import chatbox from external file -->
+    {% include 'neighborhoods/chatbox.html' %}
 
     <!-- Search Section -->
     <section class="search-section">
         <h2>Are you seeking the perfect neighborhood to settle in?</h2>
         <form class="search-form">
+            <button type="submit">
                 <a href="{% url 'borough_list' %}" class="body-button">Discover Your Ideal Neighborhood!</a>
+            </button>
         </form>
     </section>
 
@@ -61,7 +62,9 @@
                     <h3>Friedrichshain</h3>
                     <p>A trendy neighborhood known for its vibrant nightlife and cultural landmarks.</p>
                 </div>
+                <div class="dots" id="friedrichshain-dots"></div>
             </div>
+
             <!-- Mitte Neighborhood -->
             <div class="property-card">
                 <div class="slideshow-container" id="mitte-slideshow">
@@ -78,7 +81,9 @@
                     <h3>Mitte</h3>
                     <p>The heart of Berlin, with iconic landmarks, art galleries, and bustling cafes.</p>
                 </div>
+                <div class="dots" id="mitte-dots"></div>
             </div>
+
             <!-- Kreuzberg Neighborhood -->
             <div class="property-card">
                 <div class="slideshow-container" id="kreuzberg-slideshow">
@@ -95,53 +100,56 @@
                     <h3>Kreuzberg</h3>
                     <p>A neighborhood with a unique blend of history, multiculturalism, and street art.</p>
                 </div>
+                <div class="dots" id="kreuzberg-dots"></div>
             </div>
         </div>
     </section>
 
-    <script>
-        function startSlideShow(slideshowId) {
-            const slideshow = document.getElementById(slideshowId);
-            const slides = slideshow.querySelector('.slides');
-            const totalSlides = slides.children.length;
-            let currentIndex = 0;
-
-            // Create navigation dots
-            const dotsContainer = document.createElement('div');
-            dotsContainer.className = 'dots';
-            for (let i = 0; i < totalSlides; i++) {
-                const dot = document.createElement('div');
-                dot.className = 'dot';
-                if (i === 0) dot.classList.add('active');
-                dot.addEventListener('click', () => {
-                    currentIndex = i;
-                    updateSlides();
-                });
-                dotsContainer.appendChild(dot);
-            }
-            slideshow.appendChild(dotsContainer);
-
-            function updateSlides() {
-                slides.style.transform = `translateX(-${currentIndex * 100}%)`;
-                const allDots = dotsContainer.querySelectorAll('.dot');
-                allDots.forEach(dot => dot.classList.remove('active'));
-                allDots[currentIndex].classList.add('active');
-            }
-
-            setInterval(() => {
-                currentIndex = (currentIndex + 1) % totalSlides;
-                updateSlides();
-            }, 5000);
-        }
-
-        // Initialize slideshows
-        startSlideShow('friedrichshain-slideshow');
-        startSlideShow('mitte-slideshow');
-        startSlideShow('kreuzberg-slideshow');
-    </script>
+    <!-- Footer -->
     <footer>
         <p>&copy; 2024 RentWise Berlin. All Rights Reserved.</p>
     </footer>
 
+    <!-- JavaScript for Slides -->
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            // Slideshow functionality
+            function startSlideShow(slideshowId, dotsId) {
+                const slideshow = document.getElementById(slideshowId);
+                const slides = slideshow.querySelector('.slides');
+                const totalSlides = slides.children.length;
+                let currentIndex = 0;
+
+                const dotsContainer = document.getElementById(dotsId);
+                for (let i = 0; i < totalSlides; i++) {
+                    const dot = document.createElement('div');
+                    dot.className = 'dot';
+                    if (i === 0) dot.classList.add('active');
+                    dot.addEventListener('click', () => {
+                        currentIndex = i;
+                        updateSlides();
+                    });
+                    dotsContainer.appendChild(dot);
+                }
+
+                function updateSlides() {
+                    slides.style.transform = `translateX(-${currentIndex * 100}%)`;
+                    const allDots = dotsContainer.querySelectorAll('.dot');
+                    allDots.forEach(dot => dot.classList.remove('active'));
+                    allDots[currentIndex].classList.add('active');
+                }
+
+                setInterval(() => {
+                    currentIndex = (currentIndex + 1) % totalSlides;
+                    updateSlides();
+                }, 5000);
+            }
+
+            // Initialize slideshows
+            startSlideShow('friedrichshain-slideshow', 'friedrichshain-dots');
+            startSlideShow('mitte-slideshow', 'mitte-dots');
+            startSlideShow('kreuzberg-slideshow', 'kreuzberg-dots');
+        });
+    </script>
 </body>
 </html>

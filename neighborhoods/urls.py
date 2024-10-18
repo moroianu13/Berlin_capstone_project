@@ -36,7 +36,8 @@ urlpatterns = [
     path('borough/<slug:borough_slug>/', views.neighborhood_list, name='neighborhood_list'),  # Uses slug for borough
     path('neighborhood_data_api/<slug:borough_slug>/', views.neighborhood_data_api, name='neighborhood_data_api'),  # Slug for neighborhoods data
     path('neighborhood/<int:neighborhood_id>/', views.neighborhood_detail, name='neighborhood_detail'),
-
+    path('chat/', views.chat_view, name='chat_view'),  
+    
     # Auth-related paths for login and logout
     path('login/', auth_views.LoginView.as_view(template_name='neighborhoods/login.html'), name='login'),
     path('logout/', auth_views.LogoutView.as_view(template_name='neighborhoods/logout.html'), name='logout'),

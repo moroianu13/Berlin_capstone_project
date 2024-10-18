@@ -1,0 +1,87 @@
+how does the website work: 
+  "Our website allows you to search for neighborhoods in Berlin based on affordability, family-friendliness, nightlife, and more!"
+
+how do i search for neighborhoods: 
+  "You can search by using filters like affordability, nightlife, family-friendliness, and more on the main page."
+
+how do filters work: 
+  "Filters let you narrow down neighborhoods based on specific criteria like rent affordability, green spaces, or nightlife."
+
+help: 
+  "Sure! I'm here to help. What do you need assistance with?"
+
+how can i register on the website:
+  "To register, click on the 'Register' button at the top-right corner of the page and fill in your details to create an account."
+
+how do i login:
+  "You can log in by clicking the 'Login' button at the top-right of the website and entering your credentials."
+
+what if i forget my password:
+  "If you forget your password, click on the 'Forgot Password?' link on the login page and follow the instructions to reset it."
+
+how do i filter neighborhoods based on rent:
+  "You can filter neighborhoods based on rent by selecting the 'Rent Affordability' filter in the filter options."
+
+what information is available for each neighborhood:
+  "For each neighborhood, you can view information such as average rent, crime statistics, demographics, and nearby amenities."
+
+can i find crime statistics for neighborhoods:
+  "Yes, you can view crime statistics for each neighborhood by clicking on the respective neighborhood and viewing its details."
+
+what is the purpose of the website:
+  "The purpose of the website is to help users find suitable neighborhoods in Berlin based on factors like rent, lifestyle preferences, and amenities."
+
+how do i search for family-friendly neighborhoods:
+  "To search for family-friendly neighborhoods, use the 'Family-Friendliness' filter available in the filter options."
+
+can i save my favorite neighborhoods:
+  "Currently, saving favorite neighborhoods is not supported, but you can bookmark pages for quick access."
+
+do i need an account to use the website:
+  "You don't need an account to search for neighborhoods, but certain features like registration may provide additional benefits in the future."
+
+how accurate is the rent data:
+  "The rent data is updated regularly based on publicly available sources to provide the most accurate information possible."
+
+where does the data come from:
+  "The data comes from various publicly available sources, including government publications, real estate websites, and local reports."
+
+can i compare different neighborhoods:
+  "Currently, there isn't a comparison tool, but you can open multiple neighborhood pages to compare information manually."
+
+how do i report incorrect information:
+  "If you notice incorrect information, you can contact us using the form available in the 'Contact Us' section of the website."
+
+is there a way to contact support:
+  "Yes, you can contact support by visiting the 'Contact Us' page and filling out the provided form."
+
+how do i use the map to view neighborhoods:
+  "The map on the homepage allows you to click on different boroughs to view detailed information about neighborhoods within them."
+
+how do i use the search bar:
+  "The search bar at the top of the page can be used to enter a neighborhood name or specific filters to quickly locate a desired area."
+
+how can i contribute to the website:
+  "Currently, user contributions are not supported. Stay tuned for future updates where you might be able to contribute data or reviews."
+
+what are the filtering options available:
+  "The filtering options available include rent affordability, nightlife, green spaces, family-friendliness, crime statistics, and more."
+
+is there a mobile version of the website:
+  "Yes, the website is fully responsive and can be accessed on mobile devices for easy browsing on-the-go."
+
+what technologies were used to build this website:
+  "The website is built using Django for the backend, with a PostgreSQL database, and the frontend uses HTML, CSS, and JavaScript."
+
+is my personal information secure:
+  "Yes, any personal information you provide is securely handled in compliance with privacy policies and regulations."
+
+how can i delete my account:
+  "To delete your account, please contact our support team using the 'Contact Us' page with your request."
+
+can i filter neighborhoods based on amenities:
+  "Yes, you can filter neighborhoods based on amenities like parks, schools, and public transportation by using the filter options."
+
+how frequently is the data updated:
+  "The data is updated on a regular basis to provide the most up-to-date information about neighborhoods and amenities."
+

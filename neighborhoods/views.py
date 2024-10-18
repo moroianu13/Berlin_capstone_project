@@ -16,6 +16,177 @@ from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.forms import AuthenticationForm
 from .permissions import IsAdminOrReadOnly  # Import the custom permission
 from .forms import CustomUserCreationForm
+import json
+import yaml
+import os
+import logging
+from collections import Counter
+from django.conf import settings
+from django.shortcuts import render, get_object_or_404, redirect
+from django.http import JsonResponse
+from django.db.models import Q
+from .models import Borough, Neighborhood, CrimeData, Demographics, RentData, Amenity
+from .serializers import NeighborhoodSerializer, BoroughSerializer
+from rest_framework import viewsets
+from rest_framework.permissions import IsAuthenticated
+from rest_framework.response import Response
+from django.contrib import messages
+from django.contrib.auth import authenticate, login, logout
+from django.contrib.auth.forms import AuthenticationForm
+from .permissions import IsAdminOrReadOnly  # Import the custom permission
+from django.views.decorators.csrf import csrf_exempt
+import random
+import requests
+import wikipedia
+import logging
+from fuzzywuzzy import fuzz, process
+
+# Load YAML-based website responses
+def load_website_responses():
+    file_path = os.path.join(settings.BASE_DIR, 'data', 'website_responses.yaml')
+    try:
+        with open(file_path, 'r', encoding='utf-8') as file:
+            return yaml.safe_load(file)
+    except FileNotFoundError:
+        logging.error(f"Website responses YAML file not found at {file_path}.")
+        return {}
+
+# Load YAML-based factual responses
+def load_factual_responses():
+    file_path = os.path.join(settings.BASE_DIR, 'data', 'factual_responses.yaml')
+    try:
+        with open(file_path, 'r', encoding='utf-8') as file:
+            return yaml.safe_load(file)
+    except FileNotFoundError:
+        logging.error(f"Factual responses YAML file not found at {file_path}.")
+        return {}
+
+# Load website and factual responses from YAML
+website_responses = load_website_responses()
+factual_responses = load_factual_responses()
+
+# Wikipedia summary fetch
+def get_wikipedia_summary(query):
+    try:
+        summary = wikipedia.summary(query, sentences=2)
+        return summary
+    except wikipedia.exceptions.DisambiguationError as e:
+        return f"Multiple results found for '{query}': {e.options[:3]}."
+    except wikipedia.exceptions.PageError:
+        return "Sorry, I couldn't find any relevant information on that topic."
+
+# Weather data fetching for Berlin
+def get_weather_in_berlin():
+    try:
+        api_key = "f871593feda647f9813120052241610"  # Replace with your actual API key
+        city = "Berlin"
+        url = f"http://api.weatherapi.com/v1/current.json?key={api_key}&q={city}"
+        response = requests.get(url).json()
+
+        if 'current' in response:
+            temp = response['current']['temp_c']
+            condition = response['current']['condition']['text']
+            humidity = response['current']['humidity']
+            wind_speed = response['current']['wind_kph']
+
+            return f"The current temperature in Berlin is {temp}°C with {condition}. Humidity is {humidity}% and wind speed is {wind_speed} km/h."
+        else:
+            return "Sorry, I couldn't fetch the weather data right now."
+
+    except Exception as e:
+        logging.error(f"Error fetching weather data: {e}")
+        return "Sorry, there was a problem retrieving the weather data."
+
+# Manage conversation history
+conversation_history = {}
+user_data = {}
+
+# Fallback responses
+fallback_responses = [
+    "Did you know that the Eiffel Tower can be 15 cm taller during hot days?",
+    "Octopuses have three hearts!",
+    "Did you know that honey never spoils?"
+]
+
+# Manage conversation history
+def manage_conversation_history(session_id, user_message, bot_message):
+    if session_id not in conversation_history:
+        conversation_history[session_id] = []
+    conversation_history[session_id].append(f"User: {user_message}")
+    conversation_history[session_id].append(f"Bot: {bot_message}")
+    if len(conversation_history[session_id]) > 4:
+        conversation_history[session_id] = conversation_history[session_id][-4:]
+
+# Get predefined responses from YAML file (website-specific questions)
+def get_website_response(user_message):
+    best_match, score = process.extractOne(user_message, website_responses.keys(), scorer=fuzz.token_set_ratio)
+    if score > 70:  # Threshold for fuzzy matching
+        return website_responses[best_match]
+    return None
+
+# Check for predefined responses and handle "my name is" cases
+def get_predefined_response(user_message, session_id):
+    user_message = user_message.lower()
+
+    # Handle name introduction
+    if "my name is" in user_message:
+        user_name = user_message.split("my name is")[-1].strip().capitalize()
+        user_data[session_id] = user_name
+        return f"Nice to meet you, {user_name}!"
+
+    # Refer to the user's name if known
+    if ("what's my name" in user_message or "what is my name" in user_message) and session_id in user_data:
+        return f"Your name is {user_data[session_id]}, right?"
+
+    # Check YAML-based website responses
+    bot_message = get_website_response(user_message)
+    if bot_message:
+        return bot_message
+
+    # Check in factual responses
+    best_match, score = process.extractOne(user_message, factual_responses.keys(), scorer=fuzz.token_set_ratio)
+    if score > 70:  # Threshold for fuzzy matching
+        return factual_responses[best_match]
+
+    # No predefined response found
+    return None
+
+# Fallback response generator
+def get_fallback_response():
+    return random.choice(fallback_responses)
+
+# Chat view to handle chat requests
+@csrf_exempt
+def chat_view(request):
+    session_id = request.session.session_key or request.session.create()
+
+    if request.method == 'POST':
+        user_message = request.POST.get('message', '').lower()
+
+        if session_id not in conversation_history:
+            conversation_history[session_id] = []
+
+        # First, check for predefined or factual responses
+        bot_message = get_predefined_response(user_message, session_id)
+
+        # Handle live weather check if requested
+        if "temperature" in user_message and "berlin" in user_message:
+            bot_message = get_weather_in_berlin()
+
+        # Use Wikipedia for broader queries if no predefined response
+        if not bot_message:
+            bot_message = get_wikipedia_summary(user_message)
+
+        # If no relevant Wikipedia result, fallback to a fun fact
+        if not bot_message:
+            bot_message = get_fallback_response()
+
+        # Manage conversation history
+        manage_conversation_history(session_id, user_message, bot_message)
+
+        return JsonResponse({"response": bot_message})
+
+    return render(request, 'neighborhoods/chatbox.html')
 
 # Set up logger
 logger = logging.getLogger(__name__)
@@ -165,7 +336,7 @@ def borough_data_api(request):
 # User registration view
 def register(request):
     if request.method == 'POST':
-        form = UserRegisterForm(request.POST)
+        form =  CustomUserCreationForm(request.POST)
         if form.is_valid():
             form.save()
             username = form.cleaned_data.get('username')
