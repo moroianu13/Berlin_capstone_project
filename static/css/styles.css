@@ -1,4 +1,17 @@
 /* Global Styles */
+:root {
+    --primary-color: #3e5060; /* Inspired by Berlin's urban architecture */
+    --secondary-color: #1a1a1a; /* For a sleek modern touch */
+    --accent-color: #d93030; /* Red tone reflecting historical Berlin brick buildings */
+    --highlight-color: #0073e6; /* Reflecting Berlin's modern edge */
+    --gradient-light-blue: #e0f7fa;
+    --gradient-white: #ffffff;
+    --font-family-headline: 'Merriweather', serif;
+    --font-family-body: 'Roboto', sans-serif;
+    --border-radius: 15px;
+    --transition-ease: 0.3s ease;
+}
+
 * {
     margin: 0;
     padding: 0;
@@ -6,35 +19,40 @@
 }
 
 html, body {
-    font-family: Arial, sans-serif;
-    background: linear-gradient(135deg, #e0f7fa, #ffffff); /* Light blue to white gradient */
+    font-family: var(--font-family-body);
+    background: linear-gradient(135deg, var(--gradient-light-blue), var(--gradient-white));
     color: #333;
     height: 100%;
+    scroll-behavior: smooth;
 }
 
 /* Header Styles */
 header {
-    display: flex; /* Use Flexbox for layout */
-    align-items: center; /* Center elements vertically */
-    padding: 20px; /* Spacing around the content */
-    height: 350px; /* Adjust header height as needed */
-    background: linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.4)), url('/static/images/berlin_header_image.jpg') no-repeat center center/cover; /* Background image */
-    position: relative; /* For title positioning */
+    display: flex;
+    align-items: center;
+    padding: 20px;
+    height: 350px;
+    background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('/static/images/berlin_header_image.jpg') no-repeat center center/cover;
+    filter: brightness(0.8);
+    position: relative;
+    border-bottom: 5px solid var(--accent-color);
 }
 
 header .logo {
-    margin-right: auto; /* Push the title towards the center */
+    margin-right: auto;
 }
 
 header .logo img {
-    height: 200px; /* Adjust logo height as needed */
-    width: auto; /* Maintain proportions */
+    height: 200px;
+    width: auto;
+    border-radius: var(--border-radius);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
 }
 
 /* Header Button Styles */
 .header-button {
-    border: 2px solid rgba(255, 255, 255, 0.6); /* Semi-transparent white border for a subtle outline */
-    background: rgba(255, 255, 255, 0.1); /* Light transparent background to give a glassy effect */
+    border: 2px solid rgba(255, 255, 255, 0.6);
+    background: rgba(255, 255, 255, 0.1);
     color: white;
     font-weight: bold;
     padding: 12px 25px;
@@ -43,49 +61,64 @@ header .logo img {
     display: inline-block;
     text-align: center;
     cursor: pointer;
-    transition: background 0.3s ease, transform 0.2s ease, box-shadow 0.3s ease;
-    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2); /* Soft shadow for a floating effect */
+    transition: background var(--transition-ease), transform 0.2s ease, box-shadow var(--transition-ease);
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
 }
 
 .header-button:hover {
-    background: rgba(255, 255, 255, 0.2); /* Slightly more opaque on hover */
-    transform: translateY(-3px) scale(1.05); /* Gentle lift effect */
-    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3); /* Deeper shadow on hover */
+    background: rgba(255, 255, 255, 0.3);
+    transform: translateY(-3px) scale(1.08);
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.35);
 }
 
 .header-button:active {
-    transform: translateY(1px); /* Slight "press-down" effect */
-    background: rgba(255, 255, 255, 0.15); /* A bit more solid on click */
-    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.2); /* Reduced shadow for active state */
+    transform: translateY(1px);
+    background: rgba(255, 255, 255, 0.2);
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.25);
 }
+
+
+.header-button img {
+    margin-right: 10px;
+    height: 20px;
+    width: 20px;
+}
+
 
 /* Body Button Styles */
 .body-button {
     padding: 12px 25px;
-    background: linear-gradient(135deg, rgba(40, 21, 150, 0.6), rgba(255, 122, 133, 0.6)); /* Transparent red-pink gradient */
+    background: linear-gradient(135deg, var(--secondary-color), var(--accent-color));
     color: white;
-    border: 2px solid rgba(255, 255, 255, 0.5); /* Semi-transparent white border for a frosted effect */
+    border: none;
     border-radius: 25px;
     cursor: pointer;
-    transition: background 0.3s ease, transform 0.2s ease, box-shadow 0.3s ease;
-    box-shadow: 0 5px 15px rgba(255, 90, 95, 0.2); /* Subtle colored shadow for a soft glow */
+    transition: background var(--transition-ease), transform 0.2s ease, box-shadow var(--transition-ease);
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
     font-weight: bold;
     text-decoration: none;
     display: inline-block;
     text-align: center;
-    backdrop-filter: blur(10px); /* Adds a frosted glass effect (for supported browsers) */
+    backdrop-filter: blur(10px);
 }
 
 .body-button:hover {
-    background: linear-gradient(135deg, rgba(255, 90, 95, 0.8), rgba(255, 122, 133, 0.8)); /* Slightly more solid on hover */
-    transform: translateY(-3px) scale(1.05); /* Gentle lift effect */
-    box-shadow: 0 8px 20px rgba(255, 90, 95, 0.4); /* Enhanced glow on hover */
+    background: linear-gradient(135deg, var(--accent-color), #ffd700);
+    transform: translateY(-4px) scale(1.08);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
 }
 
 .body-button:active {
-    transform: translateY(1px); /* Pressed down effect */
-    background: linear-gradient(135deg, rgba(255, 90, 95, 0.7), rgba(255, 122, 133, 0.7)); /* A bit more solid on active */
-    box-shadow: 0 3px 10px rgba(255, 90, 95, 0.2); /* Reduced shadow for active state */
+    transform: translateY(1px);
+    background: linear-gradient(135deg, var(--accent-color), #ffcc00);
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.2);
+}
+
+/* Remove default button border and styling */
+button {
+    border: none;
+    background: transparent;
+    padding: 0;
 }
 
 /* Navigation Styles */
@@ -102,15 +135,12 @@ nav ul li a {
     color: white;
     text-decoration: none;
     font-size: 18px;
-}
-
-nav ul li a.button-style {
-    font-size: 16px;
-    padding: 12px 25px;
+    transition: color var(--transition-ease);
 }
 
 nav ul li a:hover {
     text-decoration: underline;
+    color: var(--accent-color);
 }
 
 /* Search Section */
@@ -123,6 +153,9 @@ nav ul li a:hover {
 
 .search-section h2 {
     margin-bottom: 20px;
+    font-size: 1.8em;
+    color: var(--secondary-color);
+    text-shadow: 1px 1px 5px rgba(0, 0, 0, 0.1);
 }
 
 .search-form {
@@ -146,16 +179,16 @@ nav ul li a:hover {
 .property-card {
     background-color: white;
     border: 1px solid #ddd;
-    border-radius: 15px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    border-radius: var(--border-radius);
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
     overflow: hidden;
     position: relative;
-    transition: transform 0.3s ease;
+    transition: transform var(--transition-ease), box-shadow var(--transition-ease);
 }
 
 .property-card:hover {
     transform: translateY(-5px);
-    box-shadow: 0 12px 24px rgba(0, 0, 0, 0.2);
+    box-shadow: 0 16px 32px rgba(0, 0, 0, 0.3);
 }
 
 /* Slideshow Dots */
@@ -174,15 +207,15 @@ nav ul li a:hover {
     background-color: #ddd;
     border-radius: 50%;
     cursor: pointer;
-    transition: background-color 0.3s ease, transform 0.3s ease;
+    transition: background-color var(--transition-ease), transform var(--transition-ease);
 }
 
 .dot.active {
-    background-color: #ff5a5f;
+    background-color: var(--accent-color);
 }
 
 .dot:hover {
-    transform: scale(1.2);
+    transform: scale(1.3);
 }
 
 /* Slideshow Container */
@@ -191,6 +224,8 @@ nav ul li a:hover {
     width: 100%;
     height: 350px;
     overflow: hidden;
+    border-radius: var(--border-radius);
+    transition: opacity 1s ease-in-out;
 }
 
 .slides {
@@ -212,12 +247,13 @@ nav ul li a:hover {
 /* Property Info */
 .property-info {
     padding: 20px;
+    text-align: center;
 }
 
 .property-info h3 {
     margin-bottom: 10px;
-    font-size: 20px;
-    color: #333;
+    font-size: 1.5em;
+    color: var(--primary-color);
 }
 
 .property-info p {
@@ -225,55 +261,72 @@ nav ul li a:hover {
     color: #555;
 }
 
-/* -------------------------------------------------- */
-/* Footer Section */
-/* -------------------------------------------------- */
-
 footer {
     text-align: center;
-    padding: 10px;
-    background-color: #020000;
+    padding: 20px;
+    background-color: #1a1a1a;
+    background-image: url('/static/images/footer_image.png'); /* Use the resized image */
+    background-size: contain; /* Ensure the image fits within the footer without distortion */
+    background-repeat: no-repeat;
+    background-position: center bottom; /* Aligns the image at the bottom */
     color: #fff;
     position: relative;
     bottom: 0;
     width: 100%;
+    height: 200px; /* Adjust this based on your preference */
+    border-top: 5px solid var(--accent-color);
 }
+
+/* Adjust the text placement */
+footer p {
+    padding-top: 125px; /* Adjust this value to ensure the text is above the image */
+    z-index: 10;
+    position: relative;
+    color: #ffffff; /* Set the text color to white for contrast */
+    font-size: 16px; /* Increase the font size to make it more readable */
+    font-weight: bold; /* Make the text bold for better visibility */
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5); /* Add a subtle shadow to make the text stand out */
+}
+
+
+
 
 /* Borough List Page Styles */
 .container {
     display: flex;
     justify-content: space-between;
+    padding: 20px;
 }
 
 #info {
     width: 25%;
     padding: 20px;
     background-color: #f8f9fa;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    border-radius: 8px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
+    border-radius: var(--border-radius);
     margin-right: 20px;
 }
 
 #map-links-container {
-    width: 75%; /* Increase the width to make the map larger */
+    width: 75%;
     display: flex;
     flex-direction: column;
 }
 
-#borough-map{
+#borough-map {
     width: 100%;
     height: 600px;
-    border-radius: 8px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    border-radius: var(--border-radius);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
 }
 
 #filters {
     margin-top: 20px;
     padding: 20px;
-    background-color: rgba(255, 255, 255, 0.8);
-    border-radius: 15px;
-    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
-    backdrop-filter: blur(10px);
+    background-color: rgba(255, 255, 255, 0.85);
+    border-radius: var(--border-radius);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+    backdrop-filter: blur(12px);
     border: 1px solid rgba(255, 255, 255, 0.5);
 }
 
@@ -296,12 +349,12 @@ footer {
     margin-right: 10px;
     border-radius: 5px;
     cursor: pointer;
-    transition: background-color 0.3s ease, border-color 0.3s ease;
+    transition: background-color var(--transition-ease), border-color var(--transition-ease);
 }
 
 #filters input[type="checkbox"]:checked {
-    background-color: #ff5a5f;
-    border-color: #ff5a5f;
+    background-color: var(--accent-color);
+    border-color: var(--accent-color);
 }
 
 #filters input[type="checkbox"]:checked::after {
@@ -333,7 +386,6 @@ footer {
 }
 
 /* Neighborhood Items Sidebar */
-
 #neighborhood-items {
     list-style: none;
     padding: 0;
@@ -343,22 +395,22 @@ footer {
 #neighborhood-items li {
     margin-bottom: 12px;
     padding: 10px;
-    border-radius: 8px;
-    transition: background 0.3s ease, transform 0.2s ease;
+    border-radius: var(--border-radius);
+    transition: background var(--transition-ease), transform 0.2s ease;
     cursor: pointer;
     background: rgba(225, 90, 95, 0.05);
 }
 
 #neighborhood-items li:hover {
-    background: rgba(255, 90, 95, 0.1);
-    transform: translateX(5px);
+    background: rgba(255, 90, 95, 0.15);
+    transform: translateX(7px);
 }
 
 #neighborhood-items a {
-    color: #ff5a5f;
+    color: var(--primary-color);
     text-decoration: none;
     font-weight: 600;
-    transition: color 0.3s ease;
+    transition: color var(--transition-ease);
     font-family: 'Roboto', sans-serif;
 }
 
@@ -369,8 +421,8 @@ footer {
 #map {
     width: 70%;
     height: 500px;
-    border-radius: 8px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    border-radius: var(--border-radius);
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
 }
 
 @media (max-width: 768px) {
@@ -385,15 +437,14 @@ footer {
     }
 }
 
-
 /* Centering the form container */
 .login-container {
     max-width: 25%;
     margin: 25px auto;
     padding: 25px;
     background-color: #fff;
-    border-radius: 8px;
-    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+    border-radius: var(--border-radius);
+    box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.15);
     text-align: center;
 }
 
@@ -432,13 +483,13 @@ footer {
 
 .submit-button {
     padding: 12px 25px;
-    background-color: #4CAF50;
+    background-color: var(--secondary-color);
     color: white;
     border: none;
     border-radius: 5px;
     font-weight: bold;
     cursor: pointer;
-    transition: background-color 0.3s ease;
+    transition: background-color var(--transition-ease);
 }
 
 .submit-button:hover {
@@ -458,8 +509,8 @@ body.neighborhood-details-page #info {
     width: 40%;
     padding: 20px;
     background-color: #f8f9fa;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    border-radius: 8px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
+    border-radius: var(--border-radius);
     margin-right: 20px;
 }
 
@@ -470,15 +521,15 @@ body.neighborhood-details-page #map-links-container {
 }
 
 .login-container form button {
-    background-color: #333; /* Button color */
+    background-color: #333;
     color: white;
     cursor: pointer;
     font-weight: bold;
-    transition: background-color 0.3s ease;
+    transition: background-color var(--transition-ease);
 }
 
 .login-container form button:hover {
-    background-color: #f39c12; /* Change button color on hover */
+    background-color: #f39c12;
 }
 
 body.neighborhood-details-page #neighborhood-map {
@@ -496,12 +547,11 @@ body.neighborhood-details-page #neighborhood-map {
 body.neighborhood-details-page #rental-links {
     height: auto;
     position: relative;
-    top:top calc(20px + 500px + 20px);
     padding: 20px;
     background-color: #e0f7fa;
     border-radius: 12px;
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-    margin-top: 20px; /* Space between map and rental links */
+    margin-top: 20px;
     transition: transform 0.3s ease;
 }
 
@@ -516,6 +566,7 @@ body.neighborhood-details-page #rental-links h2 {
     margin-bottom: 15px;
     text-align: center;
 }
+
 body.neighborhood-details-page #rental-links ul {
     list-style-type: none;
     padding: 0;
@@ -559,6 +610,7 @@ body.neighborhood-details-page .chart-container:hover {
     box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
 }
 
+/* Headings */
 h1, h2 {
     color: #2c3e50;
 }
@@ -574,6 +626,7 @@ h2 {
     margin-bottom: 10px;
 }
 
+/* Paragraphs */
 p {
     margin: 5px 0;
     color: #555;
@@ -587,13 +640,13 @@ p {
     bottom: 20px;
     right: 20px;
     border-radius: 20px;
-    background-color: #fff5f8; /* Soft pink background */
-    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2); /* Soft shadow for a floating effect */
+    background-color: #333;
+    border: 3px solid var(--highlight-color);
+    color: #fff;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
     overflow: hidden;
-    display: none; /* Hidden by default */
+    display: none;
     flex-direction: column;
-    font-family: 'Comic Sans MS', cursive, sans-serif;
-    border: 3px solid #ff5a5f; /* Cute pink border */
     z-index: 1000;
 }
 
@@ -601,8 +654,8 @@ p {
     padding: 15px;
     height: 350px;
     overflow-y: auto;
-    background-color: #ffe6ea; /* Lighter pink for the chat log */
-    border-bottom: 2px solid #ff5a5f;
+    background-color: #ffe6ea;
+    border-bottom: 2px solid var(--primary-color);
 }
 
 .chat-box .chat-log p {
@@ -616,7 +669,7 @@ p {
     padding: 10px;
     margin: 10px;
     border-radius: 15px;
-    border: 2px solid #ff5a5f;
+    border: 2px solid var(--primary-color);
     outline: none;
     font-size: 14px;
     background-color: #fff0f2;
@@ -625,7 +678,7 @@ p {
 .chat-box button {
     width: 80px;
     padding: 10px;
-    background-color: #ff5a5f; /* Cute pink button */
+    background-color: var(--highlight-color);
     color: white;
     font-size: 14px;
     font-weight: bold;
@@ -637,28 +690,49 @@ p {
 }
 
 .chat-box button:hover {
-    background-color: #ff8a85; /* Lighter pink on hover */
+    background-color: #ff8a85;
     transform: scale(1.1);
 }
 
 /* Chat toggle button styles */
 #chat-toggle {
+    width: auto;
     position: fixed;
     bottom: 20px;
     right: 20px;
-    background-color: #ff5a5f;
+    background-color: var(--primary-color);
     color: white;
     font-size: 16px;
     border: none;
     border-radius: 50px;
-    padding: 15px;
+    padding: 10px 20px;
     cursor: pointer;
     z-index: 999;
-    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2); /* Soft shadow */
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
     transition: transform 0.3s ease, background-color 0.3s ease;
 }
 
 #chat-toggle:hover {
     background-color: #ff8a85;
     transform: scale(1.1);
+}
+
+/* Close Button Styles */
+.chat-close {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    background: #ff5a5f;
+    color: white;
+    border: none;
+    padding: 5px 10px;
+    border-radius: 50%;
+    cursor: pointer;
+    font-weight: bold;
+    font-size: 14px;
+    transition: background-color 0.3s ease;
+}
+
+.chat-close:hover {
+    background-color: #ff8a85;
 }

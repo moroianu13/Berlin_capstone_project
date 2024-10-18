@@ -9,6 +9,7 @@
 </head>
 <body>
     <div class="chat-box" id="chat-box" style="display: none;">
+        <button class="chat-close" id="chat-close">X</button> <!-- Close button -->
         <div class="chat-log" id="chat-log"></div>
         <form id="chat-form">
             <input type="text" id="chat-message-input" class="chat-input" autocomplete="off" placeholder="Type a message..." />
@@ -19,57 +20,66 @@
 
     <script>
         document.addEventListener("DOMContentLoaded", function() {
-            // Toggle chatbox visibility
-            document.getElementById('chat-toggle').addEventListener('click', function() {
-                var chatBox = document.getElementById('chat-box');
-                if (chatBox.style.display === 'none' || chatBox.style.display === '') {
-                    chatBox.style.display = 'block';
-                } else {
-                    chatBox.style.display = 'none';
-                }
-            });
+    // Toggle chatbox visibility
+    document.getElementById('chat-toggle').addEventListener('click', function() {
+        var chatBox = document.getElementById('chat-box');
+        var chatToggleButton = document.getElementById('chat-toggle');
 
-            // Handle form submission
-            document.querySelector("#chat-form").onsubmit = function(e) {
-                e.preventDefault();
+        if (chatBox.style.display === 'none' || chatBox.style.display === '') {
+            chatBox.style.display = 'block';
+            chatToggleButton.innerHTML = '❌ Close Chat';  // Change button text to 'Close Chat'
+        } else {
+            chatBox.style.display = 'none';
+            chatToggleButton.innerHTML = '💬 Open Chat';  // Change button text back to 'Open Chat'
+        }
+    });
 
-                // Get user message
-                const messageInputDom = document.querySelector("#chat-message-input");
-                const message = messageInputDom.value;
-                const chatLog = document.getElementById('chat-log');
+    // Close button functionality inside the chatbox
+    document.getElementById('chat-close').addEventListener('click', function() {
+        var chatBox = document.getElementById('chat-box');
+        var chatToggleButton = document.getElementById('chat-toggle');
+        chatBox.style.display = 'none';
+        chatToggleButton.innerHTML = '💬 Open Chat';  // Ensure button updates when the close button is clicked
+    });
 
-                // Append user message to chat log
-                chatLog.innerHTML += "<p><strong>You:</strong> " + message + "</p>";
+    // Handle form submission (existing logic)
+    document.querySelector("#chat-form").onsubmit = function(e) {
+        e.preventDefault();
+        const messageInputDom = document.querySelector("#chat-message-input");
+        const message = messageInputDom.value;
+        const chatLog = document.getElementById('chat-log');
+        chatLog.innerHTML += "<p><strong>You:</strong> " + message + "</p>";
 
-                // Send message to the server via AJAX
-                fetch("{% url 'chat_view' %}", {  // Ensure to use the correct Django view URL for GPT
-                    method: "POST",
-                    headers: {
-                        'Content-Type': 'application/x-www-form-urlencoded',
-                        'X-CSRFToken': "{{ csrf_token }}",  // CSRF token included in the request
-                    },
-                    body: new URLSearchParams({ message: message })
-                })
-                .then(response => {
-                    if (!response.ok) {
-                        throw new Error(`HTTP error! Status: ${response.status}`);
-                    }
-                    return response.json();
-                })
-                .then(data => {
-                    // Append server (GPT model) response to chat log
-                    chatLog.innerHTML += "<p><strong>Bot:</strong> " + data.response + "</p>";
-                    chatLog.scrollTop = chatLog.scrollHeight;  // Scroll to the latest message
-                })
-                .catch(error => {
-                    chatLog.innerHTML += "<p><strong>Error:</strong> Unable to load response.</p>";
-                    console.error("Error:", error);
-                });
-
-                // Clear input field
-                messageInputDom.value = "";
-            };
+        // Send message to the server via AJAX
+        fetch("{% url 'chat_view' %}", {
+            method: "POST",
+            headers: {
+                'Content-Type': 'application/x-www-form-urlencoded',
+                'X-CSRFToken': "{{ csrf_token }}",
+            },
+            body: new URLSearchParams({ message: message })
+        })
+        .then(response => {
+            if (!response.ok) {
+                throw new Error(`HTTP error! Status: ${response.status}`);
+            }
+            return response.json();
+        })
+        .then(data => {
+            chatLog.innerHTML += "<p><strong>Bot:</strong> " + data.response + "</p>";
+            chatLog.scrollTop = chatLog.scrollHeight;  // Scroll to the latest message
+        })
+        .catch(error => {
+            chatLog.innerHTML += "<p><strong>Error:</strong> Unable to load response.</p>";
+            console.error("Error:", error);
         });
+
+        messageInputDom.value = "";  // Clear the input field
+    };
+});
+
+            
+        
     </script>
 </body>
 </html>

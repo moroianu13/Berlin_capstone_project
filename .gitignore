@@ -2,8 +2,5 @@
 __pycache__/
 *.pyc
 
-# SQLite Database
-db.sqlite3
-
 # Virtual environment
 myenv/
