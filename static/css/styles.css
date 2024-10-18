@@ -307,6 +307,11 @@ footer p {
     margin-right: 20px;
 }
 
+#info:hover {
+    transform: translateX(-5px);
+    box-shadow: 0 12px 24px rgba(0, 0, 0, 15);
+}
+
 #map-links-container {
     width: 75%;
     display: flex;
@@ -328,6 +333,11 @@ footer p {
     box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
     backdrop-filter: blur(12px);
     border: 1px solid rgba(255, 255, 255, 0.5);
+}
+
+#filters:hover{
+    transform: translateX(-5px);
+    box-shadow: 0 12px 24px rgba(0, 0, 0, 15);
 }
 
 #filters label {
@@ -386,6 +396,25 @@ footer p {
 }
 
 /* Neighborhood Items Sidebar */
+#neighborhood-list {
+    width: 25%;
+    padding: 20px;
+    background: rgba(255, 255, 255, 0.9);
+    border-radius: 15px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+    backdrop-filter: blur(10px);
+    margin-right: 20px;
+    max-height: 60vh;
+    overflow-y: auto;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+
+#neighborhood-list:hover {
+    transform: translateX(-5px);
+    box-shadow: 0 12px 24px rgba(0, 0, 0, 15);
+}
+
 #neighborhood-items {
     list-style: none;
     padding: 0;
@@ -446,6 +475,11 @@ footer p {
     border-radius: var(--border-radius);
     box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.15);
     text-align: center;
+}
+
+.login-container:hover {
+    transform: translateX(-5px);
+    box-shadow: 0 12px 24px rgba(0, 0, 0, 15);
 }
 
 .login-container h2 {
@@ -512,6 +546,11 @@ body.neighborhood-details-page #info {
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
     border-radius: var(--border-radius);
     margin-right: 20px;
+}
+
+body.neighborhood-details-page #info:hover{
+    transform: translateX(-5px);
+    box-shadow: 0 12px 24px rgba(0, 0, 0, 15);
 }
 
 body.neighborhood-details-page #map-links-container {
