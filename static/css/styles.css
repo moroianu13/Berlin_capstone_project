@@ -587,11 +587,11 @@ body.neighborhood-details-page #rental-links {
     height: auto;
     position: relative;
     padding: 20px;
-    background-color: #e0f7fa;
-    border-radius: 12px;
+    background-color: #f8f9fa;
+    border-radius: var(--border-radius);
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
     margin-top: 20px;
-    transition: transform 0.3s ease;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
 body.neighborhood-details-page #rental-links:hover {
@@ -601,9 +601,10 @@ body.neighborhood-details-page #rental-links:hover {
 
 body.neighborhood-details-page #rental-links h2 {
     font-size: 1.5em;
-    color: #00796b;
+    color: var(--secondary-color);
     margin-bottom: 15px;
     text-align: center;
+    font-family: var(--font-family-headline);
 }
 
 body.neighborhood-details-page #rental-links ul {
@@ -618,21 +619,24 @@ body.neighborhood-details-page #rental-links ul li {
 
 body.neighborhood-details-page #rental-links ul li a {
     display: block;
-    padding: 10px;
-    background: #ffffff;
-    border-radius: 8px;
+    padding: 12px;
+    background: linear-gradient(135deg, var(--primary-color), var(--accent-color));
+    border-radius: var(--border-radius);
     text-align: center;
     text-decoration: none;
-    color: #00796b;
+    color: #fff;
     font-weight: bold;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-    transition: background 0.3s ease, box-shadow 0.3s ease;
+    font-size: 1.1em;
+    font-family: var(--font-family-body);
+    transition: background-color var(--transition-ease), box-shadow var(--transition-ease), transform var(--transition-ease);
+    box-shadow: 0 3px 8px rgba(0, 0, 0, 0.15);
 }
 
 body.neighborhood-details-page #rental-links ul li a:hover {
-    background: #00796b;
-    color: #ffffff;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
+    background: linear-gradient(135deg, var(--accent-color), #ffcc00);
+    color: #fff;
+    transform: translateY(-5px);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
 }
 
 /* Chart Container Styling */
