@@ -10,11 +10,13 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/5.1/ref/settings/
 """
 import os
+from dotenv import load_dotenv
 from pathlib import Path
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
-
+from dotenv import load_dotenv
+load_dotenv(os.path.join(BASE_DIR, '.env'))
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/5.1/howto/deployment/checklist/
@@ -80,15 +82,14 @@ WSGI_APPLICATION = 'rentfinder.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',  #Sophia !!!! 'ENGINE' : 'django.db.backends.postgresql',
-        'NAME': BASE_DIR / 'db.sqlite3',         #Sophia !!!! 'NAME': 'das_project_Berlin',
-        #'USER': 'postgres',                      #Sophia !!!! 'USER': 'postgres',
-        #'PASSWORD': '123',                       #Sophia !!!! 'PASSWORD': '123',
-        # 'HOST': 'localhost',                     #Sophia !!!! 'HOST': 'localhost',
-        #'PORT': '5432',                          #Sophia !!!! 'PORT': '5432',        dont forget to install : pip install psycopg2-binary
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': os.getenv('DB_NAME'),
+        'USER': os.getenv('DB_USER'),
+        'PASSWORD': os.getenv('DB_PASSWORD'),
+        'HOST': os.getenv('DB_HOST', 'localhost'),
+        'PORT': os.getenv('DB_PORT', '5432'),
     }
 }
-
 
 # Password validation
 # https://docs.djangoproject.com/en/5.1/ref/settings/#auth-password-validators
