@@ -3,9 +3,9 @@ from .models import Borough, Neighborhood
 
 # Custom admin class for Borough
 class BoroughAdmin(admin.ModelAdmin):
-    list_display = ('name', 'average_rent', 'latitude', 'longitude')  # Display these fields in the list view
+    list_display = ('name', 'minimum_rent', 'latitude', 'longitude')  # Display these fields in the list view
     search_fields = ('name',)  # Enable search by name
-    list_filter = ('average_rent',)  # Enable filtering by average rent
+    list_filter = ('minimum_rent',)  # Enable filtering by minimum rent
 
 # Custom admin class for Neighborhood
 class NeighborhoodAdmin(admin.ModelAdmin):

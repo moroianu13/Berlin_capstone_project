@@ -32,49 +32,44 @@
         <div id="info">
             <h1>{{ neighborhood.name }} Details</h1>
 
-            <!-- Crime Data Visualization -->
-            <h2>Crime Data</h2>
-            {% if crime_data %}
-                <p>Type: {{ crime_data.crime_type }}</p>
-                <p>Date Collected: {{ crime_data.date_collected }}</p>
+            <!-- Rent Data Visualization -->
+            <h2>Rent Data</h2>
+            {% if rent_data %}
                 <div class="chart-container">
-                    <canvas id="crimeChart"></canvas>
+                    <canvas id="rentDataChart"></canvas>
                 </div>
             {% else %}
-                <p>No crime data available.</p>
+                <p>No rent data available.</p>
             {% endif %}
 
             <!-- Demographics Visualization -->
             <h2>Demographics</h2>
-            <div class="chart-container">
-                <canvas id="demographicsChart"></canvas>
-            </div>
-
-            <!-- Age Distribution Visualization -->
-            <h2>Median Age: {{ demographics.median_age }}</h2>
-            <div class="chart-container">
-                <canvas id="ageDistributionChart"></canvas>
-            </div>
-
-            <!-- Rent Data Visualization -->
-            <h2>Rent Data</h2>
-            <div class="chart-container">
-                <canvas id="rentDataChart"></canvas>
-            </div>
+            {% if demographics %}
+                <div class="chart-container">
+                    <canvas id="demographicsChart"></canvas>
+                </div>
+                <h3>Age Distribution</h3>
+                <div class="chart-container">
+                    <canvas id="ageDistributionChart"></canvas>
+                </div>
+            {% else %}
+                <p>No demographics data available.</p>
+            {% endif %}
 
             <!-- Amenities Visualization -->
             <h2>Amenities</h2>
-            <div class="chart-container">
-                <canvas id="amenitiesChart"></canvas>
-            </div>
+            {% if amenities %}
+                <div class="chart-container">
+                    <canvas id="amenitiesChart"></canvas>
+                </div>
+            {% else %}
+                <p>No amenities data available.</p>
+            {% endif %}
         </div>
 
-        <!-- New container to hold map and rental links -->
+        <!-- Map Section -->
         <div id="map-links-container">
-            <!-- Mapbox map container -->
             <div id="neighborhood-map"></div>
-
-            <!-- Rental Links Section -->
             <div id="rental-links">
                 <h2>Find Rentals on Popular Websites</h2>
                 <ul>
@@ -132,151 +127,93 @@
             })
             .catch(error => console.error('Error fetching neighborhood data:', error));
 
-       // Helper function to round values
-function roundValue(value) {
-    return Math.round(value * 100) / 100;
-}
+        // Rent Data Visualization
+        {% if rent_data %}
+        const rentData = {
+            labels: ['Average', 'Min', 'Max'],
+            datasets: [{
+                label: 'Rent (€)',
+                data: [
+                    {{ rent_data.avg_price }},
+                    {{ rent_data.min_price }},
+                    {{ rent_data.max_price }}
+                ],
+                backgroundColor: ['#FF6384', '#36A2EB', '#FFCE56', '#4BC0C0'],
+            }]
+        };
 
-// Chart.js: Crime Data Visualization
-const crimeData = {
-    labels: ['Rate'],
-    datasets: [{
-        label: 'Crime Rate',
-        data: [roundValue({{ crime_data.crime_rate|default:"0" }})],
-        backgroundColor: ['#FF6384'],
-    }]
-};
-
-new Chart(document.getElementById('crimeChart'), {
-    type: 'bar',
-    data: crimeData,
-    options: {
-        responsive: true,
-        maintainAspectRatio: false,
-        plugins: {
-            datalabels: {
-                anchor: 'end',
-                align: 'top',
-                formatter: function(value) {
-                    return roundValue(value);
+        new Chart(document.getElementById('rentDataChart'), {
+            type: 'bar',
+            data: rentData,
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    datalabels: {
+                        anchor: 'end',
+                        align: 'top',
+                        formatter: value => `${value}€`
+                    }
                 }
             }
-        }
-    },
-    plugins: [ChartDataLabels]
-});
+        });
+        {% endif %}
 
-// Chart.js: Demographics Visualization
-const demographicsData = {
-    labels: ['Family-Friendly %', 'Foreign Residents %'],
-    datasets: [{
-        label: 'Demographics',
-        data: [
-            roundValue({{ demographics.family_friendly_percentage|default:"0" }}),
-            roundValue({{ demographics.foreign_residents_percentage|default:"0" }})
-        ],
-        backgroundColor: ['#FFCE56', '#FF6384'],
-    }]
-};
+        // Demographics Visualization
+        {% if demographics %}
+        const demographicsData = {
+            labels: ['Family-Friendly %', 'Foreign Residents %'],
+            datasets: [{
+                label: 'Demographics',
+                data: [
+                    {{ demographics.family_friendly_percentage }},
+                    {{ demographics.foreign_residents_percentage }}
+                ],
+                backgroundColor: ['#FFCE56', '#FF6384'],
+            }]
+        };
 
-new Chart(document.getElementById('demographicsChart'), {
-    type: 'bar',
-    data: demographicsData,
-    options: {
-        responsive: true,
-        maintainAspectRatio: false,
-        plugins: {
-            datalabels: {
-                display: true,
-                color: 'black',
-                anchor: 'end',
-                align: 'top',
-                formatter: function(value) {
-                  return roundValue(value) + '%';
-                }
+        new Chart(document.getElementById('demographicsChart'), {
+            type: 'bar',
+            data: demographicsData,
+            options: {
+                responsive: true,
+                maintainAspectRatio: false
             }
-        }
-    },
-    plugins: [ChartDataLabels]
-});
+        });
 
-// Chart.js: Age Distribution Visualization
-const ageDistribution = JSON.parse(`{{ age_distribution_json|safe }}`);
-const ageLabels = Object.keys(ageDistribution);
-const ageValues = Object.values(ageDistribution);
-
-new Chart(document.getElementById('ageDistributionChart'), {
-    type: 'pie',
-    data: {
-        labels: ageLabels,
-        datasets: [{
-            data: ageValues,
-            backgroundColor: ['#36A2EB', '#FFCE56', '#FF6384', '#4BC0C0'],
-        }]
-    },
-    options: {
-        responsive: true,
-        maintainAspectRatio: false
-    }
-});
-
-// Chart.js: Rent Data Visualization
-const rentData = {
-    labels: ['Average', 'Median', 'Min', 'Max'],
-    datasets: [{
-        label: 'Rent (€)',
-        data: [
-            roundValue({{ rent_data.average_rent|default:"0" }}), 
-            roundValue({{ rent_data.median_rent|default:"0" }}), 
-            roundValue({{ rent_data.min_rent|default:"0" }}), 
-            roundValue({{ rent_data.max_rent|default:"0" }})
-        ],
-        backgroundColor: ['#FF6384', '#36A2EB', '#FFCE56', '#4BC0C0'],
-    }]
-};
-
-new Chart(document.getElementById('rentDataChart'), {
-    type: 'bar',
-    data: rentData,
-    options: {
-        responsive: true,
-        maintainAspectRatio: false,
-        plugins: {
-            datalabels: {
-                anchor: 'end',
-                align: 'top',
-                formatter: function(value) {
-                    return Math.round(value) + '€';
-                }
+        const ageDistribution = JSON.parse(`{{ demographics.age_distribution|escapejs }}`);
+        new Chart(document.getElementById('ageDistributionChart'), {
+            type: 'pie',
+            data: {
+                labels: Object.keys(ageDistribution),
+                datasets: [{
+                    data: Object.values(ageDistribution),
+                    backgroundColor: ['#36A2EB', '#FFCE56', '#FF6384', '#4BC0C0']
+                }]
             }
-        }
-    },
-    plugins: [ChartDataLabels]
-});
+        });
+        {% endif %}
 
-// Chart.js: Amenities Visualization
-const amenityLabels = JSON.parse(`{{ amenities_labels|escapejs }}`);
-const amenityCounts = JSON.parse(`{{ amenities_counts|escapejs }}`);
-
-new Chart(document.getElementById('amenitiesChart'), {
-    type: 'pie',
-    data: {
-        labels: amenityLabels,
-        datasets: [{
-            data: amenityCounts,
-            backgroundColor: ['#36A2EB', '#FFCE56', '#FF6384', '#4BC0C0', '#9966FF', '#FF9F40'],
-        }]
-    },
-    options: {
-        responsive: true,
-        maintainAspectRatio: false
-    }
-});
+        // Amenities Visualization
+        {% if amenities %}
+        const amenityLabels = {{ amenities_labels|safe }};
+        const amenityCounts = {{ amenities_counts|safe }};
+        new Chart(document.getElementById('amenitiesChart'), {
+            type: 'pie',
+            data: {
+                labels: amenityLabels,
+                datasets: [{
+                    data: amenityCounts,
+                    backgroundColor: ['#36A2EB', '#FFCE56', '#FF6384', '#4BC0C0', '#9966FF', '#FF9F40']
+                }]
+            }
+        });
+        {% endif %}
     </script>
 
     <footer>
         <p>&copy; 2024 RentWise Berlin. All Rights Reserved.</p>
     </footer>
-
 </body>
 </html>

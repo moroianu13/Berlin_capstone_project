@@ -107,7 +107,7 @@
       boroughData.features.forEach(boroughFeature => {
         const matchingFeature = geojson.features.find(f => f.properties.name === boroughFeature.properties.name);
         if (matchingFeature) {
-          matchingFeature.properties.average_rent = boroughFeature.properties.average_rent;
+          matchingFeature.properties.minimum_rent = boroughFeature.properties.minimum_rent;
           matchingFeature.properties.lifestyles = boroughFeature.properties.lifestyles;
         }
       });
@@ -116,10 +116,10 @@
 
     function applyFiltersToPolygons(geojson, rent, lifestyles) {
       geojson.features.forEach(feature => {
-        const averageRent = feature.properties.average_rent;
+        const minimumRent = feature.properties.minimum_rent;
         const boroughLifestyles = feature.properties.lifestyles || [];
 
-        const rentMatch = isNaN(rent) || averageRent <= rent;
+        const rentMatch = isNaN(rent) || minimumRent <= rent;
         let lifestyleMatch = true;
         if (lifestyles.length > 0) {
           lifestyleMatch = lifestyles.every(lifestyle => boroughLifestyles.includes(lifestyle));
