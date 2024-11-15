@@ -1,25 +1,7 @@
 import json
 import os
 import logging
-from collections import Counter
-from django.conf import settings
-from django.shortcuts import render, get_object_or_404, redirect
-from django.http import JsonResponse
-from django.db.models import Q
-from .models import Borough, Neighborhood, CrimeData, Demographics, RentData, Amenity
-from .serializers import NeighborhoodSerializer, BoroughSerializer
-from rest_framework import viewsets
-from rest_framework.permissions import IsAuthenticated
-from rest_framework.response import Response
-from django.contrib import messages
-from django.contrib.auth import authenticate, login, logout
-from django.contrib.auth.forms import AuthenticationForm
-from .permissions import IsAdminOrReadOnly  # Import the custom permission
-from .forms import CustomUserCreationForm
-import json
 import yaml
-import os
-import logging
 from collections import Counter
 from django.conf import settings
 from django.shortcuts import render, get_object_or_404, redirect
@@ -33,12 +15,12 @@ from rest_framework.response import Response
 from django.contrib import messages
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.forms import AuthenticationForm
-from .permissions import IsAdminOrReadOnly  # Import the custom permission
+from .permissions import IsAdminOrReadOnly
+from .forms import CustomUserCreationForm
 from django.views.decorators.csrf import csrf_exempt
 import random
 import requests
 import wikipedia
-import logging
 from fuzzywuzzy import fuzz, process
 
 # Load YAML-based website responses
@@ -71,14 +53,14 @@ def get_wikipedia_summary(query):
         summary = wikipedia.summary(query, sentences=2)
         return summary
     except wikipedia.exceptions.DisambiguationError as e:
-        return f"Multiple results found for '{query}': {e.options[:3]}."
+        return f"Multiple results found for '{query}': {e.options[:3]}"
     except wikipedia.exceptions.PageError:
         return "Sorry, I couldn't find any relevant information on that topic."
 
 # Weather data fetching for Berlin
 def get_weather_in_berlin():
     try:
-        api_key = "f871593feda647f9813120052241610"  # Replace with your actual API key
+        api_key = "your_api_key_here"  # Replace with your actual API key
         city = "Berlin"
         url = f"http://api.weatherapi.com/v1/current.json?key={api_key}&q={city}"
         response = requests.get(url).json()
@@ -117,14 +99,14 @@ def manage_conversation_history(session_id, user_message, bot_message):
     if len(conversation_history[session_id]) > 4:
         conversation_history[session_id] = conversation_history[session_id][-4:]
 
-# Get predefined responses from YAML file (website-specific questions)
+# Get predefined responses from YAML file
 def get_website_response(user_message):
     best_match, score = process.extractOne(user_message, website_responses.keys(), scorer=fuzz.token_set_ratio)
-    if score > 70:  # Threshold for fuzzy matching
+    if score > 70:
         return website_responses[best_match]
     return None
 
-# Check for predefined responses and handle "my name is" cases
+# Check for predefined responses and handle name cases
 def get_predefined_response(user_message, session_id):
     user_message = user_message.lower()
 
@@ -145,10 +127,9 @@ def get_predefined_response(user_message, session_id):
 
     # Check in factual responses
     best_match, score = process.extractOne(user_message, factual_responses.keys(), scorer=fuzz.token_set_ratio)
-    if score > 70:  # Threshold for fuzzy matching
+    if score > 70:
         return factual_responses[best_match]
 
-    # No predefined response found
     return None
 
 # Fallback response generator
@@ -195,12 +176,12 @@ logger = logging.getLogger(__name__)
 class NeighborhoodViewSet(viewsets.ModelViewSet):
     queryset = Neighborhood.objects.all()
     serializer_class = NeighborhoodSerializer
-    permission_classes = [IsAuthenticated, IsAdminOrReadOnly]  # Restrict access to admin for modifying
+    permission_classes = [IsAuthenticated, IsAdminOrReadOnly]
 
 class BoroughViewSet(viewsets.ModelViewSet):
     queryset = Borough.objects.all()
     serializer_class = BoroughSerializer
-    permission_classes = [IsAuthenticated, IsAdminOrReadOnly]  # Restrict access to admin for modifying
+    permission_classes = [IsAuthenticated, IsAdminOrReadOnly]
 
 # Home view
 def home(request):
@@ -217,7 +198,7 @@ def borough_list(request):
     if max_rent:
         try:
             max_rent_value = float(max_rent)
-            boroughs = boroughs.filter(average_rent__lte=max_rent_value)
+            boroughs = boroughs.filter(minimum_rent__lte=max_rent_value)
         except ValueError:
             logger.warning(f"Invalid value for max_rent: {max_rent}")
 
@@ -227,7 +208,7 @@ def borough_list(request):
 
     boroughs_data = [{
         'name': borough.name,
-        'average_rent': borough.average_rent,
+        'minimum_rent': borough.minimum_rent,
         'lifestyles': list(borough.lifestyles.values_list('name', flat=True)),
         'latitude': borough.latitude,
         'longitude': borough.longitude,
@@ -249,7 +230,10 @@ def neighborhood_list(request, borough_slug):
 # Neighborhood detail view with related data
 def neighborhood_detail(request, neighborhood_id):
     neighborhood = get_object_or_404(Neighborhood, id=neighborhood_id)
-    crime_data = CrimeData.objects.filter(neighborhood=neighborhood).first()
+    borough = neighborhood.borough
+    
+    # Fetch related crime data using the related borough
+    crime_data = CrimeData.objects.filter(borough=borough).first()
     demographics = Demographics.objects.filter(neighborhood=neighborhood).first()
     rent_data = RentData.objects.filter(neighborhood=neighborhood).first()
     amenities = Amenity.objects.filter(neighborhood=neighborhood)
@@ -282,11 +266,9 @@ def neighborhood_data_api(request, borough_slug):
     except FileNotFoundError:
         return JsonResponse({"error": "GeoJSON file not found."}, status=404)
 
-    # Only retrieve neighborhoods linked to the specified borough
     neighborhoods = Neighborhood.objects.filter(borough=borough)
     neighborhood_names = neighborhoods.values_list('name', flat=True)
 
-    # Filter GeoJSON features to match only neighborhoods from the specified borough
     filtered_features = [
         feature for feature in geojson_data['features']
         if feature['properties'].get('name', '').strip().lower() in [name.strip().lower() for name in neighborhood_names]
@@ -301,7 +283,6 @@ def neighborhood_data_api(request, borough_slug):
     }
 
     return JsonResponse(filtered_geojson)
-
 
 # API view to provide borough data with GeoJSON structure
 def borough_data_api(request):
@@ -320,7 +301,7 @@ def borough_data_api(request):
             "properties": {
                 "name": borough.name,
                 "slug": borough.slug,
-                "average_rent": borough.average_rent,
+                "minimum_rent": borough.minimum_rent,
                 "lifestyles": lifestyles
             }
         }
@@ -336,7 +317,7 @@ def borough_data_api(request):
 # User registration view
 def register(request):
     if request.method == 'POST':
-        form =  CustomUserCreationForm(request.POST)
+        form = CustomUserCreationForm(request.POST)
         if form.is_valid():
             form.save()
             username = form.cleaned_data.get('username')

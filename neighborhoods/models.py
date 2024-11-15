@@ -11,12 +11,12 @@ class Lifestyle(models.Model):
 
 class Borough(models.Model):
     name = models.CharField(max_length=100, unique=True)
-    average_rent = models.FloatField()
-    lifestyles = models.ManyToManyField(Lifestyle, blank=True)  # Many-to-many relationship with Lifestyle
+    minimum_rent = models.FloatField()
     latitude = models.FloatField()
     longitude = models.FloatField()
     geometry_coordinates = models.JSONField()  # For polygon data
     slug = models.SlugField(unique=True, blank=True)  # Added slug field for URLs
+    lifestyles = models.ManyToManyField(Lifestyle, blank=True)  # Many-to-many relationship with Lifestyle
 
     def __str__(self):
         return self.name
@@ -34,14 +34,13 @@ class Borough(models.Model):
             self.slug = slugify(self.name)  # Generates a URL-safe version of the name
         super(Borough, self).save(*args, **kwargs)
 
-
 class Neighborhood(models.Model):
     name = models.CharField(max_length=100)
     borough = models.ForeignKey(Borough, on_delete=models.CASCADE)
     latitude = models.FloatField()
     longitude = models.FloatField()
     slug = models.SlugField(unique=True, blank=True, null=True)
-    
+
     def __str__(self):
         return self.name
 
@@ -60,26 +59,17 @@ class Neighborhood(models.Model):
 
 class RentData(models.Model):
     neighborhood = models.ForeignKey(Neighborhood, on_delete=models.CASCADE)
-    average_rent = models.FloatField()
-    median_rent = models.FloatField()
-    min_rent = models.FloatField()
-    max_rent = models.FloatField()
-    date_collected = models.DateField()
+    avg_price = models.FloatField()
+    min_price = models.FloatField()
+    max_price = models.FloatField()
+    avg_size = models.FloatField()
+    min_size = models.FloatField()
+    max_size = models.FloatField()
+    borough = models.ForeignKey(Borough, on_delete=models.CASCADE)
 
     def __str__(self):
-        return f'Rent Data for {self.neighborhood.name} on {self.date_collected}'
+        return f'Rent Data for {self.neighborhood.name}'
 
-# New CrimeData model for crime statistics
-class CrimeData(models.Model):
-    neighborhood = models.ForeignKey(Neighborhood, on_delete=models.CASCADE)
-    crime_rate = models.FloatField()
-    crime_type = models.CharField(max_length=50)  # e.g., theft, vandalism
-    date_collected = models.DateField()
-
-    def __str__(self):
-        return f'Crime Data for {self.neighborhood.name} on {self.date_collected}'
-
-# New Demographics model for population details
 class Demographics(models.Model):
     neighborhood = models.ForeignKey(Neighborhood, on_delete=models.CASCADE)
     family_friendly_percentage = models.FloatField()
@@ -90,7 +80,6 @@ class Demographics(models.Model):
     def __str__(self):
         return f'Demographics for {self.neighborhood.name}'
 
-# New Amenities model for various facilities in neighborhoods
 class Amenity(models.Model):
     neighborhood = models.ForeignKey(Neighborhood, on_delete=models.CASCADE)
     amenity_type = models.CharField(max_length=100)  # e.g., "School", "Park", "Hospital", "Metro Station"
@@ -107,3 +96,16 @@ class Amenity(models.Model):
             raise ValidationError({'latitude': 'Latitude must be between -90 and 90.'})
         if not (-180 <= self.longitude <= 180):
             raise ValidationError({'longitude': 'Longitude must be between -180 and 180.'})
+
+class CrimeData(models.Model):
+    borough = models.ForeignKey(Borough, on_delete=models.CASCADE)
+    total_crimes = models.IntegerField()
+    robbery = models.IntegerField()
+    total_assaults = models.IntegerField()
+    total_thefts = models.IntegerField()
+    total_residential_burglary = models.IntegerField()
+    total_arson_incidents = models.IntegerField()
+    total_vandalism = models.IntegerField()
+
+    def __str__(self):
+        return f'Crime Data for {self.borough.name}'

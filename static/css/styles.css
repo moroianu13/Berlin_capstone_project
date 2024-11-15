@@ -779,3 +779,104 @@ p {
 .chat-close:hover {
     background-color: #ff8a85;
 }
+
+/* Rent Data Visualization Styles */
+.rent-data-container {
+    background-color: #fff;
+    border-radius: var(--border-radius);
+    padding: 20px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
+    margin-bottom: 20px;
+    transition: transform var(--transition-ease), box-shadow var(--transition-ease);
+}
+
+.rent-data-container:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+}
+
+.rent-data-container h2 {
+    font-size: 1.5em;
+    color: var(--primary-color);
+    text-align: center;
+    font-family: var(--font-family-headline);
+    margin-bottom: 15px;
+}
+
+.rent-data-container p {
+    font-size: 1em;
+    color: var(--secondary-color);
+    text-align: center;
+    margin: 10px 0;
+    line-height: 1.5;
+}
+
+/* Chart Container for Rent Data */
+.rent-chart-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: rgba(0, 115, 230, 0.1); /* Light blue background for visual emphasis */
+    padding: 15px;
+    border-radius: var(--border-radius);
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
+    margin-top: 15px;
+    transition: box-shadow var(--transition-ease);
+}
+
+.rent-chart-container:hover {
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+}
+
+.rent-chart-container canvas {
+    width: 100%;
+    max-width: 600px;
+    height: auto;
+}
+
+/* Rent Data Table (Optional) */
+.rent-data-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+    background-color: #fff;
+    border: 1px solid #ddd;
+    border-radius: var(--border-radius);
+    overflow: hidden;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.rent-data-table thead {
+    background-color: var(--primary-color);
+    color: #fff;
+    font-weight: bold;
+}
+
+.rent-data-table th, .rent-data-table td {
+    text-align: center;
+    padding: 10px;
+    border: 1px solid #ddd;
+}
+
+.rent-data-table tbody tr:nth-child(odd) {
+    background-color: rgba(0, 115, 230, 0.05); /* Light blue for alternating rows */
+}
+
+.rent-data-table tbody tr:hover {
+    background-color: rgba(0, 115, 230, 0.1);
+}
+
+/* Responsive Rent Data Styles */
+@media (max-width: 768px) {
+    .rent-data-container {
+        padding: 15px;
+    }
+
+    .rent-chart-container {
+        padding: 10px;
+    }
+
+    .rent-data-table {
+        font-size: 0.9em;
+    }
+}
