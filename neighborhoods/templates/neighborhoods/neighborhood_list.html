@@ -7,8 +7,9 @@
     <meta name="viewport" content="initial-scale=1,maximum-scale=1,user-scalable=no">
     <link href="https://api.mapbox.com/mapbox-gl-js/v2.14.1/mapbox-gl.css" rel="stylesheet">
     <link rel="stylesheet" href="{% static 'css/styles.css' %}">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
-<body>
+<body class="neighborhood-details-page">
     <header>
         <div class="logo">
             <img src="{% static 'images/rentwise_logo.png' %}" alt="RentWise Berlin Logo">
@@ -23,9 +24,11 @@
         </nav>
     </header>
     {% include 'neighborhoods/chatbox.html' %}
+
     <div class="container">
+        <!-- Neighborhood List -->
         <div id="neighborhood-list">
-            <h2>{{ borough.name }} Neighborhoods</h2>
+            <h4>Neighborhoods in {{ borough.name }}</h4>
             <ul id="neighborhood-items">
                 {% for neighborhood in neighborhoods %}
                     <li data-neighborhood="{{ neighborhood.name }}">
@@ -35,83 +38,133 @@
             </ul>
         </div>
 
+        <!-- Map Section -->
         <div id="map"></div>
+
+        <!-- Charts Section -->
+        <div id="charts-container">
+            <div class="chart-container">
+                <canvas id="crimePieChart"></canvas>
+            </div>
+        </div>
     </div>
 
-    <!-- Include Mapbox GL JS -->
     <script src="https://api.mapbox.com/mapbox-gl-js/v2.14.1/mapbox-gl.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/Turf.js/6.5.0/turf.min.js"></script>
-    <script type="text/javascript">
-        const boroughSlug = "{{ borough.slug }}";  // Pass the slug to JavaScript
-    </script>
     <script>
         mapboxgl.accessToken = 'pk.eyJ1IjoibW9yb3dpbmQiLCJhIjoiY20xN3NoODc2MHEwaDJxcXhnZjBqOHZreiJ9.hE85kqOC-_iHDHTlwcMf-A';
 
-        // Initialize the map
         const map = new mapboxgl.Map({
             container: 'map',
             style: 'mapbox://styles/mapbox/streets-v11',
-            center: [13.4, 52.52],  // Center on Berlin
-            zoom: 12
+            center: [{{ borough.longitude }}, {{ borough.latitude }}],
+            zoom: 10.5
         });
 
-        map.on('load', function() {
-            fetch(`/neighborhood_data_api/${encodeURIComponent(boroughSlug)}/`)
+        // Load GeoJSON data and handle hover effects
+        map.on('load', function () {
+            fetch(`/neighborhood_data_api/{{ borough.slug }}/`)
                 .then(response => response.json())
-                .then(geojsonData => {
-                    if (geojsonData.error) {
-                        console.error(geojsonData.error);
-                        return;
-                    }
-
-                    map.addSource('neighborhoods', {
-                        'type': 'geojson',
-                        'data': geojsonData
+                .then(data => {
+                    map.addSource('borough-neighborhoods', {
+                        type: 'geojson',
+                        data: data
                     });
 
                     map.addLayer({
-                        'id': 'neighborhoods-layer',
-                        'type': 'fill',
-                        'source': 'neighborhoods',
-                        'paint': {
+                        id: 'borough-neighborhoods-layer',
+                        type: 'fill',
+                        source: 'borough-neighborhoods',
+                        paint: {
                             'fill-color': '#888888',
                             'fill-opacity': 0.5,
                             'fill-outline-color': '#000000'
                         }
                     });
 
-                    const center = turf.centroid(geojsonData).geometry.coordinates;
-                    map.flyTo({
-                        center: center,
-                        zoom: 10.5
-                    });
-
+                    // Highlight on hover
                     document.querySelectorAll('#neighborhood-items li').forEach(item => {
-                        item.addEventListener('mouseover', function() {
-                            const neighborhoodName = this.dataset.neighborhood;
-                            map.setPaintProperty('neighborhoods-layer', 'fill-color', [
+                        item.addEventListener('mouseover', function () {
+                            const neighborhoodName = this.dataset.neighborhood.trim();
+
+                            map.setPaintProperty('borough-neighborhoods-layer', 'fill-color', [
                                 'case',
                                 ['==', ['get', 'name'], neighborhoodName], '#00FF00',
                                 '#888888'
                             ]);
                         });
 
-                        item.addEventListener('mouseout', function() {
-                            map.setPaintProperty('neighborhoods-layer', 'fill-color', [
-                                'case',
-                                ['boolean', ['feature-state', 'hover'], false], '#888888',
-                                '#888888'
-                            ]);
+                        item.addEventListener('mouseout', function () {
+                            map.setPaintProperty('borough-neighborhoods-layer', 'fill-color', '#888888');
                         });
                     });
                 })
-                .catch(error => console.error('Error fetching neighborhood data:', error));
+                .catch(error => console.error('Error loading GeoJSON:', error));
+        });
+
+        // Crime Data for Charts
+        const crimeData = {
+            totalCrimes: {{ crime_data.total_crimes|default:0 }},
+            robbery: {{ crime_data.robbery|default:0 }},
+            assaults: {{ crime_data.total_assaults|default:0 }},
+            thefts: {{ crime_data.total_thefts|default:0 }},
+            residentialBurglary: {{ crime_data.total_residential_burglary|default:0 }},
+            arson: {{ crime_data.total_arson_incidents|default:0 }},
+            vandalism: {{ crime_data.total_vandalism|default:0 }},
+        };
+
+       // Calculate percentages for crime types (except Total Crimes)
+        const totalCrimes = crimeData.totalCrimes;
+        const crimePercentages = {
+            robbery: ((crimeData.robbery / totalCrimes) * 100).toFixed(1),
+            assaults: ((crimeData.assaults / totalCrimes) * 100).toFixed(1),
+            thefts: ((crimeData.thefts / totalCrimes) * 100).toFixed(1),
+            residentialBurglary: ((crimeData.residentialBurglary / totalCrimes) * 100).toFixed(1),
+            arson: ((crimeData.arson / totalCrimes) * 100).toFixed(1),
+            vandalism: ((crimeData.vandalism / totalCrimes) * 100).toFixed(1),
+        };
+
+        // Pie Chart
+        const pieChartCtx = document.getElementById('crimePieChart').getContext('2d');
+        new Chart(pieChartCtx, {
+            type: 'pie',
+            data: {
+                labels: [
+            `Robbery (${crimePercentages.robbery}%)`,
+            `Assaults (${crimePercentages.assaults}%)`,
+            `Thefts (${crimePercentages.thefts}%)`,
+            `Burglary (${crimePercentages.residentialBurglary}%)`,
+            `Arson (${crimePercentages.arson}%)`,
+            `Vandalism (${crimePercentages.vandalism}%)`,
+        ],
+                datasets: [{
+                    label: 'Crime Distribution',
+                    data: [
+                        crimeData.robbery,
+                        crimeData.assaults,
+                        crimeData.thefts,
+                        crimeData.residentialBurglary,
+                        crimeData.arson,
+                        crimeData.vandalism
+                    ],
+                    backgroundColor: [
+                        '#FF6384', '#36A2EB', '#FFCE56', '#4BC0C0', '#9966FF', '#FF9F40'
+                    ]
+                }]
+            },
+            options: {
+                responsive: true,
+                plugins: {
+                    legend: {
+                        display: true,
+                        position: 'bottom'
+                    }
+                }
+            }
         });
     </script>
 
     <footer>
         <p>&copy; 2024 RentWise Berlin. All Rights Reserved.</p>
     </footer>
-
 </body>
 </html>

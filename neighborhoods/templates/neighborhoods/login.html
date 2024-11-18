@@ -24,6 +24,13 @@
     <div class="content">
         <div class="login-container">
             <h2>Log in To Your Account</h2>
+            {% if form.errors %}
+                <ul class="error-messages">
+                    {% for error in form.non_field_errors %}
+                        <li>{{ error }}</li>
+                    {% endfor %}
+                </ul>
+            {% endif %}
             <form method="POST" class="register-form">
                 {% csrf_token %}
                 <div class="form-group">
@@ -32,7 +39,7 @@
                 </div>
                 
                 <div class="form-group">
-                    <label for="id_password1">Password</label>
+                    <label for="id_password">Password</label>
                     {{ form.password }}
                 </div>
                 
@@ -42,7 +49,7 @@
     </div>
 
     <footer>
-      <p>&copy; 2024 RentWise Berlin. All Rights Reserved.</p>
+        <p>&copy; 2024 RentWise Berlin. All Rights Reserved.</p>
     </footer>
 </body>
 </html>

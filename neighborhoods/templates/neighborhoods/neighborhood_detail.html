@@ -159,8 +159,9 @@
         });
         {% endif %}
 
-        // Demographics Visualization
-        {% if demographics %}
+        // Age Distribution Visualization
+         // Demographics Visualization
+         {% if demographics %}
         const demographicsData = {
             labels: ['Family-Friendly %', 'Foreign Residents %'],
             datasets: [{
@@ -181,35 +182,43 @@
                 maintainAspectRatio: false
             }
         });
+        {% endif %}
+        
+        {% if demographics %}
+        const ageDistribution = JSON.parse(`{{ age_distribution_json|default:'{}'|escapejs }}`);
 
-        const ageDistribution = JSON.parse(`{{ demographics.age_distribution|escapejs }}`);
-        new Chart(document.getElementById('ageDistributionChart'), {
-            type: 'pie',
-            data: {
+        if (Object.keys(ageDistribution).length > 0) {
+            new Chart(document.getElementById('ageDistributionChart'), {
+             type: 'pie',
+             data: {
                 labels: Object.keys(ageDistribution),
                 datasets: [{
                     data: Object.values(ageDistribution),
                     backgroundColor: ['#36A2EB', '#FFCE56', '#FF6384', '#4BC0C0']
-                }]
-            }
-        });
-        {% endif %}
+            }]
+        }
+    });
+}
+{% endif %}
 
         // Amenities Visualization
         {% if amenities %}
-        const amenityLabels = {{ amenities_labels|safe }};
-        const amenityCounts = {{ amenities_counts|safe }};
-        new Chart(document.getElementById('amenitiesChart'), {
-            type: 'pie',
-            data: {
-                labels: amenityLabels,
-                datasets: [{
-                    data: amenityCounts,
-                    backgroundColor: ['#36A2EB', '#FFCE56', '#FF6384', '#4BC0C0', '#9966FF', '#FF9F40']
-                }]
-            }
-        });
-        {% endif %}
+        const amenityLabels = JSON.parse(`{{ amenities_labels|default:'[]'|escapejs }}`);
+        const amenityCounts = JSON.parse(`{{ amenities_counts|default:'[]'|escapejs }}`);
+
+        if (amenityLabels.length > 0 && amenityCounts.length > 0) {
+            new Chart(document.getElementById('amenitiesChart'), {
+                type: 'pie',
+                data: {
+                    labels: amenityLabels,
+                    datasets: [{
+                        data: amenityCounts,
+                        backgroundColor: ['#36A2EB', '#FFCE56', '#FF6384', '#4BC0C0', '#9966FF', '#FF9F40']
+            }]
+        }
+    });
+}
+{% endif %}
     </script>
 
     <footer>

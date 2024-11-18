@@ -391,152 +391,129 @@ footer p {
 /* Neighborhood List Page Styles */
 .container {
     display: flex;
-    justify-content: space-between;
+    flex-direction: column; /* Stack items vertically */
+    align-items: center;
     padding: 20px;
+    gap: 20px; /* Add spacing between elements */
 }
 
 /* Neighborhood Items Sidebar */
 #neighborhood-list {
-    width: 25%;
-    padding: 20px;
+    width: 100%;
+    max-width: 900px;
     background: rgba(255, 255, 255, 0.9);
-    border-radius: 15px;
+    border-radius: var(--border-radius);
     box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
     backdrop-filter: blur(10px);
-    margin-right: 20px;
-    max-height: 60vh;
-    overflow-y: auto;
+    margin-bottom: 20px;
+    padding: 20px;
+    text-align: center;
     transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
-
 #neighborhood-list:hover {
-    transform: translateX(-5px);
-    box-shadow: 0 12px 24px rgba(0, 0, 0, 15);
+    transform: translateY(-5px);
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15);
 }
 
 #neighborhood-items {
     list-style: none;
     padding: 0;
     margin: 0;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 15px;
+    justify-content: center;
 }
 
 #neighborhood-items li {
-    margin-bottom: 12px;
-    padding: 10px;
+    padding: 10px 15px;
     border-radius: var(--border-radius);
-    transition: background var(--transition-ease), transform 0.2s ease;
-    cursor: pointer;
     background: rgba(225, 90, 95, 0.05);
+    cursor: pointer;
+    transition: transform 0.3s ease, background var(--transition-ease);
 }
 
 #neighborhood-items li:hover {
     background: rgba(255, 90, 95, 0.15);
-    transform: translateX(7px);
+    transform: translateY(-3px);
 }
 
 #neighborhood-items a {
     color: var(--primary-color);
     text-decoration: none;
-    font-weight: 600;
-    transition: color var(--transition-ease);
-    font-family: 'Roboto', sans-serif;
+    font-weight: bold;
+    font-family: var(--font-family-body);
 }
 
 #neighborhood-items a:hover {
     color: #333;
 }
 
+/* Map Styling */
 #map {
-    width: 70%;
+    width: 100%;
+    max-width: 900px;
     height: 500px;
     border-radius: var(--border-radius);
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+    margin-bottom: 20px;
+    transition: box-shadow 0.3s ease;
 }
 
-@media (max-width: 768px) {
-    .container {
-        flex-direction: column;
-    }
-
-    #neighborhood-list {
-        width: 100%;
-        margin-right: 0;
-        margin-bottom: 20px;
-    }
+#map:hover {
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
 }
 
-/* Centering the form container */
-.login-container {
-    max-width: 25%;
-    margin: 25px auto;
-    padding: 25px;
-    background-color: #fff;
+/* Charts Container */
+#charts-container {
+    display: flex;
+    flex-direction: column; /* Stack charts vertically */
+    align-items: center; /* Center charts horizontally */
+    width: 100%;
+    max-width: 900px;
+    gap: 20px; /* Add space between charts */
+}
+
+.chart-container {
+    width: 100%; /* Ensure charts take full width */
+    max-width: 800px; /* Optional maximum width for charts */
+    background: rgba(255, 255, 255, 0.95);
+    padding: 20px;
     border-radius: var(--border-radius);
-    box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.15);
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
     text-align: center;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
-.login-container:hover {
-    transform: translateX(-5px);
-    box-shadow: 0 12px 24px rgba(0, 0, 0, 15);
+.chart-container:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.25);
 }
 
-.login-container h2 {
-    margin-bottom: 20px;
-    color: #333;
+.chart-container canvas {
+    max-width: 100%;
+    height: auto;
+    border-radius: var(--border-radius);
 }
 
-.register-form {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 15px;
+/* Responsive Design */
+@media (max-width: 768px) {
+    #charts-container {
+        flex-direction: column; /* Ensure charts stack vertically on small screens */
+        align-items: center;
+    }
+
+    #neighborhood-items {
+        flex-direction: column; /* Stack neighborhood items vertically */
+        gap: 10px; /* Adjust spacing for small screens */
+    }
+
+    .chart-container {
+        width: 100%; /* Make charts take full width on smaller screens */
+    }
 }
 
-.form-group {
-    width: 100%;
-    display: flex;
-    flex-direction: column;
-    text-align: center;
-}
-
-.form-group label {
-    font-weight: bold;
-    margin-bottom: 5px;
-}
-
-.form-group input {
-    width: 100%;
-    padding: 10px;
-    font-size: 16px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-    box-sizing: border-box;
-}
-
-.submit-button {
-    padding: 12px 25px;
-    background-color: var(--secondary-color);
-    color: white;
-    border: none;
-    border-radius: 5px;
-    font-weight: bold;
-    cursor: pointer;
-    transition: background-color var(--transition-ease);
-}
-
-.submit-button:hover {
-    background-color: #45a049;
-}
-
-/* Form styling */
-.login-container h2 {
-    text-align: center;
-    color: #333;
-    font-size: 24px;
-    margin-bottom: 20px;
-}
 
 /* Neighborhood Details Page Styles */
 body.neighborhood-details-page #info {
@@ -780,103 +757,115 @@ p {
     background-color: #ff8a85;
 }
 
-/* Rent Data Visualization Styles */
-.rent-data-container {
-    background-color: #fff;
+/* Chart Container Styling */
+.chart-container {
+    background: linear-gradient(135deg, var(--gradient-light-blue), var(--gradient-white));
     border-radius: var(--border-radius);
-    padding: 20px;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
+    padding: 25px;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+    margin-bottom: 30px;
+    transition: box-shadow var(--transition-ease), transform var(--transition-ease);
+    text-align: center;
+    max-width: 800px;
+    margin-left: auto;
+    margin-right: auto; /* Centers the chart container */
+}
+
+.chart-container:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 12px 30px rgba(0, 0, 0, 0.25);
+}
+
+/* Chart Titles */
+.chart-container h3 {
+    font-size: 1.8em;
+    color: var(--primary-color);
+    font-family: var(--font-family-headline);
     margin-bottom: 20px;
+    text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+/* Chart Canvas */
+.chart-container canvas {
+    max-width: 100%;
+    height: auto;
+    border-radius: var(--border-radius);
+    border: 2px solid rgba(0, 0, 0, 0.1);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    background-color: rgba(255, 255, 255, 0.95);
+    padding: 10px;
+}
+
+/* Tooltip Styling (Chart.js Default) */
+.chartjs-tooltip {
+    background-color: rgba(0, 0, 0, 0.8);
+    color: white;
+    border-radius: var(--border-radius);
+    font-family: var(--font-family-body);
+    font-size: 14px;
+    padding: 10px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.25);
+    transition: opacity 0.3s ease-in-out, transform 0.2s ease;
+}
+
+/* Tooltip Fade Effect */
+.chartjs-tooltip:hover {
+    transform: scale(1.05);
+    opacity: 0.95;
+}
+
+/* Legend Styling */
+.chart-legend {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 15px;
+    padding-top: 20px;
+    font-family: var(--font-family-body);
+    font-size: 14px;
+    color: var(--secondary-color);
+}
+
+.chart-legend span {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.chart-legend span::before {
+    content: '';
+    display: inline-block;
+    width: 15px;
+    height: 15px;
+    border-radius: 50%;
+    background-color: var(--highlight-color);
+    box-shadow: 0 3px 6px rgba(0, 0, 0, 0.2);
     transition: transform var(--transition-ease), box-shadow var(--transition-ease);
 }
 
-.rent-data-container:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+.chart-legend span:hover::before {
+    transform: scale(1.2);
+    box-shadow: 0 5px 12px rgba(0, 0, 0, 0.3);
 }
 
-.rent-data-container h2 {
-    font-size: 1.5em;
-    color: var(--primary-color);
-    text-align: center;
-    font-family: var(--font-family-headline);
-    margin-bottom: 15px;
-}
-
-.rent-data-container p {
-    font-size: 1em;
-    color: var(--secondary-color);
-    text-align: center;
-    margin: 10px 0;
-    line-height: 1.5;
-}
-
-/* Chart Container for Rent Data */
-.rent-chart-container {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    background-color: rgba(0, 115, 230, 0.1); /* Light blue background for visual emphasis */
-    padding: 15px;
-    border-radius: var(--border-radius);
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
-    margin-top: 15px;
-    transition: box-shadow var(--transition-ease);
-}
-
-.rent-chart-container:hover {
-    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
-}
-
-.rent-chart-container canvas {
-    width: 100%;
-    max-width: 600px;
-    height: auto;
-}
-
-/* Rent Data Table (Optional) */
-.rent-data-table {
-    width: 100%;
-    border-collapse: collapse;
-    margin-top: 20px;
-    background-color: #fff;
-    border: 1px solid #ddd;
-    border-radius: var(--border-radius);
-    overflow: hidden;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-}
-
-.rent-data-table thead {
-    background-color: var(--primary-color);
-    color: #fff;
-    font-weight: bold;
-}
-
-.rent-data-table th, .rent-data-table td {
-    text-align: center;
-    padding: 10px;
-    border: 1px solid #ddd;
-}
-
-.rent-data-table tbody tr:nth-child(odd) {
-    background-color: rgba(0, 115, 230, 0.05); /* Light blue for alternating rows */
-}
-
-.rent-data-table tbody tr:hover {
-    background-color: rgba(0, 115, 230, 0.1);
-}
-
-/* Responsive Rent Data Styles */
+/* Responsive Chart Adjustments */
 @media (max-width: 768px) {
-    .rent-data-container {
-        padding: 15px;
+    .chart-container {
+        padding: 20px;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
     }
 
-    .rent-chart-container {
-        padding: 10px;
+    .chart-container h3 {
+        font-size: 1.5em;
     }
 
-    .rent-data-table {
-        font-size: 0.9em;
+    .chart-legend {
+        font-size: 12px;
+        gap: 10px;
+    }
+
+    .chart-legend span::before {
+        width: 12px;
+        height: 12px;
     }
 }

@@ -5,6 +5,6 @@ __pycache__/
 # Virtual environment
 myenv/
 env/
-
+venv/
 # Credentials
 .env
