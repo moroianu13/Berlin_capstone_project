@@ -6,7 +6,7 @@ from collections import Counter
 from django.conf import settings
 from django.shortcuts import render, get_object_or_404, redirect
 from django.http import JsonResponse
-from django.db.models import Q
+from django.db.models import Q ,Sum
 from .models import Borough, Neighborhood, CrimeData, Demographics, RentData, Amenity
 from .serializers import NeighborhoodSerializer, BoroughSerializer
 from rest_framework import viewsets
@@ -22,6 +22,8 @@ import random
 import requests
 import wikipedia
 from fuzzywuzzy import fuzz, process
+
+
 
 # Load YAML-based website responses
 def load_website_responses():
@@ -60,7 +62,7 @@ def get_wikipedia_summary(query):
 # Weather data fetching for Berlin
 def get_weather_in_berlin():
     try:
-        api_key = "your_api_key_here"  # Replace with your actual API key
+        api_key = "f871593feda647f9813120052241610"  # Replace with your actual API key
         city = "Berlin"
         url = f"http://api.weatherapi.com/v1/current.json?key={api_key}&q={city}"
         response = requests.get(url).json()
@@ -221,39 +223,54 @@ def borough_list(request):
 def neighborhood_list(request, borough_slug):
     borough = get_object_or_404(Borough, slug=borough_slug)
     neighborhoods = Neighborhood.objects.filter(borough=borough)
+    
+ # Aggregate crime data for the entire borough
+    crime_data = CrimeData.objects.filter(borough=borough).aggregate(
+        total_crimes=Sum('total_crimes'),
+        total_robbery=Sum('robbery'),
+        total_assaults=Sum('total_assaults'),
+        total_thefts=Sum('total_thefts'),
+        total_residential_burglary=Sum('total_residential_burglary'),
+        total_arson_incidents=Sum('total_arson_incidents'),
+        total_vandalism=Sum('total_vandalism'),
+    )
 
-    return render(request, 'neighborhoods/neighborhood_list.html', {
+    context = {
         'borough': borough,
-        'neighborhoods': neighborhoods
-    })
+        'neighborhoods': neighborhoods,
+        'crime_data': crime_data,
+    }
+
+    return render(request, 'neighborhoods/neighborhood_list.html', context)
 
 # Neighborhood detail view with related data
 def neighborhood_detail(request, neighborhood_id):
     neighborhood = get_object_or_404(Neighborhood, id=neighborhood_id)
     borough = neighborhood.borough
-    
-    # Fetch related crime data using the related borough
-    crime_data = CrimeData.objects.filter(borough=borough).first()
+
+    # Related data
     demographics = Demographics.objects.filter(neighborhood=neighborhood).first()
     rent_data = RentData.objects.filter(neighborhood=neighborhood).first()
     amenities = Amenity.objects.filter(neighborhood=neighborhood)
 
+    # Group amenities
     amenities_grouped = Counter([a.amenity_type for a in amenities])
     amenities_labels = list(amenities_grouped.keys())
     amenities_counts = list(amenities_grouped.values())
 
+    # Context
     context = {
         'neighborhood': neighborhood,
-        'crime_data': crime_data,
         'demographics': demographics,
         'rent_data': rent_data,
         'amenities': amenities,
-        'amenities_labels': json.dumps(amenities_labels),
-        'amenities_counts': json.dumps(amenities_counts),
-        'age_distribution_json': json.dumps(demographics.age_distribution if demographics else {}),
+        'amenities_labels': json.dumps(amenities_labels or []),  # Ensure empty array if no data
+        'amenities_counts': json.dumps(amenities_counts or []),  # Ensure empty array if no data
+        'age_distribution_json': json.dumps(demographics.age_distribution if demographics and demographics.age_distribution else {}),
     }
 
     return render(request, 'neighborhoods/neighborhood_detail.html', context)
+
 
 # API view to provide neighborhood data as GeoJSON
 def neighborhood_data_api(request, borough_slug):
