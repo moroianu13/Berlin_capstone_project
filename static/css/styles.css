@@ -391,10 +391,8 @@ footer p {
 /* Neighborhood List Page Styles */
 .container {
     display: flex;
-    flex-direction: column; /* Stack items vertically */
-    align-items: center;
+    justify-content: space-between;
     padding: 20px;
-    gap: 20px; /* Add spacing between elements */
 }
 
 /* Neighborhood Items Sidebar */
