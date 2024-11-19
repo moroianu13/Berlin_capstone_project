@@ -7,7 +7,7 @@ from django.conf import settings
 from django.shortcuts import render, get_object_or_404, redirect
 from django.http import JsonResponse
 from django.db.models import Q ,Sum
-from .models import Borough, Neighborhood, CrimeData, Demographics, RentData, Amenity
+from .models import Borough, Neighborhood, CrimeData, Demographics, RentData, Park, Hospital, School, Nightlife
 from .serializers import NeighborhoodSerializer, BoroughSerializer
 from rest_framework import viewsets
 from rest_framework.permissions import IsAuthenticated
@@ -22,8 +22,6 @@ import random
 import requests
 import wikipedia
 from fuzzywuzzy import fuzz, process
-
-
 
 # Load YAML-based website responses
 def load_website_responses():

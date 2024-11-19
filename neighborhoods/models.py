@@ -71,36 +71,48 @@ class RentData(models.Model):
         return f'Rent Data for {self.neighborhood.name}'
 
 class Demographics(models.Model):
+    borough = models.ForeignKey(Borough, on_delete=models.CASCADE)
     neighborhood = models.ForeignKey(Neighborhood, on_delete=models.CASCADE)
-    family_friendly_percentage = models.FloatField()
-    foreign_residents_percentage = models.FloatField()
-    median_income = models.FloatField()
-    age_distribution = models.JSONField()  # e.g., {"0-18": 20, "19-35": 30, "36-60": 25, "60+": 25}
+    total = models.IntegerField()
+    germans = models.IntegerField()
+    foreigners = models.IntegerField()
+    under_6 = models.IntegerField()
+    six_to_15 = models.IntegerField()
+    fifteen_to_18 = models.IntegerField()
+    eighteen_to_27 = models.IntegerField()
+    twenty_seven_to_45 = models.IntegerField()
+    forty_five_to_55 = models.IntegerField()
+    fifty_five_and_more = models.IntegerField()
+    eu = models.IntegerField()
+    france = models.IntegerField()
+    italy = models.IntegerField()
+    spain = models.IntegerField()
+    poland = models.IntegerField()
+    greece = models.IntegerField()
+    austria = models.IntegerField()
+    romania = models.IntegerField()
+    united_kingdom = models.IntegerField()
+    former_yougoslavia = models.IntegerField()
+    former_soviet_union = models.IntegerField()
+    russia = models.IntegerField()
+    ukraine = models.IntegerField()
+    islamic_countries = models.IntegerField()
+    turkey = models.IntegerField()
+    iran = models.IntegerField()
+    arab_countries_inc_syria = models.IntegerField()
+    lebanon = models.IntegerField()
+    syria = models.IntegerField()
+    vietnam = models.IntegerField()
+    usa = models.IntegerField()
+    not_clearly_assignable = models.IntegerField()
 
     def __str__(self):
         return f'Demographics for {self.neighborhood.name}'
-
-class Amenity(models.Model):
-    neighborhood = models.ForeignKey(Neighborhood, on_delete=models.CASCADE)
-    amenity_type = models.CharField(max_length=100)  # e.g., "School", "Park", "Hospital", "Metro Station"
-    count = models.IntegerField(default=0)
-    name = models.CharField(max_length=100)
-    latitude = models.FloatField()
-    longitude = models.FloatField()
-
-    def __str__(self):
-        return f'{self.amenity_type} - {self.name} in {self.neighborhood.name}'
-
-    def clean(self):
-        if not (-90 <= self.latitude <= 90):
-            raise ValidationError({'latitude': 'Latitude must be between -90 and 90.'})
-        if not (-180 <= self.longitude <= 180):
-            raise ValidationError({'longitude': 'Longitude must be between -180 and 180.'})
-
+    
 class CrimeData(models.Model):
     borough = models.ForeignKey(Borough, on_delete=models.CASCADE)
     total_crimes = models.IntegerField()
-    robbery = models.IntegerField()
+    roberry = models.IntegerField()
     total_assaults = models.IntegerField()
     total_thefts = models.IntegerField()
     total_residential_burglary = models.IntegerField()
@@ -109,36 +121,3 @@ class CrimeData(models.Model):
 
     def __str__(self):
         return f'Crime Data for {self.borough.name}'
-
-    def calculate_percentage(self, count):
-        """
-        Calculate the percentage of a specific crime type relative to total crimes.
-        If total_crimes is zero, return 0.0%.
-        """
-        if self.total_crimes > 0:
-            return round((count / self.total_crimes) * 100, 1)
-        return 0.0
-
-    @property
-    def robbery_percentage(self):
-        return self.calculate_percentage(self.robbery)
-
-    @property
-    def assaults_percentage(self):
-        return self.calculate_percentage(self.total_assaults)
-
-    @property
-    def thefts_percentage(self):
-        return self.calculate_percentage(self.total_thefts)
-
-    @property
-    def burglary_percentage(self):
-        return self.calculate_percentage(self.total_residential_burglary)
-
-    @property
-    def arson_percentage(self):
-        return self.calculate_percentage(self.total_arson_incidents)
-
-    @property
-    def vandalism_percentage(self):
-        return self.calculate_percentage(self.total_vandalism)
