@@ -220,11 +220,13 @@ def borough_list(request):
     return render(request, 'neighborhoods/borough_list.html', {'boroughs': boroughs_data})
 
 # View to display neighborhoods within a selected borough
+from django.db.models import F, FloatField
+
 def neighborhood_list(request, borough_slug):
     borough = get_object_or_404(Borough, slug=borough_slug)
     neighborhoods = Neighborhood.objects.filter(borough=borough)
     
- # Aggregate crime data for the entire borough
+    # Aggregate crime data for the entire borough
     crime_data = CrimeData.objects.filter(borough=borough).aggregate(
         total_crimes=Sum('total_crimes'),
         total_robbery=Sum('robbery'),
@@ -234,14 +236,39 @@ def neighborhood_list(request, borough_slug):
         total_arson_incidents=Sum('total_arson_incidents'),
         total_vandalism=Sum('total_vandalism'),
     )
+    
+    total_crimes = crime_data.get('total_crimes') or 0  # Avoid division by zero
+    
+    # Calculate percentages for each crime type
+    crime_percentages = {}
+    if total_crimes > 0:
+        crime_percentages = {
+            'robbery': round((crime_data.get('total_robbery', 0) / total_crimes) * 100, 1),
+            'assaults': round((crime_data.get('total_assaults', 0) / total_crimes) * 100, 1),
+            'thefts': round((crime_data.get('total_thefts', 0) / total_crimes) * 100, 1),
+            'burglary': round((crime_data.get('total_residential_burglary', 0) / total_crimes) * 100, 1),
+            'arson': round((crime_data.get('total_arson_incidents', 0) / total_crimes) * 100, 1),
+            'vandalism': round((crime_data.get('total_vandalism', 0) / total_crimes) * 100, 1),
+        }
+    else:
+        crime_percentages = {
+            'robbery': 0.0,
+            'assaults': 0.0,
+            'thefts': 0.0,
+            'burglary': 0.0,
+            'arson': 0.0,
+            'vandalism': 0.0,
+        }
 
     context = {
         'borough': borough,
         'neighborhoods': neighborhoods,
         'crime_data': crime_data,
+        'crime_percentages': crime_percentages,
     }
 
     return render(request, 'neighborhoods/neighborhood_list.html', context)
+
 
 # Neighborhood detail view with related data
 def neighborhood_detail(request, neighborhood_id):
