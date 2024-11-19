@@ -11,6 +11,7 @@
     <header>
         <div class="logo">
             <img src="{% static 'images/rentwise_logo.png' %}" alt="RentWise Berlin Logo">
+
         </div>
         <nav>
             <ul>
@@ -20,36 +21,25 @@
             </ul>
         </nav>
     </header>
-
     <div class="content">
         <div class="login-container">
             <h2>Log in To Your Account</h2>
-            {% if form.errors %}
-                <ul class="error-messages">
-                    {% for error in form.non_field_errors %}
-                        <li>{{ error }}</li>
-                    {% endfor %}
-                </ul>
-            {% endif %}
             <form method="POST" class="register-form">
                 {% csrf_token %}
                 <div class="form-group">
                     <label for="id_username">Username</label>
                     {{ form.username }}
                 </div>
-                
                 <div class="form-group">
-                    <label for="id_password">Password</label>
+                    <label for="id_password1">Password</label>
                     {{ form.password }}
                 </div>
-                
                 <button type="submit" class="body-button">Login</button>
             </form>
         </div>
     </div>
-
     <footer>
-        <p>&copy; 2024 RentWise Berlin. All Rights Reserved.</p>
+      <p>&copy; 2024 RentWise Berlin. All Rights Reserved.</p>
     </footer>
 </body>
 </html>
