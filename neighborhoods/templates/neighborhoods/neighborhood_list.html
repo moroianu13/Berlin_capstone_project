@@ -6,7 +6,8 @@
     <title>{{ borough.name }} Neighborhoods</title>
     <meta name="viewport" content="initial-scale=1,maximum-scale=1,user-scalable=no">
     <link href="https://api.mapbox.com/mapbox-gl-js/v2.14.1/mapbox-gl.css" rel="stylesheet">
-    <link rel="stylesheet" href="{% static 'css/styles.css' %}">
+    <link rel="stylesheet" href="{% static 'css/general_and_home.css' %}">
+    <link rel="stylesheet" href="{% static 'css/neighborhood_list.css' %}">
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
 <body class="neighborhood-details-page">
@@ -102,33 +103,33 @@
         });
 
         // Crime Data for Charts
-        const crimeData = {
-            totalCrimes: {{ crime_data.total_crimes|default:0 }},
-            robbery: {{ crime_data.robbery|default:0 }},
-            assaults: {{ crime_data.total_assaults|default:0 }},
-            thefts: {{ crime_data.total_thefts|default:0 }},
-            residentialBurglary: {{ crime_data.total_residential_burglary|default:0 }},
-            arson: {{ crime_data.total_arson_incidents|default:0 }},
-            vandalism: {{ crime_data.total_vandalism|default:0 }},
-        };
+const crimeData = {
+    totalCrimes: {{ crime_data.total_crimes|default:0 }},
+    robbery: {{ crime_data.robbery|default:0 }},
+    assaults: {{ crime_data.total_assaults|default:0 }},
+    thefts: {{ crime_data.total_thefts|default:0 }},
+    residentialBurglary: {{ crime_data.total_residential_burglary|default:0 }},
+    arson: {{ crime_data.total_arson_incidents|default:0 }},
+    vandalism: {{ crime_data.total_vandalism|default:0 }},
+};
 
-       // Calculate percentages for crime types (except Total Crimes)
-        const totalCrimes = crimeData.totalCrimes;
-        const crimePercentages = {
-            robbery: ((crimeData.robbery / totalCrimes) * 100).toFixed(1),
-            assaults: ((crimeData.assaults / totalCrimes) * 100).toFixed(1),
-            thefts: ((crimeData.thefts / totalCrimes) * 100).toFixed(1),
-            residentialBurglary: ((crimeData.residentialBurglary / totalCrimes) * 100).toFixed(1),
-            arson: ((crimeData.arson / totalCrimes) * 100).toFixed(1),
-            vandalism: ((crimeData.vandalism / totalCrimes) * 100).toFixed(1),
-        };
+// Calculate percentages for crime types (ensure no division by zero)
+const totalCrimes = crimeData.totalCrimes || 1; // Use 1 as a fallback to avoid division by zero
+const crimePercentages = {
+    robbery: ((crimeData.robbery / totalCrimes) * 100).toFixed(1),
+    assaults: ((crimeData.assaults / totalCrimes) * 100).toFixed(1),
+    thefts: ((crimeData.thefts / totalCrimes) * 100).toFixed(1),
+    residentialBurglary: ((crimeData.residentialBurglary / totalCrimes) * 100).toFixed(1),
+    arson: ((crimeData.arson / totalCrimes) * 100).toFixed(1),
+    vandalism: ((crimeData.vandalism / totalCrimes) * 100).toFixed(1),
+};
 
-        // Pie Chart
-        const pieChartCtx = document.getElementById('crimePieChart').getContext('2d');
-        new Chart(pieChartCtx, {
-            type: 'pie',
-            data: {
-                labels: [
+// Pie Chart
+const pieChartCtx = document.getElementById('crimePieChart').getContext('2d');
+new Chart(pieChartCtx, {
+    type: 'pie',
+    data: {
+        labels: [
             `Robbery (${crimePercentages.robbery}%)`,
             `Assaults (${crimePercentages.assaults}%)`,
             `Thefts (${crimePercentages.thefts}%)`,
@@ -136,31 +137,32 @@
             `Arson (${crimePercentages.arson}%)`,
             `Vandalism (${crimePercentages.vandalism}%)`,
         ],
-                datasets: [{
-                    label: 'Crime Distribution',
-                    data: [
-                        crimeData.robbery,
-                        crimeData.assaults,
-                        crimeData.thefts,
-                        crimeData.residentialBurglary,
-                        crimeData.arson,
-                        crimeData.vandalism
-                    ],
-                    backgroundColor: [
-                        '#FF6384', '#36A2EB', '#FFCE56', '#4BC0C0', '#9966FF', '#FF9F40'
-                    ]
-                }]
-            },
-            options: {
-                responsive: true,
-                plugins: {
-                    legend: {
-                        display: true,
-                        position: 'bottom'
-                    }
-                }
+        datasets: [{
+            label: 'Crime Distribution',
+            data: [
+                crimeData.robbery,
+                crimeData.assaults,
+                crimeData.thefts,
+                crimeData.residentialBurglary,
+                crimeData.arson,
+                crimeData.vandalism
+            ],
+            backgroundColor: [
+                '#FF6384', '#36A2EB', '#FFCE56', '#4BC0C0', '#9966FF', '#FF9F40'
+            ]
+        }]
+    },
+    options: {
+        responsive: true,
+        plugins: {
+            legend: {
+                display: true,
+                position: 'bottom'
             }
-        });
+        }
+    }
+});
+
     </script>
 
     <footer>
