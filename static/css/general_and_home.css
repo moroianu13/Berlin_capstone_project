@@ -1,3 +1,4 @@
+
 /* Global Styles */
 :root {
     --primary-color: #3e5060; /* Inspired by Berlin's urban architecture */
@@ -261,6 +262,77 @@ nav ul li a:hover {
     color: #555;
 }
 
+
+/* Introduction Section */
+.introduction-section {
+    padding: 60px 20px;
+    background: linear-gradient(135deg, #7a3e48, #1a6ca8); /* Red to Blue Gradient */
+    border-radius: var(--border-radius);
+    color: white; /* Set text to white for better contrast */
+    line-height: 1.8;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3); /* Slightly darker shadow */
+}
+
+
+.introduction-section h1 {
+    font-family: var(--font-family-headline);
+    font-size: 3em;
+    color: #ffd700; /* Gold to represent Berlin's prestige */
+    margin-bottom: 30px;
+    text-align: center;
+    text-shadow: 2px 2px 6px rgba(0, 0, 0, 0.7);
+}
+
+.introduction-section ul {
+    list-style: none;
+    margin: 0 auto;
+    padding: 0;
+    max-width: 1200px;
+}
+
+.introduction-section ul li {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 20px;
+    margin-bottom: 40px;
+    background: var(--background-color);
+    padding: 20px;
+    border-radius: var(--border-radius);
+    border-left: 8px solid var(--accent-color);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    font-size: 1.3em;
+    color: #ff6f61;
+    text-shadow: 1px 1px 4px rgba(0, 0, 0, 0.3);
+}
+
+.introduction-section ul li:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+}
+
+.introduction-section ul li img {
+    max-width: 30%;
+    border-radius: var(--border-radius);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.introduction-section ul li strong {
+    font-size: 1.2em;
+    color: var(--accent-color);
+    font-family: var(--font-family-headline);
+}
+
+.introduction-section ul li p {
+    flex: 1;
+    text-align: justify;
+    font-size: 1.1em;
+    margin: 0;
+    color: white;
+}
+
+
 footer {
     text-align: center;
     padding: 20px;
@@ -274,6 +346,55 @@ footer {
     bottom: 0;
     width: 100%;
     height: 200px; /* Adjust this based on your preference */
+    border-top: 5px solid var(--accent-color);}
+
+
+    .content {
+        display: flex;                    /* Use Flexbox to easily align items */
+        justify-content: center;          /* Center horizontally */
+        align-items: center;              /* Center vertically */
+        height: 100vh;                    /* Use the full height of the viewport */
+        padding: 20px;                    /* Add padding to ensure there's some space around the content */
+    }
+    .login-container {
+        background-color: white;          /* Set a white background for the form */
+        padding: 40px;                    /* Add padding inside the form */
+        border-radius: var(--border-radius); /* Rounded corners based on the variable */
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1); /* Add a subtle shadow around the form */
+        width: 100%;                      /* Make the form take up 100% width of the parent container */
+        max-width: 400px;                 /* Limit the form's width to 400px for better readability */
+        text-align: center;               /* Center the text inside the form */
+    }
+    h2 {
+        margin-bottom: 20px;               /* Add space below the heading */
+        color: var(--primary-color);       /* Use the primary color for the heading */
+        font-size: 1.8em;                  /* Set the font size to make the heading larger */
+    }
+    .form-group {
+        margin-bottom: 20px;               /* Add space between form groups */
+        text-align: left;                  /* Align labels and inputs to the left */
+    }
+    .form-group label {
+        display: block;                    /* Make labels block elements to stack them above the inputs */
+        font-size: 1em;                     /* Set the font size for labels */
+        color: var(--secondary-color);      /* Use the secondary color for labels */
+    }
+    input {
+        width: 100%;                       /* Make input fields take up the full width of the container */
+        padding: 10px;                     /* Add padding for better readability and interaction */
+        margin-top: 5px;                   /* Add a small margin above the input fields */
+        border: 1px solid #ddd;            /* Set a light border for input fields */
+        border-radius: 5px;                /* Round the corners of input fields */
+    }
+    .error-messages {
+        color: red;                        /* Set error message color to red */
+        list-style: none;                  /* Remove bullet points from the error list */
+        margin-bottom: 20px;               /* Add space below the error messages */
+        padding-left: 0;                   /* Remove left padding */
+    }
+    .error-messages li {
+        margin: 5px 0;                     /* Add space between individual error messages */
+    }
     border-top: 5px solid var(--accent-color);
 }
 
