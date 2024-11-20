@@ -270,26 +270,39 @@ def neighborhood_list(request, borough_slug):
 
 
 # Neighborhood detail view with related data
+# Neighborhood detail view with related data
+# Neighborhood detail view with related data
 def neighborhood_detail(request, neighborhood_id):
     # Fetch the neighborhood and borough data
     neighborhood = get_object_or_404(Neighborhood, id=neighborhood_id)
     borough = neighborhood.borough
 
     # Related data - fetching demographics and rent data for the neighborhood
-    demographics = demographics.objects.filter(neighborhood=neighborhood).first()
+    demographics = Demographics.objects.filter(neighborhood=neighborhood).first()
     rent_data = RentData.objects.filter(neighborhood=neighborhood).first()
 
-    # Create a dictionary for age distribution based on updated fields
+    # Create dictionaries for ethnic distribution and age distribution
+    ethnic_distribution = {}
     age_distribution = {}
+
     if demographics:
+        # Update ethnic distribution based on actual fields in demographics model
+        ethnic_distribution = {
+            'germans': getattr(demographics, 'germans', 0),  # Replace with correct field names
+            'turkey': getattr(demographics, 'turkey', 0),  # Replace with correct field names
+            'poland': getattr(demographics, 'poland', 0),  # Replace with correct field names
+            'other_percentage': getattr(demographics, 'other_percentage', 0)  # Replace with correct field names
+        }
+
+        # Update age distribution fields
         age_distribution = {
-            'under_6': demographics.under_6,
-            'six_to_15': demographics.six_to_15,
-            'fifteen_to_18': demographics.fifteen_to_18,
-            'eighteen_to_27': demographics.eighteen_to_27,
-            'twenty_seven_to_45': demographics.twenty_seven_to_45,
-            'forty_five_to_55': demographics.forty_five_to_55,
-            'fifty_five_and_more': demographics.fifty_five_and_more,
+            'under_6': getattr(demographics, 'under_6', 0),
+            'six_to_15': getattr(demographics, 'six_to_15', 0),
+            'fifteen_to_18': getattr(demographics, 'fifteen_to_18', 0),
+            'eighteen_to_27': getattr(demographics, 'eighteen_to_27', 0),
+            'twenty_seven_to_45': getattr(demographics, 'twenty_seven_to_45', 0),
+            'forty_five_to_55': getattr(demographics, 'forty_five_to_55', 0),
+            'fifty_five_and_more': getattr(demographics, 'fifty_five_and_more', 0)
         }
 
     # Context dictionary to pass data to the template
@@ -298,10 +311,12 @@ def neighborhood_detail(request, neighborhood_id):
         'borough': borough,
         'demographics': demographics,
         'rent_data': rent_data,
-        'age_distribution_json': json.dumps(age_distribution),  # This will now contain the updated age data
+        'ethnic_distribution_json': json.dumps(ethnic_distribution),  # JSON format for ethnic distribution
+        'age_distribution_json': json.dumps(age_distribution),        # JSON format for age distribution
     }
 
     return render(request, 'neighborhoods/neighborhood_detail.html', context)
+
 
 
 
