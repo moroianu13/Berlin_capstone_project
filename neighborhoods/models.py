@@ -69,6 +69,19 @@ class RentData(models.Model):
 
     def __str__(self):
         return f'Rent Data for {self.neighborhood.name}'
+    
+class CrimeData(models.Model):
+    borough = models.ForeignKey(Borough, on_delete=models.CASCADE)
+    total_crimes = models.IntegerField()
+    robbery = models.IntegerField()
+    total_assaults = models.IntegerField()
+    total_thefts = models.IntegerField()
+    total_residential_burglary = models.IntegerField()
+    total_arson_incidents = models.IntegerField()
+    total_vandalism = models.IntegerField()
+
+    def __str__(self):
+        return f'Crime Data for {self.borough.name}'
 
 class Demographics(models.Model):
     borough = models.ForeignKey(Borough, on_delete=models.CASCADE)
@@ -109,15 +122,37 @@ class Demographics(models.Model):
     def __str__(self):
         return f'Demographics for {self.neighborhood.name}'
     
-class CrimeData(models.Model):
+class Park(models.Model):
     borough = models.ForeignKey(Borough, on_delete=models.CASCADE)
-    total_crimes = models.IntegerField()
-    roberry = models.IntegerField()
-    total_assaults = models.IntegerField()
-    total_thefts = models.IntegerField()
-    total_residential_burglary = models.IntegerField()
-    total_arson_incidents = models.IntegerField()
-    total_vandalism = models.IntegerField()
-
+    neighborhood = models.ForeignKey(Neighborhood, on_delete=models.CASCADE)
+    size = models.CharField(max_length=100)
+    name = models.CharField(max_length=100)
+    
     def __str__(self):
-        return f'Crime Data for {self.borough.name}'
+        return f'Parks in {self.neighborhood.name}'
+    
+class Hospital(models.Model):
+    borough = models.ForeignKey(Borough, on_delete=models.CASCADE)
+    neighborhood = models.ForeignKey(Neighborhood, on_delete=models.CASCADE)
+    type = models.CharField(max_length=100)
+    name = models.CharField(max_length=100)
+    
+    def __str__(self):
+        return f'Hospitals in {self.neighborhood.name}'
+    
+class School(models.Model):
+    borough = models.ForeignKey(Borough, on_delete=models.CASCADE)
+    neighborhood = models.ForeignKey(Neighborhood, on_delete=models.CASCADE)
+    type = models.CharField(max_length=100)
+    name = models.CharField(max_length=100)
+    
+    def __str__(self):
+        return f'Schools in {self.neighborhood.name}'
+    
+class Nightlife(models.Model):
+    borough = models.ForeignKey(Borough, on_delete=models.CASCADE)
+    neighborhood = models.ForeignKey(Neighborhood, on_delete=models.CASCADE)
+    name = models.CharField(max_length=100)
+    
+    def __str__(self):
+        return f'Night Life in {self.neighborhood.name}'

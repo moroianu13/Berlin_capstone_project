@@ -276,22 +276,49 @@ def neighborhood_detail(request, neighborhood_id):
     # Related data
     demographics = Demographics.objects.filter(neighborhood=neighborhood).first()
     rent_data = RentData.objects.filter(neighborhood=neighborhood).first()
-    amenities = Amenity.objects.filter(neighborhood=neighborhood)
+    hospitals = Hospital.objects.filter(neighborhood=neighborhood)
+    nightlife = Nightlife.objects.filter(neighborhood=neighborhood)
+    schools = School.objects.filter(neighborhood=neighborhood)
+    parks = Park.objects.filter(neighborhood=neighborhood)
 
-    # Group amenities
-    amenities_grouped = Counter([a.amenity_type for a in amenities])
+# Group and count amenities
+    amenities_grouped = {
+        'Hospitals': hospitals.count(),
+        'Nightlife': nightlife.count(),
+        'Schools': schools.count(),
+        'Parks': parks.count(),
+}
+    
     amenities_labels = list(amenities_grouped.keys())
     amenities_counts = list(amenities_grouped.values())
+
+# Age distribution
+    age_distribution = {}
+    if demographics:
+        total_population = demographics.total
+        if total_population > 0:  # Évite les divisions par zéro
+            age_distribution = {
+                'Under 6': round((demographics.under_6 / total_population) * 100, 2),
+                '6 to 15': round((demographics.six_to_15 / total_population) * 100, 2),
+                '15 to 18': round((demographics.fifteen_to_18 / total_population) * 100, 2),
+                '18 to 27': round((demographics.eighteen_to_27 / total_population) * 100, 2),
+                '27 to 45': round((demographics.twenty_seven_to_45 / total_population) * 100, 2),
+                '45 to 55': round((demographics.forty_five_to_55 / total_population) * 100, 2),
+                '55 and Over': round((demographics.fifty_five_and_more / total_population) * 100, 2),
+            }
 
     # Context
     context = {
         'neighborhood': neighborhood,
         'demographics': demographics,
         'rent_data': rent_data,
-        'amenities': amenities,
-        'amenities_labels': json.dumps(amenities_labels or []),  # Ensure empty array if no data
-        'amenities_counts': json.dumps(amenities_counts or []),  # Ensure empty array if no data
-        'age_distribution_json': json.dumps(demographics.age_distribution if demographics and demographics.age_distribution else {}),
+        'hospitals': hospitals,
+        'nightlife': nightlife,
+        'schools': schools,
+        'parks': parks,
+        'amenities_labels': json.dumps(amenities_labels or []),
+        'amenities_counts': json.dumps(amenities_counts or []),
+        'age_distribution_json': json.dumps(age_distribution),
     }
 
     return render(request, 'neighborhoods/neighborhood_detail.html', context)

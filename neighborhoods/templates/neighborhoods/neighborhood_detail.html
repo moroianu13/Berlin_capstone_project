@@ -190,17 +190,34 @@
         const ageDistribution = JSON.parse(`{{ age_distribution_json|default:'{}'|escapejs }}`);
 
         if (Object.keys(ageDistribution).length > 0) {
-            new Chart(document.getElementById('ageDistributionChart'), {
-             type: 'pie',
-             data: {
+        new Chart(document.getElementById('ageDistributionChart'), {
+            type: 'pie',
+            data: {
                 labels: Object.keys(ageDistribution),
                 datasets: [{
                     data: Object.values(ageDistribution),
-                    backgroundColor: ['#36A2EB', '#FFCE56', '#FF6384', '#4BC0C0']
-            }]
-        }
-    });
-}
+                    backgroundColor: [
+                        '#36A2EB', '#FFCE56', '#FF6384', '#4BC0C0',
+                        '#9966FF', '#FF9F40', '#FF6384'
+                    ]
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    tooltip: {
+                        callbacks: {
+                            label: function(tooltipItem) {
+                                const percentage = tooltipItem.raw;
+                                return `${tooltipItem.label}: ${percentage}%`; // Tooltip with percentage
+                            }
+                        }
+                    }
+                }
+            }
+        });
+    }
 {% endif %}
 
         // Amenities Visualization
