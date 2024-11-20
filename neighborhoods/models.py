@@ -112,7 +112,7 @@ class Demographics(models.Model):
 class CrimeData(models.Model):
     borough = models.ForeignKey(Borough, on_delete=models.CASCADE)
     total_crimes = models.IntegerField()
-    roberry = models.IntegerField()
+    robbery = models.IntegerField()
     total_assaults = models.IntegerField()
     total_thefts = models.IntegerField()
     total_residential_burglary = models.IntegerField()
@@ -121,3 +121,65 @@ class CrimeData(models.Model):
 
     def __str__(self):
         return f'Crime Data for {self.borough.name}'
+
+    def calculate_percentage(self, count):
+        """
+        Calculate the percentage of a specific crime type relative to total crimes.
+        If total_crimes is zero, return 0.0%.
+        """
+        if self.total_crimes > 0:
+            return round((count / self.total_crimes) * 100, 1)
+        return 0.0
+
+    @property
+    def robbery_percentage(self):
+        return self.calculate_percentage(self.robbery)
+
+    @property
+    def assaults_percentage(self):
+        return self.calculate_percentage(self.total_assaults)
+
+    @property
+    def thefts_percentage(self):
+        return self.calculate_percentage(self.total_thefts)
+
+    @property
+    def burglary_percentage(self):
+        return self.calculate_percentage(self.total_residential_burglary)
+
+    @property
+    def arson_percentage(self):
+        return self.calculate_percentage(self.total_arson_incidents)
+
+    @property
+    def vandalism_percentage(self):
+        return self.calculate_percentage(self.total_vandalism)
+
+    
+class Park(models.Model):
+    borough = models.ForeignKey(Borough, on_delete=models.CASCADE)
+    neighborhood = models.ForeignKey(Neighborhood, on_delete=models.CASCADE)
+    size = models.CharField(max_length=100)
+    name = models.CharField(max_length=100)
+    def __str__(self):
+        return f'Parks in {self.neighborhood.name}'
+class Hospital(models.Model):
+    borough = models.ForeignKey(Borough, on_delete=models.CASCADE)
+    neighborhood = models.ForeignKey(Neighborhood, on_delete=models.CASCADE)
+    type = models.CharField(max_length=100)
+    name = models.CharField(max_length=100)
+    def __str__(self):
+        return f'Hospitals in {self.neighborhood.name}'
+class School(models.Model):
+    borough = models.ForeignKey(Borough, on_delete=models.CASCADE)
+    neighborhood = models.ForeignKey(Neighborhood, on_delete=models.CASCADE)
+    type = models.CharField(max_length=100)
+    name = models.CharField(max_length=100)
+    def __str__(self):
+        return f'Schools in {self.neighborhood.name}'
+class Nightlife(models.Model):
+    borough = models.ForeignKey(Borough, on_delete=models.CASCADE)
+    neighborhood = models.ForeignKey(Neighborhood, on_delete=models.CASCADE)
+    name = models.CharField(max_length=100)
+    def __str__(self):
+        return f'Night Life in {self.neighborhood.name}'
