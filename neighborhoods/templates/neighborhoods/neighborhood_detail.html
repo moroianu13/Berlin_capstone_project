@@ -44,18 +44,27 @@
                 <p>No rent data available.</p>
             {% endif %}
 
-            <!-- Demographics Visualization -->
+            <!-- Demographics Visualizations -->
             <h2>Demographics</h2>
+
+            <!-- Ethnic Distribution Visualization -->
+            <h3>Ethnic Makeup of the Neighborhood</h3>
             {% if demographics %}
                 <div class="chart-container">
-                    <canvas id="demographicsChart"></canvas>
+                    <canvas id="ethnicDistributionChart"></canvas>
                 </div>
-                <h3>Age Distribution</h3>
+            {% else %}
+                <p>No ethnicity data available.</p>
+            {% endif %}
+
+            <!-- Age Distribution Visualization -->
+            <h3>Age Distribution in the Neighborhood</h3>
+            {% if demographics %}
                 <div class="chart-container">
                     <canvas id="ageDistributionChart"></canvas>
                 </div>
             {% else %}
-                <p>No demographics data available.</p>
+                <p>No age distribution data available.</p>
             {% endif %}
 
             <!-- Amenities Visualization -->
@@ -161,47 +170,79 @@
         });
         {% endif %}
 
-        // Age Distribution Visualization
-         // Demographics Visualization
-         {% if demographics %}
-        const demographicsData = {
-            labels: ['Family-Friendly %', 'Foreign Residents %'],
+        // Ethnic Distribution Visualization
+        {% if demographics %}
+        const ethnicDistributionData = {
+            labels: ['Germans', 'France', 'Italy', 'Spain', 'Poland', 'Greece', 'Austria', 'Romania', 'United Kingdom', 'Russia', 'Ukraine', 'Turkey', 'Iran', 'Lebanon', 'Syria', 'Vietnam', 'USA', 'Not Clearly Assignable'],
             datasets: [{
-                label: 'Demographics',
+                label: 'Ethnic Distribution (%)',
                 data: [
-                    {{ demographics.family_friendly_percentage }},
-                    {{ demographics.foreign_residents_percentage }}
+                    {{ demographics.germans }},
+                    {{ demographics.france }},
+                    {{ demographics.italy }},
+                    {{ demographics.spain }},
+                    {{ demographics.poland }},
+                    {{ demographics.greece }},
+                    {{ demographics.austria }},
+                    {{ demographics.romania }},
+                    {{ demographics.united_kingdom }},
+                    {{ demographics.russia }},
+                    {{ demographics.ukraine }},
+                    {{ demographics.turkey }},
+                    {{ demographics.iran }},
+                    {{ demographics.lebanon }},
+                    {{ demographics.syria }},
+                    {{ demographics.vietnam }},
+                    {{ demographics.usa }},
+                    {{ demographics.not_clearly_assignable }}
                 ],
-                backgroundColor: ['#FFCE56', '#FF6384'],
+                backgroundColor: ['#FF6384', '#36A2EB', '#FFCE56', '#4BC0C0', '#9966FF', '#FF9F40', '#C9CBCF', '#8A2BE2', '#DC143C', '#00CED1', '#FFD700', '#ADFF2F', '#FF4500', '#7FFF00', '#FF6347', '#40E0D0', '#BA55D3', '#FFDAB9'],
             }]
         };
 
-        new Chart(document.getElementById('demographicsChart'), {
-            type: 'bar',
-            data: demographicsData,
+        new Chart(document.getElementById('ethnicDistributionChart'), {
+            type: 'pie',
+            data: ethnicDistributionData,
             options: {
                 responsive: true,
                 maintainAspectRatio: false
             }
         });
-        {% endif %}
-        
-        {% if demographics %}
-        const ageDistribution = JSON.parse(`{{ age_distribution_json|default:'{}'|escapejs }}`);
 
-        if (Object.keys(ageDistribution).length > 0) {
-            new Chart(document.getElementById('ageDistributionChart'), {
-             type: 'pie',
-             data: {
-                labels: Object.keys(ageDistribution),
-                datasets: [{
-                    data: Object.values(ageDistribution),
-                    backgroundColor: ['#36A2EB', '#FFCE56', '#FF6384', '#4BC0C0']
+        // Age Distribution Visualization
+        const ageDistributionData = {
+            labels: ['Under 6', '6-15', '15-18', '18-27', '27-45', '45-55', '55 and older'],
+            datasets: [{
+                label: 'Age Distribution (%)',
+                data: [
+                    {{ demographics.under_6 }},
+                    {{ demographics.six_to_15 }},
+                    {{ demographics.fifteen_to_18 }},
+                    {{ demographics.eighteen_to_27 }},
+                    {{ demographics.twenty_seven_to_45 }},
+                    {{ demographics.forty_five_to_55 }},
+                    {{ demographics.fifty_five_and_more }}
+                ],
+                backgroundColor: ['#FF6384', '#36A2EB', '#FFCE56', '#4BC0C0', '#9966FF', '#FF9F40', '#C9CBCF'],
             }]
-        }
-    });
-}
-{% endif %}
+        };
+
+        new Chart(document.getElementById('ageDistributionChart'), {
+            type: 'bar',
+            data: ageDistributionData,
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    datalabels: {
+                        anchor: 'end',
+                        align: 'top',
+                        formatter: value => `${value}%`
+                    }
+                }
+            }
+        });
+        {% endif %}
 
         // Amenities Visualization
         {% if amenities %}
@@ -216,11 +257,11 @@
                     datasets: [{
                         data: amenityCounts,
                         backgroundColor: ['#36A2EB', '#FFCE56', '#FF6384', '#4BC0C0', '#9966FF', '#FF9F40']
-            }]
+                    }]
+                }
+            });
         }
-    });
-}
-{% endif %}
+        {% endif %}
     </script>
 
     <footer>
