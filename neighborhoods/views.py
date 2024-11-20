@@ -268,33 +268,41 @@ def neighborhood_list(request, borough_slug):
     return render(request, 'neighborhoods/neighborhood_list.html', context)
 
 
+
 # Neighborhood detail view with related data
 def neighborhood_detail(request, neighborhood_id):
+    # Fetch the neighborhood and borough data
     neighborhood = get_object_or_404(Neighborhood, id=neighborhood_id)
     borough = neighborhood.borough
 
-    # Related data
-    demographics = Demographics.objects.filter(neighborhood=neighborhood).first()
+    # Related data - fetching demographics and rent data for the neighborhood
+    demographics = demographics.objects.filter(neighborhood=neighborhood).first()
     rent_data = RentData.objects.filter(neighborhood=neighborhood).first()
-    amenities = Amenity.objects.filter(neighborhood=neighborhood)
 
-    # Group amenities
-    amenities_grouped = Counter([a.amenity_type for a in amenities])
-    amenities_labels = list(amenities_grouped.keys())
-    amenities_counts = list(amenities_grouped.values())
+    # Create a dictionary for age distribution based on updated fields
+    age_distribution = {}
+    if demographics:
+        age_distribution = {
+            'under_6': demographics.under_6,
+            'six_to_15': demographics.six_to_15,
+            'fifteen_to_18': demographics.fifteen_to_18,
+            'eighteen_to_27': demographics.eighteen_to_27,
+            'twenty_seven_to_45': demographics.twenty_seven_to_45,
+            'forty_five_to_55': demographics.forty_five_to_55,
+            'fifty_five_and_more': demographics.fifty_five_and_more,
+        }
 
-    # Context
+    # Context dictionary to pass data to the template
     context = {
         'neighborhood': neighborhood,
+        'borough': borough,
         'demographics': demographics,
         'rent_data': rent_data,
-        'amenities': amenities,
-        'amenities_labels': json.dumps(amenities_labels or []),  # Ensure empty array if no data
-        'amenities_counts': json.dumps(amenities_counts or []),  # Ensure empty array if no data
-        'age_distribution_json': json.dumps(demographics.age_distribution if demographics and demographics.age_distribution else {}),
+        'age_distribution_json': json.dumps(age_distribution),  # This will now contain the updated age data
     }
 
     return render(request, 'neighborhoods/neighborhood_detail.html', context)
+
 
 
 # API view to provide neighborhood data as GeoJSON
@@ -370,6 +378,8 @@ def register(request):
     return render(request, 'neighborhoods/register.html', {'form': form})
 
 # User login view
+dlogger = logging.getLogger(__name__)
+
 def user_login(request):
     if request.method == 'POST':
         form = AuthenticationForm(request, data=request.POST)
@@ -378,13 +388,18 @@ def user_login(request):
             password = form.cleaned_data.get('password')
             user = authenticate(username=username, password=password)
             if user is not None:
-                login(request, user)
-                messages.success(request, f"Welcome back, {username}!")
-                return redirect('home')
+                if user.is_active:
+                    login(request, user)
+                    messages.success(request, f"Welcome back, {username}!")
+                    return redirect('home')
+                else:
+                    messages.error(request, "Your account is inactive. Please contact support.")
             else:
                 messages.error(request, "Invalid username or password.")
+                logger.warning(f"Login attempt failed for username: {username}")
         else:
-            messages.error(request, "Invalid username or password.")
+            messages.error(request, "Invalid form submission.")
+            logger.warning("Invalid form data submitted during login.")
     else:
         form = AuthenticationForm()
 
