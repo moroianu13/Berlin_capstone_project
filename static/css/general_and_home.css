@@ -395,3 +395,61 @@ footer {
     .error-messages li {
         margin: 5px 0;                     /* Add space between individual error messages */
     }
+    border-top: 5px solid var(--accent-color);
+}
+
+/* Adjust the text placement */
+footer p {
+    padding-top: 125px; /* Adjust this value to ensure the text is above the image */
+    z-index: 10;
+    position: relative;
+    color: #ffffff; /* Set the text color to white for contrast */
+    font-size: 16px; /* Increase the font size to make it more readable */
+    font-weight: bold; /* Make the text bold for better visibility */
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5); /* Add a subtle shadow to make the text stand out */
+}
+
+/* Ajouter cette section à la fin de votre fichier CSS */
+
+.content {
+    display: flex;
+    justify-content: center; /* Centre horizontalement */
+    align-items: center; /* Centre verticalement */
+    height: 600px; /* Utilise toute la hauteur de la fenêtre */
+    padding: 20px;
+}
+
+.login-container {
+    background-color: white; /* Fond pour le formulaire */
+    padding: 40px;
+    border-radius: var(--border-radius);
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+    width: 100%;
+    max-width: 400px; /* Limite la largeur du formulaire */
+    text-align: center; /* Centre le texte à l'intérieur du formulaire */
+}
+
+h2 {
+    margin-bottom: 20px;
+    color: var(--primary-color);
+    font-size: 1.8em;
+}
+
+.form-group {
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+.form-group label {
+    display: block;
+    font-size: 1em;
+    color: var(--secondary-color);
+}
+
+input {
+    width: 100%;
+    padding: 10px;
+    margin-top: 5px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+}
