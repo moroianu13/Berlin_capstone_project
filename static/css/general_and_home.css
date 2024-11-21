@@ -47,8 +47,9 @@ header .logo img {
     height: 200px;
     width: auto;
     border-radius: var(--border-radius);
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.5);
 }
+
 
 /* Header Button Styles */
 .header-button {
@@ -63,21 +64,20 @@ header .logo img {
     text-align: center;
     cursor: pointer;
     transition: background var(--transition-ease), transform 0.2s ease, box-shadow var(--transition-ease);
-    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.5);
 }
 
 .header-button:hover {
     background: rgba(255, 255, 255, 0.3);
-    transform: translateY(-3px) scale(1.08);
-    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.35);
+    transform: translateX(-2px);
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.5);
 }
 
 .header-button:active {
     transform: translateY(1px);
     background: rgba(255, 255, 255, 0.2);
-    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.25);
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.5);
 }
-
 
 .header-button img {
     margin-right: 10px;
@@ -95,7 +95,7 @@ header .logo img {
     border-radius: 25px;
     cursor: pointer;
     transition: background var(--transition-ease), transform 0.2s ease, box-shadow var(--transition-ease);
-    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.5);
     font-weight: bold;
     text-decoration: none;
     display: inline-block;
@@ -105,15 +105,16 @@ header .logo img {
 
 .body-button:hover {
     background: linear-gradient(135deg, var(--accent-color), #ffd700);
-    transform: translateY(-4px) scale(1.08);
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
+    transform: translateX(-2px) scale(1.08);
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.5);
 }
 
 .body-button:active {
-    transform: translateY(1px);
     background: linear-gradient(135deg, var(--accent-color), #ffcc00);
-    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.2);
+    transform: translateX(-2px);
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.5);
 }
+
 
 /* Remove default button border and styling */
 button {
@@ -121,6 +122,7 @@ button {
     background: transparent;
     padding: 0;
 }
+
 
 /* Navigation Styles */
 nav ul {
@@ -144,6 +146,7 @@ nav ul li a:hover {
     color: var(--accent-color);
 }
 
+
 /* Search Section */
 .search-section {
     background-color: transparent;
@@ -166,6 +169,7 @@ nav ul li a:hover {
     flex-wrap: wrap;
 }
 
+
 /* Listing Section */
 .listing-section {
     padding: 40px;
@@ -181,16 +185,17 @@ nav ul li a:hover {
     background-color: white;
     border: 1px solid #ddd;
     border-radius: var(--border-radius);
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
     overflow: hidden;
     position: relative;
     transition: transform var(--transition-ease), box-shadow var(--transition-ease);
 }
 
 .property-card:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 16px 32px rgba(0, 0, 0, 0.3);
+    transform: translateX(-2px);
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.5);
 }
+
 
 /* Slideshow Dots */
 .dots {
@@ -219,6 +224,7 @@ nav ul li a:hover {
     transform: scale(1.3);
 }
 
+
 /* Slideshow Container */
 .slideshow-container {
     position: relative;
@@ -245,6 +251,7 @@ nav ul li a:hover {
     object-position: center;
 }
 
+
 /* Property Info */
 .property-info {
     padding: 20px;
@@ -270,9 +277,8 @@ nav ul li a:hover {
     border-radius: var(--border-radius);
     color: white; /* Set text to white for better contrast */
     line-height: 1.8;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3); /* Slightly darker shadow */
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.5); /* Slightly darker shadow */
 }
-
 
 .introduction-section h1 {
     font-family: var(--font-family-headline);
@@ -300,7 +306,7 @@ nav ul li a:hover {
     padding: 20px;
     border-radius: var(--border-radius);
     border-left: 8px solid var(--accent-color);
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.5);
     transition: transform 0.3s ease, box-shadow 0.3s ease;
     font-size: 1.3em;
     color: #ff6f61;
@@ -308,8 +314,8 @@ nav ul li a:hover {
 }
 
 .introduction-section ul li:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+    transform: translateX(-2px);
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.5);
 }
 
 .introduction-section ul li img {
@@ -332,7 +338,6 @@ nav ul li a:hover {
     color: white;
 }
 
-
 footer {
     text-align: center;
     padding: 20px;
@@ -349,54 +354,57 @@ footer {
     border-top: 5px solid var(--accent-color);}
 
 
-    .content {
-        display: flex;                    /* Use Flexbox to easily align items */
-        justify-content: center;          /* Center horizontally */
-        align-items: center;              /* Center vertically */
-        height: 100vh;                    /* Use the full height of the viewport */
-        padding: 20px;                    /* Add padding to ensure there's some space around the content */
-    }
-    .login-container {
-        background-color: white;          /* Set a white background for the form */
-        padding: 40px;                    /* Add padding inside the form */
-        border-radius: var(--border-radius); /* Rounded corners based on the variable */
-        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1); /* Add a subtle shadow around the form */
-        width: 100%;                      /* Make the form take up 100% width of the parent container */
-        max-width: 400px;                 /* Limit the form's width to 400px for better readability */
-        text-align: center;  
-        border-top: 5px solid var(--accent-color);             /* Center the text inside the form */
-    }
-    h2 {
-        margin-bottom: 20px;               /* Add space below the heading */
-        color: var(--primary-color);       /* Use the primary color for the heading */
-        font-size: 1.8em;                  /* Set the font size to make the heading larger */
-    }
-    .form-group {
-        margin-bottom: 20px;               /* Add space between form groups */
-        text-align: left;                  /* Align labels and inputs to the left */
-    }
-    .form-group label {
-        display: block;                    /* Make labels block elements to stack them above the inputs */
-        font-size: 1em;                     /* Set the font size for labels */
-        color: var(--secondary-color);      /* Use the secondary color for labels */
-    }
-    input {
-        width: 100%;                       /* Make input fields take up the full width of the container */
-        padding: 10px;                     /* Add padding for better readability and interaction */
-        margin-top: 5px;                   /* Add a small margin above the input fields */
-        border: 1px solid #ddd;            /* Set a light border for input fields */
-        border-radius: 5px;                /* Round the corners of input fields */
-    }
-    .error-messages {
-        color: red;                        /* Set error message color to red */
-        list-style: none;                  /* Remove bullet points from the error list */
-        margin-bottom: 20px;               /* Add space below the error messages */
-        padding-left: 0;                   /* Remove left padding */
-    }
-    .error-messages li {
-        margin: 5px 0;                     /* Add space between individual error messages */
-    }
-   
+.content {
+    display: flex;                    /* Use Flexbox to easily align items */
+    justify-content: center;          /* Center horizontally */
+    align-items: center;              /* Center vertically */
+    height: 100vh;                    /* Use the full height of the viewport */
+    padding: 20px;                    /* Add padding to ensure there's some space around the content */
+}
+
+.login-container {
+    background-color: white;          /* Set a white background for the form */
+    padding: 40px;                    /* Add padding inside the form */
+    border-radius: var(--border-radius); /* Rounded corners based on the variable */
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.5); /* Add a subtle shadow around the form */
+    width: 100%;                      /* Make the form take up 100% width of the parent container */
+    max-width: 400px;                 /* Limit the form's width to 400px for better readability */
+    text-align: center;               /* Center the text inside the form */
+}
+
+h2 {
+    margin-bottom: 20px;               /* Add space below the heading */
+    color: var(--primary-color);       /* Use the primary color for the heading */
+    font-size: 1.8em;                  /* Set the font size to make the heading larger */
+}
+
+.form-group {
+    margin-bottom: 20px;               /* Add space between form groups */
+    text-align: left;                  /* Align labels and inputs to the left */
+}
+
+.form-group label {
+    display: block;                    /* Make labels block elements to stack them above the inputs */
+    font-size: 1em;                     /* Set the font size for labels */
+    color: var(--secondary-color);      /* Use the secondary color for labels */
+}
+
+input {
+    width: 100%;                       /* Make input fields take up the full width of the container */
+    padding: 10px;                     /* Add padding for better readability and interaction */
+    margin-top: 5px;                   /* Add a small margin above the input fields */
+    border: 1px solid #ddd;            /* Set a light border for input fields */
+    border-radius: 5px;                /* Round the corners of input fields */
+}
+.error-messages {
+    color: red;                        /* Set error message color to red */
+    list-style: none;                  /* Remove bullet points from the error list */
+    margin-bottom: 20px;               /* Add space below the error messages */
+    padding-left: 0;                   /* Remove left padding */
+}
+.error-messages li {
+    margin: 5px 0;                     /* Add space between individual error messages */
+}
 
 /* Adjust the text placement */
 footer p {
@@ -407,8 +415,6 @@ footer p {
     font-size: 16px; /* Increase the font size to make it more readable */
     font-weight: bold; /* Make the text bold for better visibility */
 }
-
-/* Ajouter cette section à la fin de votre fichier CSS */
 
 .content {
     display: flex;
@@ -422,7 +428,7 @@ footer p {
     background-color: white; /* Fond pour le formulaire */
     padding: 40px;
     border-radius: var(--border-radius);
-    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.5);
     width: 100%;
     max-width: 400px; /* Limite la largeur du formulaire */
     text-align: center; /* Centre le texte à l'intérieur du formulaire */
@@ -451,4 +457,8 @@ input {
     margin-top: 5px;
     border: 1px solid #ddd;
     border-radius: 5px;
+}
+
+.responsive-image:hover{
+    transform: translateX(-2px) scale(2);
 }

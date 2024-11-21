@@ -22,8 +22,12 @@
 }
 
 #neighborhood-list:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15);
+    transform: translateX(-2px);
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.5);
+}
+
+#neighborhood-list h4 {
+    margin-bottom: 20px;
 }
 
 /* Neighborhood Items */
@@ -73,7 +77,8 @@
 }
 
 #map:hover {
-    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+    transform: translateX(-2px);
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.5);
 }
 
 /* Charts Container */
@@ -98,8 +103,8 @@
 }
 
 .chart-container:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.25);
+    transform: translateX(-2px);
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.5);
 }
 
 .chart-container canvas {

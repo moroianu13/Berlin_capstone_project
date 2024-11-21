@@ -32,27 +32,50 @@
     <!-- Import chatbox from external file -->
     {% include 'neighborhoods/chatbox.html' %}
 
+    
    <!-- Introduction Section -->
 <section class="introduction-section">
+    <section class="search-section">
+        <h2>Are you seeking the perfect neighborhood to settle in?</h2>
+        <form class="search-form">
+            <a href="{% url 'borough_list' %}" class="body-button">Discover Your Ideal Neighborhood!</a>
+        </form>
+    </section>
     <h1>Discover Berlin: A City Like No Other</h1>
-    <p>Berlin, the vibrant capital of Germany, is a city rich in history, diversity, and culture. Over the last decade, Berlin has evolved significantly, attracting people from all over the world. Here's what makes Berlin an extraordinary place to live, work, and explore:</p>
-    <ul>
+    <p>
+        Berlin, the vibrant capital of Germany, is a city rich in history, diversity, and culture. 
+        Over the last decade, Berlin has evolved significantly, attracting people from all over the world.
+        Here's what makes Berlin an extraordinary place to live, work, and explore.
+    </p>
+    <ul class="alternate">
         <li>
-            <strong>Crime Trends (2014–2023):</strong> Berlin has seen fluctuating crime rates over the years, with thefts being the most common type of offense. Despite challenges, Berlin remains a safe and secure city for residents and visitors, with ongoing efforts by law enforcement to maintain public safety.
+            <strong>Crime Trends (2014–2023):</strong>
+            Berlin has seen fluctuating crime rates over the years, with thefts being the most common type of offense. 
+            Despite challenges, Berlin remains a safe and secure city for residents and visitors, 
+            with ongoing efforts by law enforcement to maintain public safety.
             <img src="{% static 'images/images_home/crime_barough.png' %}" alt="Total Crimes by Borough" class="responsive-image">
         </li>
         <li>
-            <strong>Demographics:</strong> With over 3.7 million residents, Berlin is a melting pot of cultures. About 14% of the population consists of foreign nationals, making it one of Europe’s most diverse cities. The average age of Berliners is 42, reflecting a dynamic mix of young professionals and experienced residents.
+            <strong>Demographics:</strong> 
+            With over 3.7 million residents, Berlin is a melting pot of cultures. 
+            About 14% of the population consists of foreign nationals, making it one of Europe’s most diverse cities. 
+            The average age of Berliners is 42, reflecting a dynamic mix of young professionals and experienced residents.
         </li>
         <li>
-            <strong>LGBTQ+ Scene:</strong> Berlin is a beacon of inclusivity and freedom. Known as a global LGBTQ+ hotspot, the city is home to a thriving community. With events like Pride Month and Christopher Street Day, Berlin celebrates love and diversity with grandeur.
-        </li>
-        <li>
-            <strong>Nightlife:</strong> Berlin’s nightlife is legendary, from iconic clubs like Berghain to charming neighborhood bars. Whether you love electronic music or cozy evenings with friends, Berlin offers something for everyone.
-        </li>
-        <li>
-            <strong>Economy:</strong> Once dubbed "poor but sexy," Berlin has emerged as a tech and creative hub, driving economic growth in Germany. With affordable living costs compared to other European capitals, Berlin attracts talent from across the globe.
+            <strong>Economy:</strong> 
+            Once dubbed "poor but sexy," Berlin has emerged as a tech and creative hub, driving economic growth in Germany. 
+            With affordable living costs compared to other European capitals, Berlin attracts talent from across the globe.
             <img src="{% static 'images/images_home/18269.png' %}" alt="Berlin Economy Growth" class="responsive-image">
+        </li>
+        <li>
+            <strong>LGBTQ+ Scene:</strong> 
+            Berlin is a beacon of inclusivity and freedom. Known as a global LGBTQ+ hotspot, the city is home to a thriving community. 
+            With events like Pride Month and Christopher Street Day, Berlin celebrates love and diversity with grandeur.
+        </li>
+        <li>
+            <strong>Nightlife:</strong>
+            Berlin’s nightlife is legendary, from iconic clubs like Berghain to charming neighborhood bars.
+             Whether you love electronic music or cozy evenings with friends, Berlin offers something for everyone.
         </li>
         <li>
             <strong>Why Move to Berlin?</strong> Berlin combines rich history, cultural diversity, and modern innovation. The city’s affordability, green spaces, and vibrant arts scene make it a top choice for people seeking a balanced urban lifestyle.
@@ -60,16 +83,6 @@
         </li>
     </ul>
 </section>
-
-    
-
-    <!-- Search Section -->
-    <section class="search-section">
-        <h2>Are you seeking the perfect neighborhood to settle in?</h2>
-        <form class="search-form">
-            <a href="{% url 'borough_list' %}" class="body-button">Discover Your Ideal Neighborhood!</a>
-        </form>
-    </section>
 
     <!-- Listing Section with Neighborhood Highlights -->
     <section class="listing-section">
