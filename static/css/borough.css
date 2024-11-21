@@ -16,7 +16,7 @@
 
 #info:hover {
     transform: translateX(-5px);
-    box-shadow: 0 12px 24px rgba(0, 0, 0, 15);
+    box-shadow: 0 12px 24px rgba(0, 0, 0, 0.15);
 }
 
 #map-links-container {
@@ -42,9 +42,9 @@
     border: 1px solid rgba(255, 255, 255, 0.5);
 }
 
-#filters:hover{
+#filters:hover {
     transform: translateX(-5px);
-    box-shadow: 0 12px 24px rgba(0, 0, 0, 15);
+    box-shadow: 0 12px 24px rgba(0, 0, 0, 0.15);
 }
 
 #filters label {
@@ -94,3 +94,7 @@
 #filters button {
     margin-top: 10px;
 }
+
+
+
+
