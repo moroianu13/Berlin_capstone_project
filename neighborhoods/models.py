@@ -164,9 +164,6 @@ class Park(models.Model):
     def __str__(self):
         return f'Parks in {self.neighborhood.name}'
     
-
-    
-    
 class School(models.Model):
     borough = models.ForeignKey(Borough, on_delete=models.CASCADE)
     neighborhood = models.ForeignKey(Neighborhood, on_delete=models.CASCADE)
@@ -175,17 +172,13 @@ class School(models.Model):
     
     def __str__(self):
         return f'Schools in {self.neighborhood.name}'
-    
 
-
-    
-
-    
 class Hospital(models.Model):
     borough = models.ForeignKey(Borough, on_delete=models.CASCADE)
     neighborhood = models.ForeignKey(Neighborhood, on_delete=models.CASCADE)
     type = models.CharField(max_length=100)
     name = models.CharField(max_length=100)
+    
     def __str__(self):
         return f'Hospitals in {self.neighborhood.name}'
 
@@ -193,5 +186,6 @@ class Nightlife(models.Model):
     borough = models.ForeignKey(Borough, on_delete=models.CASCADE)
     neighborhood = models.ForeignKey(Neighborhood, on_delete=models.CASCADE)
     name = models.CharField(max_length=100)
+    
     def __str__(self):
         return f'Night Life in {self.neighborhood.name}'
