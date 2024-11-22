@@ -181,6 +181,15 @@ class Hospital(models.Model):
     
     def __str__(self):
         return f'Hospitals in {self.neighborhood.name}'
+    
+class Cultural(models.Model):
+    borough = models.ForeignKey(Borough, on_delete=models.CASCADE)
+    neighborhood = models.ForeignKey(Neighborhood, on_delete=models.CASCADE)
+    type = models.CharField(max_length=100)
+    name = models.CharField(max_length=100)
+    
+    def __str__(self):
+        return f'Cultural interests in {self.neighborhood.name}'
 
 class Nightlife(models.Model):
     borough = models.ForeignKey(Borough, on_delete=models.CASCADE)
