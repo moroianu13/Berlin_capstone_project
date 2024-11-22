@@ -16,7 +16,12 @@
             <button type="submit">Send</button>
         </form>
     </div>
-    <button id="chat-toggle">💬 Chat</button>
+    <div class="chat-button" id="chat-button">
+        <button id="chat-toggle">
+            <img src="{% static 'images/berlin_bear.png' %}" alt="Berlin Bear Icon"> <!-- Ours de Berlin -->
+            💬 Chat With Me
+        </button>
+    </div>
 
     <script>
         document.addEventListener("DOMContentLoaded", function() {
@@ -30,7 +35,7 @@
             chatToggleButton.innerHTML = '❌ Close Chat';  // Change button text to 'Close Chat'
         } else {
             chatBox.style.display = 'none';
-            chatToggleButton.innerHTML = '💬 Open Chat';  // Change button text back to 'Open Chat'
+            chatToggleButton.innerHTML = '💬 Chat';  // Change button text back to 'Open Chat'
         }
     });
 
@@ -39,7 +44,7 @@
         var chatBox = document.getElementById('chat-box');
         var chatToggleButton = document.getElementById('chat-toggle');
         chatBox.style.display = 'none';
-        chatToggleButton.innerHTML = '💬 Open Chat';  // Ensure button updates when the close button is clicked
+        chatToggleButton.innerHTML = '💬 Chat With Me';  // Ensure button updates when the close button is clicked
     });
 
     // Handle form submission (existing logic)
@@ -76,10 +81,7 @@
 
         messageInputDom.value = "";  // Clear the input field
     };
-});
-
-            
-        
+});    
     </script>
 </body>
 </html>
