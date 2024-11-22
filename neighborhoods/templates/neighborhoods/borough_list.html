@@ -2,6 +2,7 @@
 <html lang="en">
 <head>
   {% load static %}
+  {% load humanize %}
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1,user-scalable=no">
   <title>Boroughs Map</title>
@@ -10,6 +11,12 @@
  
   <link rel="stylesheet" href="{% static 'css/general_and_home.css' %}">
   <link rel="stylesheet" href="{% static 'css/borough.css' %}">
+  <link rel="stylesheet" href="{% static 'css/table_style.css' %}">
+
+  
+  
+
+  
 </head>
 <body class="borough-list-page">
   <header>
@@ -23,42 +30,173 @@
     </nav>
   </header>
   {% include 'neighborhoods/chatbox.html' %}
-  <div class="container">
-    <div id="info">
-      <h1>Boroughs</h1>
-      <div id="filters">
-        <h3>Filters</h3>
-        <div>
-          <label for="rent">Maximum Rent (€/month):</label>
-          <input type="number" id="rent" name="rent" min="0" placeholder="e.g., 1000">
+  <div id="borough-page">
+    <div class="container">
+      <div id="info">
+        <h1>Boroughs</h1>
+        <div id="filters">
+          <h3>Filters</h3>
+          <div>
+            <label for="rent">Maximum Rent (€/month):</label>
+            <input type="number" id="rent" name="rent" min="0" placeholder="e.g., 1000">
+          </div>
+          <div>
+            <label>Life Style Preferences:</label>
+            <div>
+              <input type="checkbox" id="family-friendly" name="lifestyle" value="family-friendly">
+              <label for="family-friendly">Family Friendly</label>
+            </div>
+            <div>
+              <input type="checkbox" id="cultural" name="lifestyle" value="cultural">
+              <label for="cultural">Cultural</label>
+            </div>
+            <div>
+              <input type="checkbox" id="pet-friendly" name="lifestyle" value="pet-friendly">
+              <label for="pet-friendly">Pet Friendly</label>
+            </div>
+            <div>
+              <input type="checkbox" id="night-life" name="lifestyle" value="night-life">
+              <label for="night-life">Night Life</label>
+            </div>
+          </div>
+          <button id="apply-filters" class="body-button">Apply Filters</button>
         </div>
-        <div>
-          <label>Life Style Preferences:</label>
-          <div>
-            <input type="checkbox" id="family-friendly" name="lifestyle" value="family-friendly">
-            <label for="family-friendly">Family Friendly</label>
-          </div>
-          <div>
-            <input type="checkbox" id="cultural" name="lifestyle" value="cultural">
-            <label for="cultural">Cultural</label>
-          </div>
-          <div>
-            <input type="checkbox" id="pet-friendly" name="lifestyle" value="pet-friendly">
-            <label for="pet-friendly">Pet Friendly</label>
-          </div>
-          <div>
-            <input type="checkbox" id="night-life" name="lifestyle" value="night-life">
-            <label for="night-life">Night Life</label>
-          </div>
-        </div>
-        <button id="apply-filters" class="body-button">Apply Filters</button>
+      </div>
+      <div id="map-links-container">
+        <div id="borough-map"></div>
       </div>
     </div>
-    <div id="map-links-container">
-      <div id="borough-map"></div>
-    </div>
-  </div>
 
+    <div class="page-container">
+      <div class="content-container">
+      <!-- Boroughs Table -->
+      <div class="borough-table-container">
+          <h2>Borough Data</h2>
+          <table class="borough-table">
+              <thead>
+                  <tr>
+                      <th>#</th>
+                      <th>Borough</th>
+                      <th>Population</th>
+                      <th>Area (km²)</th>
+                      <th>Density (per km²)</th>
+                  </tr>
+              </thead>
+              <tbody>
+                  <tr>
+                      <td>1</td>
+                      <td>Charlottenburg-Wilmersdorf</td>
+                      <td>{{ 343081|intcomma }}</td>
+                      <td>64.72</td>
+                      <td>{{ 5301|intcomma }}</td>
+                  </tr>
+                  <tr>
+                      <td>2</td>
+                      <td>Friedrichshain-Kreuzberg</td>
+                      <td>{{ 293454|intcomma }}</td>
+                      <td>20.16</td>
+                      <td>{{ 14556|intcomma }}</td>
+                  </tr>
+                  <tr>
+                      <td>3</td>
+                      <td>Lichtenberg</td>
+                      <td>{{ 311881|intcomma }}</td>
+                      <td>52.29</td>
+                      <td>{{ 5964|intcomma }}</td>
+                  </tr>
+                  <tr>
+                      <td>4</td>
+                      <td>Marzahn-Hellersdorf</td>
+                      <td>{{ 291948|intcomma }}</td>
+                      <td>61.74</td>
+                      <td>{{ 4728|intcomma }}</td>
+                  </tr>
+                  <tr>
+                      <td>5</td>
+                      <td>Mitte</td>
+                      <td>{{ 397134|intcomma }}</td>
+                      <td>39.47</td>
+                      <td>{{ 10062|intcomma }}</td>
+                  </tr>
+                  <tr>
+                      <td>6</td>
+                      <td>Neukölln</td>
+                      <td>{{ 330017|intcomma }}</td>
+                      <td>44.93</td>
+                      <td>{{ 7345|intcomma }}</td>
+                  </tr>
+                  <tr>
+                      <td>7</td>
+                      <td>Pankow</td>
+                      <td>{{ 424307|intcomma }}</td>
+                      <td>103.01</td>
+                      <td>{{ 4119|intcomma }}</td>
+                  </tr>
+                  <tr>
+                      <td>8</td>
+                      <td>Reinickendorf</td>
+                      <td>{{ 268792|intcomma }}</td>
+                      <td>89.46</td>
+                      <td>{{ 3005|intcomma }}</td>
+                  </tr>
+                  <tr>
+                      <td>9</td>
+                      <td>Spandau</td>
+                      <td>{{ 257091|intcomma }}</td>
+                      <td>91.91</td>
+                      <td>{{ 2797|intcomma }}</td>
+                  </tr>
+                  <tr>
+                      <td>10</td>
+                      <td>Steglitz-Zehlendorf</td>
+                      <td>{{ 310446|intcomma }}</td>
+                      <td>102.50</td>
+                      <td>{{ 3029|intcomma }}</td>
+                  </tr>
+                  <tr>
+                      <td>11</td>
+                      <td>Tempelhof-Schöneberg</td>
+                      <td>{{ 355868|intcomma }}</td>
+                      <td>53.09</td>
+                      <td>{{ 6703|intcomma }}</td>
+                  </tr>
+                  <tr>
+                      <td>12</td>
+                      <td>Treptow-Köpenick</td>
+                      <td>{{ 294081|intcomma }}</td>
+                      <td>168.42</td>
+                      <td>{{ 1746|intcomma }}</td>
+                  </tr>
+              </tbody>
+          </table>
+      </div>
+  
+      <!-- Berlin Map and Description -->
+      <div class="berlin-map-container">
+          <img src="{% static 'images/images_borough/Berlin,_administrative_divisions.png' %}" alt="Map of Berlin">
+          <p>Berlin is divided into boroughs or districts (Bezirke) for administration. The boroughs are further divided into neighborhoods (Ortsteile) which are officially recognised but have no administrative bodies of their own. Neighborhoods typically have strong identities that sometimes pre-date their inclusion into the modern boundaries of Berlin. These function differently to other subdivisions in Germany because of the dual status of Berlin as both a city and a federated state of Germany in its own right.</p>
+      </div>
+  
+      <!-- Symbols Section -->
+      <div class="symbols-section">
+          <h2>Symbols of Berlin</h2>
+          <div class="symbols">
+              <div class="symbol">
+                  <img src="{% static 'images/images_borough/DEU_Berlin_COA.svg.png' %}" alt="Berlin Coat of Arms">
+                  <p>Berlin Coat of Arms</p>
+              </div>
+              <div class="symbol">
+                  <img src="{% static 'images/images_borough/Flag_of_Berlin.svg.png' %}" alt="Flag of Berlin">
+                  <p>Flag of Berlin</p>
+              </div>
+              <div class="symbol">
+                  <img src="{% static 'images/images_borough/Mural_crown_of_the_coat_of_arms_of_the_Berlin_boroughs.svg.png' %}" alt="Mural Crown of Berlin Boroughs">
+                  <p>Mural Crown of Berlin Boroughs</p>
+              </div>
+          </div>
+      </div>
+  </div>
+</div>
   <!-- Footer Section -->
   <footer>
     <p>&copy; 2024 RentWise Berlin. All Rights Reserved.</p>
