@@ -267,10 +267,6 @@ def neighborhood_list(request, borough_slug):
 
     return render(request, 'neighborhoods/neighborhood_list.html', context)
 
-
-
-# Neighborhood detail view with related data
-# Neighborhood detail view with related data
 # Neighborhood detail view with related data
 def neighborhood_detail(request, neighborhood_id):
     # Fetch the neighborhood and borough data
