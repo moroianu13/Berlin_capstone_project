@@ -31,14 +31,17 @@
        <!-- Updated HTML to include dynamically loaded Coat of Arms -->
 <div id="neighborhood-list">
     <h4>Neighborhoods in {{ borough.name }}</h4>
-    <img src="{% static 'images/borough_coat_of_arms/' %}{{ borough.id }}.svg" alt="{{ borough.name }} Coat of Arms" onerror="this.onerror=null; this.src='{% static 'images/borough_coat_of_arms/default.svg' %}'">
+    <img src="{% static 'images/borough_coat_of_arms/' %}{{ borough.id }}.png" alt="{{ borough.name }} Coat of Arms">
+
+
+
     <ul id="neighborhood-items">
         {% for neighborhood in neighborhoods %}
             <li data-neighborhood="{{ neighborhood.name }}">
                 <a href="{% url 'neighborhood_detail' neighborhood.id %}">{{ neighborhood.name }}</a>
             </li>
         {% endfor %}
-    </ul>
+    </ul>    
 </div>
 
         
