@@ -93,7 +93,12 @@
 /* Hover avec icône */
 #chat-toggle:hover {
     background-color: #ff8a85;
+<<<<<<< HEAD
     transform: scale(1.1);}
+=======
+    transform: scale(1.1);
+}
+>>>>>>> f7c4604be6fd2bdf1bb6edbf92e48145e2df2ad1
 
 /* Close Button Styles */
 .chat-close {
