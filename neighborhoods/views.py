@@ -7,7 +7,7 @@ from django.conf import settings
 from django.shortcuts import render, get_object_or_404, redirect
 from django.http import JsonResponse
 from django.db.models import Q ,Sum
-from .models import Borough, Neighborhood, CrimeData, Demographics, RentData, Park, Hospital, School, Nightlife
+from .models import Borough, Neighborhood, CrimeData, Demographics, RentData, Amenities, Transports
 from .serializers import NeighborhoodSerializer, BoroughSerializer
 from rest_framework import viewsets
 from rest_framework.permissions import IsAuthenticated
