@@ -33,6 +33,8 @@ class Borough(models.Model):
         if not self.slug:
             self.slug = slugify(self.name)  # Generates a URL-safe version of the name
         super(Borough, self).save(*args, **kwargs)
+        
+        
 
 class Neighborhood(models.Model):
     name = models.CharField(max_length=100)

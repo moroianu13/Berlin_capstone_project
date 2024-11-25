@@ -58,6 +58,7 @@
 
 #filters input[type="checkbox"] {
     appearance: none;
+    -webkit-appearance: none; /* For better compatibility across browsers */
     background-color: #e0e0e0;
     border: 2px solid #ccc;
     width: 20px;
@@ -65,21 +66,30 @@
     margin-right: 10px;
     border-radius: 5px;
     cursor: pointer;
+    position: relative;
     transition: background-color var(--transition-ease), border-color var(--transition-ease);
 }
 
 #filters input[type="checkbox"]:checked {
-    background-color: black;
+    background-color: whitesmoke !important; /* Use primary color to match your theme */
+    border-color: var(--accent-color); /* Make it more visible with a distinct border color */
 }
 
 #filters input[type="checkbox"]:checked::after {
     content: '✔';
     display: block;
-    color: white;
-    font-size: 14px;
+    color: rgb(238, 8, 8); /* Ensure the checkmark is visible */
+    font-size: 40px;
+    width: 100%;
+    height: 100%;
     text-align: center;
     line-height: 20px;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
 }
+
 
 #filters h3 {
     font-size: 18px;
