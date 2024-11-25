@@ -155,46 +155,20 @@ class Demographics(models.Model):
     def __str__(self):
         return f'Demographics for {self.neighborhood.name}'
     
-class Park(models.Model):
+class Amenities(models.Model):
     borough = models.ForeignKey(Borough, on_delete=models.CASCADE)
     neighborhood = models.ForeignKey(Neighborhood, on_delete=models.CASCADE)
-    size = models.CharField(max_length=100)
+    amenity_type = models.CharField(max_length=100)
     name = models.CharField(max_length=100)
     
     def __str__(self):
-        return f'Parks in {self.neighborhood.name}'
+        return f'Amenities in {self.neighborhood.name}'
     
-class School(models.Model):
-    borough = models.ForeignKey(Borough, on_delete=models.CASCADE)
-    neighborhood = models.ForeignKey(Neighborhood, on_delete=models.CASCADE)
-    type = models.CharField(max_length=100)
-    name = models.CharField(max_length=100)
-    
-    def __str__(self):
-        return f'Schools in {self.neighborhood.name}'
-
-class Hospital(models.Model):
+class Transports(models.Model):
     borough = models.ForeignKey(Borough, on_delete=models.CASCADE)
     neighborhood = models.ForeignKey(Neighborhood, on_delete=models.CASCADE)
     type = models.CharField(max_length=100)
     name = models.CharField(max_length=100)
     
     def __str__(self):
-        return f'Hospitals in {self.neighborhood.name}'
-    
-class Cultural(models.Model):
-    borough = models.ForeignKey(Borough, on_delete=models.CASCADE)
-    neighborhood = models.ForeignKey(Neighborhood, on_delete=models.CASCADE)
-    type = models.CharField(max_length=100)
-    name = models.CharField(max_length=100)
-    
-    def __str__(self):
-        return f'Cultural interests in {self.neighborhood.name}'
-
-class Nightlife(models.Model):
-    borough = models.ForeignKey(Borough, on_delete=models.CASCADE)
-    neighborhood = models.ForeignKey(Neighborhood, on_delete=models.CASCADE)
-    name = models.CharField(max_length=100)
-    
-    def __str__(self):
-        return f'Night Life in {self.neighborhood.name}'
+        return f'Transports in {self.neighborhood.name}'
