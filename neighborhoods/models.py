@@ -173,4 +173,4 @@ class Transports(models.Model):
     name = models.CharField(max_length=100)
     
     def __str__(self):
-        return f'Transports in {self.neighborhood.name}'
+        return f'Transport in {self.neighborhood.name}: {self.name}'

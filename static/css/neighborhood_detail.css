@@ -113,10 +113,13 @@ body.neighborhood-details-page .chart-container {
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
     margin-bottom: 20px;
     transition: box-shadow 0.3s ease;
+   
+    
 }
 
 body.neighborhood-details-page .chart-container:hover {
     box-shadow: 0 8px 20px rgba(0, 0, 0, 0.5);
+    max-height: 400px;  /* Set a maximum height to control the pie chart size */
 }
 
 /* Headings */
@@ -139,4 +142,33 @@ h2 {
 p {
     margin: 5px 0;
     color: #555;
+}
+
+/* Transport Stations Section Styling */
+body.neighborhood-details-page #transport-stations {
+    margin-top: 20px;
+    padding: 20px;
+    background-color: #f8f9fa;
+    border-radius: var(--border-radius);
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
+}
+
+body.neighborhood-details-page #transport-stations h2 {
+    font-size: 1.5em;
+    color: var(--secondary-color);
+    margin-bottom: 15px;
+    text-align: center;
+    font-family: var(--font-family-headline);
+}
+
+body.neighborhood-details-page .transport-list {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+}
+
+body.neighborhood-details-page .transport-list li {
+    margin-bottom: 10px;
+    font-size: 1.1em;
+    color: #333;
 }
