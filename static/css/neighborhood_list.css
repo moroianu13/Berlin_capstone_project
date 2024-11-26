@@ -84,16 +84,17 @@
 /* Charts Container */
 #charts-container {
     display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
+    flex-wrap: nowrap;
+    justify-content: space-between;
     gap: 20px;
     width: 100%;
     max-width: 900px;
+    overflow-x: auto; /* Allow horizontal scrolling if needed */
 }
 
 .chart-container {
-    flex: 1 1 100%; /* Responsive: takes full width by default */
-    max-width: 800px;
+    flex: 1 1 calc(50% - 20px); /* Each chart takes 50% width, minus the gap */
+    max-width: 400px; /* Limit the size of each chart */
     background: rgba(255, 255, 255, 0.95);
     padding: 20px;
     border-radius: var(--border-radius);

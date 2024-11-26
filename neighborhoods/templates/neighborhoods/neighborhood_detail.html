@@ -11,7 +11,7 @@
 
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels"></script>
+    
 </head>
 <body class="neighborhood-details-page">
     <!-- Header Section -->
@@ -69,7 +69,7 @@
 
             <!-- Amenities Visualization -->
             <h2>Amenities</h2>
-            {% if amenities %}
+            {% if amenities_data_json %}
                 <div class="chart-container">
                     <canvas id="amenitiesChart"></canvas>
                 </div>
@@ -78,9 +78,13 @@
             {% endif %}
         </div>
 
+
+        
+
         <!-- Map Section -->
         <div id="map-links-container">
             <div id="neighborhood-map"></div>
+             <!-- Rental Links Section -->
             <div id="rental-links">
                 <h2>Find Rentals on Popular Websites</h2>
                 <ul>
@@ -91,8 +95,27 @@
                     <li><a href="https://www.wohnungsboerse.net" target="_blank">Wohnungsboerse</a></li>
                 </ul>
             </div>
+            
+        <!-- Transport Stations Section -->
+        <div id="transport-stations">
+            <h2>Transport Stations</h2>
+            {% if transport_data %}
+                <ul class="transport-list">
+                    {% for station, types in transport_data.items %}
+                        <li>
+                            <strong>{{ station }}</strong>: 
+                            {% for transport_type in types %}
+                                {{ transport_type }}{% if not forloop.last %}, {% endif %}
+                            {% endfor %}
+                        </li>
+                    {% endfor %}
+                </ul>
+            {% else %}
+                <p>No transport stations available.</p>
+            {% endif %}
         </div>
     </div>
+</div>
 
     <!-- Mapbox GL JS -->
     <script src="https://api.mapbox.com/mapbox-gl-js/v2.14.1/mapbox-gl.js"></script>
@@ -245,9 +268,12 @@
         {% endif %}
 
         // Amenities Visualization
-        {% if amenities %}
-        const amenityLabels = JSON.parse(`{{ amenities_labels|default:'[]'|escapejs }}`);
-        const amenityCounts = JSON.parse(`{{ amenities_counts|default:'[]'|escapejs }}`);
+        {% if amenities_data_json %}
+        const amenitiesData = JSON.parse(`{{ amenities_data_json|escapejs }}`);
+        
+        // Extract labels and values for amenities chart
+        const amenityLabels = Object.keys(amenitiesData);
+        const amenityCounts = Object.values(amenitiesData);
 
         if (amenityLabels.length > 0 && amenityCounts.length > 0) {
             new Chart(document.getElementById('amenitiesChart'), {
@@ -256,13 +282,25 @@
                     labels: amenityLabels,
                     datasets: [{
                         data: amenityCounts,
-                        backgroundColor: ['#36A2EB', '#FFCE56', '#FF6384', '#4BC0C0', '#9966FF', '#FF9F40']
+                        backgroundColor: [
+                            '#36A2EB', '#FFCE56', '#FF6384', '#4BC0C0', '#9966FF', '#FF9F40', '#B4E197', '#F3B2B2'
+                        ]
                     }]
+                },
+                options: {
+                    responsive: true,
+                    plugins: {
+                        legend: {
+                            display: true,
+                            position: 'bottom'
+                        }
+                    }
                 }
             });
         }
         {% endif %}
     </script>
+
 
     <footer>
         <p>&copy; 2024 RentWise Berlin. All Rights Reserved.</p>

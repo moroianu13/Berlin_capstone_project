@@ -53,8 +53,18 @@
 
         <!-- Charts Section -->
         <div id="charts-container">
+             <!-- Crime Distribution Chart -->
             <div class="chart-container">
+                <h2>Crime Distribution in {{ borough.name }}</h2>
+                <p>This chart shows the percentage distribution of different types of crimes reported in {{ borough.name }}. It helps in understanding the security conditions of this area.</p>
                 <canvas id="crimePieChart"></canvas>
+            </div>
+
+            <!-- Amenities Distribution Chart -->
+            <div class="chart-container">
+                <h2>Amenities Availability in {{ borough.name }}</h2>
+                <p>This chart represents the distribution of different amenities available across neighborhoods in {{ borough.name }}. It includes parks, pharmacies, schools, and other public facilities.</p>
+                <canvas id="amenitiesPieChart"></canvas>
             </div>
         </div>
     </div>
@@ -172,6 +182,39 @@ new Chart(pieChartCtx, {
     }
 });
 
+     // Amenity Data for Charts
+     const amenityPercentages = {
+            {% for amenity, percentage in amenity_percentages.items %}
+                '{{ amenity }}': {{ percentage }},
+            {% endfor %}
+        };
+
+        const amenityLabels = Object.keys(amenityPercentages);
+        const amenityDataValues = Object.values(amenityPercentages);
+
+        // Amenities Pie Chart
+        const amenitiesCtx = document.getElementById('amenitiesPieChart').getContext('2d');
+        new Chart(amenitiesCtx, {
+            type: 'pie',
+            data: {
+                labels: amenityLabels.map(label => `${label} (${amenityPercentages[label]}%)`),
+                datasets: [{
+                    data: amenityDataValues,
+                    backgroundColor: [
+                        '#FF6384', '#36A2EB', '#FFCE56', '#4BC0C0', '#9966FF', '#FF9F40', '#B4E197', '#F3B2B2'
+                    ]
+                }]
+            },
+            options: {
+                responsive: true,
+                plugins: {
+                    legend: {
+                        display: true,
+                        position: 'bottom'
+                    }
+                }
+            }
+        });
     </script>
 
     <footer>

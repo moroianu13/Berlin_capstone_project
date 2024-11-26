@@ -2,11 +2,11 @@ import json
 import os
 import logging
 import yaml
-from collections import Counter
+from collections import Counter, defaultdict
 from django.conf import settings
 from django.shortcuts import render, get_object_or_404, redirect
 from django.http import JsonResponse
-from django.db.models import Q ,Sum
+from django.db.models import Q ,Sum, Count 
 from .models import Borough, Neighborhood, CrimeData, Demographics, RentData, Amenities, Transports
 from .serializers import NeighborhoodSerializer, BoroughSerializer
 from rest_framework import viewsets
@@ -258,11 +258,28 @@ def neighborhood_list(request, borough_slug):
             'vandalism': 0.0,
         }
 
+     # Aggregate amenities data for the entire borough
+    amenities = Amenities.objects.filter(borough=borough)
+    amenity_counts = amenities.values('amenity_type').annotate(count=Count('amenity_type'))
+    
+    total_amenities = sum(item['count'] for item in amenity_counts)
+
+    # Calculate percentages for each amenity type
+    amenity_percentages = {}
+    if total_amenities > 0:
+        for item in amenity_counts:
+            amenity_type = item['amenity_type']
+            count = item['count']
+            amenity_percentages[amenity_type] = round((count / total_amenities) * 100, 1)
+    else:
+        amenity_percentages = {item['amenity_type']: 0.0 for item in amenity_counts}
+
     context = {
         'borough': borough,
         'neighborhoods': neighborhoods,
         'crime_data': crime_data,
         'crime_percentages': crime_percentages,
+        'amenity_percentages': amenity_percentages,
     }
 
     return render(request, 'neighborhoods/neighborhood_list.html', context)
@@ -276,7 +293,16 @@ def neighborhood_detail(request, neighborhood_id):
     # Related data - fetching demographics and rent data for the neighborhood
     demographics = Demographics.objects.filter(neighborhood=neighborhood).first()
     rent_data = RentData.objects.filter(neighborhood=neighborhood).first()
-
+    transport_stations = Transports.objects.filter(neighborhood=neighborhood)
+    
+    # Group transport data by station name and collect all available types
+    transport_data = defaultdict(list)
+    for transport in transport_stations:
+        transport_data[transport.name].append(transport.type)
+        
+        
+      
+      
     # Create dictionaries for ethnic distribution and age distribution
     ethnic_distribution = {}
     age_distribution = {}
@@ -300,6 +326,16 @@ def neighborhood_detail(request, neighborhood_id):
             'forty_five_to_55': getattr(demographics, 'forty_five_to_55', 0),
             'fifty_five_and_more': getattr(demographics, 'fifty_five_and_more', 0)
         }
+        
+        
+    
+
+    # Aggregate amenities data for the neighborhood
+    amenities = Amenities.objects.filter(neighborhood=neighborhood)
+    amenity_counts = amenities.values('amenity_type').annotate(count=Count('amenity_type'))
+
+    # Extract labels and counts for the pie chart
+    amenities_data = {item['amenity_type']: item['count'] for item in amenity_counts}
 
     # Context dictionary to pass data to the template
     context = {
@@ -309,6 +345,8 @@ def neighborhood_detail(request, neighborhood_id):
         'rent_data': rent_data,
         'ethnic_distribution_json': json.dumps(ethnic_distribution),  # JSON format for ethnic distribution
         'age_distribution_json': json.dumps(age_distribution),        # JSON format for age distribution
+        'amenities_data_json': json.dumps(amenities_data),            # JSON format for amenities data
+        'transport_data': dict(transport_data)                        # Grouped transport data by station name
     }
 
     return render(request, 'neighborhoods/neighborhood_detail.html', context)
