@@ -17,6 +17,7 @@ class Borough(models.Model):
     geometry_coordinates = models.JSONField()  # For polygon data
     slug = models.SlugField(unique=True, blank=True)  # Added slug field for URLs
     lifestyles = models.ManyToManyField(Lifestyle, blank=True)  # Many-to-many relationship with Lifestyle
+    description = models.TextField()
 
     def __str__(self):
         return self.name
