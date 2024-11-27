@@ -1,1 +1,6390 @@
 [
+{
+    "model": "contenttypes.contenttype",
+    "fields": {
+        "app_label": "admin",
+        "model": "logentry"
+    }
+},
+{
+    "model": "contenttypes.contenttype",
+    "fields": {
+        "app_label": "auth",
+        "model": "permission"
+    }
+},
+{
+    "model": "contenttypes.contenttype",
+    "fields": {
+        "app_label": "auth",
+        "model": "group"
+    }
+},
+{
+    "model": "contenttypes.contenttype",
+    "fields": {
+        "app_label": "auth",
+        "model": "user"
+    }
+},
+{
+    "model": "contenttypes.contenttype",
+    "fields": {
+        "app_label": "contenttypes",
+        "model": "contenttype"
+    }
+},
+{
+    "model": "contenttypes.contenttype",
+    "fields": {
+        "app_label": "sessions",
+        "model": "session"
+    }
+},
+{
+    "model": "contenttypes.contenttype",
+    "fields": {
+        "app_label": "neighborhoods",
+        "model": "borough"
+    }
+},
+{
+    "model": "contenttypes.contenttype",
+    "fields": {
+        "app_label": "neighborhoods",
+        "model": "lifestyle"
+    }
+},
+{
+    "model": "contenttypes.contenttype",
+    "fields": {
+        "app_label": "neighborhoods",
+        "model": "crimedata"
+    }
+},
+{
+    "model": "contenttypes.contenttype",
+    "fields": {
+        "app_label": "neighborhoods",
+        "model": "neighborhood"
+    }
+},
+{
+    "model": "contenttypes.contenttype",
+    "fields": {
+        "app_label": "neighborhoods",
+        "model": "demographics"
+    }
+},
+{
+    "model": "contenttypes.contenttype",
+    "fields": {
+        "app_label": "neighborhoods",
+        "model": "rentdata"
+    }
+},
+{
+    "model": "contenttypes.contenttype",
+    "fields": {
+        "app_label": "neighborhoods",
+        "model": "transports"
+    }
+},
+{
+    "model": "contenttypes.contenttype",
+    "fields": {
+        "app_label": "neighborhoods",
+        "model": "amenities"
+    }
+},
+{
+    "model": "contenttypes.contenttype",
+    "fields": {
+        "app_label": "authtoken",
+        "model": "token"
+    }
+},
+{
+    "model": "contenttypes.contenttype",
+    "fields": {
+        "app_label": "authtoken",
+        "model": "tokenproxy"
+    }
+},
+{
+    "model": "contenttypes.contenttype",
+    "fields": {
+        "app_label": "neighborhoods",
+        "model": "cultural"
+    }
+},
+{
+    "model": "sessions.session",
+    "pk": "30xc61lic4dfth81pdmu2hzicyznd8fg",
+    "fields": {
+        "session_data": "e30:1tGDbN:f2EeRiDu_WvGftEyWNEtKXtV3ryjs4vQmGH3wUPttN0",
+        "expire_date": "2024-12-11T08:40:49.778Z"
+    }
+},
+{
+    "model": "neighborhoods.lifestyle",
+    "pk": 1,
+    "fields": {
+        "name": "family-friendly"
+    }
+},
+{
+    "model": "neighborhoods.lifestyle",
+    "pk": 2,
+    "fields": {
+        "name": "cultural"
+    }
+},
+{
+    "model": "neighborhoods.lifestyle",
+    "pk": 3,
+    "fields": {
+        "name": "pet-friendly"
+    }
+},
+{
+    "model": "neighborhoods.lifestyle",
+    "pk": 4,
+    "fields": {
+        "name": "night-life"
+    }
+},
+{
+    "model": "neighborhoods.borough",
+    "pk": 1,
+    "fields": {
+        "name": "Spandau",
+        "minimum_rent": 715.0,
+        "latitude": 52.55,
+        "longitude": 13.2,
+        "geometry_coordinates": [
+            [
+                [
+                    13.1916667,
+                    52.536111
+                ],
+                [
+                    13.2097222,
+                    52.533333
+                ],
+                [
+                    13.2061111,
+                    52.55
+                ]
+            ]
+        ],
+        "slug": "spandau",
+        "description": "1",
+        "lifestyles": [
+            1,
+            4
+        ]
+    }
+},
+{
+    "model": "neighborhoods.borough",
+    "pk": 2,
+    "fields": {
+        "name": "Mitte",
+        "minimum_rent": 616.0,
+        "latitude": 52.516666,
+        "longitude": 13.366667,
+        "geometry_coordinates": [
+            [
+                [
+                    13.24,
+                    52.531
+                ],
+                [
+                    13.23,
+                    52.528
+                ],
+                [
+                    13.22,
+                    52.53
+                ]
+            ]
+        ],
+        "slug": "mitte",
+        "description": "1",
+        "lifestyles": [
+            2,
+            3
+        ]
+    }
+},
+{
+    "model": "neighborhoods.borough",
+    "pk": 3,
+    "fields": {
+        "name": "Friedrichshain-Kreuzberg",
+        "minimum_rent": 518.0,
+        "latitude": 52.5,
+        "longitude": 13.45,
+        "geometry_coordinates": [
+            [
+                [
+                    13.45,
+                    52.515833
+                ],
+                [
+                    13.46,
+                    52.51
+                ],
+                [
+                    13.44,
+                    52.49
+                ]
+            ]
+        ],
+        "slug": "friedrichshain-kreuzberg",
+        "description": "1",
+        "lifestyles": [
+            2,
+            4
+        ]
+    }
+},
+{
+    "model": "neighborhoods.borough",
+    "pk": 4,
+    "fields": {
+        "name": "Pankow",
+        "minimum_rent": 556.0,
+        "latitude": 52.567,
+        "longitude": 13.4,
+        "geometry_coordinates": [
+            [
+                [
+                    13.4,
+                    52.57
+                ],
+                [
+                    13.41,
+                    52.56
+                ],
+                [
+                    13.39,
+                    52.55
+                ]
+            ]
+        ],
+        "slug": "pankow",
+        "description": "1",
+        "lifestyles": [
+            1,
+            3
+        ]
+    }
+},
+{
+    "model": "neighborhoods.borough",
+    "pk": 5,
+    "fields": {
+        "name": "Charlottenburg-Wilmersdorf",
+        "minimum_rent": 549.0,
+        "latitude": 52.5,
+        "longitude": 13.283,
+        "geometry_coordinates": [
+            [
+                [
+                    13.283,
+                    52.516667
+                ],
+                [
+                    13.29,
+                    52.51
+                ],
+                [
+                    13.27,
+                    52.5
+                ]
+            ]
+        ],
+        "slug": "charlottenburg-wilmersdorf",
+        "description": "1",
+        "lifestyles": [
+            1,
+            2
+        ]
+    }
+},
+{
+    "model": "neighborhoods.borough",
+    "pk": 6,
+    "fields": {
+        "name": "Steglitz-Zehlendorf",
+        "minimum_rent": 740.0,
+        "latitude": 52.433,
+        "longitude": 13.25,
+        "geometry_coordinates": [
+            [
+                [
+                    13.25,
+                    52.433
+                ],
+                [
+                    13.26,
+                    52.43
+                ],
+                [
+                    13.24,
+                    52.42
+                ]
+            ]
+        ],
+        "slug": "steglitz-zehlendorf",
+        "description": "1",
+        "lifestyles": [
+            1
+        ]
+    }
+},
+{
+    "model": "neighborhoods.borough",
+    "pk": 7,
+    "fields": {
+        "name": "Tempelhof-Schöneberg",
+        "minimum_rent": 557.0,
+        "latitude": 52.467,
+        "longitude": 13.383,
+        "geometry_coordinates": [
+            [
+                [
+                    13.383,
+                    52.467
+                ],
+                [
+                    13.39,
+                    52.46
+                ],
+                [
+                    13.37,
+                    52.45
+                ]
+            ]
+        ],
+        "slug": "tempelhof-schoneberg",
+        "description": "1",
+        "lifestyles": [
+            1,
+            4
+        ]
+    }
+},
+{
+    "model": "neighborhoods.borough",
+    "pk": 8,
+    "fields": {
+        "name": "Neukölln",
+        "minimum_rent": 706.0,
+        "latitude": 52.483,
+        "longitude": 13.45,
+        "geometry_coordinates": [
+            [
+                [
+                    13.45,
+                    52.483
+                ],
+                [
+                    13.46,
+                    52.48
+                ],
+                [
+                    13.44,
+                    52.47
+                ]
+            ]
+        ],
+        "slug": "neukolln",
+        "description": "1",
+        "lifestyles": [
+            3,
+            4
+        ]
+    }
+},
+{
+    "model": "neighborhoods.borough",
+    "pk": 9,
+    "fields": {
+        "name": "Treptow-Köpenick",
+        "minimum_rent": 774.0,
+        "latitude": 52.45,
+        "longitude": 13.567,
+        "geometry_coordinates": [
+            [
+                [
+                    13.567,
+                    52.45
+                ],
+                [
+                    13.57,
+                    52.44
+                ],
+                [
+                    13.56,
+                    52.43
+                ]
+            ]
+        ],
+        "slug": "treptow-kopenick",
+        "description": "1",
+        "lifestyles": []
+    }
+},
+{
+    "model": "neighborhoods.borough",
+    "pk": 10,
+    "fields": {
+        "name": "Marzahn-Hellersdorf",
+        "minimum_rent": 597.0,
+        "latitude": 52.533,
+        "longitude": 13.583,
+        "geometry_coordinates": [
+            [
+                [
+                    13.583,
+                    52.533
+                ],
+                [
+                    13.59,
+                    52.53
+                ],
+                [
+                    13.57,
+                    52.52
+                ]
+            ]
+        ],
+        "slug": "marzahn-hellersdorf",
+        "description": "1",
+        "lifestyles": []
+    }
+},
+{
+    "model": "neighborhoods.borough",
+    "pk": 11,
+    "fields": {
+        "name": "Lichtenberg",
+        "minimum_rent": 689.0,
+        "latitude": 52.533,
+        "longitude": 13.5,
+        "geometry_coordinates": [
+            [
+                [
+                    13.5,
+                    52.533
+                ],
+                [
+                    13.51,
+                    52.53
+                ],
+                [
+                    13.49,
+                    52.52
+                ]
+            ]
+        ],
+        "slug": "lichtenberg",
+        "description": "1",
+        "lifestyles": [
+            2,
+            3
+        ]
+    }
+},
+{
+    "model": "neighborhoods.borough",
+    "pk": 12,
+    "fields": {
+        "name": "Reinickendorf",
+        "minimum_rent": 1063.0,
+        "latitude": 52.567,
+        "longitude": 13.333,
+        "geometry_coordinates": [
+            [
+                [
+                    13.333,
+                    52.567
+                ],
+                [
+                    13.34,
+                    52.56
+                ],
+                [
+                    13.32,
+                    52.55
+                ]
+            ]
+        ],
+        "slug": "reinickendorf",
+        "description": "1",
+        "lifestyles": [
+            1,
+            3
+        ]
+    }
+},
+{
+    "model": "neighborhoods.neighborhood",
+    "pk": 1,
+    "fields": {
+        "name": "Moabit",
+        "borough": 2,
+        "latitude": 52.537724,
+        "longitude": 13.360926,
+        "slug": "moabit"
+    }
+},
+{
+    "model": "neighborhoods.neighborhood",
+    "pk": 2,
+    "fields": {
+        "name": "Hansaviertel",
+        "borough": 2,
+        "latitude": 52.516773,
+        "longitude": 13.334215,
+        "slug": "hansaviertel"
+    }
+},
+{
+    "model": "neighborhoods.neighborhood",
+    "pk": 3,
+    "fields": {
+        "name": "Tiergarten",
+        "borough": 2,
+        "latitude": 52.50797,
+        "longitude": 13.377649,
+        "slug": "tiergarten"
+    }
+},
+{
+    "model": "neighborhoods.neighborhood",
+    "pk": 4,
+    "fields": {
+        "name": "Wedding",
+        "borough": 2,
+        "latitude": 52.537724,
+        "longitude": 13.360926,
+        "slug": "wedding"
+    }
+},
+{
+    "model": "neighborhoods.neighborhood",
+    "pk": 5,
+    "fields": {
+        "name": "Gesundbrunnen",
+        "borough": 2,
+        "latitude": 52.56767,
+        "longitude": 13.388401,
+        "slug": "gesundbrunnen"
+    }
+},
+{
+    "model": "neighborhoods.neighborhood",
+    "pk": 6,
+    "fields": {
+        "name": "Friedrichshain",
+        "borough": 3,
+        "latitude": 52.497524,
+        "longitude": 13.453352,
+        "slug": "friedrichshain"
+    }
+},
+{
+    "model": "neighborhoods.neighborhood",
+    "pk": 7,
+    "fields": {
+        "name": "Kreuzberg",
+        "borough": 3,
+        "latitude": 52.489906,
+        "longitude": 13.439656,
+        "slug": "kreuzberg"
+    }
+},
+{
+    "model": "neighborhoods.neighborhood",
+    "pk": 8,
+    "fields": {
+        "name": "Prenzlauer Berg",
+        "borough": 4,
+        "latitude": 52.55497,
+        "longitude": 13.397497,
+        "slug": "prenzlauer-berg"
+    }
+},
+{
+    "model": "neighborhoods.neighborhood",
+    "pk": 9,
+    "fields": {
+        "name": "Weißensee",
+        "borough": 4,
+        "latitude": 52.546177,
+        "longitude": 13.467727,
+        "slug": "weiensee"
+    }
+},
+{
+    "model": "neighborhoods.neighborhood",
+    "pk": 10,
+    "fields": {
+        "name": "Blankenburg",
+        "borough": 4,
+        "latitude": 52.575584,
+        "longitude": 13.457505,
+        "slug": "blankenburg"
+    }
+},
+{
+    "model": "neighborhoods.neighborhood",
+    "pk": 11,
+    "fields": {
+        "name": "Heinersdorf",
+        "borough": 4,
+        "latitude": 52.575584,
+        "longitude": 13.457505,
+        "slug": "heinersdorf"
+    }
+},
+{
+    "model": "neighborhoods.neighborhood",
+    "pk": 12,
+    "fields": {
+        "name": "Karow",
+        "borough": 4,
+        "latitude": 52.611336,
+        "longitude": 13.498836,
+        "slug": "karow"
+    }
+},
+{
+    "model": "neighborhoods.neighborhood",
+    "pk": 13,
+    "fields": {
+        "name": "Französisch Buchholz",
+        "borough": 4,
+        "latitude": 52.587578,
+        "longitude": 13.436528,
+        "slug": "franzosisch-buchholz"
+    }
+},
+{
+    "model": "neighborhoods.neighborhood",
+    "pk": 14,
+    "fields": {
+        "name": "Blankenfelde",
+        "borough": 4,
+        "latitude": 52.625366,
+        "longitude": 13.366984,
+        "slug": "blankenfelde"
+    }
+},
+{
+    "model": "neighborhoods.neighborhood",
+    "pk": 15,
+    "fields": {
+        "name": "Buch",
+        "borough": 4,
+        "latitude": 52.61956,
+        "longitude": 13.505061,
+        "slug": "buch"
+    }
+},
+{
+    "model": "neighborhoods.neighborhood",
+    "pk": 16,
+    "fields": {
+        "name": "Niederschönhausen",
+        "borough": 4,
+        "latitude": 52.584904,
+        "longitude": 13.374861,
+        "slug": "niederschonhausen"
+    }
+},
+{
+    "model": "neighborhoods.neighborhood",
+    "pk": 17,
+    "fields": {
+        "name": "Rosenthal",
+        "borough": 4,
+        "latitude": 52.584904,
+        "longitude": 13.374861,
+        "slug": "rosenthal"
+    }
+},
+{
+    "model": "neighborhoods.neighborhood",
+    "pk": 18,
+    "fields": {
+        "name": "Wilhelmsruh",
+        "borough": 4,
+        "latitude": 52.591267,
+        "longitude": 13.360649,
+        "slug": "wilhelmsruh"
+    }
+},
+{
+    "model": "neighborhoods.neighborhood",
+    "pk": 19,
+    "fields": {
+        "name": "Charlottenburg",
+        "borough": 5,
+        "latitude": 52.49936,
+        "longitude": 13.316151,
+        "slug": "charlottenburg"
+    }
+},
+{
+    "model": "neighborhoods.neighborhood",
+    "pk": 20,
+    "fields": {
+        "name": "Wilmersdorf",
+        "borough": 5,
+        "latitude": 52.48153,
+        "longitude": 13.309254,
+        "slug": "wilmersdorf"
+    }
+},
+{
+    "model": "neighborhoods.neighborhood",
+    "pk": 21,
+    "fields": {
+        "name": "Schmargendorf",
+        "borough": 5,
+        "latitude": 52.48153,
+        "longitude": 13.309254,
+        "slug": "schmargendorf"
+    }
+},
+{
+    "model": "neighborhoods.neighborhood",
+    "pk": 22,
+    "fields": {
+        "name": "Grunewald",
+        "borough": 5,
+        "latitude": 52.49405,
+        "longitude": 13.290895,
+        "slug": "grunewald"
+    }
+},
+{
+    "model": "neighborhoods.neighborhood",
+    "pk": 23,
+    "fields": {
+        "name": "Westend",
+        "borough": 5,
+        "latitude": 52.517532,
+        "longitude": 13.283306,
+        "slug": "westend"
+    }
+},
+{
+    "model": "neighborhoods.neighborhood",
+    "pk": 24,
+    "fields": {
+        "name": "Halensee",
+        "borough": 5,
+        "latitude": 52.498806,
+        "longitude": 13.30164,
+        "slug": "halensee"
+    }
+},
+{
+    "model": "neighborhoods.neighborhood",
+    "pk": 25,
+    "fields": {
+        "name": "Charlottenburg-Nord",
+        "borough": 5,
+        "latitude": 52.530487,
+        "longitude": 13.281179,
+        "slug": "charlottenburg-nord"
+    }
+},
+{
+    "model": "neighborhoods.neighborhood",
+    "pk": 26,
+    "fields": {
+        "name": "Haselhorst",
+        "borough": 1,
+        "latitude": 52.534096,
+        "longitude": 13.232057,
+        "slug": "haselhorst"
+    }
+},
+{
+    "model": "neighborhoods.neighborhood",
+    "pk": 27,
+    "fields": {
+        "name": "Siemensstadt",
+        "borough": 1,
+        "latitude": 52.528313,
+        "longitude": 13.24668,
+        "slug": "siemensstadt"
+    }
+},
+{
+    "model": "neighborhoods.neighborhood",
+    "pk": 28,
+    "fields": {
+        "name": "Staaken",
+        "borough": 1,
+        "latitude": 52.51444,
+        "longitude": 13.154156,
+        "slug": "staaken"
+    }
+},
+{
+    "model": "neighborhoods.neighborhood",
+    "pk": 29,
+    "fields": {
+        "name": "Falkenhagener Feld",
+        "borough": 1,
+        "latitude": 52.545994,
+        "longitude": 13.191662,
+        "slug": "falkenhagener-feld"
+    }
+},
+{
+    "model": "neighborhoods.neighborhood",
+    "pk": 30,
+    "fields": {
+        "name": "Wilhelmstadt",
+        "borough": 1,
+        "latitude": 52.51294,
+        "longitude": 13.158588,
+        "slug": "wilhelmstadt"
+    }
+},
+{
+    "model": "neighborhoods.neighborhood",
+    "pk": 31,
+    "fields": {
+        "name": "Kladow",
+        "borough": 1,
+        "latitude": 52.466545,
+        "longitude": 13.186633,
+        "slug": "kladow"
+    }
+},
+{
+    "model": "neighborhoods.neighborhood",
+    "pk": 32,
+    "fields": {
+        "name": "Hakenfelde",
+        "borough": 1,
+        "latitude": 52.55498,
+        "longitude": 13.195837,
+        "slug": "hakenfelde"
+    }
+},
+{
+    "model": "neighborhoods.neighborhood",
+    "pk": 33,
+    "fields": {
+        "name": "Lichterfelde",
+        "borough": 6,
+        "latitude": 52.41181,
+        "longitude": 13.342959,
+        "slug": "lichterfelde"
+    }
+},
+{
+    "model": "neighborhoods.neighborhood",
+    "pk": 34,
+    "fields": {
+        "name": "Lankwitz",
+        "borough": 6,
+        "latitude": 52.433075,
+        "longitude": 13.369194,
+        "slug": "lankwitz"
+    }
+},
+{
+    "model": "neighborhoods.neighborhood",
+    "pk": 35,
+    "fields": {
+        "name": "Zehlendorf",
+        "borough": 6,
+        "latitude": 52.46917,
+        "longitude": 13.238334,
+        "slug": "zehlendorf"
+    }
+},
+{
+    "model": "neighborhoods.neighborhood",
+    "pk": 36,
+    "fields": {
+        "name": "Wannsee",
+        "borough": 6,
+        "latitude": 52.452194,
+        "longitude": 13.161862,
+        "slug": "wannsee"
+    }
+},
+{
+    "model": "neighborhoods.neighborhood",
+    "pk": 37,
+    "fields": {
+        "name": "Dahlem",
+        "borough": 6,
+        "latitude": 52.461884,
+        "longitude": 13.304713,
+        "slug": "dahlem"
+    }
+},
+{
+    "model": "neighborhoods.neighborhood",
+    "pk": 38,
+    "fields": {
+        "name": "Schlachtensee",
+        "borough": 6,
+        "latitude": 52.437,
+        "longitude": 13.216,
+        "slug": "schlachtensee"
+    }
+},
+{
+    "model": "neighborhoods.neighborhood",
+    "pk": 39,
+    "fields": {
+        "name": "Schöneberg",
+        "borough": 7,
+        "latitude": 52.472046,
+        "longitude": 13.371084,
+        "slug": "schoneberg"
+    }
+},
+{
+    "model": "neighborhoods.neighborhood",
+    "pk": 40,
+    "fields": {
+        "name": "Friedenau",
+        "borough": 7,
+        "latitude": 52.46698,
+        "longitude": 13.319983,
+        "slug": "friedenau"
+    }
+},
+{
+    "model": "neighborhoods.neighborhood",
+    "pk": 41,
+    "fields": {
+        "name": "Tempelhof",
+        "borough": 7,
+        "latitude": 52.44599,
+        "longitude": 13.366179,
+        "slug": "tempelhof"
+    }
+},
+{
+    "model": "neighborhoods.neighborhood",
+    "pk": 42,
+    "fields": {
+        "name": "Mariendorf",
+        "borough": 7,
+        "latitude": 52.439125,
+        "longitude": 13.411258,
+        "slug": "mariendorf"
+    }
+},
+{
+    "model": "neighborhoods.neighborhood",
+    "pk": 43,
+    "fields": {
+        "name": "Lichtenrade",
+        "borough": 7,
+        "latitude": 52.41758,
+        "longitude": 13.396316,
+        "slug": "lichtenrade"
+    }
+},
+{
+    "model": "neighborhoods.neighborhood",
+    "pk": 44,
+    "fields": {
+        "name": "Britz",
+        "borough": 8,
+        "latitude": 52.439125,
+        "longitude": 13.411258,
+        "slug": "britz"
+    }
+},
+{
+    "model": "neighborhoods.neighborhood",
+    "pk": 45,
+    "fields": {
+        "name": "Buckow",
+        "borough": 8,
+        "latitude": 52.4268,
+        "longitude": 13.446856,
+        "slug": "buckow"
+    }
+},
+{
+    "model": "neighborhoods.neighborhood",
+    "pk": 46,
+    "fields": {
+        "name": "Gropiusstadt",
+        "borough": 8,
+        "latitude": 52.432186,
+        "longitude": 13.460263,
+        "slug": "gropiusstadt"
+    }
+},
+{
+    "model": "neighborhoods.neighborhood",
+    "pk": 47,
+    "fields": {
+        "name": "Rudow",
+        "borough": 8,
+        "latitude": 52.42975,
+        "longitude": 13.476583,
+        "slug": "rudow"
+    }
+},
+{
+    "model": "neighborhoods.neighborhood",
+    "pk": 48,
+    "fields": {
+        "name": "Alt-Treptow",
+        "borough": 9,
+        "latitude": 52.489906,
+        "longitude": 13.439656,
+        "slug": "alt-treptow"
+    }
+},
+{
+    "model": "neighborhoods.neighborhood",
+    "pk": 49,
+    "fields": {
+        "name": "Baumschulenweg",
+        "borough": 9,
+        "latitude": 52.471912,
+        "longitude": 13.495229,
+        "slug": "baumschulenweg"
+    }
+},
+{
+    "model": "neighborhoods.neighborhood",
+    "pk": 50,
+    "fields": {
+        "name": "Plänterwald",
+        "borough": 9,
+        "latitude": 52.47022,
+        "longitude": 13.492486,
+        "slug": "planterwald"
+    }
+},
+{
+    "model": "neighborhoods.neighborhood",
+    "pk": 51,
+    "fields": {
+        "name": "Oberschöneweide",
+        "borough": 9,
+        "latitude": 52.471912,
+        "longitude": 13.495229,
+        "slug": "oberschoneweide"
+    }
+},
+{
+    "model": "neighborhoods.neighborhood",
+    "pk": 52,
+    "fields": {
+        "name": "Grünau",
+        "borough": 9,
+        "latitude": 52.42498,
+        "longitude": 13.555359,
+        "slug": "grunau"
+    }
+},
+{
+    "model": "neighborhoods.neighborhood",
+    "pk": 53,
+    "fields": {
+        "name": "Schmöckwitz",
+        "borough": 9,
+        "latitude": 52.37912,
+        "longitude": 13.606395,
+        "slug": "schmockwitz"
+    }
+},
+{
+    "model": "neighborhoods.neighborhood",
+    "pk": 54,
+    "fields": {
+        "name": "Marzahn",
+        "borough": 10,
+        "latitude": 52.514534,
+        "longitude": 13.518599,
+        "slug": "marzahn"
+    }
+},
+{
+    "model": "neighborhoods.neighborhood",
+    "pk": 55,
+    "fields": {
+        "name": "Biesdorf",
+        "borough": 10,
+        "latitude": 52.532043,
+        "longitude": 13.578269,
+        "slug": "biesdorf"
+    }
+},
+{
+    "model": "neighborhoods.neighborhood",
+    "pk": 56,
+    "fields": {
+        "name": "Kaulsdorf",
+        "borough": 10,
+        "latitude": 52.51227,
+        "longitude": 13.576495,
+        "slug": "kaulsdorf"
+    }
+},
+{
+    "model": "neighborhoods.neighborhood",
+    "pk": 57,
+    "fields": {
+        "name": "Mahlsdorf",
+        "borough": 10,
+        "latitude": 52.481117,
+        "longitude": 13.586347,
+        "slug": "mahlsdorf"
+    }
+},
+{
+    "model": "neighborhoods.neighborhood",
+    "pk": 58,
+    "fields": {
+        "name": "Friedrichsfelde",
+        "borough": 11,
+        "latitude": 52.51439,
+        "longitude": 13.508673,
+        "slug": "friedrichsfelde"
+    }
+},
+{
+    "model": "neighborhoods.neighborhood",
+    "pk": 59,
+    "fields": {
+        "name": "Karlshorst",
+        "borough": 11,
+        "latitude": 52.491165,
+        "longitude": 13.505834,
+        "slug": "karlshorst"
+    }
+},
+{
+    "model": "neighborhoods.neighborhood",
+    "pk": 60,
+    "fields": {
+        "name": "Rummelsburg",
+        "borough": 11,
+        "latitude": 52.51439,
+        "longitude": 13.508673,
+        "slug": "rummelsburg"
+    }
+},
+{
+    "model": "neighborhoods.neighborhood",
+    "pk": 61,
+    "fields": {
+        "name": "Neu-Hohenschönhausen",
+        "borough": 11,
+        "latitude": 52.578983,
+        "longitude": 13.510016,
+        "slug": "neu-hohenschonhausen"
+    }
+},
+{
+    "model": "neighborhoods.neighborhood",
+    "pk": 62,
+    "fields": {
+        "name": "Alt-Hohenschönhausen",
+        "borough": 11,
+        "latitude": 52.546177,
+        "longitude": 13.467727,
+        "slug": "alt-hohenschonhausen"
+    }
+},
+{
+    "model": "neighborhoods.neighborhood",
+    "pk": 63,
+    "fields": {
+        "name": "Tegel",
+        "borough": 12,
+        "latitude": 52.59488,
+        "longitude": 13.220917,
+        "slug": "tegel"
+    }
+},
+{
+    "model": "neighborhoods.neighborhood",
+    "pk": 64,
+    "fields": {
+        "name": "Frohnau",
+        "borough": 12,
+        "latitude": 52.641117,
+        "longitude": 13.283839,
+        "slug": "frohnau"
+    }
+},
+{
+    "model": "neighborhoods.neighborhood",
+    "pk": 65,
+    "fields": {
+        "name": "Wittenau",
+        "borough": 12,
+        "latitude": 52.608273,
+        "longitude": 13.339374,
+        "slug": "wittenau"
+    }
+},
+{
+    "model": "neighborhoods.neighborhood",
+    "pk": 66,
+    "fields": {
+        "name": "Konradshöhe",
+        "borough": 12,
+        "latitude": 52.58748,
+        "longitude": 13.217397,
+        "slug": "konradshohe"
+    }
+},
+{
+    "model": "neighborhoods.neighborhood",
+    "pk": 67,
+    "fields": {
+        "name": "Heiligensee",
+        "borough": 12,
+        "latitude": 52.593193,
+        "longitude": 13.21812,
+        "slug": "heiligensee"
+    }
+},
+{
+    "model": "neighborhoods.neighborhood",
+    "pk": 68,
+    "fields": {
+        "name": "Märkisches Viertel",
+        "borough": 12,
+        "latitude": 52.606525,
+        "longitude": 13.375443,
+        "slug": "markisches-viertel"
+    }
+},
+{
+    "model": "neighborhoods.neighborhood",
+    "pk": 69,
+    "fields": {
+        "name": "Stadtrandsiedlung Malchow",
+        "borough": 4,
+        "latitude": 52.58735,
+        "longitude": 13.4855,
+        "slug": "stadtrandsiedlung-malchow"
+    }
+},
+{
+    "model": "neighborhoods.neighborhood",
+    "pk": 70,
+    "fields": {
+        "name": "Nikolassee",
+        "borough": 6,
+        "latitude": 52.46917,
+        "longitude": 13.238334,
+        "slug": "nikolassee"
+    }
+},
+{
+    "model": "neighborhoods.neighborhood",
+    "pk": 71,
+    "fields": {
+        "name": "Marienfelde",
+        "borough": 7,
+        "latitude": 52.415195,
+        "longitude": 13.345831,
+        "slug": "marienfelde"
+    }
+},
+{
+    "model": "neighborhoods.neighborhood",
+    "pk": 72,
+    "fields": {
+        "name": "Johannisthal",
+        "borough": 9,
+        "latitude": 52.45866,
+        "longitude": 13.478942,
+        "slug": "johannisthal"
+    }
+},
+{
+    "model": "neighborhoods.neighborhood",
+    "pk": 73,
+    "fields": {
+        "name": "Niederschöneweide",
+        "borough": 9,
+        "latitude": 52.45304,
+        "longitude": 13.557533,
+        "slug": "niederschoneweide"
+    }
+},
+{
+    "model": "neighborhoods.neighborhood",
+    "pk": 74,
+    "fields": {
+        "name": "Altglienicke",
+        "borough": 9,
+        "latitude": 52.395023,
+        "longitude": 13.53565,
+        "slug": "altglienicke"
+    }
+},
+{
+    "model": "neighborhoods.neighborhood",
+    "pk": 75,
+    "fields": {
+        "name": "Bohnsdorf",
+        "borough": 9,
+        "latitude": 52.395023,
+        "longitude": 13.53565,
+        "slug": "bohnsdorf"
+    }
+},
+{
+    "model": "neighborhoods.neighborhood",
+    "pk": 76,
+    "fields": {
+        "name": "Köpenick",
+        "borough": 9,
+        "latitude": 52.426716,
+        "longitude": 13.563417,
+        "slug": "kopenick"
+    }
+},
+{
+    "model": "neighborhoods.neighborhood",
+    "pk": 77,
+    "fields": {
+        "name": "Friedrichshagen",
+        "borough": 9,
+        "latitude": 52.444252,
+        "longitude": 13.625426,
+        "slug": "friedrichshagen"
+    }
+},
+{
+    "model": "neighborhoods.neighborhood",
+    "pk": 78,
+    "fields": {
+        "name": "Rahnsdorf",
+        "borough": 9,
+        "latitude": 52.417213,
+        "longitude": 13.723504,
+        "slug": "rahnsdorf"
+    }
+},
+{
+    "model": "neighborhoods.neighborhood",
+    "pk": 79,
+    "fields": {
+        "name": "Müggelheim",
+        "borough": 9,
+        "latitude": 52.40184,
+        "longitude": 13.631396,
+        "slug": "muggelheim"
+    }
+},
+{
+    "model": "neighborhoods.neighborhood",
+    "pk": 80,
+    "fields": {
+        "name": "Hellersdorf",
+        "borough": 10,
+        "latitude": 52.51227,
+        "longitude": 13.576495,
+        "slug": "hellersdorf"
+    }
+},
+{
+    "model": "neighborhoods.neighborhood",
+    "pk": 81,
+    "fields": {
+        "name": "Fennpfuhl",
+        "borough": 11,
+        "latitude": 52.52281,
+        "longitude": 13.469608,
+        "slug": "fennpfuhl"
+    }
+},
+{
+    "model": "neighborhoods.neighborhood",
+    "pk": 82,
+    "fields": {
+        "name": "Falkenberg",
+        "borough": 11,
+        "latitude": 52.5706,
+        "longitude": 13.530031,
+        "slug": "falkenberg"
+    }
+},
+{
+    "model": "neighborhoods.neighborhood",
+    "pk": 83,
+    "fields": {
+        "name": "Malchow",
+        "borough": 11,
+        "latitude": 52.58735,
+        "longitude": 13.4855,
+        "slug": "malchow"
+    }
+},
+{
+    "model": "neighborhoods.neighborhood",
+    "pk": 84,
+    "fields": {
+        "name": "Wartenberg",
+        "borough": 11,
+        "latitude": 52.58735,
+        "longitude": 13.4855,
+        "slug": "wartenberg"
+    }
+},
+{
+    "model": "neighborhoods.neighborhood",
+    "pk": 85,
+    "fields": {
+        "name": "Hermsdorf",
+        "borough": 12,
+        "latitude": 52.60633,
+        "longitude": 13.300929,
+        "slug": "hermsdorf"
+    }
+},
+{
+    "model": "neighborhoods.neighborhood",
+    "pk": 86,
+    "fields": {
+        "name": "Waidmannslust",
+        "borough": 12,
+        "latitude": 52.59707,
+        "longitude": 13.307561,
+        "slug": "waidmannslust"
+    }
+},
+{
+    "model": "neighborhoods.neighborhood",
+    "pk": 87,
+    "fields": {
+        "name": "Lübars",
+        "borough": 12,
+        "latitude": 52.623413,
+        "longitude": 13.34357,
+        "slug": "lubars"
+    }
+},
+{
+    "model": "neighborhoods.neighborhood",
+    "pk": 88,
+    "fields": {
+        "name": "Borsigwalde",
+        "borough": 12,
+        "latitude": 52.591904,
+        "longitude": 13.305849,
+        "slug": "borsigwalde"
+    }
+},
+{
+    "model": "neighborhoods.neighborhood",
+    "pk": 89,
+    "fields": {
+        "name": "Reinickendorf",
+        "borough": 12,
+        "latitude": 52.590126,
+        "longitude": 13.347476,
+        "slug": "reinickendorf"
+    }
+},
+{
+    "model": "neighborhoods.neighborhood",
+    "pk": 90,
+    "fields": {
+        "name": "Mitte",
+        "borough": 2,
+        "latitude": 52.52792,
+        "longitude": 13.373623,
+        "slug": "mitte"
+    }
+},
+{
+    "model": "neighborhoods.neighborhood",
+    "pk": 91,
+    "fields": {
+        "name": "Pankow",
+        "borough": 4,
+        "latitude": 52.581898,
+        "longitude": 13.426858,
+        "slug": "pankow"
+    }
+},
+{
+    "model": "neighborhoods.neighborhood",
+    "pk": 98,
+    "fields": {
+        "name": "Spandau",
+        "borough": 1,
+        "latitude": 52.545994,
+        "longitude": 13.191662,
+        "slug": "spandau"
+    }
+},
+{
+    "model": "neighborhoods.neighborhood",
+    "pk": 102,
+    "fields": {
+        "name": "Gatow",
+        "borough": 1,
+        "latitude": 52.48541,
+        "longitude": 13.135552,
+        "slug": "gatow"
+    }
+},
+{
+    "model": "neighborhoods.neighborhood",
+    "pk": 107,
+    "fields": {
+        "name": "Adlershof",
+        "borough": 9,
+        "latitude": 52.426716,
+        "longitude": 13.563417,
+        "slug": "adlershof"
+    }
+},
+{
+    "model": "neighborhoods.neighborhood",
+    "pk": 108,
+    "fields": {
+        "name": "Steglitz",
+        "borough": 6,
+        "latitude": 52.444157,
+        "longitude": 13.349394,
+        "slug": "steglitz"
+    }
+},
+{
+    "model": "neighborhoods.neighborhood",
+    "pk": 109,
+    "fields": {
+        "name": "Neukölln",
+        "borough": 8,
+        "latitude": 52.473145,
+        "longitude": 13.469946,
+        "slug": "neukolln"
+    }
+},
+{
+    "model": "neighborhoods.neighborhood",
+    "pk": 110,
+    "fields": {
+        "name": "Lichtenberg",
+        "borough": 11,
+        "latitude": 52.523186,
+        "longitude": 13.469628,
+        "slug": "lichtenberg"
+    }
+},
+{
+    "model": "neighborhoods.rentdata",
+    "pk": 1,
+    "fields": {
+        "neighborhood": 1,
+        "avg_price": 1314.0,
+        "min_price": 505.0,
+        "max_price": 3456.0,
+        "avg_size": 55.0,
+        "min_size": 10.0,
+        "max_size": 146.0,
+        "borough": 2
+    }
+},
+{
+    "model": "neighborhoods.rentdata",
+    "pk": 2,
+    "fields": {
+        "neighborhood": 2,
+        "avg_price": 1119.0,
+        "min_price": 720.0,
+        "max_price": 2100.0,
+        "avg_size": 37.0,
+        "min_size": 10.0,
+        "max_size": 100.0,
+        "borough": 2
+    }
+},
+{
+    "model": "neighborhoods.rentdata",
+    "pk": 3,
+    "fields": {
+        "neighborhood": 3,
+        "avg_price": 1911.0,
+        "min_price": 945.0,
+        "max_price": 2915.0,
+        "avg_size": 80.0,
+        "min_size": 10.0,
+        "max_size": 176.0,
+        "borough": 2
+    }
+},
+{
+    "model": "neighborhoods.rentdata",
+    "pk": 4,
+    "fields": {
+        "neighborhood": 4,
+        "avg_price": 927.0,
+        "min_price": 411.0,
+        "max_price": 1609.0,
+        "avg_size": 43.0,
+        "min_size": 8.0,
+        "max_size": 103.0,
+        "borough": 2
+    }
+},
+{
+    "model": "neighborhoods.rentdata",
+    "pk": 5,
+    "fields": {
+        "neighborhood": 5,
+        "avg_price": 1040.0,
+        "min_price": 372.0,
+        "max_price": 2980.0,
+        "avg_size": 60.0,
+        "min_size": 12.0,
+        "max_size": 136.0,
+        "borough": 2
+    }
+},
+{
+    "model": "neighborhoods.rentdata",
+    "pk": 6,
+    "fields": {
+        "neighborhood": 6,
+        "avg_price": 1344.0,
+        "min_price": 537.0,
+        "max_price": 8002.0,
+        "avg_size": 61.0,
+        "min_size": 10.0,
+        "max_size": 184.0,
+        "borough": 3
+    }
+},
+{
+    "model": "neighborhoods.rentdata",
+    "pk": 7,
+    "fields": {
+        "neighborhood": 7,
+        "avg_price": 1460.0,
+        "min_price": 498.0,
+        "max_price": 6500.0,
+        "avg_size": 72.0,
+        "min_size": 8.0,
+        "max_size": 167.0,
+        "borough": 3
+    }
+},
+{
+    "model": "neighborhoods.rentdata",
+    "pk": 8,
+    "fields": {
+        "neighborhood": 8,
+        "avg_price": 1383.0,
+        "min_price": 343.0,
+        "max_price": 3995.0,
+        "avg_size": 69.0,
+        "min_size": 8.0,
+        "max_size": 170.0,
+        "borough": 4
+    }
+},
+{
+    "model": "neighborhoods.rentdata",
+    "pk": 9,
+    "fields": {
+        "neighborhood": 9,
+        "avg_price": 1182.0,
+        "min_price": 400.0,
+        "max_price": 3599.0,
+        "avg_size": 68.0,
+        "min_size": 12.0,
+        "max_size": 145.0,
+        "borough": 4
+    }
+},
+{
+    "model": "neighborhoods.rentdata",
+    "pk": 10,
+    "fields": {
+        "neighborhood": 10,
+        "avg_price": 885.0,
+        "min_price": 364.0,
+        "max_price": 1560.0,
+        "avg_size": 48.0,
+        "min_size": 8.0,
+        "max_size": 113.0,
+        "borough": 4
+    }
+},
+{
+    "model": "neighborhoods.rentdata",
+    "pk": 11,
+    "fields": {
+        "neighborhood": 11,
+        "avg_price": 1026.0,
+        "min_price": 430.0,
+        "max_price": 1768.0,
+        "avg_size": 49.0,
+        "min_size": 10.0,
+        "max_size": 86.0,
+        "borough": 4
+    }
+},
+{
+    "model": "neighborhoods.rentdata",
+    "pk": 12,
+    "fields": {
+        "neighborhood": 12,
+        "avg_price": 839.0,
+        "min_price": 473.0,
+        "max_price": 1449.0,
+        "avg_size": 62.0,
+        "min_size": 20.0,
+        "max_size": 98.0,
+        "borough": 4
+    }
+},
+{
+    "model": "neighborhoods.rentdata",
+    "pk": 13,
+    "fields": {
+        "neighborhood": 13,
+        "avg_price": 1395.0,
+        "min_price": 342.0,
+        "max_price": 2700.0,
+        "avg_size": 62.0,
+        "min_size": 8.0,
+        "max_size": 159.0,
+        "borough": 4
+    }
+},
+{
+    "model": "neighborhoods.rentdata",
+    "pk": 14,
+    "fields": {
+        "neighborhood": 14,
+        "avg_price": 1182.0,
+        "min_price": 999.0,
+        "max_price": 1560.0,
+        "avg_size": 37.0,
+        "min_size": 19.0,
+        "max_size": 60.0,
+        "borough": 4
+    }
+},
+{
+    "model": "neighborhoods.rentdata",
+    "pk": 15,
+    "fields": {
+        "neighborhood": 15,
+        "avg_price": 1000.0,
+        "min_price": 420.0,
+        "max_price": 1909.0,
+        "avg_size": 62.0,
+        "min_size": 30.0,
+        "max_size": 123.0,
+        "borough": 4
+    }
+},
+{
+    "model": "neighborhoods.rentdata",
+    "pk": 16,
+    "fields": {
+        "neighborhood": 16,
+        "avg_price": 964.0,
+        "min_price": 112.0,
+        "max_price": 2000.0,
+        "avg_size": 72.0,
+        "min_size": 39.0,
+        "max_size": 102.0,
+        "borough": 4
+    }
+},
+{
+    "model": "neighborhoods.rentdata",
+    "pk": 17,
+    "fields": {
+        "neighborhood": 17,
+        "avg_price": 1155.0,
+        "min_price": 745.0,
+        "max_price": 1475.0,
+        "avg_size": 56.0,
+        "min_size": 9.0,
+        "max_size": 90.0,
+        "borough": 4
+    }
+},
+{
+    "model": "neighborhoods.rentdata",
+    "pk": 18,
+    "fields": {
+        "neighborhood": 18,
+        "avg_price": 1256.0,
+        "min_price": 799.0,
+        "max_price": 1862.0,
+        "avg_size": 72.0,
+        "min_size": 20.0,
+        "max_size": 122.0,
+        "borough": 4
+    }
+},
+{
+    "model": "neighborhoods.rentdata",
+    "pk": 19,
+    "fields": {
+        "neighborhood": 19,
+        "avg_price": 875.0,
+        "min_price": 450.0,
+        "max_price": 1560.0,
+        "avg_size": 16.0,
+        "min_size": 7.0,
+        "max_size": 30.0,
+        "borough": 5
+    }
+},
+{
+    "model": "neighborhoods.rentdata",
+    "pk": 20,
+    "fields": {
+        "neighborhood": 20,
+        "avg_price": 821.0,
+        "min_price": 490.0,
+        "max_price": 1400.0,
+        "avg_size": 16.0,
+        "min_size": 6.0,
+        "max_size": 32.0,
+        "borough": 5
+    }
+},
+{
+    "model": "neighborhoods.rentdata",
+    "pk": 21,
+    "fields": {
+        "neighborhood": 21,
+        "avg_price": 780.0,
+        "min_price": 635.0,
+        "max_price": 890.0,
+        "avg_size": 12.0,
+        "min_size": 9.0,
+        "max_size": 24.0,
+        "borough": 5
+    }
+},
+{
+    "model": "neighborhoods.rentdata",
+    "pk": 22,
+    "fields": {
+        "neighborhood": 22,
+        "avg_price": 740.0,
+        "min_price": 740.0,
+        "max_price": 740.0,
+        "avg_size": 14.0,
+        "min_size": 14.0,
+        "max_size": 14.0,
+        "borough": 5
+    }
+},
+{
+    "model": "neighborhoods.rentdata",
+    "pk": 23,
+    "fields": {
+        "neighborhood": 23,
+        "avg_price": 889.0,
+        "min_price": 580.0,
+        "max_price": 1500.0,
+        "avg_size": 18.0,
+        "min_size": 11.0,
+        "max_size": 30.0,
+        "borough": 5
+    }
+},
+{
+    "model": "neighborhoods.rentdata",
+    "pk": 24,
+    "fields": {
+        "neighborhood": 24,
+        "avg_price": 792.0,
+        "min_price": 500.0,
+        "max_price": 949.0,
+        "avg_size": 14.0,
+        "min_size": 9.0,
+        "max_size": 22.0,
+        "borough": 5
+    }
+},
+{
+    "model": "neighborhoods.rentdata",
+    "pk": 25,
+    "fields": {
+        "neighborhood": 25,
+        "avg_price": 811.0,
+        "min_price": 450.0,
+        "max_price": 1500.0,
+        "avg_size": 15.0,
+        "min_size": 7.0,
+        "max_size": 30.0,
+        "borough": 5
+    }
+},
+{
+    "model": "neighborhoods.rentdata",
+    "pk": 26,
+    "fields": {
+        "neighborhood": 26,
+        "avg_price": 600.0,
+        "min_price": 600.0,
+        "max_price": 600.0,
+        "avg_size": 10.0,
+        "min_size": 10.0,
+        "max_size": 10.0,
+        "borough": 1
+    }
+},
+{
+    "model": "neighborhoods.rentdata",
+    "pk": 27,
+    "fields": {
+        "neighborhood": 27,
+        "avg_price": 1407.0,
+        "min_price": 710.0,
+        "max_price": 2260.0,
+        "avg_size": 70.0,
+        "min_size": 19.0,
+        "max_size": 124.0,
+        "borough": 1
+    }
+},
+{
+    "model": "neighborhoods.rentdata",
+    "pk": 28,
+    "fields": {
+        "neighborhood": 28,
+        "avg_price": 1317.0,
+        "min_price": 1070.0,
+        "max_price": 1500.0,
+        "avg_size": 66.0,
+        "min_size": 26.0,
+        "max_size": 85.0,
+        "borough": 1
+    }
+},
+{
+    "model": "neighborhoods.rentdata",
+    "pk": 29,
+    "fields": {
+        "neighborhood": 29,
+        "avg_price": 692.0,
+        "min_price": 550.0,
+        "max_price": 1100.0,
+        "avg_size": 44.0,
+        "min_size": 5.0,
+        "max_size": 84.0,
+        "borough": 1
+    }
+},
+{
+    "model": "neighborhoods.rentdata",
+    "pk": 30,
+    "fields": {
+        "neighborhood": 30,
+        "avg_price": 1038.0,
+        "min_price": 650.0,
+        "max_price": 1290.0,
+        "avg_size": 57.0,
+        "min_size": 15.0,
+        "max_size": 83.0,
+        "borough": 1
+    }
+},
+{
+    "model": "neighborhoods.rentdata",
+    "pk": 31,
+    "fields": {
+        "neighborhood": 31,
+        "avg_price": 1110.0,
+        "min_price": 1110.0,
+        "max_price": 1110.0,
+        "avg_size": 70.0,
+        "min_size": 70.0,
+        "max_size": 70.0,
+        "borough": 1
+    }
+},
+{
+    "model": "neighborhoods.rentdata",
+    "pk": 32,
+    "fields": {
+        "neighborhood": 32,
+        "avg_price": 1155.0,
+        "min_price": 510.0,
+        "max_price": 1800.0,
+        "avg_size": 51.0,
+        "min_size": 15.0,
+        "max_size": 84.0,
+        "borough": 1
+    }
+},
+{
+    "model": "neighborhoods.rentdata",
+    "pk": 33,
+    "fields": {
+        "neighborhood": 33,
+        "avg_price": 1051.0,
+        "min_price": 430.0,
+        "max_price": 1820.0,
+        "avg_size": 56.0,
+        "min_size": 14.0,
+        "max_size": 98.0,
+        "borough": 6
+    }
+},
+{
+    "model": "neighborhoods.rentdata",
+    "pk": 34,
+    "fields": {
+        "neighborhood": 34,
+        "avg_price": 1101.0,
+        "min_price": 440.0,
+        "max_price": 1790.0,
+        "avg_size": 49.0,
+        "min_size": 17.0,
+        "max_size": 78.0,
+        "borough": 6
+    }
+},
+{
+    "model": "neighborhoods.rentdata",
+    "pk": 35,
+    "fields": {
+        "neighborhood": 35,
+        "avg_price": 1131.0,
+        "min_price": 903.0,
+        "max_price": 1643.0,
+        "avg_size": 51.0,
+        "min_size": 36.0,
+        "max_size": 73.0,
+        "borough": 6
+    }
+},
+{
+    "model": "neighborhoods.rentdata",
+    "pk": 36,
+    "fields": {
+        "neighborhood": 36,
+        "avg_price": 1712.0,
+        "min_price": 1500.0,
+        "max_price": 1950.0,
+        "avg_size": 78.0,
+        "min_size": 76.0,
+        "max_size": 82.0,
+        "borough": 6
+    }
+},
+{
+    "model": "neighborhoods.rentdata",
+    "pk": 37,
+    "fields": {
+        "neighborhood": 37,
+        "avg_price": 1461.0,
+        "min_price": 874.0,
+        "max_price": 1930.0,
+        "avg_size": 61.0,
+        "min_size": 25.0,
+        "max_size": 76.0,
+        "borough": 6
+    }
+},
+{
+    "model": "neighborhoods.rentdata",
+    "pk": 38,
+    "fields": {
+        "neighborhood": 39,
+        "avg_price": 1110.0,
+        "min_price": 640.0,
+        "max_price": 1785.0,
+        "avg_size": 36.0,
+        "min_size": 7.0,
+        "max_size": 76.0,
+        "borough": 7
+    }
+},
+{
+    "model": "neighborhoods.rentdata",
+    "pk": 39,
+    "fields": {
+        "neighborhood": 40,
+        "avg_price": 1180.0,
+        "min_price": 529.0,
+        "max_price": 1765.0,
+        "avg_size": 40.0,
+        "min_size": 7.0,
+        "max_size": 61.0,
+        "borough": 7
+    }
+},
+{
+    "model": "neighborhoods.rentdata",
+    "pk": 40,
+    "fields": {
+        "neighborhood": 41,
+        "avg_price": 1009.0,
+        "min_price": 450.0,
+        "max_price": 1830.0,
+        "avg_size": 37.0,
+        "min_size": 15.0,
+        "max_size": 77.0,
+        "borough": 7
+    }
+},
+{
+    "model": "neighborhoods.rentdata",
+    "pk": 41,
+    "fields": {
+        "neighborhood": 42,
+        "avg_price": 1148.0,
+        "min_price": 628.0,
+        "max_price": 1920.0,
+        "avg_size": 53.0,
+        "min_size": 15.0,
+        "max_size": 90.0,
+        "borough": 7
+    }
+},
+{
+    "model": "neighborhoods.rentdata",
+    "pk": 42,
+    "fields": {
+        "neighborhood": 43,
+        "avg_price": 1126.0,
+        "min_price": 494.0,
+        "max_price": 1960.0,
+        "avg_size": 75.0,
+        "min_size": 40.0,
+        "max_size": 125.0,
+        "borough": 7
+    }
+},
+{
+    "model": "neighborhoods.rentdata",
+    "pk": 43,
+    "fields": {
+        "neighborhood": 44,
+        "avg_price": 1203.0,
+        "min_price": 550.0,
+        "max_price": 1910.0,
+        "avg_size": 37.0,
+        "min_size": 18.0,
+        "max_size": 62.0,
+        "borough": 8
+    }
+},
+{
+    "model": "neighborhoods.rentdata",
+    "pk": 44,
+    "fields": {
+        "neighborhood": 45,
+        "avg_price": 1384.0,
+        "min_price": 959.0,
+        "max_price": 1855.0,
+        "avg_size": 69.0,
+        "min_size": 46.0,
+        "max_size": 95.0,
+        "borough": 8
+    }
+},
+{
+    "model": "neighborhoods.rentdata",
+    "pk": 45,
+    "fields": {
+        "neighborhood": 46,
+        "avg_price": 1507.0,
+        "min_price": 1065.0,
+        "max_price": 1950.0,
+        "avg_size": 53.0,
+        "min_size": 37.0,
+        "max_size": 69.0,
+        "borough": 8
+    }
+},
+{
+    "model": "neighborhoods.rentdata",
+    "pk": 46,
+    "fields": {
+        "neighborhood": 47,
+        "avg_price": 1406.0,
+        "min_price": 520.0,
+        "max_price": 1900.0,
+        "avg_size": 76.0,
+        "min_size": 16.0,
+        "max_size": 120.0,
+        "borough": 8
+    }
+},
+{
+    "model": "neighborhoods.rentdata",
+    "pk": 47,
+    "fields": {
+        "neighborhood": 48,
+        "avg_price": 1135.0,
+        "min_price": 957.0,
+        "max_price": 1250.0,
+        "avg_size": 29.0,
+        "min_size": 17.0,
+        "max_size": 47.0,
+        "borough": 9
+    }
+},
+{
+    "model": "neighborhoods.rentdata",
+    "pk": 48,
+    "fields": {
+        "neighborhood": 49,
+        "avg_price": 1318.0,
+        "min_price": 740.0,
+        "max_price": 1700.0,
+        "avg_size": 57.0,
+        "min_size": 20.0,
+        "max_size": 89.0,
+        "borough": 9
+    }
+},
+{
+    "model": "neighborhoods.rentdata",
+    "pk": 49,
+    "fields": {
+        "neighborhood": 50,
+        "avg_price": 1232.0,
+        "min_price": 530.0,
+        "max_price": 1600.0,
+        "avg_size": 48.0,
+        "min_size": 25.0,
+        "max_size": 70.0,
+        "borough": 9
+    }
+},
+{
+    "model": "neighborhoods.rentdata",
+    "pk": 50,
+    "fields": {
+        "neighborhood": 51,
+        "avg_price": 579.0,
+        "min_price": 400.0,
+        "max_price": 840.0,
+        "avg_size": 18.0,
+        "min_size": 12.0,
+        "max_size": 33.0,
+        "borough": 9
+    }
+},
+{
+    "model": "neighborhoods.rentdata",
+    "pk": 51,
+    "fields": {
+        "neighborhood": 52,
+        "avg_price": 1682.0,
+        "min_price": 1168.0,
+        "max_price": 1979.0,
+        "avg_size": 75.0,
+        "min_size": 48.0,
+        "max_size": 94.0,
+        "borough": 9
+    }
+},
+{
+    "model": "neighborhoods.rentdata",
+    "pk": 52,
+    "fields": {
+        "neighborhood": 53,
+        "avg_price": 1656.0,
+        "min_price": 1420.0,
+        "max_price": 1850.0,
+        "avg_size": 92.0,
+        "min_size": 80.0,
+        "max_size": 110.0,
+        "borough": 9
+    }
+},
+{
+    "model": "neighborhoods.rentdata",
+    "pk": 53,
+    "fields": {
+        "neighborhood": 54,
+        "avg_price": 670.0,
+        "min_price": 340.0,
+        "max_price": 1254.0,
+        "avg_size": 49.0,
+        "min_size": 29.0,
+        "max_size": 77.0,
+        "borough": 10
+    }
+},
+{
+    "model": "neighborhoods.rentdata",
+    "pk": 54,
+    "fields": {
+        "neighborhood": 55,
+        "avg_price": 1429.0,
+        "min_price": 849.0,
+        "max_price": 2150.0,
+        "avg_size": 72.0,
+        "min_size": 58.0,
+        "max_size": 92.0,
+        "borough": 10
+    }
+},
+{
+    "model": "neighborhoods.rentdata",
+    "pk": 55,
+    "fields": {
+        "neighborhood": 56,
+        "avg_price": 1146.0,
+        "min_price": 520.0,
+        "max_price": 1920.0,
+        "avg_size": 50.0,
+        "min_size": 7.0,
+        "max_size": 92.0,
+        "borough": 10
+    }
+},
+{
+    "model": "neighborhoods.rentdata",
+    "pk": 56,
+    "fields": {
+        "neighborhood": 57,
+        "avg_price": 1231.0,
+        "min_price": 840.0,
+        "max_price": 1860.0,
+        "avg_size": 58.0,
+        "min_size": 18.0,
+        "max_size": 103.0,
+        "borough": 10
+    }
+},
+{
+    "model": "neighborhoods.rentdata",
+    "pk": 57,
+    "fields": {
+        "neighborhood": 58,
+        "avg_price": 1290.0,
+        "min_price": 486.0,
+        "max_price": 2053.0,
+        "avg_size": 52.0,
+        "min_size": 10.0,
+        "max_size": 91.0,
+        "borough": 11
+    }
+},
+{
+    "model": "neighborhoods.rentdata",
+    "pk": 58,
+    "fields": {
+        "neighborhood": 59,
+        "avg_price": 1430.0,
+        "min_price": 630.0,
+        "max_price": 2000.0,
+        "avg_size": 69.0,
+        "min_size": 37.0,
+        "max_size": 100.0,
+        "borough": 11
+    }
+},
+{
+    "model": "neighborhoods.rentdata",
+    "pk": 59,
+    "fields": {
+        "neighborhood": 60,
+        "avg_price": 881.0,
+        "min_price": 582.0,
+        "max_price": 1186.0,
+        "avg_size": 33.0,
+        "min_size": 8.0,
+        "max_size": 80.0,
+        "borough": 11
+    }
+},
+{
+    "model": "neighborhoods.rentdata",
+    "pk": 60,
+    "fields": {
+        "neighborhood": 61,
+        "avg_price": 814.0,
+        "min_price": 621.0,
+        "max_price": 1043.0,
+        "avg_size": 52.0,
+        "min_size": 37.0,
+        "max_size": 71.0,
+        "borough": 11
+    }
+},
+{
+    "model": "neighborhoods.rentdata",
+    "pk": 61,
+    "fields": {
+        "neighborhood": 62,
+        "avg_price": 834.0,
+        "min_price": 400.0,
+        "max_price": 1670.0,
+        "avg_size": 50.0,
+        "min_size": 16.0,
+        "max_size": 117.0,
+        "borough": 11
+    }
+},
+{
+    "model": "neighborhoods.rentdata",
+    "pk": 62,
+    "fields": {
+        "neighborhood": 63,
+        "avg_price": 1356.0,
+        "min_price": 761.0,
+        "max_price": 1799.0,
+        "avg_size": 55.0,
+        "min_size": 46.0,
+        "max_size": 68.0,
+        "borough": 12
+    }
+},
+{
+    "model": "neighborhoods.rentdata",
+    "pk": 63,
+    "fields": {
+        "neighborhood": 64,
+        "avg_price": 1510.0,
+        "min_price": 980.0,
+        "max_price": 1890.0,
+        "avg_size": 77.0,
+        "min_size": 30.0,
+        "max_size": 110.0,
+        "borough": 12
+    }
+},
+{
+    "model": "neighborhoods.rentdata",
+    "pk": 64,
+    "fields": {
+        "neighborhood": 65,
+        "avg_price": 1461.0,
+        "min_price": 1188.0,
+        "max_price": 1950.0,
+        "avg_size": 72.0,
+        "min_size": 54.0,
+        "max_size": 93.0,
+        "borough": 12
+    }
+},
+{
+    "model": "neighborhoods.rentdata",
+    "pk": 65,
+    "fields": {
+        "neighborhood": 66,
+        "avg_price": 1691.0,
+        "min_price": 1500.0,
+        "max_price": 1883.0,
+        "avg_size": 85.0,
+        "min_size": 84.0,
+        "max_size": 87.0,
+        "borough": 12
+    }
+},
+{
+    "model": "neighborhoods.rentdata",
+    "pk": 66,
+    "fields": {
+        "neighborhood": 67,
+        "avg_price": 1647.0,
+        "min_price": 1307.0,
+        "max_price": 1975.0,
+        "avg_size": 82.0,
+        "min_size": 53.0,
+        "max_size": 110.0,
+        "borough": 12
+    }
+},
+{
+    "model": "neighborhoods.rentdata",
+    "pk": 67,
+    "fields": {
+        "neighborhood": 68,
+        "avg_price": 906.0,
+        "min_price": 727.0,
+        "max_price": 1085.0,
+        "avg_size": 79.0,
+        "min_size": 64.0,
+        "max_size": 95.0,
+        "borough": 12
+    }
+},
+{
+    "model": "neighborhoods.rentdata",
+    "pk": 68,
+    "fields": {
+        "neighborhood": 69,
+        "avg_price": 1690.0,
+        "min_price": 1350.0,
+        "max_price": 2112.0,
+        "avg_size": 103.0,
+        "min_size": 39.0,
+        "max_size": 162.0,
+        "borough": 4
+    }
+},
+{
+    "model": "neighborhoods.rentdata",
+    "pk": 69,
+    "fields": {
+        "neighborhood": 70,
+        "avg_price": 611.0,
+        "min_price": 435.0,
+        "max_price": 739.0,
+        "avg_size": 22.0,
+        "min_size": 10.0,
+        "max_size": 39.0,
+        "borough": 6
+    }
+},
+{
+    "model": "neighborhoods.rentdata",
+    "pk": 70,
+    "fields": {
+        "neighborhood": 71,
+        "avg_price": 862.0,
+        "min_price": 599.0,
+        "max_price": 1216.0,
+        "avg_size": 65.0,
+        "min_size": 23.0,
+        "max_size": 94.0,
+        "borough": 7
+    }
+},
+{
+    "model": "neighborhoods.rentdata",
+    "pk": 71,
+    "fields": {
+        "neighborhood": 72,
+        "avg_price": 1122.0,
+        "min_price": 650.0,
+        "max_price": 1458.0,
+        "avg_size": 46.0,
+        "min_size": 9.0,
+        "max_size": 76.0,
+        "borough": 9
+    }
+},
+{
+    "model": "neighborhoods.rentdata",
+    "pk": 72,
+    "fields": {
+        "neighborhood": 73,
+        "avg_price": 755.0,
+        "min_price": 620.0,
+        "max_price": 1068.0,
+        "avg_size": 20.0,
+        "min_size": 10.0,
+        "max_size": 40.0,
+        "borough": 9
+    }
+},
+{
+    "model": "neighborhoods.rentdata",
+    "pk": 73,
+    "fields": {
+        "neighborhood": 74,
+        "avg_price": 1047.0,
+        "min_price": 750.0,
+        "max_price": 1335.0,
+        "avg_size": 55.0,
+        "min_size": 43.0,
+        "max_size": 84.0,
+        "borough": 9
+    }
+},
+{
+    "model": "neighborhoods.rentdata",
+    "pk": 74,
+    "fields": {
+        "neighborhood": 75,
+        "avg_price": 887.0,
+        "min_price": 620.0,
+        "max_price": 1091.0,
+        "avg_size": 33.0,
+        "min_size": 16.0,
+        "max_size": 51.0,
+        "borough": 9
+    }
+},
+{
+    "model": "neighborhoods.rentdata",
+    "pk": 75,
+    "fields": {
+        "neighborhood": 76,
+        "avg_price": 821.0,
+        "min_price": 497.0,
+        "max_price": 1750.0,
+        "avg_size": 41.0,
+        "min_size": 12.0,
+        "max_size": 98.0,
+        "borough": 9
+    }
+},
+{
+    "model": "neighborhoods.rentdata",
+    "pk": 76,
+    "fields": {
+        "neighborhood": 77,
+        "avg_price": 1047.0,
+        "min_price": 700.0,
+        "max_price": 1395.0,
+        "avg_size": 54.0,
+        "min_size": 46.0,
+        "max_size": 62.0,
+        "borough": 9
+    }
+},
+{
+    "model": "neighborhoods.rentdata",
+    "pk": 77,
+    "fields": {
+        "neighborhood": 78,
+        "avg_price": 970.0,
+        "min_price": 592.0,
+        "max_price": 1555.0,
+        "avg_size": 75.0,
+        "min_size": 55.0,
+        "max_size": 97.0,
+        "borough": 9
+    }
+},
+{
+    "model": "neighborhoods.rentdata",
+    "pk": 78,
+    "fields": {
+        "neighborhood": 79,
+        "avg_price": 1484.0,
+        "min_price": 1351.0,
+        "max_price": 1617.0,
+        "avg_size": 81.0,
+        "min_size": 72.0,
+        "max_size": 90.0,
+        "borough": 9
+    }
+},
+{
+    "model": "neighborhoods.rentdata",
+    "pk": 79,
+    "fields": {
+        "neighborhood": 80,
+        "avg_price": 956.0,
+        "min_price": 436.0,
+        "max_price": 1750.0,
+        "avg_size": 62.0,
+        "min_size": 38.0,
+        "max_size": 81.0,
+        "borough": 10
+    }
+},
+{
+    "model": "neighborhoods.rentdata",
+    "pk": 80,
+    "fields": {
+        "neighborhood": 81,
+        "avg_price": 1182.0,
+        "min_price": 695.0,
+        "max_price": 1690.0,
+        "avg_size": 45.0,
+        "min_size": 13.0,
+        "max_size": 63.0,
+        "borough": 11
+    }
+},
+{
+    "model": "neighborhoods.rentdata",
+    "pk": 81,
+    "fields": {
+        "neighborhood": 82,
+        "avg_price": 1604.0,
+        "min_price": 1499.0,
+        "max_price": 1710.0,
+        "avg_size": 56.0,
+        "min_size": 56.0,
+        "max_size": 56.0,
+        "borough": 11
+    }
+},
+{
+    "model": "neighborhoods.rentdata",
+    "pk": 82,
+    "fields": {
+        "neighborhood": 85,
+        "avg_price": 1271.0,
+        "min_price": 1102.0,
+        "max_price": 1440.0,
+        "avg_size": 54.0,
+        "min_size": 46.0,
+        "max_size": 63.0,
+        "borough": 12
+    }
+},
+{
+    "model": "neighborhoods.rentdata",
+    "pk": 83,
+    "fields": {
+        "neighborhood": 86,
+        "avg_price": 1531.0,
+        "min_price": 1050.0,
+        "max_price": 1890.0,
+        "avg_size": 88.0,
+        "min_size": 50.0,
+        "max_size": 122.0,
+        "borough": 12
+    }
+},
+{
+    "model": "neighborhoods.rentdata",
+    "pk": 84,
+    "fields": {
+        "neighborhood": 87,
+        "avg_price": 1485.0,
+        "min_price": 1485.0,
+        "max_price": 1485.0,
+        "avg_size": 79.0,
+        "min_size": 79.0,
+        "max_size": 79.0,
+        "borough": 12
+    }
+},
+{
+    "model": "neighborhoods.rentdata",
+    "pk": 85,
+    "fields": {
+        "neighborhood": 88,
+        "avg_price": 1199.0,
+        "min_price": 1099.0,
+        "max_price": 1300.0,
+        "avg_size": 61.0,
+        "min_size": 52.0,
+        "max_size": 70.0,
+        "borough": 12
+    }
+},
+{
+    "model": "neighborhoods.rentdata",
+    "pk": 86,
+    "fields": {
+        "neighborhood": 89,
+        "avg_price": 986.0,
+        "min_price": 490.0,
+        "max_price": 2120.0,
+        "avg_size": 35.0,
+        "min_size": 9.0,
+        "max_size": 73.0,
+        "borough": 12
+    }
+},
+{
+    "model": "neighborhoods.rentdata",
+    "pk": 87,
+    "fields": {
+        "neighborhood": 90,
+        "avg_price": 2205.0,
+        "min_price": 740.0,
+        "max_price": 4562.0,
+        "avg_size": 79.0,
+        "min_size": 8.0,
+        "max_size": 195.0,
+        "borough": 2
+    }
+},
+{
+    "model": "neighborhoods.rentdata",
+    "pk": 88,
+    "fields": {
+        "neighborhood": 91,
+        "avg_price": 1176.0,
+        "min_price": 450.0,
+        "max_price": 3588.0,
+        "avg_size": 64.0,
+        "min_size": 8.0,
+        "max_size": 150.0,
+        "borough": 4
+    }
+},
+{
+    "model": "neighborhoods.rentdata",
+    "pk": 89,
+    "fields": {
+        "neighborhood": 98,
+        "avg_price": 1015.0,
+        "min_price": 520.0,
+        "max_price": 1500.0,
+        "avg_size": 50.0,
+        "min_size": 9.0,
+        "max_size": 102.0,
+        "borough": 1
+    }
+},
+{
+    "model": "neighborhoods.rentdata",
+    "pk": 90,
+    "fields": {
+        "neighborhood": 107,
+        "avg_price": 897.0,
+        "min_price": 612.0,
+        "max_price": 1832.0,
+        "avg_size": 39.0,
+        "min_size": 10.0,
+        "max_size": 85.0,
+        "borough": 9
+    }
+},
+{
+    "model": "neighborhoods.rentdata",
+    "pk": 91,
+    "fields": {
+        "neighborhood": 108,
+        "avg_price": 1082.0,
+        "min_price": 600.0,
+        "max_price": 1876.0,
+        "avg_size": 41.0,
+        "min_size": 7.0,
+        "max_size": 70.0,
+        "borough": 6
+    }
+},
+{
+    "model": "neighborhoods.rentdata",
+    "pk": 92,
+    "fields": {
+        "neighborhood": 109,
+        "avg_price": 925.0,
+        "min_price": 436.0,
+        "max_price": 1682.0,
+        "avg_size": 40.0,
+        "min_size": 10.0,
+        "max_size": 82.0,
+        "borough": 8
+    }
+},
+{
+    "model": "neighborhoods.rentdata",
+    "pk": 93,
+    "fields": {
+        "neighborhood": 110,
+        "avg_price": 1153.0,
+        "min_price": 600.0,
+        "max_price": 1990.0,
+        "avg_size": 47.0,
+        "min_size": 18.0,
+        "max_size": 85.0,
+        "borough": 11
+    }
+},
+{
+    "model": "neighborhoods.crimedata",
+    "pk": 1,
+    "fields": {
+        "borough": 1,
+        "total_crimes": 232170,
+        "robbery": 2361,
+        "total_assaults": 24554,
+        "total_thefts": 97066,
+        "total_residential_burglary": 4190,
+        "total_arson_incidents": 1570,
+        "total_vandalism": 20460
+    }
+},
+{
+    "model": "neighborhoods.crimedata",
+    "pk": 2,
+    "fields": {
+        "borough": 2,
+        "total_crimes": 878048,
+        "robbery": 8428,
+        "total_assaults": 74143,
+        "total_thefts": 385279,
+        "total_residential_burglary": 9388,
+        "total_arson_incidents": 3218,
+        "total_vandalism": 58297
+    }
+},
+{
+    "model": "neighborhoods.crimedata",
+    "pk": 3,
+    "fields": {
+        "borough": 3,
+        "total_crimes": 579591,
+        "robbery": 8286,
+        "total_assaults": 47761,
+        "total_thefts": 262323,
+        "total_residential_burglary": 5946,
+        "total_arson_incidents": 2840,
+        "total_vandalism": 50327
+    }
+},
+{
+    "model": "neighborhoods.crimedata",
+    "pk": 4,
+    "fields": {
+        "borough": 4,
+        "total_crimes": 393574,
+        "robbery": 3469,
+        "total_assaults": 31038,
+        "total_thefts": 201240,
+        "total_residential_burglary": 8291,
+        "total_arson_incidents": 2258,
+        "total_vandalism": 42713
+    }
+},
+{
+    "model": "neighborhoods.crimedata",
+    "pk": 5,
+    "fields": {
+        "borough": 5,
+        "total_crimes": 545293,
+        "robbery": 4812,
+        "total_assaults": 42553,
+        "total_thefts": 257739,
+        "total_residential_burglary": 11649,
+        "total_arson_incidents": 2310,
+        "total_vandalism": 40824
+    }
+},
+{
+    "model": "neighborhoods.crimedata",
+    "pk": 6,
+    "fields": {
+        "borough": 6,
+        "total_crimes": 241205,
+        "robbery": 1764,
+        "total_assaults": 18288,
+        "total_thefts": 116409,
+        "total_residential_burglary": 9087,
+        "total_arson_incidents": 1520,
+        "total_vandalism": 26485
+    }
+},
+{
+    "model": "neighborhoods.crimedata",
+    "pk": 7,
+    "fields": {
+        "borough": 7,
+        "total_crimes": 398767,
+        "robbery": 3587,
+        "total_assaults": 32912,
+        "total_thefts": 187487,
+        "total_residential_burglary": 7574,
+        "total_arson_incidents": 2019,
+        "total_vandalism": 34963
+    }
+},
+{
+    "model": "neighborhoods.crimedata",
+    "pk": 8,
+    "fields": {
+        "borough": 8,
+        "total_crimes": 436568,
+        "robbery": 4987,
+        "total_assaults": 40637,
+        "total_thefts": 198909,
+        "total_residential_burglary": 8765,
+        "total_arson_incidents": 2767,
+        "total_vandalism": 40143
+    }
+},
+{
+    "model": "neighborhoods.crimedata",
+    "pk": 9,
+    "fields": {
+        "borough": 9,
+        "total_crimes": 247383,
+        "robbery": 1979,
+        "total_assaults": 23006,
+        "total_thefts": 115321,
+        "total_residential_burglary": 5045,
+        "total_arson_incidents": 1665,
+        "total_vandalism": 28092
+    }
+},
+{
+    "model": "neighborhoods.crimedata",
+    "pk": 10,
+    "fields": {
+        "borough": 10,
+        "total_crimes": 241928,
+        "robbery": 2423,
+        "total_assaults": 30220,
+        "total_thefts": 96450,
+        "total_residential_burglary": 4538,
+        "total_arson_incidents": 2121,
+        "total_vandalism": 27969
+    }
+},
+{
+    "model": "neighborhoods.crimedata",
+    "pk": 11,
+    "fields": {
+        "borough": 11,
+        "total_crimes": 279018,
+        "robbery": 2475,
+        "total_assaults": 28500,
+        "total_thefts": 128096,
+        "total_residential_burglary": 4975,
+        "total_arson_incidents": 1944,
+        "total_vandalism": 29462
+    }
+},
+{
+    "model": "neighborhoods.crimedata",
+    "pk": 12,
+    "fields": {
+        "borough": 12,
+        "total_crimes": 284193,
+        "robbery": 2662,
+        "total_assaults": 27644,
+        "total_thefts": 111409,
+        "total_residential_burglary": 6602,
+        "total_arson_incidents": 1754,
+        "total_vandalism": 24468
+    }
+},
+{
+    "model": "neighborhoods.demographics",
+    "pk": 1,
+    "fields": {
+        "borough": 1,
+        "neighborhood": 27,
+        "total": 28689,
+        "germans": 20447,
+        "foreigners": 8242,
+        "under_6": 1720,
+        "six_to_15": 2616,
+        "fifteen_to_18": 776,
+        "eighteen_to_27": 2986,
+        "twenty_seven_to_45": 8033,
+        "forty_five_to_55": 3464,
+        "fifty_five_and_more": 11497,
+        "eu": 4029,
+        "france": 89,
+        "italy": 221,
+        "spain": 84,
+        "poland": 2109,
+        "greece": 129,
+        "austria": 64,
+        "romania": 283,
+        "united_kingdom": 101,
+        "former_yougoslavia": 1206,
+        "former_soviet_union": 1905,
+        "russia": 574,
+        "ukraine": 724,
+        "islamic_countries": 5664,
+        "turkey": 2378,
+        "iran": 311,
+        "arab_countries_inc_syria": 1875,
+        "lebanon": 378,
+        "syria": 577,
+        "vietnam": 197,
+        "usa": 54,
+        "not_clearly_assignable": 1243
+    }
+},
+{
+    "model": "neighborhoods.demographics",
+    "pk": 2,
+    "fields": {
+        "borough": 1,
+        "neighborhood": 29,
+        "total": 18469,
+        "germans": 13454,
+        "foreigners": 5015,
+        "under_6": 1070,
+        "six_to_15": 2058,
+        "fifteen_to_18": 645,
+        "eighteen_to_27": 1653,
+        "twenty_seven_to_45": 4478,
+        "forty_five_to_55": 2220,
+        "fifty_five_and_more": 6698,
+        "eu": 2089,
+        "france": 24,
+        "italy": 117,
+        "spain": 60,
+        "poland": 1018,
+        "greece": 41,
+        "austria": 38,
+        "romania": 268,
+        "united_kingdom": 82,
+        "former_yougoslavia": 642,
+        "former_soviet_union": 1251,
+        "russia": 381,
+        "ukraine": 448,
+        "islamic_countries": 3512,
+        "turkey": 807,
+        "iran": 268,
+        "arab_countries_inc_syria": 1347,
+        "lebanon": 127,
+        "syria": 622,
+        "vietnam": 121,
+        "usa": 24,
+        "not_clearly_assignable": 413
+    }
+},
+{
+    "model": "neighborhoods.demographics",
+    "pk": 3,
+    "fields": {
+        "borough": 1,
+        "neighborhood": 30,
+        "total": 52628,
+        "germans": 37497,
+        "foreigners": 15131,
+        "under_6": 3291,
+        "six_to_15": 5110,
+        "fifteen_to_18": 1568,
+        "eighteen_to_27": 5509,
+        "twenty_seven_to_45": 13473,
+        "forty_five_to_55": 5885,
+        "fifty_five_and_more": 19358,
+        "eu": 5919,
+        "france": 108,
+        "italy": 407,
+        "spain": 115,
+        "poland": 2239,
+        "greece": 249,
+        "austria": 158,
+        "romania": 631,
+        "united_kingdom": 194,
+        "former_yougoslavia": 2027,
+        "former_soviet_union": 3896,
+        "russia": 1091,
+        "ukraine": 1567,
+        "islamic_countries": 10126,
+        "turkey": 3103,
+        "iran": 575,
+        "arab_countries_inc_syria": 4003,
+        "lebanon": 517,
+        "syria": 1660,
+        "vietnam": 266,
+        "usa": 156,
+        "not_clearly_assignable": 1446
+    }
+},
+{
+    "model": "neighborhoods.demographics",
+    "pk": 4,
+    "fields": {
+        "borough": 1,
+        "neighborhood": 31,
+        "total": 20051,
+        "germans": 18356,
+        "foreigners": 1695,
+        "under_6": 934,
+        "six_to_15": 2131,
+        "fifteen_to_18": 739,
+        "eighteen_to_27": 1499,
+        "twenty_seven_to_45": 3223,
+        "forty_five_to_55": 2574,
+        "fifty_five_and_more": 5797,
+        "eu": 1299,
+        "france": 69,
+        "italy": 101,
+        "spain": 58,
+        "poland": 519,
+        "greece": 26,
+        "austria": 102,
+        "romania": 49,
+        "united_kingdom": 153,
+        "former_yougoslavia": 195,
+        "former_soviet_union": 670,
+        "russia": 227,
+        "ukraine": 249,
+        "islamic_countries": 1075,
+        "turkey": 383,
+        "iran": 187,
+        "arab_countries_inc_syria": 246,
+        "lebanon": 39,
+        "syria": 60,
+        "vietnam": 33,
+        "usa": 94,
+        "not_clearly_assignable": 206
+    }
+},
+{
+    "model": "neighborhoods.demographics",
+    "pk": 5,
+    "fields": {
+        "borough": 1,
+        "neighborhood": 32,
+        "total": 72403,
+        "germans": 54023,
+        "foreigners": 18380,
+        "under_6": 4528,
+        "six_to_15": 6698,
+        "fifteen_to_18": 2085,
+        "eighteen_to_27": 7176,
+        "twenty_seven_to_45": 18196,
+        "forty_five_to_55": 8008,
+        "fifty_five_and_more": 26204,
+        "eu": 7376,
+        "france": 135,
+        "italy": 387,
+        "spain": 111,
+        "poland": 3530,
+        "greece": 173,
+        "austria": 131,
+        "romania": 737,
+        "united_kingdom": 225,
+        "former_yougoslavia": 2345,
+        "former_soviet_union": 5561,
+        "russia": 1887,
+        "ukraine": 1649,
+        "islamic_countries": 13577,
+        "turkey": 4622,
+        "iran": 672,
+        "arab_countries_inc_syria": 4632,
+        "lebanon": 691,
+        "syria": 1758,
+        "vietnam": 296,
+        "usa": 134,
+        "not_clearly_assignable": 1972
+    }
+},
+{
+    "model": "neighborhoods.demographics",
+    "pk": 6,
+    "fields": {
+        "borough": 1,
+        "neighborhood": 98,
+        "total": 51428,
+        "germans": 34589,
+        "foreigners": 16839,
+        "under_6": 3076,
+        "six_to_15": 4723,
+        "fifteen_to_18": 1475,
+        "eighteen_to_27": 5832,
+        "twenty_seven_to_45": 14478,
+        "forty_five_to_55": 5950,
+        "fifty_five_and_more": 20428,
+        "eu": 6254,
+        "france": 101,
+        "italy": 392,
+        "spain": 115,
+        "poland": 2132,
+        "greece": 211,
+        "austria": 113,
+        "romania": 793,
+        "united_kingdom": 215,
+        "former_yougoslavia": 2572,
+        "former_soviet_union": 3825,
+        "russia": 1059,
+        "ukraine": 1509,
+        "islamic_countries": 9954,
+        "turkey": 3553,
+        "iran": 423,
+        "arab_countries_inc_syria": 3559,
+        "lebanon": 452,
+        "syria": 1359,
+        "vietnam": 331,
+        "usa": 151,
+        "not_clearly_assignable": 1279
+    }
+},
+{
+    "model": "neighborhoods.demographics",
+    "pk": 7,
+    "fields": {
+        "borough": 2,
+        "neighborhood": 1,
+        "total": 5787,
+        "germans": 4225,
+        "foreigners": 1562,
+        "under_6": 295,
+        "six_to_15": 403,
+        "fifteen_to_18": 124,
+        "eighteen_to_27": 540,
+        "twenty_seven_to_45": 1537,
+        "forty_five_to_55": 608,
+        "fifty_five_and_more": 2145,
+        "eu": 725,
+        "france": 32,
+        "italy": 67,
+        "spain": 9,
+        "poland": 288,
+        "greece": 43,
+        "austria": 16,
+        "romania": 42,
+        "united_kingdom": 9,
+        "former_yougoslavia": 253,
+        "former_soviet_union": 370,
+        "russia": 130,
+        "ukraine": 116,
+        "islamic_countries": 1097,
+        "turkey": 625,
+        "iran": 64,
+        "arab_countries_inc_syria": 235,
+        "lebanon": 39,
+        "syria": 76,
+        "vietnam": 24,
+        "usa": 6,
+        "not_clearly_assignable": 241
+    }
+},
+{
+    "model": "neighborhoods.demographics",
+    "pk": 8,
+    "fields": {
+        "borough": 2,
+        "neighborhood": 2,
+        "total": 12589,
+        "germans": 8428,
+        "foreigners": 4161,
+        "under_6": 599,
+        "six_to_15": 890,
+        "fifteen_to_18": 253,
+        "eighteen_to_27": 1628,
+        "twenty_seven_to_45": 3963,
+        "forty_five_to_55": 1403,
+        "fifty_five_and_more": 5366,
+        "eu": 1761,
+        "france": 198,
+        "italy": 187,
+        "spain": 150,
+        "poland": 394,
+        "greece": 120,
+        "austria": 83,
+        "romania": 80,
+        "united_kingdom": 133,
+        "former_yougoslavia": 327,
+        "former_soviet_union": 887,
+        "russia": 322,
+        "ukraine": 308,
+        "islamic_countries": 2134,
+        "turkey": 703,
+        "iran": 131,
+        "arab_countries_inc_syria": 929,
+        "lebanon": 194,
+        "syria": 264,
+        "vietnam": 84,
+        "usa": 133,
+        "not_clearly_assignable": 355
+    }
+},
+{
+    "model": "neighborhoods.demographics",
+    "pk": 9,
+    "fields": {
+        "borough": 2,
+        "neighborhood": 4,
+        "total": 144264,
+        "germans": 87722,
+        "foreigners": 56542,
+        "under_6": 7715,
+        "six_to_15": 10027,
+        "fifteen_to_18": 3297,
+        "eighteen_to_27": 18635,
+        "twenty_seven_to_45": 54642,
+        "forty_five_to_55": 15858,
+        "fifty_five_and_more": 70500,
+        "eu": 22723,
+        "france": 1762,
+        "italy": 2347,
+        "spain": 1100,
+        "poland": 5083,
+        "greece": 1367,
+        "austria": 778,
+        "romania": 1657,
+        "united_kingdom": 1261,
+        "former_yougoslavia": 5224,
+        "former_soviet_union": 6779,
+        "russia": 2314,
+        "ukraine": 2542,
+        "islamic_countries": 33655,
+        "turkey": 15842,
+        "iran": 975,
+        "arab_countries_inc_syria": 11653,
+        "lebanon": 2871,
+        "syria": 2635,
+        "vietnam": 637,
+        "usa": 1205,
+        "not_clearly_assignable": 5136
+    }
+},
+{
+    "model": "neighborhoods.demographics",
+    "pk": 10,
+    "fields": {
+        "borough": 2,
+        "neighborhood": 5,
+        "total": 78592,
+        "germans": 47715,
+        "foreigners": 30877,
+        "under_6": 4594,
+        "six_to_15": 7442,
+        "fifteen_to_18": 2514,
+        "eighteen_to_27": 10862,
+        "twenty_seven_to_45": 26199,
+        "forty_five_to_55": 9520,
+        "fifty_five_and_more": 35719,
+        "eu": 11148,
+        "france": 728,
+        "italy": 1089,
+        "spain": 583,
+        "poland": 2467,
+        "greece": 772,
+        "austria": 324,
+        "romania": 992,
+        "united_kingdom": 539,
+        "former_yougoslavia": 3270,
+        "former_soviet_union": 3819,
+        "russia": 1316,
+        "ukraine": 1291,
+        "islamic_countries": 24582,
+        "turkey": 13072,
+        "iran": 373,
+        "arab_countries_inc_syria": 8126,
+        "lebanon": 2314,
+        "syria": 1940,
+        "vietnam": 272,
+        "usa": 618,
+        "not_clearly_assignable": 3890
+    }
+},
+{
+    "model": "neighborhoods.demographics",
+    "pk": 11,
+    "fields": {
+        "borough": 2,
+        "neighborhood": 90,
+        "total": 158186,
+        "germans": 103054,
+        "foreigners": 55132,
+        "under_6": 8120,
+        "six_to_15": 10776,
+        "fifteen_to_18": 3297,
+        "eighteen_to_27": 17140,
+        "twenty_seven_to_45": 59064,
+        "forty_five_to_55": 20172,
+        "fifty_five_and_more": 79236,
+        "eu": 22661,
+        "france": 2564,
+        "italy": 3229,
+        "spain": 1976,
+        "poland": 3329,
+        "greece": 1047,
+        "austria": 1373,
+        "romania": 1279,
+        "united_kingdom": 2194,
+        "former_yougoslavia": 3068,
+        "former_soviet_union": 11917,
+        "russia": 4706,
+        "ukraine": 3985,
+        "islamic_countries": 20076,
+        "turkey": 6159,
+        "iran": 1,
+        "arab_countries_inc_syria": 8695,
+        "lebanon": 1352,
+        "syria": 2554,
+        "vietnam": 2362,
+        "usa": 3326,
+        "not_clearly_assignable": 2847
+    }
+},
+{
+    "model": "neighborhoods.demographics",
+    "pk": 12,
+    "fields": {
+        "borough": 3,
+        "neighborhood": 6,
+        "total": 140938,
+        "germans": 99995,
+        "foreigners": 40943,
+        "under_6": 7940,
+        "six_to_15": 9923,
+        "fifteen_to_18": 2657,
+        "eighteen_to_27": 13778,
+        "twenty_seven_to_45": 62904,
+        "forty_five_to_55": 18462,
+        "fifty_five_and_more": 81366,
+        "eu": 19542,
+        "france": 2427,
+        "italy": 3353,
+        "spain": 2028,
+        "poland": 2597,
+        "greece": 776,
+        "austria": 1017,
+        "romania": 949,
+        "united_kingdom": 1903,
+        "former_yougoslavia": 2360,
+        "former_soviet_union": 7295,
+        "russia": 2844,
+        "ukraine": 2229,
+        "islamic_countries": 11293,
+        "turkey": 2745,
+        "iran": 583,
+        "arab_countries_inc_syria": 4883,
+        "lebanon": 277,
+        "syria": 2115,
+        "vietnam": 3437,
+        "usa": 2366,
+        "not_clearly_assignable": 1665
+    }
+},
+{
+    "model": "neighborhoods.demographics",
+    "pk": 13,
+    "fields": {
+        "borough": 3,
+        "neighborhood": 7,
+        "total": 151928,
+        "germans": 102646,
+        "foreigners": 49282,
+        "under_6": 7564,
+        "six_to_15": 11573,
+        "fifteen_to_18": 4148,
+        "eighteen_to_27": 16128,
+        "twenty_seven_to_45": 52238,
+        "forty_five_to_55": 21530,
+        "fifty_five_and_more": 73768,
+        "eu": 20040,
+        "france": 2463,
+        "italy": 3246,
+        "spain": 1741,
+        "poland": 2850,
+        "greece": 1270,
+        "austria": 1130,
+        "romania": 768,
+        "united_kingdom": 2154,
+        "former_yougoslavia": 2764,
+        "former_soviet_union": 5641,
+        "russia": 1514,
+        "ukraine": 2581,
+        "islamic_countries": 34971,
+        "turkey": 22828,
+        "iran": 903,
+        "arab_countries_inc_syria": 8394,
+        "lebanon": 2434,
+        "syria": 2000,
+        "vietnam": 431,
+        "usa": 2616,
+        "not_clearly_assignable": 6784
+    }
+},
+{
+    "model": "neighborhoods.demographics",
+    "pk": 14,
+    "fields": {
+        "borough": 4,
+        "neighborhood": 8,
+        "total": 165302,
+        "germans": 123969,
+        "foreigners": 41333,
+        "under_6": 8618,
+        "six_to_15": 13303,
+        "fifteen_to_18": 4300,
+        "eighteen_to_27": 15606,
+        "twenty_seven_to_45": 60705,
+        "forty_five_to_55": 26796,
+        "fifty_five_and_more": 87501,
+        "eu": 21736,
+        "france": 2854,
+        "italy": 3662,
+        "spain": 2092,
+        "poland": 2662,
+        "greece": 872,
+        "austria": 1491,
+        "romania": 1099,
+        "united_kingdom": 2517,
+        "former_yougoslavia": 1587,
+        "former_soviet_union": 8109,
+        "russia": 3118,
+        "ukraine": 2696,
+        "islamic_countries": 9672,
+        "turkey": 2121,
+        "iran": 669,
+        "arab_countries_inc_syria": 4113,
+        "lebanon": 281,
+        "syria": 1618,
+        "vietnam": 1794,
+        "usa": 3313,
+        "not_clearly_assignable": 1103
+    }
+},
+{
+    "model": "neighborhoods.demographics",
+    "pk": 15,
+    "fields": {
+        "borough": 4,
+        "neighborhood": 9,
+        "total": 54628,
+        "germans": 44265,
+        "foreigners": 10363,
+        "under_6": 3068,
+        "six_to_15": 4795,
+        "fifteen_to_18": 1508,
+        "eighteen_to_27": 4774,
+        "twenty_seven_to_45": 17914,
+        "forty_five_to_55": 7480,
+        "fifty_five_and_more": 25394,
+        "eu": 4819,
+        "france": 419,
+        "italy": 727,
+        "spain": 288,
+        "poland": 1019,
+        "greece": 178,
+        "austria": 243,
+        "romania": 313,
+        "united_kingdom": 371,
+        "former_yougoslavia": 679,
+        "former_soviet_union": 2654,
+        "russia": 986,
+        "ukraine": 909,
+        "islamic_countries": 3266,
+        "turkey": 548,
+        "iran": 190,
+        "arab_countries_inc_syria": 1372,
+        "lebanon": 64,
+        "syria": 570,
+        "vietnam": 497,
+        "usa": 343,
+        "not_clearly_assignable": 301
+    }
+},
+{
+    "model": "neighborhoods.demographics",
+    "pk": 16,
+    "fields": {
+        "borough": 4,
+        "neighborhood": 10,
+        "total": 6987,
+        "germans": 6448,
+        "foreigners": 539,
+        "under_6": 303,
+        "six_to_15": 750,
+        "fifteen_to_18": 233,
+        "eighteen_to_27": 438,
+        "twenty_seven_to_45": 1234,
+        "forty_five_to_55": 908,
+        "fifty_five_and_more": 2142,
+        "eu": 384,
+        "france": 12,
+        "italy": 3,
+        "spain": 6,
+        "poland": 88,
+        "greece": 9,
+        "austria": 15,
+        "romania": 184,
+        "united_kingdom": 12,
+        "former_yougoslavia": 27,
+        "former_soviet_union": 146,
+        "russia": 24,
+        "ukraine": 71,
+        "islamic_countries": 181,
+        "turkey": 58,
+        "iran": 16,
+        "arab_countries_inc_syria": 67,
+        "lebanon": 3,
+        "syria": 18,
+        "vietnam": 40,
+        "usa": 9,
+        "not_clearly_assignable": 26
+    }
+},
+{
+    "model": "neighborhoods.demographics",
+    "pk": 17,
+    "fields": {
+        "borough": 4,
+        "neighborhood": 11,
+        "total": 10332,
+        "germans": 7941,
+        "foreigners": 2391,
+        "under_6": 651,
+        "six_to_15": 960,
+        "fifteen_to_18": 269,
+        "eighteen_to_27": 1000,
+        "twenty_seven_to_45": 2644,
+        "forty_five_to_55": 1194,
+        "fifty_five_and_more": 3838,
+        "eu": 542,
+        "france": 33,
+        "italy": 47,
+        "spain": 34,
+        "poland": 109,
+        "greece": 14,
+        "austria": 31,
+        "romania": 81,
+        "united_kingdom": 28,
+        "former_yougoslavia": 171,
+        "former_soviet_union": 577,
+        "russia": 150,
+        "ukraine": 153,
+        "islamic_countries": 1205,
+        "turkey": 229,
+        "iran": 51,
+        "arab_countries_inc_syria": 555,
+        "lebanon": 28,
+        "syria": 297,
+        "vietnam": 113,
+        "usa": 33,
+        "not_clearly_assignable": 47
+    }
+},
+{
+    "model": "neighborhoods.demographics",
+    "pk": 18,
+    "fields": {
+        "borough": 4,
+        "neighborhood": 12,
+        "total": 40557,
+        "germans": 34741,
+        "foreigners": 5816,
+        "under_6": 2463,
+        "six_to_15": 4353,
+        "fifteen_to_18": 1327,
+        "eighteen_to_27": 3417,
+        "twenty_seven_to_45": 9315,
+        "forty_five_to_55": 5019,
+        "fifty_five_and_more": 14334,
+        "eu": 1802,
+        "france": 48,
+        "italy": 122,
+        "spain": 67,
+        "poland": 698,
+        "greece": 73,
+        "austria": 71,
+        "romania": 110,
+        "united_kingdom": 64,
+        "former_yougoslavia": 420,
+        "former_soviet_union": 2296,
+        "russia": 623,
+        "ukraine": 686,
+        "islamic_countries": 3226,
+        "turkey": 390,
+        "iran": 145,
+        "arab_countries_inc_syria": 1372,
+        "lebanon": 64,
+        "syria": 702,
+        "vietnam": 234,
+        "usa": 72,
+        "not_clearly_assignable": 207
+    }
+},
+{
+    "model": "neighborhoods.demographics",
+    "pk": 19,
+    "fields": {
+        "borough": 4,
+        "neighborhood": 14,
+        "total": 2481,
+        "germans": 1988,
+        "foreigners": 493,
+        "under_6": 106,
+        "six_to_15": 236,
+        "fifteen_to_18": 64,
+        "eighteen_to_27": 283,
+        "twenty_seven_to_45": 494,
+        "forty_five_to_55": 295,
+        "fifty_five_and_more": 789,
+        "eu": 65,
+        "france": 1,
+        "italy": 1,
+        "spain": 1,
+        "poland": 18,
+        "greece": 1,
+        "austria": 6,
+        "romania": 12,
+        "united_kingdom": 1,
+        "former_yougoslavia": 16,
+        "former_soviet_union": 127,
+        "russia": 25,
+        "ukraine": 16,
+        "islamic_countries": 337,
+        "turkey": 112,
+        "iran": 10,
+        "arab_countries_inc_syria": 101,
+        "lebanon": 3,
+        "syria": 52,
+        "vietnam": 15,
+        "usa": 3,
+        "not_clearly_assignable": 6
+    }
+},
+{
+    "model": "neighborhoods.demographics",
+    "pk": 20,
+    "fields": {
+        "borough": 4,
+        "neighborhood": 15,
+        "total": 16275,
+        "germans": 13884,
+        "foreigners": 2391,
+        "under_6": 1032,
+        "six_to_15": 1579,
+        "fifteen_to_18": 438,
+        "eighteen_to_27": 1347,
+        "twenty_seven_to_45": 4282,
+        "forty_five_to_55": 2147,
+        "fifty_five_and_more": 6429,
+        "eu": 965,
+        "france": 39,
+        "italy": 40,
+        "spain": 37,
+        "poland": 390,
+        "greece": 27,
+        "austria": 78,
+        "romania": 39,
+        "united_kingdom": 39,
+        "former_yougoslavia": 142,
+        "former_soviet_union": 878,
+        "russia": 343,
+        "ukraine": 225,
+        "islamic_countries": 1195,
+        "turkey": 243,
+        "iran": 71,
+        "arab_countries_inc_syria": 505,
+        "lebanon": 23,
+        "syria": 205,
+        "vietnam": 111,
+        "usa": 38,
+        "not_clearly_assignable": 99
+    }
+},
+{
+    "model": "neighborhoods.demographics",
+    "pk": 21,
+    "fields": {
+        "borough": 4,
+        "neighborhood": 16,
+        "total": 27786,
+        "germans": 22514,
+        "foreigners": 5272,
+        "under_6": 1446,
+        "six_to_15": 2271,
+        "fifteen_to_18": 732,
+        "eighteen_to_27": 2593,
+        "twenty_seven_to_45": 9090,
+        "forty_five_to_55": 3797,
+        "fifty_five_and_more": 12887,
+        "eu": 2310,
+        "france": 210,
+        "italy": 361,
+        "spain": 159,
+        "poland": 491,
+        "greece": 97,
+        "austria": 129,
+        "romania": 106,
+        "united_kingdom": 178,
+        "former_yougoslavia": 290,
+        "former_soviet_union": 1284,
+        "russia": 504,
+        "ukraine": 372,
+        "islamic_countries": 1797,
+        "turkey": 432,
+        "iran": 134,
+        "arab_countries_inc_syria": 620,
+        "lebanon": 52,
+        "syria": 194,
+        "vietnam": 129,
+        "usa": 230,
+        "not_clearly_assignable": 135
+    }
+},
+{
+    "model": "neighborhoods.demographics",
+    "pk": 22,
+    "fields": {
+        "borough": 4,
+        "neighborhood": 17,
+        "total": 16603,
+        "germans": 14423,
+        "foreigners": 2180,
+        "under_6": 891,
+        "six_to_15": 1732,
+        "fifteen_to_18": 545,
+        "eighteen_to_27": 1398,
+        "twenty_seven_to_45": 4031,
+        "forty_five_to_55": 2467,
+        "fifty_five_and_more": 6498,
+        "eu": 1068,
+        "france": 93,
+        "italy": 90,
+        "spain": 29,
+        "poland": 343,
+        "greece": 46,
+        "austria": 48,
+        "romania": 102,
+        "united_kingdom": 64,
+        "former_yougoslavia": 192,
+        "former_soviet_union": 711,
+        "russia": 249,
+        "ukraine": 177,
+        "islamic_countries": 1185,
+        "turkey": 399,
+        "iran": 96,
+        "arab_countries_inc_syria": 385,
+        "lebanon": 60,
+        "syria": 133,
+        "vietnam": 67,
+        "usa": 41,
+        "not_clearly_assignable": 132
+    }
+},
+{
+    "model": "neighborhoods.demographics",
+    "pk": 23,
+    "fields": {
+        "borough": 4,
+        "neighborhood": 18,
+        "total": 14121,
+        "germans": 12350,
+        "foreigners": 1771,
+        "under_6": 725,
+        "six_to_15": 1186,
+        "fifteen_to_18": 439,
+        "eighteen_to_27": 1254,
+        "twenty_seven_to_45": 3094,
+        "forty_five_to_55": 1913,
+        "fifty_five_and_more": 5007,
+        "eu": 1033,
+        "france": 94,
+        "italy": 72,
+        "spain": 41,
+        "poland": 279,
+        "greece": 37,
+        "austria": 60,
+        "romania": 40,
+        "united_kingdom": 83,
+        "former_yougoslavia": 121,
+        "former_soviet_union": 479,
+        "russia": 152,
+        "ukraine": 183,
+        "islamic_countries": 945,
+        "turkey": 366,
+        "iran": 54,
+        "arab_countries_inc_syria": 297,
+        "lebanon": 24,
+        "syria": 96,
+        "vietnam": 31,
+        "usa": 39,
+        "not_clearly_assignable": 198
+    }
+},
+{
+    "model": "neighborhoods.demographics",
+    "pk": 24,
+    "fields": {
+        "borough": 4,
+        "neighborhood": 91,
+        "total": 64152,
+        "germans": 55110,
+        "foreigners": 9042,
+        "under_6": 3718,
+        "six_to_15": 6290,
+        "fifteen_to_18": 1981,
+        "eighteen_to_27": 5834,
+        "twenty_seven_to_45": 17687,
+        "forty_five_to_55": 9333,
+        "fifty_five_and_more": 27020,
+        "eu": 4727,
+        "france": 390,
+        "italy": 567,
+        "spain": 278,
+        "poland": 1089,
+        "greece": 204,
+        "austria": 255,
+        "romania": 348,
+        "united_kingdom": 331,
+        "former_yougoslavia": 627,
+        "former_soviet_union": 2521,
+        "russia": 859,
+        "ukraine": 962,
+        "islamic_countries": 3220,
+        "turkey": 631,
+        "iran": 242,
+        "arab_countries_inc_syria": 1232,
+        "lebanon": 94,
+        "syria": 449,
+        "vietnam": 234,
+        "usa": 522,
+        "not_clearly_assignable": 412
+    }
+},
+{
+    "model": "neighborhoods.demographics",
+    "pk": 25,
+    "fields": {
+        "borough": 5,
+        "neighborhood": 19,
+        "total": 148322,
+        "germans": 103137,
+        "foreigners": 45185,
+        "under_6": 7540,
+        "six_to_15": 9738,
+        "fifteen_to_18": 3223,
+        "eighteen_to_27": 15889,
+        "twenty_seven_to_45": 45077,
+        "forty_five_to_55": 17378,
+        "fifty_five_and_more": 62455,
+        "eu": 18901,
+        "france": 1480,
+        "italy": 2179,
+        "spain": 999,
+        "poland": 4900,
+        "greece": 1094,
+        "austria": 835,
+        "romania": 1573,
+        "united_kingdom": 1105,
+        "former_yougoslavia": 4810,
+        "former_soviet_union": 11345,
+        "russia": 3633,
+        "ukraine": 4618,
+        "islamic_countries": 20334,
+        "turkey": 7355,
+        "iran": 2103,
+        "arab_countries_inc_syria": 7038,
+        "lebanon": 1175,
+        "syria": 1975,
+        "vietnam": 1008,
+        "usa": 1822,
+        "not_clearly_assignable": 3793
+    }
+},
+{
+    "model": "neighborhoods.demographics",
+    "pk": 26,
+    "fields": {
+        "borough": 5,
+        "neighborhood": 20,
+        "total": 88900,
+        "germans": 65677,
+        "foreigners": 23223,
+        "under_6": 4138,
+        "six_to_15": 5886,
+        "fifteen_to_18": 1912,
+        "eighteen_to_27": 8149,
+        "twenty_seven_to_45": 23848,
+        "forty_five_to_55": 10535,
+        "fifty_five_and_more": 34383,
+        "eu": 10681,
+        "france": 951,
+        "italy": 1339,
+        "spain": 613,
+        "poland": 2529,
+        "greece": 679,
+        "austria": 654,
+        "romania": 701,
+        "united_kingdom": 816,
+        "former_yougoslavia": 2033,
+        "former_soviet_union": 8105,
+        "russia": 2627,
+        "ukraine": 3382,
+        "islamic_countries": 8473,
+        "turkey": 2471,
+        "iran": 1256,
+        "arab_countries_inc_syria": 2873,
+        "lebanon": 374,
+        "syria": 655,
+        "vietnam": 355,
+        "usa": 1469,
+        "not_clearly_assignable": 1845
+    }
+},
+{
+    "model": "neighborhoods.demographics",
+    "pk": 27,
+    "fields": {
+        "borough": 5,
+        "neighborhood": 21,
+        "total": 12471,
+        "germans": 10336,
+        "foreigners": 2135,
+        "under_6": 463,
+        "six_to_15": 892,
+        "fifteen_to_18": 305,
+        "eighteen_to_27": 1009,
+        "twenty_seven_to_45": 2391,
+        "forty_five_to_55": 1504,
+        "fifty_five_and_more": 3895,
+        "eu": 1226,
+        "france": 114,
+        "italy": 115,
+        "spain": 57,
+        "poland": 426,
+        "greece": 55,
+        "austria": 62,
+        "romania": 47,
+        "united_kingdom": 52,
+        "former_yougoslavia": 191,
+        "former_soviet_union": 671,
+        "russia": 236,
+        "ukraine": 239,
+        "islamic_countries": 917,
+        "turkey": 243,
+        "iran": 198,
+        "arab_countries_inc_syria": 328,
+        "lebanon": 34,
+        "syria": 95,
+        "vietnam": 32,
+        "usa": 124,
+        "not_clearly_assignable": 248
+    }
+},
+{
+    "model": "neighborhoods.demographics",
+    "pk": 28,
+    "fields": {
+        "borough": 5,
+        "neighborhood": 22,
+        "total": 14370,
+        "germans": 11013,
+        "foreigners": 3357,
+        "under_6": 705,
+        "six_to_15": 1047,
+        "fifteen_to_18": 325,
+        "eighteen_to_27": 1275,
+        "twenty_seven_to_45": 3235,
+        "forty_five_to_55": 1749,
+        "fifty_five_and_more": 4984,
+        "eu": 1692,
+        "france": 137,
+        "italy": 165,
+        "spain": 56,
+        "poland": 524,
+        "greece": 80,
+        "austria": 82,
+        "romania": 109,
+        "united_kingdom": 114,
+        "former_yougoslavia": 383,
+        "former_soviet_union": 1646,
+        "russia": 591,
+        "ukraine": 592,
+        "islamic_countries": 1217,
+        "turkey": 344,
+        "iran": 253,
+        "arab_countries_inc_syria": 341,
+        "lebanon": 45,
+        "syria": 74,
+        "vietnam": 47,
+        "usa": 181,
+        "not_clearly_assignable": 268
+    }
+},
+{
+    "model": "neighborhoods.demographics",
+    "pk": 29,
+    "fields": {
+        "borough": 5,
+        "neighborhood": 23,
+        "total": 46520,
+        "germans": 36024,
+        "foreigners": 10496,
+        "under_6": 1971,
+        "six_to_15": 3437,
+        "fifteen_to_18": 1158,
+        "eighteen_to_27": 4989,
+        "twenty_seven_to_45": 10326,
+        "forty_five_to_55": 5258,
+        "fifty_five_and_more": 15584,
+        "eu": 4460,
+        "france": 327,
+        "italy": 479,
+        "spain": 237,
+        "poland": 1111,
+        "greece": 215,
+        "austria": 289,
+        "romania": 388,
+        "united_kingdom": 353,
+        "former_yougoslavia": 863,
+        "former_soviet_union": 3127,
+        "russia": 832,
+        "ukraine": 1494,
+        "islamic_countries": 4391,
+        "turkey": 1218,
+        "iran": 641,
+        "arab_countries_inc_syria": 1556,
+        "lebanon": 147,
+        "syria": 434,
+        "vietnam": 166,
+        "usa": 533,
+        "not_clearly_assignable": 819
+    }
+},
+{
+    "model": "neighborhoods.demographics",
+    "pk": 30,
+    "fields": {
+        "borough": 5,
+        "neighborhood": 25,
+        "total": 7813,
+        "germans": 5429,
+        "foreigners": 2384,
+        "under_6": 470,
+        "six_to_15": 844,
+        "fifteen_to_18": 267,
+        "eighteen_to_27": 737,
+        "twenty_seven_to_45": 1827,
+        "forty_five_to_55": 966,
+        "fifty_five_and_more": 2793,
+        "eu": 1039,
+        "france": 15,
+        "italy": 52,
+        "spain": 9,
+        "poland": 586,
+        "greece": 37,
+        "austria": 13,
+        "romania": 74,
+        "united_kingdom": 6,
+        "former_yougoslavia": 293,
+        "former_soviet_union": 714,
+        "russia": 210,
+        "ukraine": 237,
+        "islamic_countries": 2035,
+        "turkey": 762,
+        "iran": 104,
+        "arab_countries_inc_syria": 851,
+        "lebanon": 206,
+        "syria": 275,
+        "vietnam": 67,
+        "usa": 3,
+        "not_clearly_assignable": 364
+    }
+},
+{
+    "model": "neighborhoods.demographics",
+    "pk": 31,
+    "fields": {
+        "borough": 5,
+        "neighborhood": 39,
+        "total": 14525,
+        "germans": 10409,
+        "foreigners": 4116,
+        "under_6": 659,
+        "six_to_15": 970,
+        "fifteen_to_18": 432,
+        "eighteen_to_27": 1479,
+        "twenty_seven_to_45": 4128,
+        "forty_five_to_55": 1713,
+        "fifty_five_and_more": 5841,
+        "eu": 1837,
+        "france": 163,
+        "italy": 241,
+        "spain": 111,
+        "poland": 440,
+        "greece": 119,
+        "austria": 90,
+        "romania": 100,
+        "united_kingdom": 112,
+        "former_yougoslavia": 388,
+        "former_soviet_union": 1036,
+        "russia": 380,
+        "ukraine": 370,
+        "islamic_countries": 1553,
+        "turkey": 569,
+        "iran": 117,
+        "arab_countries_inc_syria": 549,
+        "lebanon": 64,
+        "syria": 173,
+        "vietnam": 101,
+        "usa": 173,
+        "not_clearly_assignable": 392
+    }
+},
+{
+    "model": "neighborhoods.demographics",
+    "pk": 32,
+    "fields": {
+        "borough": 5,
+        "neighborhood": 40,
+        "total": 27648,
+        "germans": 20286,
+        "foreigners": 7362,
+        "under_6": 1311,
+        "six_to_15": 1959,
+        "fifteen_to_18": 658,
+        "eighteen_to_27": 2867,
+        "twenty_seven_to_45": 7787,
+        "forty_five_to_55": 3258,
+        "fifty_five_and_more": 11045,
+        "eu": 3326,
+        "france": 278,
+        "italy": 432,
+        "spain": 183,
+        "poland": 738,
+        "greece": 223,
+        "austria": 158,
+        "romania": 236,
+        "united_kingdom": 234,
+        "former_yougoslavia": 977,
+        "former_soviet_union": 1925,
+        "russia": 662,
+        "ukraine": 766,
+        "islamic_countries": 3160,
+        "turkey": 850,
+        "iran": 299,
+        "arab_countries_inc_syria": 1385,
+        "lebanon": 137,
+        "syria": 593,
+        "vietnam": 134,
+        "usa": 356,
+        "not_clearly_assignable": 680
+    }
+},
+{
+    "model": "neighborhoods.demographics",
+    "pk": 33,
+    "fields": {
+        "borough": 6,
+        "neighborhood": 33,
+        "total": 56875,
+        "germans": 47580,
+        "foreigners": 9295,
+        "under_6": 2499,
+        "six_to_15": 4983,
+        "fifteen_to_18": 1750,
+        "eighteen_to_27": 5232,
+        "twenty_seven_to_45": 11442,
+        "forty_five_to_55": 7168,
+        "fifty_five_and_more": 18610,
+        "eu": 4840,
+        "france": 267,
+        "italy": 439,
+        "spain": 231,
+        "poland": 1570,
+        "greece": 447,
+        "austria": 270,
+        "romania": 305,
+        "united_kingdom": 351,
+        "former_yougoslavia": 972,
+        "former_soviet_union": 2236,
+        "russia": 623,
+        "ukraine": 1008,
+        "islamic_countries": 4526,
+        "turkey": 1098,
+        "iran": 631,
+        "arab_countries_inc_syria": 1653,
+        "lebanon": 182,
+        "syria": 691,
+        "vietnam": 188,
+        "usa": 881,
+        "not_clearly_assignable": 839
+    }
+},
+{
+    "model": "neighborhoods.demographics",
+    "pk": 34,
+    "fields": {
+        "borough": 6,
+        "neighborhood": 34,
+        "total": 130938,
+        "germans": 104105,
+        "foreigners": 26833,
+        "under_6": 6557,
+        "six_to_15": 9604,
+        "fifteen_to_18": 3030,
+        "eighteen_to_27": 12780,
+        "twenty_seven_to_45": 34679,
+        "forty_five_to_55": 15368,
+        "fifty_five_and_more": 50047,
+        "eu": 13908,
+        "france": 794,
+        "italy": 1359,
+        "spain": 530,
+        "poland": 4753,
+        "greece": 982,
+        "austria": 635,
+        "romania": 876,
+        "united_kingdom": 618,
+        "former_yougoslavia": 3984,
+        "former_soviet_union": 6678,
+        "russia": 2077,
+        "ukraine": 2725,
+        "islamic_countries": 13626,
+        "turkey": 5255,
+        "iran": 1,
+        "arab_countries_inc_syria": 4528,
+        "lebanon": 761,
+        "syria": 1348,
+        "vietnam": 482,
+        "usa": 1089,
+        "not_clearly_assignable": 2887
+    }
+},
+{
+    "model": "neighborhoods.demographics",
+    "pk": 35,
+    "fields": {
+        "borough": 6,
+        "neighborhood": 35,
+        "total": 52254,
+        "germans": 43705,
+        "foreigners": 8549,
+        "under_6": 2306,
+        "six_to_15": 4145,
+        "fifteen_to_18": 1528,
+        "eighteen_to_27": 4823,
+        "twenty_seven_to_45": 10495,
+        "forty_five_to_55": 6232,
+        "fifty_five_and_more": 16727,
+        "eu": 4263,
+        "france": 315,
+        "italy": 439,
+        "spain": 235,
+        "poland": 1152,
+        "greece": 264,
+        "austria": 298,
+        "romania": 230,
+        "united_kingdom": 385,
+        "former_yougoslavia": 836,
+        "former_soviet_union": 2301,
+        "russia": 690,
+        "ukraine": 942,
+        "islamic_countries": 3539,
+        "turkey": 879,
+        "iran": 565,
+        "arab_countries_inc_syria": 1245,
+        "lebanon": 111,
+        "syria": 513,
+        "vietnam": 89,
+        "usa": 1208,
+        "not_clearly_assignable": 683
+    }
+},
+{
+    "model": "neighborhoods.demographics",
+    "pk": 36,
+    "fields": {
+        "borough": 6,
+        "neighborhood": 36,
+        "total": 29970,
+        "germans": 26352,
+        "foreigners": 3618,
+        "under_6": 1161,
+        "six_to_15": 2783,
+        "fifteen_to_18": 944,
+        "eighteen_to_27": 2404,
+        "twenty_seven_to_45": 4638,
+        "forty_five_to_55": 3692,
+        "fifty_five_and_more": 8330,
+        "eu": 2158,
+        "france": 259,
+        "italy": 203,
+        "spain": 139,
+        "poland": 503,
+        "greece": 98,
+        "austria": 222,
+        "romania": 114,
+        "united_kingdom": 260,
+        "former_yougoslavia": 313,
+        "former_soviet_union": 1052,
+        "russia": 336,
+        "ukraine": 391,
+        "islamic_countries": 1052,
+        "turkey": 300,
+        "iran": 123,
+        "arab_countries_inc_syria": 330,
+        "lebanon": 28,
+        "syria": 108,
+        "vietnam": 16,
+        "usa": 613,
+        "not_clearly_assignable": 213
+    }
+},
+{
+    "model": "neighborhoods.demographics",
+    "pk": 37,
+    "fields": {
+        "borough": 6,
+        "neighborhood": 37,
+        "total": 34238,
+        "germans": 27432,
+        "foreigners": 6806,
+        "under_6": 1667,
+        "six_to_15": 3166,
+        "fifteen_to_18": 1112,
+        "eighteen_to_27": 3300,
+        "twenty_seven_to_45": 7247,
+        "forty_five_to_55": 4330,
+        "fifty_five_and_more": 11577,
+        "eu": 3513,
+        "france": 248,
+        "italy": 299,
+        "spain": 149,
+        "poland": 1174,
+        "greece": 219,
+        "austria": 173,
+        "romania": 262,
+        "united_kingdom": 227,
+        "former_yougoslavia": 801,
+        "former_soviet_union": 1795,
+        "russia": 590,
+        "ukraine": 678,
+        "islamic_countries": 3460,
+        "turkey": 881,
+        "iran": 526,
+        "arab_countries_inc_syria": 1238,
+        "lebanon": 146,
+        "syria": 388,
+        "vietnam": 102,
+        "usa": 453,
+        "not_clearly_assignable": 674
+    }
+},
+{
+    "model": "neighborhoods.demographics",
+    "pk": 38,
+    "fields": {
+        "borough": 6,
+        "neighborhood": 70,
+        "total": 11270,
+        "germans": 8590,
+        "foreigners": 2680,
+        "under_6": 449,
+        "six_to_15": 940,
+        "fifteen_to_18": 345,
+        "eighteen_to_27": 1635,
+        "twenty_seven_to_45": 2027,
+        "forty_five_to_55": 1263,
+        "fifty_five_and_more": 3290,
+        "eu": 994,
+        "france": 100,
+        "italy": 72,
+        "spain": 73,
+        "poland": 223,
+        "greece": 50,
+        "austria": 81,
+        "romania": 41,
+        "united_kingdom": 111,
+        "former_yougoslavia": 114,
+        "former_soviet_union": 528,
+        "russia": 128,
+        "ukraine": 228,
+        "islamic_countries": 923,
+        "turkey": 180,
+        "iran": 106,
+        "arab_countries_inc_syria": 311,
+        "lebanon": 9,
+        "syria": 152,
+        "vietnam": 78,
+        "usa": 350,
+        "not_clearly_assignable": 70
+    }
+},
+{
+    "model": "neighborhoods.demographics",
+    "pk": 39,
+    "fields": {
+        "borough": 6,
+        "neighborhood": 108,
+        "total": 5170,
+        "germans": 4655,
+        "foreigners": 515,
+        "under_6": 222,
+        "six_to_15": 554,
+        "fifteen_to_18": 190,
+        "eighteen_to_27": 423,
+        "twenty_seven_to_45": 808,
+        "forty_five_to_55": 674,
+        "fifty_five_and_more": 1482,
+        "eu": 320,
+        "france": 15,
+        "italy": 28,
+        "spain": 12,
+        "poland": 122,
+        "greece": 15,
+        "austria": 39,
+        "romania": 3,
+        "united_kingdom": 33,
+        "former_yougoslavia": 51,
+        "former_soviet_union": 142,
+        "russia": 47,
+        "ukraine": 53,
+        "islamic_countries": 307,
+        "turkey": 107,
+        "iran": 42,
+        "arab_countries_inc_syria": 85,
+        "lebanon": 13,
+        "syria": 24,
+        "vietnam": 19,
+        "usa": 111,
+        "not_clearly_assignable": 59
+    }
+},
+{
+    "model": "neighborhoods.demographics",
+    "pk": 40,
+    "fields": {
+        "borough": 7,
+        "neighborhood": 39,
+        "total": 173763,
+        "germans": 130413,
+        "foreigners": 43350,
+        "under_6": 8973,
+        "six_to_15": 12441,
+        "fifteen_to_18": 3941,
+        "eighteen_to_27": 17176,
+        "twenty_seven_to_45": 51084,
+        "forty_five_to_55": 21286,
+        "fifty_five_and_more": 72370,
+        "eu": 20616,
+        "france": 2055,
+        "italy": 2859,
+        "spain": 1207,
+        "poland": 4517,
+        "greece": 1348,
+        "austria": 1074,
+        "romania": 1304,
+        "united_kingdom": 1632,
+        "former_yougoslavia": 4621,
+        "former_soviet_union": 8245,
+        "russia": 2623,
+        "ukraine": 3306,
+        "islamic_countries": 23998,
+        "turkey": 12440,
+        "iran": 1,
+        "arab_countries_inc_syria": 7024,
+        "lebanon": 1677,
+        "syria": 2020,
+        "vietnam": 729,
+        "usa": 2392,
+        "not_clearly_assignable": 5591
+    }
+},
+{
+    "model": "neighborhoods.demographics",
+    "pk": 41,
+    "fields": {
+        "borough": 7,
+        "neighborhood": 41,
+        "total": 91266,
+        "germans": 67817,
+        "foreigners": 23449,
+        "under_6": 5266,
+        "six_to_15": 7150,
+        "fifteen_to_18": 2174,
+        "eighteen_to_27": 9541,
+        "twenty_seven_to_45": 26766,
+        "forty_five_to_55": 10173,
+        "fifty_five_and_more": 36939,
+        "eu": 9986,
+        "france": 462,
+        "italy": 822,
+        "spain": 365,
+        "poland": 3420,
+        "greece": 748,
+        "austria": 327,
+        "romania": 805,
+        "united_kingdom": 438,
+        "former_yougoslavia": 3321,
+        "former_soviet_union": 4627,
+        "russia": 1178,
+        "ukraine": 2105,
+        "islamic_countries": 15244,
+        "turkey": 6404,
+        "iran": 495,
+        "arab_countries_inc_syria": 5866,
+        "lebanon": 1377,
+        "syria": 2068,
+        "vietnam": 295,
+        "usa": 555,
+        "not_clearly_assignable": 3376
+    }
+},
+{
+    "model": "neighborhoods.demographics",
+    "pk": 42,
+    "fields": {
+        "borough": 7,
+        "neighborhood": 71,
+        "total": 90919,
+        "germans": 75237,
+        "foreigners": 15682,
+        "under_6": 5042,
+        "six_to_15": 8355,
+        "fifteen_to_18": 2648,
+        "eighteen_to_27": 8133,
+        "twenty_seven_to_45": 19102,
+        "forty_five_to_55": 10510,
+        "fifty_five_and_more": 29612,
+        "eu": 8542,
+        "france": 231,
+        "italy": 499,
+        "spain": 139,
+        "poland": 4514,
+        "greece": 345,
+        "austria": 229,
+        "romania": 462,
+        "united_kingdom": 232,
+        "former_yougoslavia": 2847,
+        "former_soviet_union": 4596,
+        "russia": 1740,
+        "ukraine": 1338,
+        "islamic_countries": 12132,
+        "turkey": 4338,
+        "iran": 459,
+        "arab_countries_inc_syria": 4653,
+        "lebanon": 859,
+        "syria": 1985,
+        "vietnam": 241,
+        "usa": 301,
+        "not_clearly_assignable": 2236
+    }
+},
+{
+    "model": "neighborhoods.demographics",
+    "pk": 43,
+    "fields": {
+        "borough": 8,
+        "neighborhood": 44,
+        "total": 60081,
+        "germans": 43017,
+        "foreigners": 17064,
+        "under_6": 3523,
+        "six_to_15": 5736,
+        "fifteen_to_18": 1766,
+        "eighteen_to_27": 6464,
+        "twenty_seven_to_45": 16123,
+        "forty_five_to_55": 7152,
+        "fifty_five_and_more": 23275,
+        "eu": 6242,
+        "france": 201,
+        "italy": 594,
+        "spain": 156,
+        "poland": 2330,
+        "greece": 319,
+        "austria": 150,
+        "romania": 670,
+        "united_kingdom": 146,
+        "former_yougoslavia": 1917,
+        "former_soviet_union": 1863,
+        "russia": 373,
+        "ukraine": 870,
+        "islamic_countries": 16482,
+        "turkey": 7518,
+        "iran": 202,
+        "arab_countries_inc_syria": 7081,
+        "lebanon": 2662,
+        "syria": 1552,
+        "vietnam": 223,
+        "usa": 217,
+        "not_clearly_assignable": 3257
+    }
+},
+{
+    "model": "neighborhoods.demographics",
+    "pk": 44,
+    "fields": {
+        "borough": 8,
+        "neighborhood": 45,
+        "total": 47751,
+        "germans": 39424,
+        "foreigners": 8327,
+        "under_6": 2699,
+        "six_to_15": 4373,
+        "fifteen_to_18": 1284,
+        "eighteen_to_27": 4431,
+        "twenty_seven_to_45": 10282,
+        "forty_five_to_55": 5547,
+        "fifty_five_and_more": 15829,
+        "eu": 3750,
+        "france": 85,
+        "italy": 290,
+        "spain": 73,
+        "poland": 1942,
+        "greece": 167,
+        "austria": 111,
+        "romania": 272,
+        "united_kingdom": 92,
+        "former_yougoslavia": 1775,
+        "former_soviet_union": 1259,
+        "russia": 303,
+        "ukraine": 522,
+        "islamic_countries": 7905,
+        "turkey": 3976,
+        "iran": 182,
+        "arab_countries_inc_syria": 2699,
+        "lebanon": 815,
+        "syria": 692,
+        "vietnam": 178,
+        "usa": 119,
+        "not_clearly_assignable": 1990
+    }
+},
+{
+    "model": "neighborhoods.demographics",
+    "pk": 45,
+    "fields": {
+        "borough": 8,
+        "neighborhood": 46,
+        "total": 56691,
+        "germans": 44278,
+        "foreigners": 12413,
+        "under_6": 3456,
+        "six_to_15": 4921,
+        "fifteen_to_18": 1508,
+        "eighteen_to_27": 5630,
+        "twenty_seven_to_45": 12799,
+        "forty_five_to_55": 6196,
+        "fifty_five_and_more": 18995,
+        "eu": 5389,
+        "france": 87,
+        "italy": 332,
+        "spain": 76,
+        "poland": 3040,
+        "greece": 248,
+        "austria": 164,
+        "romania": 317,
+        "united_kingdom": 76,
+        "former_yougoslavia": 2429,
+        "former_soviet_union": 1874,
+        "russia": 575,
+        "ukraine": 551,
+        "islamic_countries": 14070,
+        "turkey": 8530,
+        "iran": 182,
+        "arab_countries_inc_syria": 4142,
+        "lebanon": 1306,
+        "syria": 1074,
+        "vietnam": 276,
+        "usa": 98,
+        "not_clearly_assignable": 3956
+    }
+},
+{
+    "model": "neighborhoods.demographics",
+    "pk": 46,
+    "fields": {
+        "borough": 8,
+        "neighborhood": 47,
+        "total": 17365,
+        "germans": 14912,
+        "foreigners": 2453,
+        "under_6": 998,
+        "six_to_15": 1585,
+        "fifteen_to_18": 498,
+        "eighteen_to_27": 1431,
+        "twenty_seven_to_45": 3508,
+        "forty_five_to_55": 1972,
+        "fifty_five_and_more": 5480,
+        "eu": 1405,
+        "france": 29,
+        "italy": 146,
+        "spain": 18,
+        "poland": 630,
+        "greece": 37,
+        "austria": 68,
+        "romania": 89,
+        "united_kingdom": 27,
+        "former_yougoslavia": 637,
+        "former_soviet_union": 403,
+        "russia": 99,
+        "ukraine": 197,
+        "islamic_countries": 2200,
+        "turkey": 1259,
+        "iran": 74,
+        "arab_countries_inc_syria": 615,
+        "lebanon": 161,
+        "syria": 178,
+        "vietnam": 78,
+        "usa": 36,
+        "not_clearly_assignable": 598
+    }
+},
+{
+    "model": "neighborhoods.demographics",
+    "pk": 47,
+    "fields": {
+        "borough": 8,
+        "neighborhood": 48,
+        "total": 3763,
+        "germans": 2949,
+        "foreigners": 814,
+        "under_6": 190,
+        "six_to_15": 243,
+        "fifteen_to_18": 80,
+        "eighteen_to_27": 308,
+        "twenty_seven_to_45": 1220,
+        "forty_five_to_55": 554,
+        "fifty_five_and_more": 1774,
+        "eu": 396,
+        "france": 32,
+        "italy": 40,
+        "spain": 32,
+        "poland": 124,
+        "greece": 7,
+        "austria": 15,
+        "romania": 11,
+        "united_kingdom": 30,
+        "former_yougoslavia": 136,
+        "former_soviet_union": 120,
+        "russia": 29,
+        "ukraine": 45,
+        "islamic_countries": 554,
+        "turkey": 287,
+        "iran": 6,
+        "arab_countries_inc_syria": 206,
+        "lebanon": 68,
+        "syria": 44,
+        "vietnam": 1,
+        "usa": 25,
+        "not_clearly_assignable": 124
+    }
+},
+{
+    "model": "neighborhoods.demographics",
+    "pk": 48,
+    "fields": {
+        "borough": 8,
+        "neighborhood": 109,
+        "total": 143668,
+        "germans": 91211,
+        "foreigners": 52457,
+        "under_6": 7451,
+        "six_to_15": 10108,
+        "fifteen_to_18": 3324,
+        "eighteen_to_27": 13778,
+        "twenty_seven_to_45": 61450,
+        "forty_five_to_55": 17799,
+        "fifty_five_and_more": 79249,
+        "eu": 23130,
+        "france": 2488,
+        "italy": 3236,
+        "spain": 1526,
+        "poland": 3866,
+        "greece": 1351,
+        "austria": 1019,
+        "romania": 1986,
+        "united_kingdom": 2494,
+        "former_yougoslavia": 5784,
+        "former_soviet_union": 3966,
+        "russia": 1138,
+        "ukraine": 1617,
+        "islamic_countries": 30495,
+        "turkey": 15248,
+        "iran": 623,
+        "arab_countries_inc_syria": 11612,
+        "lebanon": 4308,
+        "syria": 2112,
+        "vietnam": 379,
+        "usa": 2392,
+        "not_clearly_assignable": 5065
+    }
+},
+{
+    "model": "neighborhoods.demographics",
+    "pk": 49,
+    "fields": {
+        "borough": 9,
+        "neighborhood": 48,
+        "total": 38431,
+        "germans": 30243,
+        "foreigners": 8188,
+        "under_6": 2145,
+        "six_to_15": 3245,
+        "fifteen_to_18": 815,
+        "eighteen_to_27": 3974,
+        "twenty_seven_to_45": 13655,
+        "forty_five_to_55": 4816,
+        "fifty_five_and_more": 18471,
+        "eu": 3783,
+        "france": 322,
+        "italy": 489,
+        "spain": 282,
+        "poland": 740,
+        "greece": 154,
+        "austria": 204,
+        "romania": 399,
+        "united_kingdom": 278,
+        "former_yougoslavia": 631,
+        "former_soviet_union": 1402,
+        "russia": 468,
+        "ukraine": 470,
+        "islamic_countries": 3352,
+        "turkey": 939,
+        "iran": 138,
+        "arab_countries_inc_syria": 1459,
+        "lebanon": 244,
+        "syria": 477,
+        "vietnam": 538,
+        "usa": 326,
+        "not_clearly_assignable": 416
+    }
+},
+{
+    "model": "neighborhoods.demographics",
+    "pk": 50,
+    "fields": {
+        "borough": 9,
+        "neighborhood": 49,
+        "total": 19375,
+        "germans": 16216,
+        "foreigners": 3159,
+        "under_6": 1068,
+        "six_to_15": 1326,
+        "fifteen_to_18": 358,
+        "eighteen_to_27": 1624,
+        "twenty_seven_to_45": 6381,
+        "forty_five_to_55": 2034,
+        "fifty_five_and_more": 8415,
+        "eu": 1402,
+        "france": 102,
+        "italy": 173,
+        "spain": 88,
+        "poland": 383,
+        "greece": 35,
+        "austria": 65,
+        "romania": 119,
+        "united_kingdom": 83,
+        "former_yougoslavia": 373,
+        "former_soviet_union": 677,
+        "russia": 175,
+        "ukraine": 240,
+        "islamic_countries": 1541,
+        "turkey": 539,
+        "iran": 67,
+        "arab_countries_inc_syria": 539,
+        "lebanon": 83,
+        "syria": 185,
+        "vietnam": 195,
+        "usa": 85,
+        "not_clearly_assignable": 282
+    }
+},
+{
+    "model": "neighborhoods.demographics",
+    "pk": 51,
+    "fields": {
+        "borough": 9,
+        "neighborhood": 51,
+        "total": 12141,
+        "germans": 9564,
+        "foreigners": 2577,
+        "under_6": 654,
+        "six_to_15": 854,
+        "fifteen_to_18": 212,
+        "eighteen_to_27": 1561,
+        "twenty_seven_to_45": 4078,
+        "forty_five_to_55": 1268,
+        "fifty_five_and_more": 5346,
+        "eu": 890,
+        "france": 43,
+        "italy": 52,
+        "spain": 34,
+        "poland": 287,
+        "greece": 19,
+        "austria": 27,
+        "romania": 148,
+        "united_kingdom": 30,
+        "former_yougoslavia": 157,
+        "former_soviet_union": 734,
+        "russia": 314,
+        "ukraine": 214,
+        "islamic_countries": 989,
+        "turkey": 194,
+        "iran": 63,
+        "arab_countries_inc_syria": 352,
+        "lebanon": 18,
+        "syria": 177,
+        "vietnam": 41,
+        "usa": 59,
+        "not_clearly_assignable": 53
+    }
+},
+{
+    "model": "neighborhoods.demographics",
+    "pk": 52,
+    "fields": {
+        "borough": 9,
+        "neighborhood": 52,
+        "total": 10135,
+        "germans": 8895,
+        "foreigners": 1240,
+        "under_6": 597,
+        "six_to_15": 778,
+        "fifteen_to_18": 213,
+        "eighteen_to_27": 623,
+        "twenty_seven_to_45": 2732,
+        "forty_five_to_55": 1164,
+        "fifty_five_and_more": 3896,
+        "eu": 621,
+        "france": 24,
+        "italy": 45,
+        "spain": 22,
+        "poland": 218,
+        "greece": 12,
+        "austria": 39,
+        "romania": 49,
+        "united_kingdom": 28,
+        "former_yougoslavia": 92,
+        "former_soviet_union": 488,
+        "russia": 168,
+        "ukraine": 180,
+        "islamic_countries": 392,
+        "turkey": 76,
+        "iran": 39,
+        "arab_countries_inc_syria": 147,
+        "lebanon": 12,
+        "syria": 64,
+        "vietnam": 38,
+        "usa": 39,
+        "not_clearly_assignable": 42
+    }
+},
+{
+    "model": "neighborhoods.demographics",
+    "pk": 53,
+    "fields": {
+        "borough": 9,
+        "neighborhood": 53,
+        "total": 2624,
+        "germans": 2428,
+        "foreigners": 196,
+        "under_6": 149,
+        "six_to_15": 234,
+        "fifteen_to_18": 52,
+        "eighteen_to_27": 170,
+        "twenty_seven_to_45": 530,
+        "forty_five_to_55": 347,
+        "fifty_five_and_more": 877,
+        "eu": 113,
+        "france": 1,
+        "italy": 15,
+        "spain": 3,
+        "poland": 32,
+        "greece": 6,
+        "austria": 3,
+        "romania": 18,
+        "united_kingdom": 9,
+        "former_yougoslavia": 15,
+        "former_soviet_union": 122,
+        "russia": 48,
+        "ukraine": 46,
+        "islamic_countries": 62,
+        "turkey": 3,
+        "iran": 1,
+        "arab_countries_inc_syria": 27,
+        "lebanon": 1,
+        "syria": 3,
+        "vietnam": 15,
+        "usa": 9,
+        "not_clearly_assignable": 9
+    }
+},
+{
+    "model": "neighborhoods.demographics",
+    "pk": 54,
+    "fields": {
+        "borough": 9,
+        "neighborhood": 72,
+        "total": 39870,
+        "germans": 30865,
+        "foreigners": 9005,
+        "under_6": 2450,
+        "six_to_15": 3018,
+        "fifteen_to_18": 895,
+        "eighteen_to_27": 4587,
+        "twenty_seven_to_45": 13474,
+        "forty_five_to_55": 4261,
+        "fifty_five_and_more": 17735,
+        "eu": 3666,
+        "france": 154,
+        "italy": 360,
+        "spain": 213,
+        "poland": 956,
+        "greece": 113,
+        "austria": 126,
+        "romania": 569,
+        "united_kingdom": 168,
+        "former_yougoslavia": 887,
+        "former_soviet_union": 1969,
+        "russia": 666,
+        "ukraine": 698,
+        "islamic_countries": 3737,
+        "turkey": 940,
+        "iran": 177,
+        "arab_countries_inc_syria": 1577,
+        "lebanon": 201,
+        "syria": 608,
+        "vietnam": 351,
+        "usa": 138,
+        "not_clearly_assignable": 427
+    }
+},
+{
+    "model": "neighborhoods.demographics",
+    "pk": 55,
+    "fields": {
+        "borough": 9,
+        "neighborhood": 74,
+        "total": 30993,
+        "germans": 26144,
+        "foreigners": 4849,
+        "under_6": 2244,
+        "six_to_15": 3517,
+        "fifteen_to_18": 1034,
+        "eighteen_to_27": 2670,
+        "twenty_seven_to_45": 7467,
+        "forty_five_to_55": 3761,
+        "fifty_five_and_more": 11228,
+        "eu": 1763,
+        "france": 68,
+        "italy": 105,
+        "spain": 68,
+        "poland": 711,
+        "greece": 69,
+        "austria": 54,
+        "romania": 195,
+        "united_kingdom": 43,
+        "former_yougoslavia": 684,
+        "former_soviet_union": 1435,
+        "russia": 437,
+        "ukraine": 357,
+        "islamic_countries": 3551,
+        "turkey": 797,
+        "iran": 101,
+        "arab_countries_inc_syria": 1602,
+        "lebanon": 178,
+        "syria": 691,
+        "vietnam": 108,
+        "usa": 55,
+        "not_clearly_assignable": 402
+    }
+},
+{
+    "model": "neighborhoods.demographics",
+    "pk": 56,
+    "fields": {
+        "borough": 9,
+        "neighborhood": 75,
+        "total": 15695,
+        "germans": 13100,
+        "foreigners": 2595,
+        "under_6": 975,
+        "six_to_15": 1438,
+        "fifteen_to_18": 439,
+        "eighteen_to_27": 1529,
+        "twenty_seven_to_45": 3766,
+        "forty_five_to_55": 1909,
+        "fifty_five_and_more": 5675,
+        "eu": 810,
+        "france": 9,
+        "italy": 35,
+        "spain": 27,
+        "poland": 318,
+        "greece": 18,
+        "austria": 22,
+        "romania": 101,
+        "united_kingdom": 34,
+        "former_yougoslavia": 230,
+        "former_soviet_union": 771,
+        "russia": 171,
+        "ukraine": 226,
+        "islamic_countries": 1530,
+        "turkey": 444,
+        "iran": 86,
+        "arab_countries_inc_syria": 548,
+        "lebanon": 26,
+        "syria": 248,
+        "vietnam": 80,
+        "usa": 37,
+        "not_clearly_assignable": 186
+    }
+},
+{
+    "model": "neighborhoods.demographics",
+    "pk": 57,
+    "fields": {
+        "borough": 9,
+        "neighborhood": 76,
+        "total": 49717,
+        "germans": 43568,
+        "foreigners": 6149,
+        "under_6": 2504,
+        "six_to_15": 3778,
+        "fifteen_to_18": 1178,
+        "eighteen_to_27": 3761,
+        "twenty_seven_to_45": 12136,
+        "forty_five_to_55": 5469,
+        "fifty_five_and_more": 17605,
+        "eu": 2474,
+        "france": 107,
+        "italy": 181,
+        "spain": 77,
+        "poland": 659,
+        "greece": 101,
+        "austria": 94,
+        "romania": 343,
+        "united_kingdom": 130,
+        "former_yougoslavia": 320,
+        "former_soviet_union": 2219,
+        "russia": 534,
+        "ukraine": 1091,
+        "islamic_countries": 2538,
+        "turkey": 234,
+        "iran": 119,
+        "arab_countries_inc_syria": 1196,
+        "lebanon": 76,
+        "syria": 555,
+        "vietnam": 203,
+        "usa": 121,
+        "not_clearly_assignable": 164
+    }
+},
+{
+    "model": "neighborhoods.demographics",
+    "pk": 58,
+    "fields": {
+        "borough": 9,
+        "neighborhood": 77,
+        "total": 25939,
+        "germans": 23310,
+        "foreigners": 2629,
+        "under_6": 1405,
+        "six_to_15": 2107,
+        "fifteen_to_18": 677,
+        "eighteen_to_27": 1944,
+        "twenty_seven_to_45": 6300,
+        "forty_five_to_55": 3140,
+        "fifty_five_and_more": 9440,
+        "eu": 1273,
+        "france": 83,
+        "italy": 87,
+        "spain": 62,
+        "poland": 356,
+        "greece": 25,
+        "austria": 59,
+        "romania": 153,
+        "united_kingdom": 79,
+        "former_yougoslavia": 186,
+        "former_soviet_union": 832,
+        "russia": 318,
+        "ukraine": 315,
+        "islamic_countries": 944,
+        "turkey": 102,
+        "iran": 85,
+        "arab_countries_inc_syria": 404,
+        "lebanon": 16,
+        "syria": 205,
+        "vietnam": 74,
+        "usa": 73,
+        "not_clearly_assignable": 42
+    }
+},
+{
+    "model": "neighborhoods.demographics",
+    "pk": 59,
+    "fields": {
+        "borough": 9,
+        "neighborhood": 78,
+        "total": 12380,
+        "germans": 11131,
+        "foreigners": 1249,
+        "under_6": 685,
+        "six_to_15": 1071,
+        "fifteen_to_18": 352,
+        "eighteen_to_27": 808,
+        "twenty_seven_to_45": 2558,
+        "forty_five_to_55": 1531,
+        "fifty_five_and_more": 4089,
+        "eu": 540,
+        "france": 31,
+        "italy": 43,
+        "spain": 34,
+        "poland": 169,
+        "greece": 22,
+        "austria": 28,
+        "romania": 40,
+        "united_kingdom": 52,
+        "former_yougoslavia": 66,
+        "former_soviet_union": 550,
+        "russia": 172,
+        "ukraine": 201,
+        "islamic_countries": 571,
+        "turkey": 96,
+        "iran": 38,
+        "arab_countries_inc_syria": 185,
+        "lebanon": 6,
+        "syria": 85,
+        "vietnam": 47,
+        "usa": 31,
+        "not_clearly_assignable": 31
+    }
+},
+{
+    "model": "neighborhoods.demographics",
+    "pk": 60,
+    "fields": {
+        "borough": 9,
+        "neighborhood": 79,
+        "total": 7055,
+        "germans": 6675,
+        "foreigners": 380,
+        "under_6": 320,
+        "six_to_15": 648,
+        "fifteen_to_18": 193,
+        "eighteen_to_27": 366,
+        "twenty_seven_to_45": 1347,
+        "forty_five_to_55": 875,
+        "fifty_five_and_more": 2222,
+        "eu": 266,
+        "france": 9,
+        "italy": 13,
+        "spain": 6,
+        "poland": 126,
+        "greece": 6,
+        "austria": 6,
+        "romania": 13,
+        "united_kingdom": 7,
+        "former_yougoslavia": 30,
+        "former_soviet_union": 200,
+        "russia": 75,
+        "ukraine": 66,
+        "islamic_countries": 148,
+        "turkey": 6,
+        "iran": 9,
+        "arab_countries_inc_syria": 47,
+        "lebanon": 13,
+        "syria": 25,
+        "vietnam": 21,
+        "usa": 6,
+        "not_clearly_assignable": 18
+    }
+},
+{
+    "model": "neighborhoods.demographics",
+    "pk": 61,
+    "fields": {
+        "borough": 9,
+        "neighborhood": 107,
+        "total": 31080,
+        "germans": 23357,
+        "foreigners": 7723,
+        "under_6": 1944,
+        "six_to_15": 2448,
+        "fifteen_to_18": 711,
+        "eighteen_to_27": 3888,
+        "twenty_seven_to_45": 10420,
+        "forty_five_to_55": 3425,
+        "fifty_five_and_more": 13845,
+        "eu": 2779,
+        "france": 126,
+        "italy": 224,
+        "spain": 128,
+        "poland": 801,
+        "greece": 113,
+        "austria": 58,
+        "romania": 389,
+        "united_kingdom": 118,
+        "former_yougoslavia": 586,
+        "former_soviet_union": 1588,
+        "russia": 528,
+        "ukraine": 610,
+        "islamic_countries": 3233,
+        "turkey": 546,
+        "iran": 144,
+        "arab_countries_inc_syria": 1630,
+        "lebanon": 104,
+        "syria": 681,
+        "vietnam": 306,
+        "usa": 109,
+        "not_clearly_assignable": 218
+    }
+},
+{
+    "model": "neighborhoods.demographics",
+    "pk": 62,
+    "fields": {
+        "borough": 10,
+        "neighborhood": 54,
+        "total": 138490,
+        "germans": 108203,
+        "foreigners": 30287,
+        "under_6": 8456,
+        "six_to_15": 12975,
+        "fifteen_to_18": 4094,
+        "eighteen_to_27": 13975,
+        "twenty_seven_to_45": 37544,
+        "forty_five_to_55": 14237,
+        "fifty_five_and_more": 51781,
+        "eu": 8675,
+        "france": 77,
+        "italy": 282,
+        "spain": 147,
+        "poland": 2588,
+        "greece": 196,
+        "austria": 143,
+        "romania": 2501,
+        "united_kingdom": 78,
+        "former_yougoslavia": 2348,
+        "former_soviet_union": 16686,
+        "russia": 5943,
+        "ukraine": 3461,
+        "islamic_countries": 15865,
+        "turkey": 1298,
+        "iran": 434,
+        "arab_countries_inc_syria": 5531,
+        "lebanon": 125,
+        "syria": 2816,
+        "vietnam": 4734,
+        "usa": 80,
+        "not_clearly_assignable": 792
+    }
+},
+{
+    "model": "neighborhoods.demographics",
+    "pk": 63,
+    "fields": {
+        "borough": 10,
+        "neighborhood": 55,
+        "total": 15915,
+        "germans": 14024,
+        "foreigners": 1891,
+        "under_6": 919,
+        "six_to_15": 1603,
+        "fifteen_to_18": 464,
+        "eighteen_to_27": 1064,
+        "twenty_seven_to_45": 3434,
+        "forty_five_to_55": 2002,
+        "fifty_five_and_more": 5436,
+        "eu": 733,
+        "france": 24,
+        "italy": 41,
+        "spain": 23,
+        "poland": 239,
+        "greece": 24,
+        "austria": 12,
+        "romania": 127,
+        "united_kingdom": 33,
+        "former_yougoslavia": 199,
+        "former_soviet_union": 1048,
+        "russia": 403,
+        "ukraine": 244,
+        "islamic_countries": 842,
+        "turkey": 152,
+        "iran": 35,
+        "arab_countries_inc_syria": 258,
+        "lebanon": 10,
+        "syria": 123,
+        "vietnam": 195,
+        "usa": 33,
+        "not_clearly_assignable": 74
+    }
+},
+{
+    "model": "neighborhoods.demographics",
+    "pk": 64,
+    "fields": {
+        "borough": 10,
+        "neighborhood": 56,
+        "total": 19744,
+        "germans": 18561,
+        "foreigners": 1183,
+        "under_6": 959,
+        "six_to_15": 1751,
+        "fifteen_to_18": 562,
+        "eighteen_to_27": 1257,
+        "twenty_seven_to_45": 3697,
+        "forty_five_to_55": 2510,
+        "fifty_five_and_more": 6207,
+        "eu": 653,
+        "france": 27,
+        "italy": 37,
+        "spain": 10,
+        "poland": 212,
+        "greece": 3,
+        "austria": 24,
+        "romania": 67,
+        "united_kingdom": 15,
+        "former_yougoslavia": 86,
+        "former_soviet_union": 732,
+        "russia": 254,
+        "ukraine": 225,
+        "islamic_countries": 466,
+        "turkey": 69,
+        "iran": 15,
+        "arab_countries_inc_syria": 176,
+        "lebanon": 3,
+        "syria": 99,
+        "vietnam": 159,
+        "usa": 32,
+        "not_clearly_assignable": 62
+    }
+},
+{
+    "model": "neighborhoods.demographics",
+    "pk": 65,
+    "fields": {
+        "borough": 10,
+        "neighborhood": 57,
+        "total": 30380,
+        "germans": 28759,
+        "foreigners": 1621,
+        "under_6": 1483,
+        "six_to_15": 2967,
+        "fifteen_to_18": 814,
+        "eighteen_to_27": 1691,
+        "twenty_seven_to_45": 5808,
+        "forty_five_to_55": 3884,
+        "fifty_five_and_more": 9692,
+        "eu": 990,
+        "france": 42,
+        "italy": 49,
+        "spain": 38,
+        "poland": 263,
+        "greece": 44,
+        "austria": 36,
+        "romania": 149,
+        "united_kingdom": 47,
+        "former_yougoslavia": 141,
+        "former_soviet_union": 1165,
+        "russia": 384,
+        "ukraine": 360,
+        "islamic_countries": 656,
+        "turkey": 97,
+        "iran": 30,
+        "arab_countries_inc_syria": 172,
+        "lebanon": 13,
+        "syria": 59,
+        "vietnam": 162,
+        "usa": 41,
+        "not_clearly_assignable": 61
+    }
+},
+{
+    "model": "neighborhoods.demographics",
+    "pk": 66,
+    "fields": {
+        "borough": 10,
+        "neighborhood": 80,
+        "total": 88372,
+        "germans": 67243,
+        "foreigners": 21129,
+        "under_6": 5967,
+        "six_to_15": 8801,
+        "fifteen_to_18": 2551,
+        "eighteen_to_27": 8411,
+        "twenty_seven_to_45": 24739,
+        "forty_five_to_55": 8788,
+        "fifty_five_and_more": 33527,
+        "eu": 6895,
+        "france": 81,
+        "italy": 225,
+        "spain": 130,
+        "poland": 1990,
+        "greece": 214,
+        "austria": 85,
+        "romania": 2254,
+        "united_kingdom": 89,
+        "former_yougoslavia": 1457,
+        "former_soviet_union": 7494,
+        "russia": 2161,
+        "ukraine": 2183,
+        "islamic_countries": 10331,
+        "turkey": 859,
+        "iran": 334,
+        "arab_countries_inc_syria": 4312,
+        "lebanon": 113,
+        "syria": 2259,
+        "vietnam": 2076,
+        "usa": 63,
+        "not_clearly_assignable": 332
+    }
+},
+{
+    "model": "neighborhoods.demographics",
+    "pk": 67,
+    "fields": {
+        "borough": 11,
+        "neighborhood": 58,
+        "total": 31544,
+        "germans": 23665,
+        "foreigners": 7879,
+        "under_6": 1907,
+        "six_to_15": 2305,
+        "fifteen_to_18": 637,
+        "eighteen_to_27": 3300,
+        "twenty_seven_to_45": 9048,
+        "forty_five_to_55": 2937,
+        "fifty_five_and_more": 11985,
+        "eu": 1965,
+        "france": 65,
+        "italy": 145,
+        "spain": 71,
+        "poland": 521,
+        "greece": 56,
+        "austria": 33,
+        "romania": 276,
+        "united_kingdom": 24,
+        "former_yougoslavia": 798,
+        "former_soviet_union": 2583,
+        "russia": 931,
+        "ukraine": 744,
+        "islamic_countries": 3617,
+        "turkey": 355,
+        "iran": 142,
+        "arab_countries_inc_syria": 1688,
+        "lebanon": 68,
+        "syria": 753,
+        "vietnam": 1494,
+        "usa": 57,
+        "not_clearly_assignable": 240
+    }
+},
+{
+    "model": "neighborhoods.demographics",
+    "pk": 68,
+    "fields": {
+        "borough": 11,
+        "neighborhood": 59,
+        "total": 31499,
+        "germans": 25685,
+        "foreigners": 5814,
+        "under_6": 2167,
+        "six_to_15": 3417,
+        "fifteen_to_18": 901,
+        "eighteen_to_27": 2863,
+        "twenty_seven_to_45": 9466,
+        "forty_five_to_55": 3967,
+        "fifty_five_and_more": 13433,
+        "eu": 1855,
+        "france": 156,
+        "italy": 189,
+        "spain": 98,
+        "poland": 454,
+        "greece": 67,
+        "austria": 107,
+        "romania": 210,
+        "united_kingdom": 174,
+        "former_yougoslavia": 235,
+        "former_soviet_union": 1877,
+        "russia": 740,
+        "ukraine": 608,
+        "islamic_countries": 2517,
+        "turkey": 270,
+        "iran": 189,
+        "arab_countries_inc_syria": 1171,
+        "lebanon": 34,
+        "syria": 481,
+        "vietnam": 384,
+        "usa": 134,
+        "not_clearly_assignable": 138
+    }
+},
+{
+    "model": "neighborhoods.demographics",
+    "pk": 69,
+    "fields": {
+        "borough": 11,
+        "neighborhood": 60,
+        "total": 4810,
+        "germans": 3893,
+        "foreigners": 917,
+        "under_6": 405,
+        "six_to_15": 546,
+        "fifteen_to_18": 165,
+        "eighteen_to_27": 417,
+        "twenty_seven_to_45": 1678,
+        "forty_five_to_55": 696,
+        "fifty_five_and_more": 2374,
+        "eu": 420,
+        "france": 46,
+        "italy": 48,
+        "spain": 26,
+        "poland": 64,
+        "greece": 25,
+        "austria": 28,
+        "romania": 41,
+        "united_kingdom": 31,
+        "former_yougoslavia": 61,
+        "former_soviet_union": 174,
+        "russia": 69,
+        "ukraine": 41,
+        "islamic_countries": 398,
+        "turkey": 59,
+        "iran": 6,
+        "arab_countries_inc_syria": 222,
+        "lebanon": 3,
+        "syria": 145,
+        "vietnam": 115,
+        "usa": 42,
+        "not_clearly_assignable": 40
+    }
+},
+{
+    "model": "neighborhoods.demographics",
+    "pk": 70,
+    "fields": {
+        "borough": 11,
+        "neighborhood": 62,
+        "total": 31905,
+        "germans": 24571,
+        "foreigners": 7334,
+        "under_6": 1906,
+        "six_to_15": 2757,
+        "fifteen_to_18": 871,
+        "eighteen_to_27": 2846,
+        "twenty_seven_to_45": 9447,
+        "forty_five_to_55": 3631,
+        "fifty_five_and_more": 13078,
+        "eu": 1788,
+        "france": 76,
+        "italy": 165,
+        "spain": 94,
+        "poland": 437,
+        "greece": 97,
+        "austria": 46,
+        "romania": 195,
+        "united_kingdom": 59,
+        "former_yougoslavia": 657,
+        "former_soviet_union": 2095,
+        "russia": 707,
+        "ukraine": 623,
+        "islamic_countries": 3548,
+        "turkey": 431,
+        "iran": 132,
+        "arab_countries_inc_syria": 1734,
+        "lebanon": 73,
+        "syria": 812,
+        "vietnam": 1350,
+        "usa": 65,
+        "not_clearly_assignable": 243
+    }
+},
+{
+    "model": "neighborhoods.demographics",
+    "pk": 71,
+    "fields": {
+        "borough": 11,
+        "neighborhood": 81,
+        "total": 50851,
+        "germans": 35493,
+        "foreigners": 15358,
+        "under_6": 2920,
+        "six_to_15": 3889,
+        "fifteen_to_18": 1153,
+        "eighteen_to_27": 5980,
+        "twenty_seven_to_45": 15211,
+        "forty_five_to_55": 5204,
+        "fifty_five_and_more": 20415,
+        "eu": 3978,
+        "france": 104,
+        "italy": 296,
+        "spain": 178,
+        "poland": 1176,
+        "greece": 178,
+        "austria": 71,
+        "romania": 534,
+        "united_kingdom": 119,
+        "former_yougoslavia": 1279,
+        "former_soviet_union": 4871,
+        "russia": 1447,
+        "ukraine": 1377,
+        "islamic_countries": 5920,
+        "turkey": 818,
+        "iran": 273,
+        "arab_countries_inc_syria": 2218,
+        "lebanon": 97,
+        "syria": 897,
+        "vietnam": 3173,
+        "usa": 106,
+        "not_clearly_assignable": 379
+    }
+},
+{
+    "model": "neighborhoods.demographics",
+    "pk": 72,
+    "fields": {
+        "borough": 11,
+        "neighborhood": 82,
+        "total": 40701,
+        "germans": 29682,
+        "foreigners": 11019,
+        "under_6": 2908,
+        "six_to_15": 4225,
+        "fifteen_to_18": 1268,
+        "eighteen_to_27": 3806,
+        "twenty_seven_to_45": 11362,
+        "forty_five_to_55": 4033,
+        "fifty_five_and_more": 15395,
+        "eu": 2498,
+        "france": 38,
+        "italy": 142,
+        "spain": 66,
+        "poland": 661,
+        "greece": 111,
+        "austria": 38,
+        "romania": 572,
+        "united_kingdom": 37,
+        "former_yougoslavia": 809,
+        "former_soviet_union": 3921,
+        "russia": 1379,
+        "ukraine": 824,
+        "islamic_countries": 6229,
+        "turkey": 513,
+        "iran": 154,
+        "arab_countries_inc_syria": 2906,
+        "lebanon": 71,
+        "syria": 1595,
+        "vietnam": 1806,
+        "usa": 28,
+        "not_clearly_assignable": 256
+    }
+},
+{
+    "model": "neighborhoods.demographics",
+    "pk": 73,
+    "fields": {
+        "borough": 11,
+        "neighborhood": 83,
+        "total": 13735,
+        "germans": 10690,
+        "foreigners": 3045,
+        "under_6": 908,
+        "six_to_15": 1518,
+        "fifteen_to_18": 419,
+        "eighteen_to_27": 1071,
+        "twenty_seven_to_45": 3409,
+        "forty_five_to_55": 1569,
+        "fifty_five_and_more": 4978,
+        "eu": 765,
+        "france": 32,
+        "italy": 29,
+        "spain": 21,
+        "poland": 177,
+        "greece": 25,
+        "austria": 17,
+        "romania": 184,
+        "united_kingdom": 13,
+        "former_yougoslavia": 324,
+        "former_soviet_union": 803,
+        "russia": 251,
+        "ukraine": 167,
+        "islamic_countries": 1528,
+        "turkey": 96,
+        "iran": 51,
+        "arab_countries_inc_syria": 705,
+        "lebanon": 45,
+        "syria": 317,
+        "vietnam": 414,
+        "usa": 21,
+        "not_clearly_assignable": 87
+    }
+},
+{
+    "model": "neighborhoods.demographics",
+    "pk": 74,
+    "fields": {
+        "borough": 11,
+        "neighborhood": 84,
+        "total": 21565,
+        "germans": 16540,
+        "foreigners": 5025,
+        "under_6": 1268,
+        "six_to_15": 2162,
+        "fifteen_to_18": 657,
+        "eighteen_to_27": 1869,
+        "twenty_seven_to_45": 5281,
+        "forty_five_to_55": 2202,
+        "fifty_five_and_more": 7483,
+        "eu": 1152,
+        "france": 9,
+        "italy": 38,
+        "spain": 15,
+        "poland": 331,
+        "greece": 36,
+        "austria": 10,
+        "romania": 230,
+        "united_kingdom": 3,
+        "former_yougoslavia": 1011,
+        "former_soviet_union": 1736,
+        "russia": 679,
+        "ukraine": 266,
+        "islamic_countries": 2662,
+        "turkey": 202,
+        "iran": 64,
+        "arab_countries_inc_syria": 1183,
+        "lebanon": 34,
+        "syria": 740,
+        "vietnam": 1275,
+        "usa": 11,
+        "not_clearly_assignable": 145
+    }
+},
+{
+    "model": "neighborhoods.demographics",
+    "pk": 75,
+    "fields": {
+        "borough": 11,
+        "neighborhood": 110,
+        "total": 88153,
+        "germans": 66686,
+        "foreigners": 21467,
+        "under_6": 5302,
+        "six_to_15": 6891,
+        "fifteen_to_18": 1847,
+        "eighteen_to_27": 8841,
+        "twenty_seven_to_45": 33264,
+        "forty_five_to_55": 9865,
+        "fifty_five_and_more": 43129,
+        "eu": 7732,
+        "france": 500,
+        "italy": 881,
+        "spain": 484,
+        "poland": 1860,
+        "greece": 229,
+        "austria": 260,
+        "romania": 866,
+        "united_kingdom": 351,
+        "former_yougoslavia": 2098,
+        "former_soviet_union": 6002,
+        "russia": 2039,
+        "ukraine": 1823,
+        "islamic_countries": 8241,
+        "turkey": 1066,
+        "iran": 375,
+        "arab_countries_inc_syria": 3740,
+        "lebanon": 197,
+        "syria": 1692,
+        "vietnam": 2764,
+        "usa": 479,
+        "not_clearly_assignable": 695
+    }
+},
+{
+    "model": "neighborhoods.demographics",
+    "pk": 76,
+    "fields": {
+        "borough": 12,
+        "neighborhood": 63,
+        "total": 38390,
+        "germans": 26977,
+        "foreigners": 11413,
+        "under_6": 2008,
+        "six_to_15": 3077,
+        "fifteen_to_18": 1041,
+        "eighteen_to_27": 3924,
+        "twenty_seven_to_45": 9395,
+        "forty_five_to_55": 4445,
+        "fifty_five_and_more": 13840,
+        "eu": 2916,
+        "france": 178,
+        "italy": 219,
+        "spain": 87,
+        "poland": 1040,
+        "greece": 141,
+        "austria": 128,
+        "romania": 172,
+        "united_kingdom": 124,
+        "former_yougoslavia": 876,
+        "former_soviet_union": 5592,
+        "russia": 468,
+        "ukraine": 4353,
+        "islamic_countries": 4968,
+        "turkey": 1772,
+        "iran": 239,
+        "arab_countries_inc_syria": 1763,
+        "lebanon": 150,
+        "syria": 730,
+        "vietnam": 241,
+        "usa": 126,
+        "not_clearly_assignable": 837
+    }
+},
+{
+    "model": "neighborhoods.demographics",
+    "pk": 77,
+    "fields": {
+        "borough": 12,
+        "neighborhood": 64,
+        "total": 16370,
+        "germans": 15192,
+        "foreigners": 1178,
+        "under_6": 697,
+        "six_to_15": 1531,
+        "fifteen_to_18": 526,
+        "eighteen_to_27": 1222,
+        "twenty_seven_to_45": 2358,
+        "forty_five_to_55": 2058,
+        "fifty_five_and_more": 4416,
+        "eu": 1058,
+        "france": 96,
+        "italy": 86,
+        "spain": 73,
+        "poland": 309,
+        "greece": 16,
+        "austria": 72,
+        "romania": 73,
+        "united_kingdom": 83,
+        "former_yougoslavia": 126,
+        "former_soviet_union": 324,
+        "russia": 71,
+        "ukraine": 169,
+        "islamic_countries": 477,
+        "turkey": 160,
+        "iran": 58,
+        "arab_countries_inc_syria": 144,
+        "lebanon": 10,
+        "syria": 36,
+        "vietnam": 12,
+        "usa": 113,
+        "not_clearly_assignable": 115
+    }
+},
+{
+    "model": "neighborhoods.demographics",
+    "pk": 78,
+    "fields": {
+        "borough": 12,
+        "neighborhood": 65,
+        "total": 74432,
+        "germans": 55792,
+        "foreigners": 18640,
+        "under_6": 4671,
+        "six_to_15": 7777,
+        "fifteen_to_18": 2432,
+        "eighteen_to_27": 7899,
+        "twenty_seven_to_45": 17470,
+        "forty_five_to_55": 8335,
+        "fifty_five_and_more": 25805,
+        "eu": 7658,
+        "france": 419,
+        "italy": 698,
+        "spain": 156,
+        "poland": 3594,
+        "greece": 259,
+        "austria": 131,
+        "romania": 598,
+        "united_kingdom": 104,
+        "former_yougoslavia": 2369,
+        "former_soviet_union": 3848,
+        "russia": 1608,
+        "ukraine": 951,
+        "islamic_countries": 15876,
+        "turkey": 6744,
+        "iran": 413,
+        "arab_countries_inc_syria": 5339,
+        "lebanon": 824,
+        "syria": 1697,
+        "vietnam": 500,
+        "usa": 128,
+        "not_clearly_assignable": 2639
+    }
+},
+{
+    "model": "neighborhoods.demographics",
+    "pk": 79,
+    "fields": {
+        "borough": 12,
+        "neighborhood": 67,
+        "total": 18284,
+        "germans": 16904,
+        "foreigners": 1380,
+        "under_6": 852,
+        "six_to_15": 1722,
+        "fifteen_to_18": 521,
+        "eighteen_to_27": 1310,
+        "twenty_seven_to_45": 3065,
+        "forty_five_to_55": 2155,
+        "fifty_five_and_more": 5220,
+        "eu": 1050,
+        "france": 78,
+        "italy": 94,
+        "spain": 55,
+        "poland": 357,
+        "greece": 61,
+        "austria": 69,
+        "romania": 75,
+        "united_kingdom": 75,
+        "former_yougoslavia": 128,
+        "former_soviet_union": 386,
+        "russia": 129,
+        "ukraine": 167,
+        "islamic_countries": 793,
+        "turkey": 342,
+        "iran": 97,
+        "arab_countries_inc_syria": 206,
+        "lebanon": 13,
+        "syria": 63,
+        "vietnam": 56,
+        "usa": 42,
+        "not_clearly_assignable": 215
+    }
+},
+{
+    "model": "neighborhoods.demographics",
+    "pk": 80,
+    "fields": {
+        "borough": 12,
+        "neighborhood": 85,
+        "total": 16539,
+        "germans": 15021,
+        "foreigners": 1518,
+        "under_6": 752,
+        "six_to_15": 1453,
+        "fifteen_to_18": 462,
+        "eighteen_to_27": 1186,
+        "twenty_seven_to_45": 2730,
+        "forty_five_to_55": 2008,
+        "fifty_five_and_more": 4738,
+        "eu": 1119,
+        "france": 117,
+        "italy": 127,
+        "spain": 33,
+        "poland": 342,
+        "greece": 54,
+        "austria": 79,
+        "romania": 53,
+        "united_kingdom": 77,
+        "former_yougoslavia": 192,
+        "former_soviet_union": 371,
+        "russia": 83,
+        "ukraine": 192,
+        "islamic_countries": 606,
+        "turkey": 213,
+        "iran": 59,
+        "arab_countries_inc_syria": 206,
+        "lebanon": 34,
+        "syria": 66,
+        "vietnam": 34,
+        "usa": 105,
+        "not_clearly_assignable": 140
+    }
+},
+{
+    "model": "neighborhoods.demographics",
+    "pk": 81,
+    "fields": {
+        "borough": 12,
+        "neighborhood": 87,
+        "total": 8349,
+        "germans": 7413,
+        "foreigners": 936,
+        "under_6": 349,
+        "six_to_15": 692,
+        "fifteen_to_18": 258,
+        "eighteen_to_27": 666,
+        "twenty_seven_to_45": 1462,
+        "forty_five_to_55": 1016,
+        "fifty_five_and_more": 2478,
+        "eu": 609,
+        "france": 69,
+        "italy": 51,
+        "spain": 18,
+        "poland": 254,
+        "greece": 16,
+        "austria": 25,
+        "romania": 21,
+        "united_kingdom": 30,
+        "former_yougoslavia": 195,
+        "former_soviet_union": 209,
+        "russia": 80,
+        "ukraine": 67,
+        "islamic_countries": 693,
+        "turkey": 368,
+        "iran": 31,
+        "arab_countries_inc_syria": 194,
+        "lebanon": 15,
+        "syria": 50,
+        "vietnam": 33,
+        "usa": 25,
+        "not_clearly_assignable": 217
+    }
+},
+{
+    "model": "neighborhoods.demographics",
+    "pk": 82,
+    "fields": {
+        "borough": 12,
+        "neighborhood": 88,
+        "total": 16618,
+        "germans": 13952,
+        "foreigners": 2666,
+        "under_6": 785,
+        "six_to_15": 1117,
+        "fifteen_to_18": 320,
+        "eighteen_to_27": 1552,
+        "twenty_seven_to_45": 4104,
+        "forty_five_to_55": 1858,
+        "fifty_five_and_more": 5962,
+        "eu": 1331,
+        "france": 89,
+        "italy": 94,
+        "spain": 55,
+        "poland": 527,
+        "greece": 65,
+        "austria": 33,
+        "romania": 102,
+        "united_kingdom": 52,
+        "former_yougoslavia": 305,
+        "former_soviet_union": 502,
+        "russia": 101,
+        "ukraine": 267,
+        "islamic_countries": 1396,
+        "turkey": 522,
+        "iran": 72,
+        "arab_countries_inc_syria": 451,
+        "lebanon": 82,
+        "syria": 141,
+        "vietnam": 37,
+        "usa": 36,
+        "not_clearly_assignable": 209
+    }
+},
+{
+    "model": "neighborhoods.demographics",
+    "pk": 83,
+    "fields": {
+        "borough": 12,
+        "neighborhood": 89,
+        "total": 83272,
+        "germans": 56095,
+        "foreigners": 27177,
+        "under_6": 4896,
+        "six_to_15": 6701,
+        "fifteen_to_18": 2181,
+        "eighteen_to_27": 9727,
+        "twenty_seven_to_45": 24482,
+        "forty_five_to_55": 9468,
+        "fifty_five_and_more": 33950,
+        "eu": 11924,
+        "france": 394,
+        "italy": 785,
+        "spain": 327,
+        "poland": 3984,
+        "greece": 692,
+        "austria": 231,
+        "romania": 1113,
+        "united_kingdom": 263,
+        "former_yougoslavia": 3860,
+        "former_soviet_union": 3832,
+        "russia": 1039,
+        "ukraine": 1563,
+        "islamic_countries": 17843,
+        "turkey": 8397,
+        "iran": 483,
+        "arab_countries_inc_syria": 5818,
+        "lebanon": 1153,
+        "syria": 1604,
+        "vietnam": 431,
+        "usa": 248,
+        "not_clearly_assignable": 3221
+    }
+}
