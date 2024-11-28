@@ -1,194 +1,274 @@
 from django.test import TestCase
 from django.core.exceptions import ValidationError
-from neighborhoods.models import Borough, Neighborhood, CrimeData, Demographics, RentData, Amenity
+from neighborhoods.models import (
+    Lifestyle,
+    Borough,
+    Neighborhood,
+    RentData,
+    CrimeData,
+    Demographics,
+    Amenities,
+    Transports,
+)
+
+
+class LifestyleModelTest(TestCase):
+    def test_string_representation(self):
+        lifestyle = Lifestyle(name="Active")
+        self.assertEqual(str(lifestyle), "Active")
+
+    def test_unique_name_constraint(self):
+        Lifestyle.objects.create(name="Active")
+        lifestyle_duplicate = Lifestyle(name="Active")
+        with self.assertRaises(ValidationError):
+            lifestyle_duplicate.full_clean()
+
 
 class BoroughModelTest(TestCase):
     def setUp(self):
-        self.borough = Borough.objects.create(
+        self.borough = Borough(
             name="Test Borough",
-            average_rent=1000,
-            slug="test-borough",
+            minimum_rent=500,
             latitude=52.5200,
             longitude=13.4050,
-            geometry_coordinates=[[[13.404954, 52.520008]]]
+            geometry_coordinates={},
         )
 
-    def test_borough_creation(self):
-        self.assertTrue(isinstance(self.borough, Borough))
-        self.assertEqual(self.borough.__str__(), self.borough.name)
+    def test_string_representation(self):
+        self.assertEqual(str(self.borough), "Test Borough")
 
-    def test_borough_latitude_validation(self):
+    def test_slug_generation_on_save(self):
+        self.borough.save()
+        self.assertEqual(self.borough.slug, "test-borough")
+
+    def test_latitude_validation(self):
         self.borough.latitude = 100  # Invalid latitude
         with self.assertRaises(ValidationError):
-            self.borough.clean()
+            self.borough.full_clean()
 
-    def test_borough_longitude_validation(self):
+    def test_longitude_validation(self):
         self.borough.longitude = 200  # Invalid longitude
         with self.assertRaises(ValidationError):
-            self.borough.clean()
+            self.borough.full_clean()
+
+    def test_unique_name_constraint(self):
+        self.borough.save()
+        borough_duplicate = Borough(
+            name="Test Borough",
+            minimum_rent=600,
+            latitude=48.8566,
+            longitude=2.3522,
+            geometry_coordinates={},
+        )
+        with self.assertRaises(ValidationError):
+            borough_duplicate.full_clean()
 
 
 class NeighborhoodModelTest(TestCase):
     def setUp(self):
         self.borough = Borough.objects.create(
             name="Test Borough",
-            average_rent=1000,
-            slug="test-borough",
+            minimum_rent=500,
             latitude=52.5200,
             longitude=13.4050,
-            geometry_coordinates=[[[13.404954, 52.520008]]]
+            geometry_coordinates={},
+        )
+        self.neighborhood = Neighborhood(
+            name="Test Neighborhood",
+            borough=self.borough,
+            latitude=52.5200,
+            longitude=13.4050,
+        )
+
+    def test_string_representation(self):
+        self.assertEqual(str(self.neighborhood), "Test Neighborhood")
+
+    def test_slug_generation_on_save(self):
+        self.neighborhood.save()
+        self.assertEqual(self.neighborhood.slug, "test-neighborhood")
+
+    def test_latitude_validation(self):
+        self.neighborhood.latitude = -100  # Invalid latitude
+        with self.assertRaises(ValidationError):
+            self.neighborhood.full_clean()
+
+    def test_longitude_validation(self):
+        self.neighborhood.longitude = -200  # Invalid longitude
+        with self.assertRaises(ValidationError):
+            self.neighborhood.full_clean()
+
+
+class RentDataModelTest(TestCase):
+    def setUp(self):
+        self.borough = Borough.objects.create(
+            name="Test Borough",
+            minimum_rent=500,
+            latitude=52.5200,
+            longitude=13.4050,
+            geometry_coordinates={},
         )
         self.neighborhood = Neighborhood.objects.create(
             name="Test Neighborhood",
             borough=self.borough,
             latitude=52.5200,
-            longitude=13.4050
+            longitude=13.4050,
+        )
+        self.rent_data = RentData(
+            neighborhood=self.neighborhood,
+            avg_price=1000,
+            min_price=800,
+            max_price=1200,
+            avg_size=50,
+            min_size=45,
+            max_size=55,
+            borough=self.borough,
         )
 
-    def test_neighborhood_creation(self):
-        self.assertTrue(isinstance(self.neighborhood, Neighborhood))
-        self.assertEqual(self.neighborhood.__str__(), self.neighborhood.name)
-        self.assertEqual(self.neighborhood.borough.name, "Test Borough")
-
-    def test_neighborhood_latitude_validation(self):
-        self.neighborhood.latitude = 100  # Invalid latitude
-        with self.assertRaises(ValidationError):
-            self.neighborhood.clean()
-
-    def test_neighborhood_longitude_validation(self):
-        self.neighborhood.longitude = 200  # Invalid longitude
-        with self.assertRaises(ValidationError):
-            self.neighborhood.clean()
+    def test_string_representation(self):
+        self.assertEqual(str(self.rent_data), "Rent Data for Test Neighborhood")
 
 
 class CrimeDataModelTest(TestCase):
     def setUp(self):
         self.borough = Borough.objects.create(
             name="Test Borough",
-            average_rent=1000,
-            slug="test-borough",
+            minimum_rent=500,
             latitude=52.5200,
             longitude=13.4050,
-            geometry_coordinates=[[[13.404954, 52.520008]]]
-        )
-        self.neighborhood = Neighborhood.objects.create(
-            name="Test Neighborhood",
-            borough=self.borough,
-            latitude=52.5200,
-            longitude=13.4050
+            geometry_coordinates={},
         )
         self.crime_data = CrimeData.objects.create(
-            neighborhood=self.neighborhood,
-            crime_type="Burglary",
-            crime_rate=2.5,
-            date_collected="2023-09-27"
+            borough=self.borough,
+            total_crimes=100,
+            robbery=10,
+            total_assaults=20,
+            total_thefts=30,
+            total_residential_burglary=5,
+            total_arson_incidents=2,
+            total_vandalism=33,
         )
 
-    def test_crime_data_creation(self):
-        self.assertTrue(isinstance(self.crime_data, CrimeData))
-        self.assertEqual(self.crime_data.neighborhood.name, "Test Neighborhood")
-        self.assertEqual(self.crime_data.crime_type, "Burglary")
+    def test_string_representation(self):
+        self.assertEqual(str(self.crime_data), "Crime Data for Test Borough")
+
+    def test_calculate_percentage_methods(self):
+        self.assertEqual(self.crime_data.robbery_percentage, 10.0)
+        self.assertEqual(self.crime_data.assaults_percentage, 20.0)
+        self.assertEqual(self.crime_data.thefts_percentage, 30.0)
+        self.assertEqual(self.crime_data.burglary_percentage, 5.0)
+        self.assertEqual(self.crime_data.arson_percentage, 2.0)
+        self.assertEqual(self.crime_data.vandalism_percentage, 33.0)
+
+    def test_percentage_with_zero_total_crimes(self):
+        self.crime_data.total_crimes = 0
+        self.assertEqual(self.crime_data.robbery_percentage, 0.0)
 
 
 class DemographicsModelTest(TestCase):
     def setUp(self):
         self.borough = Borough.objects.create(
             name="Test Borough",
-            average_rent=1000,
-            slug="test-borough",
+            minimum_rent=500,
             latitude=52.5200,
             longitude=13.4050,
-            geometry_coordinates=[[[13.404954, 52.520008]]]
+            geometry_coordinates={},
         )
         self.neighborhood = Neighborhood.objects.create(
             name="Test Neighborhood",
             borough=self.borough,
             latitude=52.5200,
-            longitude=13.4050
-        )
-        self.demographics = Demographics.objects.create(
-            neighborhood=self.neighborhood,
-            family_friendly_percentage=30.5,
-            foreign_residents_percentage=20.7,
-            median_income=40000,
-            age_distribution={"0-18": 20, "19-35": 30, "36-60": 40, "60+": 10}
-        )
-
-    def test_demographics_creation(self):
-        self.assertTrue(isinstance(self.demographics, Demographics))
-        self.assertEqual(self.demographics.neighborhood.name, "Test Neighborhood")
-        self.assertEqual(self.demographics.family_friendly_percentage, 30.5)
-        self.assertEqual(self.demographics.foreign_residents_percentage, 20.7)
-
-
-class RentDataModelTest(TestCase):
-    def setUp(self):
-        self.borough = Borough.objects.create(
-            name="Test Borough 1",
-            average_rent=1500,
-            slug="test-borough-1",
-            latitude=52.5200,
             longitude=13.4050,
-            geometry_coordinates=[[[13.404954, 52.520008]]]
         )
-        self.neighborhood = Neighborhood.objects.create(
-            name="Test Neighborhood",
+        self.demographics = Demographics(
             borough=self.borough,
-            latitude=52.5200,
-            longitude=13.4050
-        )
-        self.rent_data = RentData.objects.create(
             neighborhood=self.neighborhood,
-            average_rent=1200,
-            median_rent=1000,
-            min_rent=800,
-            max_rent=1500,
-            date_collected="2023-09-27"
+            total=1000,
+            germans=800,
+            foreigners=200,
+            under_6=50,
+            six_to_15=100,
+            fifteen_to_18=80,
+            eighteen_to_27=150,
+            twenty_seven_to_45=300,
+            forty_five_to_55=150,
+            fifty_five_and_more=170,
+            eu=50,
+            france=10,
+            italy=10,
+            spain=10,
+            poland=10,
+            greece=10,
+            austria=10,
+            romania=10,
+            united_kingdom=10,
+            former_yougoslavia=10,
+            former_soviet_union=10,
+            russia=10,
+            ukraine=10,
+            islamic_countries=50,
+            turkey=20,
+            iran=10,
+            arab_countries_inc_syria=20,
+            lebanon=5,
+            syria=15,
+            vietnam=5,
+            usa=5,
+            not_clearly_assignable=10,
         )
 
-    def test_rent_data_creation(self):
-        self.assertTrue(isinstance(self.rent_data, RentData))
-        self.assertEqual(self.rent_data.neighborhood.name, "Test Neighborhood")
-        self.assertEqual(self.rent_data.average_rent, 1200)
+    def test_string_representation(self):
+        self.assertEqual(str(self.demographics), "Demographics for Test Neighborhood")
 
 
-class AmenityModelTest(TestCase):
+class AmenitiesModelTest(TestCase):
     def setUp(self):
         self.borough = Borough.objects.create(
             name="Test Borough",
-            average_rent=1000,
-            slug="test-borough",
+            minimum_rent=500,
             latitude=52.5200,
             longitude=13.4050,
-            geometry_coordinates=[[[13.404954, 52.520008]]]
+            geometry_coordinates={},
         )
         self.neighborhood = Neighborhood.objects.create(
             name="Test Neighborhood",
             borough=self.borough,
             latitude=52.5200,
-            longitude=13.4050
+            longitude=13.4050,
         )
-        self.amenity = Amenity.objects.create(
+        self.amenity = Amenities(
+            borough=self.borough,
             neighborhood=self.neighborhood,
             amenity_type="Park",
-            name="Test Park",
-            count=1,
-            latitude=52.5200,
-            longitude=13.4050
+            name="Central Park",
         )
 
-    def test_amenity_creation(self):
-        self.assertTrue(isinstance(self.amenity, Amenity))
-        self.assertEqual(self.amenity.neighborhood.name, "Test Neighborhood")
-        self.assertEqual(self.amenity.amenity_type, "Park")
-        self.assertEqual(self.amenity.name, "Test Park")
+    def test_string_representation(self):
+        self.assertEqual(str(self.amenity), "Amenities in Test Neighborhood")
 
-    def test_amenity_latitude_validation(self):
-        self.amenity.latitude = 100  # Invalid latitude
-        with self.assertRaises(ValidationError):
-            self.amenity.clean()
 
-    def test_amenity_longitude_validation(self):
-        self.amenity.longitude = 200  # Invalid longitude
-        with self.assertRaises(ValidationError):
-            self.amenity.clean()
+class TransportsModelTest(TestCase):
+    def setUp(self):
+        self.borough = Borough.objects.create(
+            name="Test Borough",
+            minimum_rent=500,
+            latitude=52.5200,
+            longitude=13.4050,
+            geometry_coordinates={},
+        )
+        self.neighborhood = Neighborhood.objects.create(
+            name="Test Neighborhood",
+            borough=self.borough,
+            latitude=52.5200,
+            longitude=13.4050,
+        )
+        self.transport = Transports(
+            borough=self.borough,
+            neighborhood=self.neighborhood,
+            type="Bus",
+            name="Bus 42",
+        )
+
+    def test_string_representation(self):
+        self.assertEqual(
+            str(self.transport), "Transport in Test Neighborhood: Bus 42"
+        )

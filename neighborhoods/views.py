@@ -2,6 +2,7 @@ import json
 import os
 import logging
 import yaml
+import string
 from collections import Counter, defaultdict
 from django.conf import settings
 from django.shortcuts import render, get_object_or_404, redirect
@@ -135,37 +136,36 @@ def get_predefined_response(user_message, session_id):
 # Fallback response generator
 def get_fallback_response():
     return random.choice(fallback_responses)
-
 # Chat view to handle chat requests
 @csrf_exempt
 def chat_view(request):
     session_id = request.session.session_key or request.session.create()
 
     if request.method == 'POST':
-        user_message = request.POST.get('message', '').lower()
+       user_message = request.POST.get('message', '').lower().strip(string.punctuation)
 
-        if session_id not in conversation_history:
+    if session_id not in conversation_history:
             conversation_history[session_id] = []
 
         # First, check for predefined or factual responses
-        bot_message = get_predefined_response(user_message, session_id)
+    bot_message = get_predefined_response(user_message, session_id)
 
         # Handle live weather check if requested
-        if "temperature" in user_message and "berlin" in user_message:
+    if "temperature" in user_message and "berlin" in user_message:
             bot_message = get_weather_in_berlin()
 
         # Use Wikipedia for broader queries if no predefined response
-        if not bot_message:
+    if not bot_message:
             bot_message = get_wikipedia_summary(user_message)
 
         # If no relevant Wikipedia result, fallback to a fun fact
-        if not bot_message:
+    if not bot_message:
             bot_message = get_fallback_response()
 
         # Manage conversation history
-        manage_conversation_history(session_id, user_message, bot_message)
+    manage_conversation_history(session_id, user_message, bot_message)
 
-        return JsonResponse({"response": bot_message})
+    return JsonResponse({"response": bot_message})
 
     return render(request, 'neighborhoods/chatbox.html')
 

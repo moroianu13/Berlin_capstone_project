@@ -1,222 +1,196 @@
-from django.test import TestCase
+from django.test import TestCase, Client
 from django.urls import reverse
-from django.http import JsonResponse
 from django.contrib.auth.models import User
-from neighborhoods.models import Neighborhood, Borough, Demographics
+from django.contrib.auth import get_user_model
+from neighborhoods.models import ( Borough, Neighborhood, CrimeData, Amenities,Lifestyle,
+)
+from neighborhoods.views import manage_conversation_history, conversation_history
+from unittest.mock import patch
 
+UserModel = get_user_model()
 
-class NeighborhoodViewTests(TestCase):
-
-    def setUp(self):
-        # Create a test Borough with all required fields
-        self.borough = Borough.objects.create(
-            name="Test Borough",
-            slug="test-borough",
-            geometry_coordinates={"type": "Point", "coordinates": [13.404954, 52.520008]},
-            average_rent=1000,
-            latitude=52.52,
-            longitude=13.4049
-        )
-        self.neighborhood = Neighborhood.objects.create(
-            name="Test Neighborhood",
-            borough=self.borough,
-            latitude=52.52,
-            longitude=13.404954
-        )
-        self.demographics = Demographics.objects.create(
-            neighborhood=self.neighborhood,
-            family_friendly_percentage=60.0,
-            foreign_residents_percentage=20.0,
-            median_income=40000.0,
-            age_distribution={"0-18": 20, "19-35": 30, "36-60": 25, "60+": 25}
-        )
-
-    def test_home_view(self):
-        url = reverse('home')
-        response = self.client.get(url)
+class ChatViewTest(TestCase):
+    @patch('neighborhoods.views.get_weather_in_berlin')
+    @patch('neighborhoods.views.get_wikipedia_summary')
+    @patch('neighborhoods.views.get_predefined_response')
+    def test_chat_view_post(self, mock_predefined_response, mock_wikipedia, mock_weather):
+        # Test predefined response
+        mock_predefined_response.return_value = "Hello! How can I assist you?"
+        response = self.client.post(reverse('chat_view'), {'message': 'Hi'})
         self.assertEqual(response.status_code, 200)
-        self.assertTemplateUsed(response, 'neighborhoods/home.html')
+        self.assertIn('response', response.json())
+        self.assertEqual(response.json()['response'], "Hello! How can I assist you?")
+        mock_predefined_response.assert_called_once_with('hi', None)
 
-    def test_borough_list_view_with_filters(self):
-        url = reverse('borough_list')
-        response = self.client.get(url, {'max_rent': 1000, 'lifestyle': ['family-friendly']})
+        # Test weather response
+        mock_predefined_response.return_value = None
+        mock_weather.return_value = "It's sunny in Berlin."
+        response = self.client.post(reverse('chat_view'), {'message': 'What is the temperature in Berlin?'})
         self.assertEqual(response.status_code, 200)
-        self.assertIn('boroughs', response.context)
+        self.assertIn('response', response.json())
+        self.assertEqual(response.json()['response'], "It's sunny in Berlin.")
+        mock_weather.assert_called_once()
 
-    def test_neighborhood_list_view(self):
-        url = reverse('neighborhood_list', args=[self.borough.slug])
-        response = self.client.get(url)
+        # Test Wikipedia response
+        mock_predefined_response.return_value = None
+        mock_wikipedia.return_value = "Berlin is the capital of Germany."
+        response = self.client.post(reverse('chat_view'), {'message': 'Tell me about Berlin.'})
         self.assertEqual(response.status_code, 200)
-        self.assertTemplateUsed(response, 'neighborhoods/neighborhood_list.html')
-        self.assertIn('neighborhoods', response.context)
+        self.assertIn('response', response.json())
+        self.assertEqual(response.json()['response'], "Berlin is the capital of Germany.")
+        mock_wikipedia.assert_called_once_with('tell me about berlin')
 
-    def test_neighborhood_detail_view(self):
-        url = reverse('neighborhood_detail', args=[self.neighborhood.id])
-        response = self.client.get(url)
-        self.assertEqual(response.status_code, 200)
-        self.assertTemplateUsed(response, 'neighborhoods/neighborhood_detail.html')
-        self.assertIn('neighborhood', response.context)
-
-    def test_neighborhood_data_api_view(self):
-        url = reverse('neighborhood_data_api', args=[self.borough.slug])
-        response = self.client.get(url)
-        # Bypass the known 404 issue for now
-        if response.status_code == 404:
-            print("Bypassing due to 404 issue: Response status code: 404")
-            self.skipTest("Skipping due to known 404 issue.")
-        else:
+    def test_chat_view_fallback_response(self):
+        with patch('neighborhoods.views.get_predefined_response', return_value=None), \
+             patch('neighborhoods.views.get_weather_in_berlin', return_value=None), \
+             patch('neighborhoods.views.get_wikipedia_summary', return_value=None):
+            response = self.client.post(reverse('chat_view'), {'message': 'Unanswerable query'})
             self.assertEqual(response.status_code, 200)
-            response_data = response.json()
-            feature_names = [feature['properties']['name'].lower() for feature in response_data['features']]
-            expected_neighborhoods = list(Neighborhood.objects.filter(borough=self.borough).values_list('name', flat=True))
-            expected_neighborhoods = [name.lower() for name in expected_neighborhoods]
-            self.assertCountEqual(feature_names, expected_neighborhoods)
+            self.assertIn('response', response.json())
+            self.assertIn(response.json()['response'], [
+                "Did you know that the Eiffel Tower can be 15 cm taller during hot days?",
+                "Octopuses have three hearts!",
+                "Did you know that honey never spoils?"
+            ])
+
+    def test_manage_conversation_history(self):
+        session_id = 'test_session'
+        user_message = 'Hello'
+        bot_message = 'Hi there!'
+        conversation_history.clear()
+
+        manage_conversation_history(session_id, user_message, bot_message)
+        self.assertIn(session_id, conversation_history)
+        self.assertEqual(len(conversation_history[session_id]), 2)
+        self.assertEqual(conversation_history[session_id][0], f"User: {user_message}")
+        self.assertEqual(conversation_history[session_id][1], f"Bot: {bot_message}")
+
+        manage_conversation_history(session_id, "How are you?", "I'm fine.")
+        manage_conversation_history(session_id, "What's your name?", "I'm ChatBot.")
+        manage_conversation_history(session_id, "Tell me a fact.", "Octopuses have three hearts.")
+        self.assertEqual(len(conversation_history[session_id]), 4)
 
 
-class BoroughViewTests(TestCase):
-
+class BoroughListViewTest(TestCase):
     def setUp(self):
+        self.client = Client()
+        self.lifestyle1 = Lifestyle.objects.create(name='Active')
+        self.lifestyle2 = Lifestyle.objects.create(name='Quiet')
+
         self.borough1 = Borough.objects.create(
-            name='Borough1',
-            average_rent=1000,
+            name='Borough One',
+            minimum_rent=500,
             latitude=52.5200,
-            longitude=13.4049,
-            geometry_coordinates={"type": "Point", "coordinates": [13.404954, 52.520008]},
+            longitude=13.4050,
+            geometry_coordinates=[],
+            slug='borough-one',
         )
+        self.borough1.lifestyles.add(self.lifestyle1)
+
         self.borough2 = Borough.objects.create(
-            name="Test Borough 2",
-            average_rent=1200,
-            latitude=52.5210,
-            longitude=13.4059,
-            geometry_coordinates={"type": "Point", "coordinates": [13.405954, 52.521008]},
+            name='Borough Two',
+            minimum_rent=700,
+            latitude=52.5200,
+            longitude=13.4050,
+            geometry_coordinates=[],
+            slug='borough-two',
         )
+        self.borough2.lifestyles.add(self.lifestyle2)
 
     def test_borough_list_view(self):
-        url = reverse('borough_list')
-        response = self.client.get(url)
+        response = self.client.get(reverse('borough_list'))
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(response, 'neighborhoods/borough_list.html')
-        self.assertIn('boroughs', response.context)
-        self.assertContains(response, self.borough1.name)
-        self.assertContains(response, self.borough2.name)
+        self.assertEqual(len(response.context['boroughs']), 2)
 
-    def test_borough_data_api_view(self):
-        url = reverse('borough_data_api')
-        response = self.client.get(url)
+    def test_borough_list_with_max_rent(self):
+        response = self.client.get(reverse('borough_list'), {'max_rent': 600})
+        self.assertEqual(len(response.context['boroughs']), 1)
+        self.assertEqual(response.context['boroughs'][0]['name'], 'Borough One')
+
+    def test_borough_list_invalid_max_rent(self):
+        response = self.client.get(reverse('borough_list'), {'max_rent': 'invalid'})
+        self.assertEqual(len(response.context['boroughs']), 2)
+
+    def test_borough_list_no_boroughs(self):
+        Borough.objects.all().delete()
+        response = self.client.get(reverse('borough_list'))
         self.assertEqual(response.status_code, 200)
-        self.assertIsInstance(response, JsonResponse)
+        self.assertEqual(len(response.context['boroughs']), 0)
+
+    def test_borough_list_multiple_lifestyles(self):
+        response = self.client.get(reverse('borough_list'), {'lifestyle': ['Active', 'Quiet']})
+        self.assertEqual(len(response.context['boroughs']), 2)
 
 
-class AuthenticationViewTests(TestCase):
-
+class NeighborhoodListViewTest(TestCase):
     def setUp(self):
-        self.user = User.objects.create_user(username='testuser', password='testpassword')
-        self.admin_user = User.objects.create_superuser(username='adminuser', password='adminpassword')
-
-    def test_register_view_valid(self):
-        url = reverse('register')
-        data = {
-            'username': 'newuser',
-            'email': 'newuser@example.com',
-            'password1': 'ComplexPassword123!',
-            'password2': 'ComplexPassword123!',
-        }
-        response = self.client.post(url, data)
-        print(f"Response content for registration: {response.content}")
-        self.assertEqual(response.status_code, 302)
-        self.assertTrue(User.objects.filter(username='newuser').exists())
-
-    def test_register_view_invalid(self):
-        url = reverse('register')
-        data = {
-            'username': 'newuser',
-            'password1': 'password123',
-            'password2': 'password456',
-        }
-        response = self.client.post(url, data)
-        self.assertEqual(response.status_code, 200)
-        self.assertContains(response, 'The two password fields didn’t match.')
-
-    def test_login_view_successful(self):
-        url = reverse('login')
-        data = {
-            'username': 'testuser',
-            'password': 'testpassword',
-        }
-        response = self.client.post(url, data)
-        self.assertEqual(response.status_code, 302)
-        self.assertRedirects(response, reverse('home'))
-
-    def test_login_view_unsuccessful(self):
-        url = reverse('login')
-        data = {
-            'username': 'testuser',
-            'password': 'wrongpassword',
-        }
-        response = self.client.post(url, data)
-        self.assertEqual(response.status_code, 200)
-        self.assertContains(response, 'Please enter a correct username and password.')
-
-    def test_logout_view(self):
-        self.client.login(username='testuser', password='testpassword')
-        url = reverse('logout')
-        response = self.client.post(url)
-        print(f"Response content for logout: {response.content}")
-        self.assertEqual(response.status_code, 302)
-        self.assertRedirects(response, reverse('home'))
-
-
-class PermissionViewTests(TestCase):
-
-    def setUp(self):
-        self.user = User.objects.create_user(username='testuser', password='testpassword')
-        self.admin_user = User.objects.create_superuser(username='adminuser', password='adminpassword')
+        self.client = Client()
         self.borough = Borough.objects.create(
-            name="Test Borough",
-            slug="test-borough",
-            geometry_coordinates={"type": "Point", "coordinates": [13.404954, 52.520008]},
-            average_rent=1000,
-            latitude=52.52,
-            longitude=13.4049
+            name='Borough One',
+            minimum_rent=500,
+            latitude=52.5200,
+            longitude=13.4050,
+            geometry_coordinates=[],
+            slug='borough-one',
+        )
+        self.neighborhood1 = Neighborhood.objects.create(
+            name='Neighborhood One',
+            borough=self.borough,
+            latitude=52.5200,
+            longitude=13.4050,
+        )
+        self.neighborhood2 = Neighborhood.objects.create(
+            name='Neighborhood Two',
+            borough=self.borough,
+            latitude=52.5200,
+            longitude=13.4050,
+        )
+        self.crime_data = CrimeData.objects.create(
+            borough=self.borough,
+            total_crimes=100,
+            robbery=10,
+            total_assaults=20,
+            total_thefts=30,
+            total_residential_burglary=15,
+            total_arson_incidents=5,
+            total_vandalism=20,
+        )
+        Amenities.objects.create(
+            borough=self.borough,
+            neighborhood=self.neighborhood1,
+            amenity_type='Park',
+            name='Central Park',
         )
 
-    def test_borough_create_as_admin(self):
-        url = reverse('borough-list')
-        data = {
-            'name': 'New Borough',
-            'geometry_coordinates': {"type": "Point", "coordinates": [13.404954, 52.520008]},
-            'average_rent': 1200,
-            'latitude': 52.5200,
-            'longitude': 13.4050,
-        }
-        self.client.login(username=self.admin_user.username, password='adminpassword')
-        response = self.client.post(url, data, content_type='application/json')
-        print(f"Response content for create borough: {response.content}")
-        print(f"Response status code: {response.status_code}")
-        self.assertEqual(response.status_code, 201)
+    def test_neighborhood_list_view(self):
+        response = self.client.get(reverse('neighborhood_list', args=[self.borough.slug]))
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, 'neighborhoods/neighborhood_list.html')
+        self.assertEqual(len(response.context['neighborhoods']), 2)
+        self.assertEqual(response.context['borough'], self.borough)
 
-    def test_borough_create_as_non_admin(self):
-        self.client.login(username='testuser', password='testpassword')
-        url = reverse('borough-list')
-        data = {
-            'name': 'New Borough',
-            'average_rent': 900,
-            'latitude': 52.5,
-            'longitude': 13.4,
-            'geometry_coordinates': {"type": "Point", "coordinates": [13.4, 52.5]},
-        }
-        response = self.client.post(url, data)
-        self.assertEqual(response.status_code, 403)
+    def test_crime_data_aggregation(self):
+        response = self.client.get(reverse('neighborhood_list', args=[self.borough.slug]))
+        crime_percentages = response.context['crime_percentages']
+        self.assertEqual(crime_percentages['robbery'], 10.0)
+        self.assertEqual(crime_percentages['assaults'], 20.0)
+        self.assertEqual(crime_percentages['thefts'], 30.0)
+        self.assertEqual(crime_percentages['burglary'], 15.0)
+        self.assertEqual(crime_percentages['arson'], 5.0)
+        self.assertEqual(crime_percentages['vandalism'], 20.0)
 
-    def test_borough_delete_as_admin(self):
-        self.client.login(username='adminuser', password='adminpassword')
-        url = reverse('borough-detail', args=[self.borough.pk])
-        response = self.client.delete(url)
-        self.assertEqual(response.status_code, 204)
-        self.assertFalse(Borough.objects.filter(pk=self.borough.pk).exists())
+    def test_amenity_data_aggregation(self):
+        response = self.client.get(reverse('neighborhood_list', args=[self.borough.slug]))
+        amenity_percentages = response.context['amenity_percentages']
+        self.assertEqual(amenity_percentages['Park'], 100.0)
 
-    def test_borough_delete_as_non_admin(self):
-        self.client.login(username='testuser', password='testpassword')
-        url = reverse('borough-detail', args=[self.borough.pk])
-        response = self.client.delete(url)
-        self.assertEqual(response.status_code, 403)
+    def test_neighborhood_list_no_neighborhoods(self):
+        Neighborhood.objects.all().delete()
+        response = self.client.get(reverse('neighborhood_list', args=[self.borough.slug]))
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(len(response.context['neighborhoods']), 0)
+
+    def test_neighborhood_list_invalid_borough_slug(self):
+        response = self.client.get(reverse('neighborhood_list', args=['invalid-slug']))
+        self.assertEqual(response.status_code, 404)
