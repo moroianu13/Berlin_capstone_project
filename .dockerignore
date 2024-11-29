@@ -1,0 +1,12 @@
+# Byte-compiled / Python compiled files
+__pycache__/
+*.pyc
+
+# Virtual environment
+myenv/
+env/
+venv/
+history/
+
+# Credentials
+.env
