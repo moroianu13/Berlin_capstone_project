@@ -1,21 +1,23 @@
-# Python base image
+# Basis-Image
 FROM python:3.10-slim
 
-# Working directory inside the container
-WORKDIR /neighborhood
+WORKDIR /usr/src/app
 
-# Copy only requirements first (for better caching)
-COPY requirements.txt /neighborhood/
+RUN apt-get update && apt-get install -y \
+    python3-dev \
+    build-essential \
+    libpq-dev \
+    && rm -rf /var/lib/apt/lists/*
 
-# IDependencies
-RUN pip install --no-cache-dir --upgrade pip \
-    && pip install --no-cache-dir -r requirements.txt
+COPY requirements.txt .
+RUN pip install -r requirements.txt
 
-# Copy the rest of the application files into the container
-COPY .. /neighborhood/
+COPY . .
 
-# Django default port
+RUN python manage.py collectstatic --noinput
+
+RUN pip install gunicorn
+
 EXPOSE 8000
 
-# command to run the app
-CMD ["python", "manage.py", "runserver", "0.0.0.0:8000"]
+CMD ["gunicorn",  "--workers", "3", "--bind", "0.0.0.0:8000", "rentfinder.wsgi:application"]

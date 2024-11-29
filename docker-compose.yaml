@@ -1,0 +1,51 @@
+services:
+  web:
+    build: .
+    command: >
+      sh -c "python manage.py migrate && 
+              python manage.py loaddata data.json &&
+              gunicorn --workers 3 --bind 0.0.0.0:8000 rentfinder.wsgi:application"
+    volumes:
+      - .:/usr/src/app
+      - static_volume:/usr/src/app/staticfiles
+    ports:
+      - "8000:8000"
+    networks:
+      - app-network
+    env_file:
+      - .env
+    depends_on:
+      - db  # Ensure web starts after db is ready
+    restart: on-failure
+
+  nginx:
+    image: nginx:latest
+    ports:
+      - "80:80"
+    volumes:
+      - ./nginx:/etc/nginx/conf.d
+      - static_volume:/usr/src/app/staticfiles
+    depends_on:
+      - web
+    networks:
+      - app-network
+
+  db:
+    image: postgres:13  # Use the desired PostgreSQL version
+    environment:
+      POSTGRES_DB: mydatabase  # Replace with your database name
+      POSTGRES_USER: myuser    # Replace with your database username
+      POSTGRES_PASSWORD: mypassword  # Replace with your database password
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    networks:
+      - app-network
+
+volumes:
+  static_volume:
+  postgres_data:
+
+networks:
+  app-network:
+    name: app-network
+    driver: bridge
