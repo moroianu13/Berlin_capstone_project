@@ -34,8 +34,6 @@ class Borough(models.Model):
         if not self.slug:
             self.slug = slugify(self.name)  # Generates a URL-safe version of the name
         super(Borough, self).save(*args, **kwargs)
-        
-        
 
 class Neighborhood(models.Model):
     name = models.CharField(max_length=100)
@@ -159,6 +157,7 @@ class Demographics(models.Model):
         return f'Demographics for {self.neighborhood.name}'
     
 class Amenities(models.Model):
+    id = models.AutoField(primary_key=True)
     borough = models.ForeignKey(Borough, on_delete=models.CASCADE)
     neighborhood = models.ForeignKey(Neighborhood, on_delete=models.CASCADE)
     amenity_type = models.CharField(max_length=100)

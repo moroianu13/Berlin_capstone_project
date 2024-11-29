@@ -45,6 +45,10 @@
     padding: 0;
 }
 
+#neighborhood-items ul {
+    margin-top: 20px;
+}
+
 #neighborhood-items a {
     display: inline-block;
     width: auto;
