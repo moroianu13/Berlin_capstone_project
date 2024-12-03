@@ -78,13 +78,42 @@ resource "aws_security_group" "web" {
   }
 }
 
+# Generate an RSA key pair
+resource "tls_private_key" "ec2_key" {
+  algorithm = "RSA"
+  rsa_bits  = 2048
+}
+
+# Use the generated public key in AWS
+resource "aws_key_pair" "ec2_key" {
+  key_name   = "terraform_key"
+  public_key = tls_private_key.ec2_key.public_key_openssh
+}
+
+# Save the private key locally
+resource "local_file" "private_key" {
+  content  = tls_private_key.ec2_key.private_key_pem
+  filename = "${pathexpand("~/.ssh/terraform_key.pem")}"
+}
+
+# Ensure permissions on the private key are secure
+resource "null_resource" "secure_key_permissions" {
+  triggers = {
+    key_saved = local_file.private_key.content
+  }
+
+  provisioner "local-exec" {
+    command = "chmod 600 ~/.ssh/terraform_key.pem"
+  }
+}
+
 # EC2 Instance
 resource "aws_instance" "web" {
   ami           = var.ami_id
   instance_type = var.instance_type
   subnet_id     = aws_subnet.public.id
   security_groups = [aws_security_group.web.id]
-  key_name = "django_terraform"
+  key_name = aws_key_pair.ec2_key.key_name
 
   tags = {
     Name = basename(path.cwd)
