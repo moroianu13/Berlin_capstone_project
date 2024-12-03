@@ -10,3 +10,4 @@ history/
 
 # Credentials
 .env
+.env_copy

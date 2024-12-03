@@ -10,3 +10,10 @@ history/
 
 # Credentials
 .env
+.env_copy
+
+# Terraform
+.terraform
+.terraform.lock.hcl
+terraform.tfstate
+terraform.tfstate.backup
