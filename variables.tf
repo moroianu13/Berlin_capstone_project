@@ -1,7 +1,7 @@
 variable "ami_id" {
-  default = "ami-099a546c02844706e"
+  default = "ami-0084a47cc718c111a"
 }
 
 variable "instance_type" {
-  default = "t4g.nano"
+  default = "t2.micro"
 }

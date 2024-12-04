@@ -3,6 +3,9 @@ import os
 import logging
 import yaml
 import string
+import random
+import requests
+import wikipedia
 from collections import Counter, defaultdict
 from django.conf import settings
 from django.shortcuts import render, get_object_or_404, redirect
@@ -19,9 +22,7 @@ from django.contrib.auth.forms import AuthenticationForm
 from .permissions import IsAdminOrReadOnly
 from .forms import CustomUserCreationForm
 from django.views.decorators.csrf import csrf_exempt
-import random
-import requests
-import wikipedia
+from dotenv import load_dotenv
 from fuzzywuzzy import fuzz, process
 
 # Load YAML-based website responses
@@ -59,9 +60,10 @@ def get_wikipedia_summary(query):
         return "Sorry, I couldn't find any relevant information on that topic."
 
 # Weather data fetching for Berlin
+load_dotenv()
 def get_weather_in_berlin():
     try:
-        api_key = "f871593feda647f9813120052241610"  # Replace with your actual API key
+        api_key = os.getenv('WEATHER_API_KEY')  # Replace with your actual API key
         city = "Berlin"
         url = f"http://api.weatherapi.com/v1/current.json?key={api_key}&q={city}"
         response = requests.get(url).json()

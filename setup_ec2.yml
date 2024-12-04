@@ -1,8 +1,5 @@
 - hosts: all
   become: true
-  vars:
-    ssh_key_path: "~/.ssh/id_test"              # Source path to your SSH private key on your local machine
-    ssh_key_dest_path: "/home/ubuntu/.ssh/id_test"  # Destination path on the EC2 instance
 
   tasks:
     - name: Install aptitude
@@ -29,9 +26,7 @@
       become: yes
 
     - name: Add Docker GPG Key
-      command: apt-key add /tmp/docker.gpg
-      args:
-        warn: false
+      shell: apt-key add /tmp/docker.gpg
       become: yes
 
     - name: Add Docker Repository
@@ -45,48 +40,17 @@
         state: latest
         update_cache: true
 
-    - name: Copy SSH private key to EC2 instance
-      copy:
-        src: "{{ ssh_key_path }}"         # Source path variable
-        dest: "{{ ssh_key_dest_path }}"    # Destination path variable
-        mode: '0600'
-        owner: ubuntu
-        group: ubuntu
-
-    - name: Copy SSH public key to EC2 instance
-      copy:
-        src: "{{ ssh_key_path }}.pub"     # Source path for the public key
-        dest: "{{ ssh_key_dest_path }}.pub" # Destination path for the public key
-        mode: '0644'
-        owner: ubuntu
-        group: ubuntu
-
-    - name: Create known_hosts file if it does not exist
-      file:
-        path: /home/ubuntu/.ssh/known_hosts
-        state: touch
-        owner: ubuntu
-        group: ubuntu
-        mode: '0644'
-
-    - name: Fetch GitHub SSH key and add to known_hosts
-      shell: "ssh-keyscan github.com >> /home/ubuntu/.ssh/known_hosts"
-      args:
-        executable: /bin/bash
-      become_user: ubuntu
-
-    - name: Start SSH agent, add key, and clone the Git repository
+    - name: Clone the Git repository
       shell: |
-        eval "$(ssh-agent -s)"
-        ssh-add "{{ ssh_key_dest_path }}"
-        git clone -b DEPLOY git@github.com:orgaGPS-dev/backend.git /home/ubuntu/backend
+        git clone https://github.com/moroianu13/Berlin_capstone_project.git /home/ubuntu/backend
       args:
         executable: /bin/bash
+        creates: /home/ubuntu/backend
       become_user: ubuntu
 
     - name: Copy .env file to server
       copy:
-        src: ../.env               # Relative path to .env on the control machine
+        src: .env               # Relative path to .env on the control machine
         dest: /home/ubuntu/backend/.env  # Destination path on the server
         mode: '0600'
         owner: ubuntu
