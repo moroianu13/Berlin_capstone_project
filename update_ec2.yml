@@ -1,0 +1,26 @@
+---
+- hosts: all
+  become: true
+  vars:
+    project_dir: /home/ubuntu/backend  # Path to your backend folder
+  tasks:
+
+    - name: Pull latest changes from Git repository
+      command: git pull
+      args:
+        chdir: "{{ project_dir }}"
+
+    - name: Stop Docker containers and clean up
+      command: docker compose down
+      args:
+        chdir: "{{ project_dir }}"
+
+    - name: Build Docker containers
+      command: docker compose build
+      args:
+        chdir: "{{ project_dir }}"
+
+    - name: Start Docker containers
+      command: docker compose up -d
+      args:
+        chdir: "{{ project_dir }}"
