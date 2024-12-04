@@ -119,3 +119,33 @@ resource "aws_instance" "web" {
     Name = basename(path.cwd)
   }
 }
+# Add a sleep resource to wait for the instance to be ready for SSH connections
+resource "time_sleep" "wait_for_instance" {
+  depends_on = [aws_instance.web]
+  create_duration = "30s"  # Adjust the time as needed
+}
+
+# Use the local-exec provisioner, with a dependency on the time_sleep resource
+resource "null_resource" "run_ansible_playbook" {
+  depends_on = [time_sleep.wait_for_instance]
+
+  provisioner "local-exec" {
+    command = <<-EOT
+      ANSIBLE_HOST_KEY_CHECKING=False ANSIBLE_SSH_ARGS='-o IdentitiesOnly=yes' \
+      ansible-playbook -i "${aws_instance.web.public_ip}," -u ubuntu \
+      --private-key="${var.ssh_private_key_path}" "${var.ansible_playbook_path}"
+    EOT
+  }
+}
+
+# Variables
+variable "ssh_private_key_path" {
+  description = "Path to the SSH private key used for Ansible"
+  default     = "~/.ssh/terraform_key.pem"
+}
+
+variable "ansible_playbook_path" {
+  description = "Path to the Ansible playbook"
+  default     = "./setup_ec2.yml"  # Replace with the actual playbook path
+}
+
