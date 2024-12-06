@@ -13,7 +13,7 @@ services:
     networks:
       - app-network
     env_file:
-      - .env
+      - .env_docker
     depends_on:
       - db  # Ensure web starts after db is ready
     restart: on-failure

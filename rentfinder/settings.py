@@ -95,7 +95,8 @@ DATABASES = {
 DATABASES['default']['TEST'] = {
     'NAME': 'test_berlin_capstone',  # Define a test database name
 }
-
+from django.conf import settings
+print(settings.DATABASES)
 
 # Password validation
 # https://docs.djangoproject.com/en/5.1/ref/settings/#auth-password-validators
