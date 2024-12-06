@@ -93,7 +93,7 @@ DATABASES = {
 }
 
 DATABASES['default']['TEST'] = {
-    'NAME': 'berlin_capstone',  # Define a test database name
+    'NAME': 'test_berlin_capstone',  # Define a test database name
 }
 
 
