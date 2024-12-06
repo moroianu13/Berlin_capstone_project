@@ -3,7 +3,7 @@ __pycache__/
 *.pyc
 
 # Virtual environment
-myenv/
+myvenv/
 env/
 venv/
 history/
