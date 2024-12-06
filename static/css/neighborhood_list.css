@@ -92,13 +92,13 @@
     justify-content: space-between;
     gap: 20px;
     width: 100%;
-    max-width: 900px;
+    max-width: 1400px;
     overflow-x: auto; /* Allow horizontal scrolling if needed */
 }
 
 .chart-container {
     flex: 1 1 calc(50% - 20px); /* Each chart takes 50% width, minus the gap */
-    max-width: 400px; /* Limit the size of each chart */
+    max-width: 800px; /* Limit the size of each chart */
     background: rgba(255, 255, 255, 0.95);
     padding: 20px;
     border-radius: var(--border-radius);
@@ -116,7 +116,8 @@
     width: 100%; /* Ensure charts take full width */
     height: auto;
     border-radius: var(--border-radius);
-}
+}  
+
 
 /* Responsive Design */
 @media (max-width: 768px) {

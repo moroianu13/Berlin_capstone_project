@@ -223,10 +223,16 @@ def borough_list(request):
 from django.db.models import F, FloatField
 
 def neighborhood_list(request, borough_slug):
+    # Get the borough based on slug
     borough = get_object_or_404(Borough, slug=borough_slug)
-    neighborhoods = Neighborhood.objects.filter(borough=borough)
     
-    # Aggregate crime data for the entire borough
+    # Query all neighborhoods in the borough
+    neighborhoods = Neighborhood.objects.filter(borough=borough)
+
+    # Total crimes for all of Berlin
+    total_crimes_berlin = CrimeData.objects.aggregate(total_crimes=Sum('total_crimes'))['total_crimes'] or 0
+
+    # Total crimes for the current borough
     crime_data = CrimeData.objects.filter(borough=borough).aggregate(
         total_crimes=Sum('total_crimes'),
         total_robbery=Sum('robbery'),
@@ -236,11 +242,10 @@ def neighborhood_list(request, borough_slug):
         total_arson_incidents=Sum('total_arson_incidents'),
         total_vandalism=Sum('total_vandalism'),
     )
-    
-    total_crimes = crime_data.get('total_crimes') or 0  # Avoid division by zero
-    
-    # Calculate percentages for each crime type
-    crime_percentages = {}
+    total_crimes_borough = crime_data.get('total_crimes', 0)
+
+    # Calculate crime percentages for the current borough
+    total_crimes = crime_data.get('total_crimes') or 0
     if total_crimes > 0:
         crime_percentages = {
             'robbery': round((crime_data.get('total_robbery', 0) / total_crimes) * 100, 1),
@@ -251,28 +256,24 @@ def neighborhood_list(request, borough_slug):
             'vandalism': round((crime_data.get('total_vandalism', 0) / total_crimes) * 100, 1),
         }
     else:
-        crime_percentages = {
-            'robbery': 0.0,
-            'assaults': 0.0,
-            'thefts': 0.0,
-            'burglary': 0.0,
-            'arson': 0.0,
-            'vandalism': 0.0,
-        }
+        crime_percentages = {key: 0.0 for key in ['robbery', 'assaults', 'thefts', 'burglary', 'arson', 'vandalism']}
 
-     # Aggregate amenities data for the entire borough
+    # Total crimes for each borough
+    borough_crime_totals = CrimeData.objects.values('borough__name').annotate(
+        total_crimes=Sum('total_crimes')
+    )
+
+    # Aggregate amenities data for the current borough
     amenities = Amenities.objects.filter(borough=borough)
     amenity_counts = amenities.values('amenity_type').annotate(count=Count('amenity_type'))
-    
-    total_amenities = sum(item['count'] for item in amenity_counts)
 
-    # Calculate percentages for each amenity type
-    amenity_percentages = {}
+    # Calculate total and percentages for amenities
+    total_amenities = sum(item['count'] for item in amenity_counts)
     if total_amenities > 0:
-        for item in amenity_counts:
-            amenity_type = item['amenity_type']
-            count = item['count']
-            amenity_percentages[amenity_type] = round((count / total_amenities) * 100, 1)
+        amenity_percentages = {
+            item['amenity_type']: round((item['count'] / total_amenities) * 100, 1)
+            for item in amenity_counts
+        }
     else:
         amenity_percentages = {item['amenity_type']: 0.0 for item in amenity_counts}
 
@@ -282,6 +283,9 @@ def neighborhood_list(request, borough_slug):
         'crime_data': crime_data,
         'crime_percentages': crime_percentages,
         'amenity_percentages': amenity_percentages,
+        'total_crimes_berlin': total_crimes_berlin,
+        'total_crimes_borough': total_crimes_borough,
+        'borough_crime_totals': borough_crime_totals,
     }
 
     return render(request, 'neighborhoods/neighborhood_list.html', context)
