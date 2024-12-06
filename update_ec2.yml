@@ -5,7 +5,7 @@
     project_dir: /home/ubuntu/backend  # Path to your backend folder
   tasks:
 
-  - name: Copy .env file to server
+    - name: Copy .env file to server
       copy:
         src: .env_docker               # Relative path to .env on the control machine
         dest: /home/ubuntu/backend/.env_docker  # Destination path on the server
