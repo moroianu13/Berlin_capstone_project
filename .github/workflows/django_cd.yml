@@ -24,11 +24,11 @@ jobs:
         DEPLOY_USER: ${{ secrets.DEPLOY_USER }}  # Add EC2 SSH username (e.g., ubuntu for AWS AMI)
         PEM_FILE: ${{ secrets.EC2_PEM_FILE }}    # Add PEM file content in GitHub Secrets
       run: |
-# Add the .pem file to a temporary location and set permissions
+        # Add the .pem file to a temporary location and set permissions
         echo "$PEM_FILE" > ec2_key.pem
         chmod 600 ec2_key.pem
 
-# Connect to EC2 and deploy using Docker Compose
+        # Connect to EC2 and deploy using Docker Compose
         ssh -i ec2_key.pem -o IdentitiesOnly=yes $DEPLOY_USER@$DEPLOY_HOST "
           cd /home/ubuntu/backend &&
           git pull origin main &&
