@@ -47,6 +47,7 @@ INSTALLED_APPS = [
 ]
 
 
+
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
@@ -90,6 +91,11 @@ DATABASES = {
         'PORT': os.getenv('DB_PORT', '5432'),
     }
 }
+
+DATABASES['default']['TEST'] = {
+    'NAME': 'berlin_capstone',  # Define a test database name
+}
+
 
 # Password validation
 # https://docs.djangoproject.com/en/5.1/ref/settings/#auth-password-validators
