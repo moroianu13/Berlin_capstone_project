@@ -1,11 +1,10 @@
 name: Django CI/CD
 
 on:
-  push:
-    branches: [ "main" ]
-  pull_request:
-    branches: [ "main" ]
-  workflow_dispatch:
+  workflow_run:
+    workflows: ["Django CI"]  # Name of the CI workflow to listen for
+    types:
+      - completed  # Trigger only when the CI workflow is completed
 
 jobs:
   deploy:

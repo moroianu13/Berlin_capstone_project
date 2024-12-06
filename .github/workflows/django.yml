@@ -8,47 +8,47 @@ on:
   workflow_dispatch:
   
 jobs:
-  # build:
+  build:
 
-  #   runs-on: ubuntu-latest
-  #   services:
-  #     postgres:
-  #       image: postgres:14
-  #       env:
-  #         POSTGRES_USER: adrian
-  #         POSTGRES_PASSWORD: 1234
-  #         POSTGRES_DB: berlin_capstone
-  #       ports:
-  #         - 5432:5432
-  #       options: >-
-  #         --health-cmd="pg_isready -U adrian"
-  #         --health-interval=10s
-  #         --health-timeout=5s
-  #         --health-retries=5
+    runs-on: ubuntu-latest
+    services:
+      postgres:
+        image: postgres:14
+        env:
+          POSTGRES_USER: adrian
+          POSTGRES_PASSWORD: 1234
+          POSTGRES_DB: berlin_capstone
+        ports:
+          - 5432:5432
+        options: >-
+          --health-cmd="pg_isready -U adrian"
+          --health-interval=10s
+          --health-timeout=5s
+          --health-retries=5
 
-  #   steps:
-  #    # Step 1: Checkout Code
-  #   - name: checkoutcode
-  #     uses: actions/checkout@v4
+    steps:
+     # Step 1: Checkout Code
+    - name: checkoutcode
+      uses: actions/checkout@v4
 
-  #     # Step 2: Set up Python
-  #   - name: Set up Python 
-  #     uses: actions/setup-python@v3
-  #     with:
-  #       python-version: '3.10'
+      # Step 2: Set up Python
+    - name: Set up Python 
+      uses: actions/setup-python@v3
+      with:
+        python-version: '3.10'
 
-  #     # Step 4: Install Dependencies
-  #   - name: Install Dependencies
-  #     run: |
-  #       python -m pip install --upgrade pip
-  #       pip install -r requirements.txt
+      # Step 4: Install Dependencies
+    - name: Install Dependencies
+      run: |
+        python -m pip install --upgrade pip
+        pip install -r requirements.txt
 
-  #     # Step 5: Copy Environment File
-  #   - name: Copy environment file
-  #     run: cp .env_local .env  # Copy the correct environment file for CI   
+      # Step 5: Copy Environment File
+    - name: Copy environment file
+      run: cp .env_local .env  # Copy the correct environment file for CI   
       
-  #   - name: Run Tests
-  #     run: |
-  #       python manage.py test
+    - name: Run Tests
+      run: |
+        python manage.py test
 
   
