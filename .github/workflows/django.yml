@@ -11,7 +11,21 @@ jobs:
   build:
 
     runs-on: ubuntu-latest
-   
+   services:
+      postgres:
+        image: postgres:14
+        env:
+          POSTGRES_USER: adrian
+          POSTGRES_PASSWORD: 1234
+          POSTGRES_DB: berlin_capstone
+        ports:
+          - 5432:5432
+        options: >-
+          --health-cmd="pg_isready -U postgres"
+          --health-interval=10s
+          --health-timeout=5s
+          --health-retries=5
+
     steps:
     - name: checkoutcode
       uses: actions/checkout@v4
@@ -25,6 +39,10 @@ jobs:
       run: |
         python -m pip install --upgrade pip
         pip install -r requirements.txt
+        
+    - name: Copy environment file
+      run: cp .env_local .env  # Copy the correct environment file for CI   
+      
     - name: Run Tests
       run: |
         python manage.py test
