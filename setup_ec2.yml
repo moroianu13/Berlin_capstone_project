@@ -50,8 +50,8 @@
 
     - name: Copy .env file to server
       copy:
-        src: .env               # Relative path to .env on the control machine
-        dest: /home/ubuntu/backend/.env  # Destination path on the server
+        src: .env_docker               # Relative path to .env on the control machine
+        dest: /home/ubuntu/backend/.env_docker  # Destination path on the server
         mode: '0600'
         owner: ubuntu
         group: ubuntu

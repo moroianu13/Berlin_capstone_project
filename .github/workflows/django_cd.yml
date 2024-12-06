@@ -1,0 +1,40 @@
+name: Django CI/CD
+
+on:
+  workflow_run:
+    workflows: ["Django CI"]  # Name of the CI workflow to listen for
+    types:
+      - completed  # Trigger only when the CI workflow is completed
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Check out code
+        uses: actions/checkout@v4
+
+      - name: Deploy to EC2 with Docker Compose
+        env:
+          DEPLOY_HOST: ${{ secrets.DEPLOY_HOST }}
+          DEPLOY_USER: ${{ secrets.DEPLOY_USER }}
+          PEM_FILE: ${{ secrets.EC2_PEM_FILE }}
+        run: |
+          mkdir -p ~/.ssh
+          printf "%s" "$PEM_FILE" > ~/.ssh/ec2_key.pem
+
+          chmod 600 ~/.ssh/ec2_key.pem
+
+          ssh-keyscan -H $DEPLOY_HOST >> ~/.ssh/known_hosts
+
+          ssh -i ~/.ssh/ec2_key.pem -o IdentitiesOnly=yes $DEPLOY_USER@$DEPLOY_HOST "
+            set -e  # Stop on errors
+            cd /home/ubuntu/backend &&
+            git pull origin main &&
+            sudo docker compose down &&
+            sudo docker compose build &&
+            sudo docker compose up -d
+          "
+
+          # Clean up the PEM file
+          rm -f ec2_key.pem
