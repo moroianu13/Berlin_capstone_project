@@ -12,7 +12,6 @@ history/
 .env
 .env_docker
 
-
 # Terraform
 .terraform
 .terraform.lock.hcl
