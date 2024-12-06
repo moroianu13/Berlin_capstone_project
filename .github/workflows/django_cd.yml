@@ -23,7 +23,7 @@ jobs:
         PEM_FILE: ${{ secrets.EC2_PEM_FILE }}   
       run: |
         
-        echo "$PEM_FILE" > ec2_key.pem
+        echo "$EC2_PEM_FILE" > ec2_key.pem
         chmod 600 ec2_key.pem
 
        
