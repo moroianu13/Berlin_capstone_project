@@ -28,7 +28,7 @@ jobs:
 
           ssh-keyscan -H $DEPLOY_HOST >> ~/.ssh/known_hosts
 
-          ssh -i ec2_key.pem -o IdentitiesOnly=yes $DEPLOY_USER@$DEPLOY_HOST "
+          ssh -i ~/.ssh/ec2_key.pem -o IdentitiesOnly=yes $DEPLOY_USER@$DEPLOY_HOST "
             set -e  # Stop on errors
             cd /home/ubuntu/backend &&
             git pull origin main &&
