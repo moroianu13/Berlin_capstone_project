@@ -60,14 +60,25 @@
                 <canvas id="crimePieChart"></canvas>
             </div>
 
+
+             <!--Total Crimes Chart-->
+             <div class="chart-container">
+                <h2>Total Crimes: Berlin vs. {{ borough.name }}</h2>
+                <p>This chart compares the total number of crimes reported in Berlin and {{ borough.name }} for the past 10 years.</p>
+                <canvas id="totalCrimeBarChart"></canvas>
+            </div>
+
             <!-- Amenities Distribution Chart -->
             <div class="chart-container">
                 <h2>Amenities Availability in {{ borough.name }}</h2>
                 <p>This chart represents the distribution of different amenities available across neighborhoods in {{ borough.name }}. It includes parks, pharmacies, schools, and other public facilities.</p>
                 <canvas id="amenitiesPieChart"></canvas>
             </div>
+
+           
         </div>
     </div>
+      
 
     <script src="https://api.mapbox.com/mapbox-gl-js/v2.14.1/mapbox-gl.js"></script>
     <script>
@@ -215,6 +226,43 @@ new Chart(pieChartCtx, {
                 }
             }
         });
+
+         // Data for the Bar Chart
+    const totalCrimeData = {
+        berlin: {{ total_crimes_berlin }},
+        borough: {{ total_crimes_borough }},
+    };
+
+    // Create the Bar Chart
+    const barChartCtx = document.getElementById('totalCrimeBarChart').getContext('2d');
+    new Chart(barChartCtx, {
+        type: 'bar',
+        data: {
+            labels: ['Berlin', '{{ borough.name }}'],
+            datasets: [{
+                label: 'Total Crimes',
+                data: [totalCrimeData.berlin, totalCrimeData.borough],
+                backgroundColor: ['#36A2EB', '#FF6384'], // Different colors for Berlin and the borough
+                borderColor: ['#36A2EB', '#FF6384'],
+                borderWidth: 1
+            }]
+        },
+        options: {
+            responsive: true,
+            plugins: {
+                legend: {
+                    display: true,
+                    position: 'top'
+                }
+            },
+            scales: {
+                y: {
+                    beginAtZero: true
+                }
+            }
+        }
+    });
+
     </script>
 
     <footer>
