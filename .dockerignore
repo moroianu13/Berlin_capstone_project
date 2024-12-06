@@ -10,4 +10,5 @@ history/
 
 # Credentials
 .env
-.env_copy
+.env_local
+.env_docker

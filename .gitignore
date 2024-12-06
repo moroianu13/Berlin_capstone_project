@@ -10,7 +10,7 @@ history/
 
 # Credentials
 .env
-.env_copy
+.env_docker
 
 # Terraform
 .terraform
