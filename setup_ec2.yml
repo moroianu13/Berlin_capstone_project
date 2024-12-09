@@ -40,6 +40,10 @@
         state: latest
         update_cache: true
 
+    - name: Set permissions for subdirectories in backend dir
+      shell: |
+        cd ~/backend/ && umask 002
+
     - name: Clone the Git repository
       shell: |
         git clone https://github.com/moroianu13/Berlin_capstone_project.git /home/ubuntu/backend
