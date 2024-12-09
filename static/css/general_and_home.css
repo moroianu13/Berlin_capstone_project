@@ -285,7 +285,7 @@ nav ul li a:hover {
 .introduction-section h1 {
     font-family: var(--font-family-headline);
     font-size: 3em;
-    color: whitesmoke; /* Gold to represent Berlin's prestige */
+    color: red; /* Gold to represent Berlin's prestige */
     margin-bottom: 30px;
     text-align: center;
     text-shadow: 2px 2px 6px rgba(0, 0, 0, 0.7);

@@ -42,7 +42,7 @@
 
     - name: Set permissions for subdirectories in backend dir
       shell: |
-        sudo chmod -R ugo+rwX ~/backend/
+        cd ~/backend/ && umask 002
 
     - name: Clone the Git repository
       shell: |
