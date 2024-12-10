@@ -1,10 +1,15 @@
 name: Django CI/CD
 
 on:
-  workflow_run:
-    workflows: ["Django CI"]  # Name of the CI workflow to listen for
-    types:
-      - completed  # Trigger only when the CI workflow is completed
+  # workflow_run:
+  #   workflows: ["Django CI"]  # Name of the CI workflow to listen for
+  #   types:
+  #     - completed  # Trigger only when the CI workflow is completed
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+  workflow_dispatch:
 
 jobs:
   deploy:
@@ -31,7 +36,7 @@ jobs:
             set -e  # Stop on errors
             cd /home/ubuntu/backend &&
             git pull origin main &&
-            sudo docker compose down &&
+            sudo docker compose down -v &&
             sudo docker compose build &&
             sudo docker compose up -d
           "
