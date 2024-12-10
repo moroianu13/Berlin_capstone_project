@@ -1,0 +1,89 @@
+dialogs:
+  - user: "hi"
+    bot: "Hi there! How can I help you today?"
+    next_stage: "ask_help"
+
+  - user: "hello"
+    bot: "Hi there! How can I help you today?"
+    next_stage: "ask_help"
+
+  - user: "how can you help me?"
+    bot: "I can provide weather updates, Wikipedia summaries, and general knowledge. Do you want to hear a fun fact or check something specific?"
+    next_stage: "choose_topic"
+
+  - user: "bye"
+    bot: "Goodbye! Feel free to reach out anytime!"
+    next_stage: null
+
+  - user: "what is the temperature in Berlin?"
+    bot: "{{ weather_response }}" # Placeholder for dynamic response
+    next_stage: null
+
+  - user: "what is Wikipedia?"
+    bot: "Wikipedia is a free online encyclopedia, created and edited by volunteers around the world."
+    next_stage: null
+
+  - user: "tell me a fun fact"
+    bot: "Did you know that honey never spoils? Archaeologists have found pots of honey in ancient Egyptian tombs that are over 3,000 years old and still edible!"
+    next_stage: "ask_help"
+
+  - user: "weather"
+    bot: "Would you like to know the current weather in Berlin or another city? Please specify!"
+    next_stage: "weather_query"
+
+  - user: "Berlin"
+    bot: "Berlin is the capital city of Germany, known for its rich history, diverse culture, and vibrant economy. Would you like to know more about its history, population, or economy?" # Dynamic weather for Berlin
+    next_stage: null
+
+  - user: "another city"
+    bot: "Please type the name of the city you'd like to check weather for."
+    next_stage: "city_weather_input"
+
+  - user: "what is Python?"
+    bot: "Python is a popular programming language known for its simplicity and versatility. It's used in web development, data analysis, AI, and more!"
+    next_stage: "ask_help"
+
+  - user: "recommend a book"
+    bot: "Sure! For science fiction, I recommend 'Dune' by Frank Herbert. For self-improvement, try 'Atomic Habits' by James Clear."
+    next_stage: "ask_help"
+
+  - user: "I am bored"
+    bot: "How about I tell you a joke? Or maybe you'd like to hear a fun fact?"
+    next_stage: "bored_options"
+
+  - user: "tell me a joke"
+    bot: "Why don't skeletons fight each other? They don't have the guts!"
+    next_stage: "ask_help"
+
+  - user: "fun facts"
+    bot: "Did you know that honey never spoils? Archaeologists have found pots of honey in ancient Egyptian tombs that are over 3,000 years old and still edible!"
+    next_stage: "ask_help"
+
+  - user: "tell me something funny"
+    bot: "Why don’t scientists trust atoms? Because they make up everything!"
+    next_stage: "ask_help"
+
+dialogs:
+  - user: "economy of berlin"
+    bot: "Berlin's economy is predominantly driven by the service sector, including information technology, healthcare, creative industries, and tourism. It has also become a major hub for startups in Europe, particularly in tech and innovation sectors."
+    next_stage: "ask_help"
+
+  - user: "what is Berlin's population?"
+    bot: "As of 2024, Berlin's population is around 3.7 million people, making it the largest city in Germany by population."
+    next_stage: null
+
+  - user: "tell me about berlin history"
+    bot: "Berlin has a rich history, starting from being a small settlement in the 13th century to becoming the capital of Prussia, the German Empire, the Weimar Republic, Nazi Germany, East Germany during the Cold War, and finally the unified Germany."
+    next_stage: null
+
+  - user: "what are Berlin's green spaces?"
+    bot: "Berlin is one of the greenest cities in Europe, with numerous parks and green spaces. Popular ones include Tiergarten, Treptower Park, and Volkspark Friedrichshain, ideal for relaxation and outdoor activities."
+    next_stage: null
+
+fallbacks:
+  - "I'm sorry, I didn't quite understand that. Can you rephrase?"
+  - "I'm here to help! Could you try asking in a different way?"
+  - "Hmm, I'm not sure about that. Let me know if you'd like assistance with something specific!"
+  - "Hmm, I couldn't find anything on that. How about I tell you a joke?"
+  - "I'm sorry, I couldn't understand that. Could you rephrase or ask something else?"
+  - "I'm not sure about that. Let me know if you'd like assistance with weather, Wikipedia, or fun facts!"

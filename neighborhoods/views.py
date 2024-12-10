@@ -6,6 +6,7 @@ import string
 import random
 import requests
 import wikipedia
+from wikipedia import summary, exceptions
 from collections import Counter, defaultdict
 from django.conf import settings
 from django.shortcuts import render, get_object_or_404, redirect
@@ -45,41 +46,101 @@ def load_factual_responses():
         logging.error(f"Factual responses YAML file not found at {file_path}.")
         return {}
 
-# Load website and factual responses from YAML
+# Load YAML-based dialog responses
+def load_dialog_responses():
+    file_path = os.path.join(settings.BASE_DIR, 'data', 'dialog.yaml')
+    try:
+        with open(file_path, 'r', encoding='utf-8') as file:
+            dialogs = yaml.safe_load(file)
+            if not isinstance(dialogs, dict) or 'dialogs' not in dialogs:
+                raise ValueError("Invalid structure: 'dialog.yaml' must contain a 'dialogs' key.")
+            if not isinstance(dialogs['dialogs'], list):
+                raise ValueError("'dialogs' must be a list.")
+            return dialogs
+    except FileNotFoundError:
+        logging.error(f"Dialog YAML file not found at {file_path}.")
+        return {}
+    except Exception as e:
+        logging.error(f"Error loading dialog.yaml: {e}")
+        return {}
+
+# Load YAML responses
 website_responses = load_website_responses()
 factual_responses = load_factual_responses()
+dialog_responses = load_dialog_responses()
+
+
+def preprocess_query(query):
+    # Remove common prefixes
+    prefixes = ["what do you know about", "tell me about", "do you know about"]
+    for prefix in prefixes:
+        if query.startswith(prefix):
+            query = query[len(prefix):].strip()
+    return query
+
+
 
 # Wikipedia summary fetch
 def get_wikipedia_summary(query):
     try:
-        summary = wikipedia.summary(query, sentences=2)
-        return summary
-    except wikipedia.exceptions.DisambiguationError as e:
-        return f"Multiple results found for '{query}': {e.options[:3]}"
-    except wikipedia.exceptions.PageError:
-        return "Sorry, I couldn't find any relevant information on that topic."
+        query = preprocess_query(query)  # Preprocess user query
+        # Attempt to fetch a summary for the query
+        summary_text = summary(query, sentences=2)
+        return summary_text
+    except exceptions.DisambiguationError as e:
+        # Provide options if there are multiple results
+        logging.warning(f"Disambiguation error for '{query}': {e.options}")
+        return f"Multiple results found for '{query}': {', '.join(e.options[:3])}. Please specify further."
+    except exceptions.PageError:
+        # Handle missing pages
+        return f"Sorry, I couldn't find any relevant information about '{query}'."
+    except Exception as e:
+        logging.error(f"Unexpected error in get_wikipedia_summary: {e}")
+        return "Sorry, there was a problem retrieving the information."
+
 
 # Weather data fetching for Berlin
-load_dotenv()
+dotenv_path = os.path.join(settings.BASE_DIR, '.env_docker')
+load_dotenv(dotenv_path)
 def get_weather_in_berlin():
     try:
-        api_key = os.getenv('WEATHER_API_KEY')  # Replace with your actual API key
+        api_key = os.getenv('WEATHER_API_KEY')
+        if not api_key:
+            logging.error("Weather API key is missing in the .env_docker file.")
+            return "Weather API key is not configured."
+
         city = "Berlin"
         url = f"http://api.weatherapi.com/v1/current.json?key={api_key}&q={city}"
-        response = requests.get(url).json()
+        response = requests.get(url)  # Get the raw response first
 
-        if 'current' in response:
-            temp = response['current']['temp_c']
-            condition = response['current']['condition']['text']
-            humidity = response['current']['humidity']
-            wind_speed = response['current']['wind_kph']
+        # Log the response for debugging
+        logging.debug(f"Weather API Response: {response.status_code} {response.text}")
+
+        # Check the HTTP status code
+        if response.status_code != 200:
+            logging.error(f"Weather API returned an error: {response.status_code} {response.text}")
+            return "Sorry, I couldn't fetch the weather data right now."
+
+        # Parse the JSON response
+        data = response.json()
+
+        # Extract weather details
+        if 'current' in data:
+            temp = data['current']['temp_c']
+            condition = data['current']['condition']['text']
+            humidity = data['current']['humidity']
+            wind_speed = data['current']['wind_kph']
 
             return f"The current temperature in Berlin is {temp}°C with {condition}. Humidity is {humidity}% and wind speed is {wind_speed} km/h."
         else:
+            logging.error("Weather data is missing the 'current' key in the response.")
             return "Sorry, I couldn't fetch the weather data right now."
 
+    except requests.exceptions.RequestException as e:
+        logging.error(f"RequestException occurred: {e}")
+        return "Sorry, there was a problem retrieving the weather data."
     except Exception as e:
-        logging.error(f"Error fetching weather data: {e}")
+        logging.error(f"Unexpected error in get_weather_in_berlin: {e}")
         return "Sorry, there was a problem retrieving the weather data."
 
 # Manage conversation history
@@ -95,12 +156,76 @@ fallback_responses = [
 
 # Manage conversation history
 def manage_conversation_history(session_id, user_message, bot_message):
+    # Initialize session history if it doesn't exist
     if session_id not in conversation_history:
-        conversation_history[session_id] = []
-    conversation_history[session_id].append(f"User: {user_message}")
-    conversation_history[session_id].append(f"Bot: {bot_message}")
-    if len(conversation_history[session_id]) > 4:
-        conversation_history[session_id] = conversation_history[session_id][-4:]
+        conversation_history[session_id] = {'state': None, 'messages': []}
+
+    # Append user and bot messages to the 'messages' list
+    conversation_history[session_id]['messages'].append(f"User: {user_message}")
+    conversation_history[session_id]['messages'].append(f"Bot: {bot_message}")
+
+    # Limit the history to the last 4 messages for simplicity
+    if len(conversation_history[session_id]['messages']) > 4:
+        conversation_history[session_id]['messages'] = conversation_history[session_id]['messages'][-4:]
+
+
+
+
+# Get responses from dialog.yaml
+def get_dialog_response(user_message, session_id):
+    # Normalize user input to lowercase
+    user_message = user_message.strip().lower()
+
+    if not isinstance(dialog_responses, dict):
+        logging.error(f"dialog_responses is not a dictionary: {type(dialog_responses)}")
+        return None
+
+    dialogs = dialog_responses.get('dialogs', [])
+    if not dialogs:
+        logging.error("No dialogs found in dialog_responses.")
+        return "Sorry, I couldn't find any information for that query."
+
+    # Exact match prioritization
+    for dialog in dialogs:
+        if user_message == dialog['user'].strip().lower():
+            logging.debug(f"Exact match found: {dialog['user']}")
+            if 'next_stage' in dialog:
+                conversation_history[session_id]['state'] = dialog.get('next_stage')
+
+            if "{{ weather_response }}" in dialog['bot']:
+                weather_data = get_weather_in_berlin()
+                if weather_data:
+                    logging.info(f"Replacing placeholder with weather data: {weather_data}")
+                    return dialog['bot'].replace("{{ weather_response }}", weather_data)
+                else:
+                    logging.error("Failed to fetch weather data.")
+                    return "Sorry, I couldn't fetch the weather data right now."
+
+            return dialog['bot']
+
+    # Partial matching fallback
+    for dialog in dialogs:
+        if dialog['user'].strip().lower() in user_message:
+            logging.debug(f"Partial match found: {dialog['user']}")
+            if 'next_stage' in dialog:
+                conversation_history[session_id]['state'] = dialog.get('next_stage')
+
+            if "{{ weather_response }}" in dialog['bot']:
+                weather_data = get_weather_in_berlin()
+                if weather_data:
+                    logging.info(f"Replacing placeholder with weather data: {weather_data}")
+                    return dialog['bot'].replace("{{ weather_response }}", weather_data)
+                else:
+                    logging.error("Failed to fetch weather data.")
+                    return "Sorry, I couldn't fetch the weather data right now."
+
+            return dialog['bot']
+
+    logging.warning(f"No dialog match found for: {user_message}")
+    return None
+
+
+
 
 # Get predefined responses from YAML file
 def get_website_response(user_message):
@@ -123,15 +248,23 @@ def get_predefined_response(user_message, session_id):
     if ("what's my name" in user_message or "what is my name" in user_message) and session_id in user_data:
         return f"Your name is {user_data[session_id]}, right?"
 
-    # Check YAML-based website responses
-    bot_message = get_website_response(user_message)
+
+
+ # Check dialog responses first
+    bot_message = get_dialog_response(user_message, session_id)
     if bot_message:
         return bot_message
-
-    # Check in factual responses
+    
+    
+   # Check factual responses first
     best_match, score = process.extractOne(user_message, factual_responses.keys(), scorer=fuzz.token_set_ratio)
-    if score > 70:
+    if score > 80:  # Increase threshold for higher precision
         return factual_responses[best_match]
+
+    # Check website responses next
+    best_match, score = process.extractOne(user_message, website_responses.keys(), scorer=fuzz.token_set_ratio)
+    if score > 70:
+        return website_responses[best_match]
 
     return None
 
@@ -147,10 +280,16 @@ def chat_view(request):
        user_message = request.POST.get('message', '').lower().strip(string.punctuation)
 
     if session_id not in conversation_history:
-            conversation_history[session_id] = []
+            conversation_history[session_id] = {'state': None, 'messages': []}
 
-        # First, check for predefined or factual responses
-    bot_message = get_predefined_response(user_message, session_id)
+
+ # Check dialog responses first
+    bot_message = get_dialog_response(user_message, session_id)
+    
+    
+# First, check for predefined or factual responses
+    if not bot_message:
+        bot_message = get_predefined_response(user_message, session_id)
 
         # Handle live weather check if requested
     if "temperature" in user_message and "berlin" in user_message:
