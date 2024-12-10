@@ -60,6 +60,7 @@ class ChatViewTest(TestCase):
         conversation_history.clear()
 
         manage_conversation_history(session_id, user_message, bot_message)
+        print(conversation_history)
         self.assertIn(session_id, conversation_history)
         self.assertEqual(len(conversation_history[session_id]), 2)
         self.assertEqual(conversation_history[session_id][0], f"User: {user_message}")
@@ -69,6 +70,11 @@ class ChatViewTest(TestCase):
         manage_conversation_history(session_id, "What's your name?", "I'm ChatBot.")
         manage_conversation_history(session_id, "Tell me a fact.", "Octopuses have three hearts.")
         self.assertEqual(len(conversation_history[session_id]), 4)
+        
+         # Check the conversation length and content
+        self.assertEqual(len(conversation_history[session_id]), 4)
+        self.assertEqual(conversation_history[session_id][2], "User: How are you?")
+        self.assertEqual(conversation_history[session_id][3], "Bot: I'm fine.")
 
 
 class BoroughListViewTest(TestCase):
