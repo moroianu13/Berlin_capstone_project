@@ -27,7 +27,13 @@ SECRET_KEY = os.getenv('SECRET_KEY', 'django-insecure-sl-b#$w6vw^0m8ue-k-#1u%4fs
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = os.getenv('DEBUG', 'False') == 'True'
 
+# ALLOWED_HOSTS configuration for Fly.io
 ALLOWED_HOSTS = os.getenv('ALLOWED_HOSTS', '*').split(',')
+# Always include these for Fly.io health checks and internal routing
+ALLOWED_HOSTS.extend(['localhost', '127.0.0.1', '.fly.dev'])
+# Remove duplicates
+ALLOWED_HOSTS = list(set(ALLOWED_HOSTS))
+
 CSRF_TRUSTED_ORIGINS = os.getenv('CSRF_TRUSTED_ORIGINS', '').split(',') if os.getenv('CSRF_TRUSTED_ORIGINS') else []
 
 
