@@ -43,9 +43,19 @@ jobs:
         python -m pip install --upgrade pip
         pip install -r requirements.txt
 
-      # Step 5: Copy Environment File
-    - name: Copy environment file
-      run: cp .env_local .env  # Copy the correct environment file for CI   
+      # Step 5: Create Environment File for Testing
+    - name: Create .env file for testing
+      run: |
+        cat > .env << EOF
+        DEBUG=True
+        SECRET_KEY=test-secret-key-for-ci-testing-only
+        DB_NAME=berlin_capstone
+        DB_USER=adrian
+        DB_PASSWORD=1234
+        DB_HOST=localhost
+        DB_PORT=5432
+        ALLOWED_HOSTS=localhost,127.0.0.1
+        EOF
       
     - name: Run Tests
       run: |
