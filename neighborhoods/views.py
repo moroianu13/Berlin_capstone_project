@@ -107,7 +107,7 @@ load_dotenv(dotenv_path)
 GEMINI_API_KEY = os.getenv('GEMINI_API_KEY')
 if GEMINI_API_KEY and GEMINI_API_KEY != 'your_gemini_api_key_here':
     genai.configure(api_key=GEMINI_API_KEY)
-    gemini_model = genai.GenerativeModel('gemini-1.5-flash')  # Using 1.5 for better free tier limits
+    gemini_model = genai.GenerativeModel('gemini-flash-latest')  # Free tier model
 else:
     gemini_model = None
     logging.warning("Gemini API key not configured. AI chat will use fallback responses.")
@@ -195,6 +195,10 @@ def get_dialog_response(user_message, session_id):
     if not dialogs:
         logging.error("No dialogs found in dialog_responses.")
         return "Sorry, I couldn't find any information for that query."
+
+    # Initialize session if needed
+    if session_id not in conversation_history:
+        conversation_history[session_id] = {'state': None, 'messages': []}
 
     # Exact match prioritization
     for dialog in dialogs:

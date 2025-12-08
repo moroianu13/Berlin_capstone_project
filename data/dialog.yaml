@@ -60,10 +60,9 @@ dialogs:
     next_stage: "ask_help"
 
   - user: "tell me something funny"
-    bot: "Why don’t scientists trust atoms? Because they make up everything!"
+    bot: "Why don't scientists trust atoms? Because they make up everything!"
     next_stage: "ask_help"
 
-dialogs:
   - user: "economy of berlin"
     bot: "Berlin's economy is predominantly driven by the service sector, including information technology, healthcare, creative industries, and tourism. It has also become a major hub for startups in Europe, particularly in tech and innovation sectors."
     next_stage: "ask_help"
