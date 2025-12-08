@@ -11,7 +11,7 @@ flyctl status -a berlin-rentwise
 
 echo ""
 echo "Recent Logs (last 50 lines):"
-flyctl logs -a berlin-rentwise --limit 50
+flyctl logs -a berlin-rentwise -n 2>&1 | head -50
 
 echo ""
 echo "Machine Metrics:"
