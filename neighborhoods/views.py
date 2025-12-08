@@ -107,7 +107,7 @@ load_dotenv(dotenv_path)
 GEMINI_API_KEY = os.getenv('GEMINI_API_KEY')
 if GEMINI_API_KEY and GEMINI_API_KEY != 'your_gemini_api_key_here':
     genai.configure(api_key=GEMINI_API_KEY)
-    gemini_model = genai.GenerativeModel('gemini-pro')
+    gemini_model = genai.GenerativeModel('gemini-1.5-flash')  # Using 1.5 for better free tier limits
 else:
     gemini_model = None
     logging.warning("Gemini API key not configured. AI chat will use fallback responses.")
