@@ -1,11 +1,5 @@
-# fly.toml app configuration file generated for berlin-rentwise on 2025-12-08T22:03:41+01:00
-#
-# See https://fly.io/docs/reference/configuration/ for information about how to use this file.
-#
-
 app = 'berlin-rentwise'
 primary_region = 'fra'
-console_command = '/code/manage.py shell'
 
 [build]
 
@@ -13,29 +7,16 @@ console_command = '/code/manage.py shell'
   release_command = 'python manage.py migrate --noinput'
 
 [env]
-  DJANGO_SETTINGS_MODULE = 'rentfinder.settings'
   PORT = '8000'
 
 [http_service]
   internal_port = 8000
   force_https = true
-  auto_stop_machines = 'stop'
+  auto_stop_machines = true
   auto_start_machines = true
   min_machines_running = 0
-  processes = ['app']
-
-  [[http_service.checks]]
-    interval = '30s'
-    timeout = '5s'
-    grace_period = '10s'
-    method = 'GET'
-    path = '/'
 
 [[vm]]
   memory = '512mb'
   cpu_kind = 'shared'
   cpus = 1
-
-[[statics]]
-  guest_path = '/code/static'
-  url_prefix = '/static/'
