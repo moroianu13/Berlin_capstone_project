@@ -12,18 +12,18 @@ UserModel = get_user_model()
 class ChatViewTest(TestCase):
     @patch('neighborhoods.views.get_weather_in_berlin')
     @patch('neighborhoods.views.get_wikipedia_summary')
-    @patch('neighborhoods.views.get_predefined_response')
-    def test_chat_view_post(self, mock_predefined_response, mock_wikipedia, mock_weather):
-        # Test predefined response
-        mock_predefined_response.return_value = "Hi there! How can I help you today?"
+    @patch('neighborhoods.views.get_dialog_response')
+    def test_chat_view_post(self, mock_dialog_response, mock_wikipedia, mock_weather):
+        # Test dialog response (has priority over predefined)
+        mock_dialog_response.return_value = "Hi there! How can I help you today?"
         response = self.client.post(reverse('chat_view'), {'message': 'Hi'})
         self.assertEqual(response.status_code, 200)
         self.assertIn('response', response.json())
         self.assertEqual(response.json()['response'], "Hi there! How can I help you today?")
-        mock_predefined_response.assert_called_once_with('hi', None)
+        mock_dialog_response.assert_called_once_with('hi', None)
 
         # Test weather response
-        mock_predefined_response.return_value = None
+        mock_dialog_response.return_value = None
         mock_weather.return_value = "It's sunny in Berlin."
         response = self.client.post(reverse('chat_view'), {'message': 'What is the temperature in Berlin?'})
         self.assertEqual(response.status_code, 200)
@@ -31,18 +31,21 @@ class ChatViewTest(TestCase):
         self.assertEqual(response.json()['response'], "It's sunny in Berlin.")
         mock_weather.assert_called_once()
 
-        # Test Wikipedia response
-        mock_predefined_response.return_value = None
-        mock_wikipedia.return_value = "Berlin is the capital of Germany."
-        response = self.client.post(reverse('chat_view'), {'message': 'Tell me about Berlin.'})
-        self.assertEqual(response.status_code, 200)
-        self.assertIn('response', response.json())
-        self.assertEqual(response.json()['response'], "Berlin is the capital of Germany.")
-        mock_wikipedia.assert_called_once_with('tell me about berlin')
+        # Test Wikipedia response (when dialog, predefined, weather, and AI all return None)
+        mock_dialog_response.return_value = None
+        with patch('neighborhoods.views.get_predefined_response', return_value=None), \
+             patch('neighborhoods.views.get_ai_response', return_value=None):
+            mock_wikipedia.return_value = "Berlin is the capital of Germany."
+            response = self.client.post(reverse('chat_view'), {'message': 'Tell me about Berlin.'})
+            self.assertEqual(response.status_code, 200)
+            self.assertIn('response', response.json())
+            self.assertEqual(response.json()['response'], "Berlin is the capital of Germany.")
 
     def test_chat_view_fallback_response(self):
-        with patch('neighborhoods.views.get_predefined_response', return_value=None), \
+        with patch('neighborhoods.views.get_dialog_response', return_value=None), \
+             patch('neighborhoods.views.get_predefined_response', return_value=None), \
              patch('neighborhoods.views.get_weather_in_berlin', return_value=None), \
+             patch('neighborhoods.views.get_ai_response', return_value=None), \
              patch('neighborhoods.views.get_wikipedia_summary', return_value=None):
             response = self.client.post(reverse('chat_view'), {'message': 'Unanswerable query'})
             self.assertEqual(response.status_code, 200)
@@ -69,12 +72,14 @@ class ChatViewTest(TestCase):
         manage_conversation_history(session_id, "How are you?", "I'm fine.")
         manage_conversation_history(session_id, "What's your name?", "I'm ChatBot.")
         manage_conversation_history(session_id, "Tell me a fact.", "Octopuses have three hearts.")
-        self.assertEqual(len(conversation_history[session_id]), 4)
         
-         # Check the conversation length and content
-        self.assertEqual(len(conversation_history[session_id]), 4)
-        self.assertEqual(conversation_history[session_id][2], "User: How are you?")
-        self.assertEqual(conversation_history[session_id][3], "Bot: I'm fine.")
+        # Check the conversation length - should be 4 messages (last 4 due to history limit)
+        self.assertEqual(len(conversation_history[session_id]['messages']), 4)
+        # The first 4 messages (Hello exchange) were removed, only last 2 exchanges remain
+        self.assertEqual(conversation_history[session_id]['messages'][0], "User: What's your name?")
+        self.assertEqual(conversation_history[session_id]['messages'][1], "Bot: I'm ChatBot.")
+        self.assertEqual(conversation_history[session_id]['messages'][2], "User: Tell me a fact.")
+        self.assertEqual(conversation_history[session_id]['messages'][3], "Bot: Octopuses have three hearts.")
 
 
 class BoroughListViewTest(TestCase):
