@@ -9,6 +9,7 @@ import wikipedia
 from wikipedia import summary, exceptions
 from collections import Counter, defaultdict
 from django.conf import settings
+import google.generativeai as genai
 from django.shortcuts import render, get_object_or_404, redirect
 from django.http import JsonResponse
 from django.db.models import Q ,Sum, Count 
@@ -99,9 +100,19 @@ def get_wikipedia_summary(query):
         return "Sorry, there was a problem retrieving the information."
 
 
-# Weather data fetching for Berlin
+# Initialize Google Gemini AI
 dotenv_path = os.path.join(settings.BASE_DIR, '.env_docker')
 load_dotenv(dotenv_path)
+
+GEMINI_API_KEY = os.getenv('GEMINI_API_KEY')
+if GEMINI_API_KEY and GEMINI_API_KEY != 'your_gemini_api_key_here':
+    genai.configure(api_key=GEMINI_API_KEY)
+    gemini_model = genai.GenerativeModel('gemini-pro')
+else:
+    gemini_model = None
+    logging.warning("Gemini API key not configured. AI chat will use fallback responses.")
+
+# Weather data fetching for Berlin
 def get_weather_in_berlin():
     try:
         api_key = os.getenv('WEATHER_API_KEY')
@@ -271,6 +282,44 @@ def get_predefined_response(user_message, session_id):
 # Fallback response generator
 def get_fallback_response():
     return random.choice(fallback_responses)
+
+# AI-powered response using Google Gemini
+def get_ai_response(user_message, session_id):
+    """Generate AI response using Google Gemini with Berlin rental context"""
+    if not gemini_model:
+        return None
+    
+    try:
+        # Build context about Berlin RentWise
+        system_context = """You are a helpful AI assistant for Berlin RentWise, a website that helps people find rental apartments in Berlin. 
+        You have access to information about Berlin neighborhoods, boroughs, rental prices, crime statistics, and amenities.
+        
+        Key features of the website:
+        - Search neighborhoods by affordability, family-friendliness, nightlife, and green spaces
+        - View crime statistics and demographics for each neighborhood
+        - Compare rental prices across different areas
+        - Find nearby amenities (parks, schools, hospitals, public transport)
+        
+        When users ask about neighborhoods, rents, or living in Berlin, provide helpful, conversational responses.
+        Keep responses concise (2-3 sentences) and friendly."""
+        
+        # Get conversation history for context
+        history_context = ""
+        if session_id in conversation_history:
+            recent_messages = conversation_history[session_id]['messages'][-4:]
+            history_context = "\n".join(recent_messages)
+        
+        # Combine context and user message
+        full_prompt = f"{system_context}\n\nConversation history:\n{history_context}\n\nUser: {user_message}\n\nAssistant:"
+        
+        # Generate response
+        response = gemini_model.generate_content(full_prompt)
+        return response.text.strip()
+        
+    except Exception as e:
+        logging.error(f"Error generating AI response: {e}")
+        return None
+
 # Chat view to handle chat requests
 @csrf_exempt
 def chat_view(request):
@@ -283,25 +332,28 @@ def chat_view(request):
             conversation_history[session_id] = {'state': None, 'messages': []}
 
 
- # Check dialog responses first
+    # Priority 1: Check dialog responses for specific patterns
     bot_message = get_dialog_response(user_message, session_id)
     
-    
-# First, check for predefined or factual responses
+    # Priority 2: Check for predefined or factual responses
     if not bot_message:
         bot_message = get_predefined_response(user_message, session_id)
 
-        # Handle live weather check if requested
-    if "temperature" in user_message and "berlin" in user_message:
-            bot_message = get_weather_in_berlin()
+    # Priority 3: Handle live weather check if requested
+    if not bot_message and "temperature" in user_message and "berlin" in user_message:
+        bot_message = get_weather_in_berlin()
 
-        # Use Wikipedia for broader queries if no predefined response
+    # Priority 4: Use AI for natural conversation (NEW!)
     if not bot_message:
-            bot_message = get_wikipedia_summary(user_message)
+        bot_message = get_ai_response(user_message, session_id)
 
-        # If no relevant Wikipedia result, fallback to a fun fact
+    # Priority 5: Use Wikipedia for broader queries if AI not available
     if not bot_message:
-            bot_message = get_fallback_response()
+        bot_message = get_wikipedia_summary(user_message)
+
+    # Priority 6: If all else fails, fallback to a fun fact
+    if not bot_message:
+        bot_message = get_fallback_response()
 
         # Manage conversation history
     manage_conversation_history(session_id, user_message, bot_message)
