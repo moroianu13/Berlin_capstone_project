@@ -27,4 +27,4 @@ RUN python manage.py collectstatic --noinput
 
 EXPOSE 8000
 
-CMD ["python", "-m", "gunicorn", "--bind", ":8000", "--workers", "2", "rentfinder.wsgi"]
+CMD ["python", "-m", "gunicorn", "--bind", "0.0.0.0:8000", "--workers", "2", "rentfinder.wsgi"]
