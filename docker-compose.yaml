@@ -31,7 +31,7 @@ services:
       - app-network
 
   db:
-    image: postgres:13  # Use the desired PostgreSQL version
+    image: postgres:15  # Updated to PostgreSQL 15 for Django 5.2.9 compatibility
     environment:
       POSTGRES_DB: mydatabase  # Replace with your database name
       POSTGRES_USER: myuser    # Replace with your database username
