@@ -6,7 +6,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1,user-scalable=no">
   <title>Boroughs Map</title>
-  <link href="https://api.mapbox.com/mapbox-gl-js/v2.14.1/mapbox-gl.css" rel="stylesheet">
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin=""/>
   <!-- General styles -->
  
   <link rel="stylesheet" href="{% static 'css/general_and_home.css' %}">
@@ -203,20 +203,21 @@
   </footer>
 
   <!-- JavaScript Libraries -->
-  <script</script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/Turf.js/6.5.0/turf.min.js"></script>
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
+  <script src="https://unpkg.com/@turf/turf@6/turf.min.js"></script>
 
   <!-- Map Initialization Script -->
   <script>
-    mapboxgl.; #token
+    // Initialize Leaflet map with OpenStreetMap
+    const boroughMap = L.map('borough-map').setView([52.52, 13.4], 9.5);
 
-    // Initialize the map
-    const boroughMap = new mapboxgl.Map({
-      container: 'borough-map',
-      style: 'mapbox://styles/mapbox/streets-v11',
-      center: [13.4, 52.52], // Center on Berlin
-      zoom: 9.5
-    });
+    // Add OpenStreetMap tile layer (free!)
+    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+      maxZoom: 19,
+      attribution: '© OpenStreetMap contributors'
+    }).addTo(boroughMap);
+
+    let boroughLayer;
 
     async function fetchGeoJSONPolygons() {
       try {
@@ -271,33 +272,35 @@
       return geojson;
     }
 
-    boroughMap.on('load', async function() {
+    (async function() {
       const geojson = await fetchGeoJSONPolygons();
       const boroughData = await fetchBoroughDataFromAPI();
       const mergedData = mergeData(geojson, boroughData);
 
-      boroughMap.addSource('borough-borders', {
-        'type': 'geojson',
-        'data': mergedData
-      });
-
-      boroughMap.addLayer({
-        'id': 'borough-borders-layer',
-        'type': 'fill',
-        'source': 'borough-borders',
-        'paint': {
-          'fill-color': '#888888',
-          'fill-opacity': 0.5,
-          'fill-outline-color': '#000000'
+      // Add GeoJSON layer to Leaflet map
+      boroughLayer = L.geoJSON(mergedData, {
+        style: function(feature) {
+          return {
+            fillColor: '#888888',
+            fillOpacity: 0.5,
+            color: '#000000',
+            weight: 2
+          };
+        },
+        onEachFeature: function(feature, layer) {
+          if (feature.properties && feature.properties.name) {
+            layer.bindPopup(feature.properties.name);
+          }
+          
+          // Click handler
+          layer.on('click', function() {
+            const boroughSlug = feature.properties.slug;
+            if (boroughSlug) {
+              window.location.href = `/borough/${encodeURIComponent(boroughSlug)}/`;
+            }
+          });
         }
-      });
-
-      boroughMap.on('click', 'borough-borders-layer', function(e) {
-        const boroughSlug = e.features[0].properties.slug;
-        if (boroughSlug) {
-            window.location.href = `/borough/${encodeURIComponent(boroughSlug)}/`;
-        }
-      });
+      }).addTo(boroughMap);
 
       document.getElementById('apply-filters').addEventListener('click', function() {
         const rent = parseFloat(document.getElementById('rent').value);
@@ -305,16 +308,20 @@
         const lifestyles = Array.from(lifestyleElements).map(el => el.value);
 
         const filteredGeoJSON = applyFiltersToPolygons(geojson, rent, lifestyles);
-        boroughMap.getSource('borough-borders').setData(filteredGeoJSON);
-
-        boroughMap.setPaintProperty('borough-borders-layer', 'fill-color', [
-          'case',
-          ['==', ['get', 'filter_match'], true], '#00FF00',
-          ['==', ['get', 'filter_match'], false], '#FF0000',
-          '#888888'
-        ]);
+        
+        // Update layer styles based on filters
+        boroughLayer.eachLayer(function(layer) {
+          const feature = layer.feature;
+          if (feature.properties.filter_match) {
+            layer.setStyle({ fillColor: '#00FF00', fillOpacity: 0.6 });
+          } else if (feature.properties.filter_match === false) {
+            layer.setStyle({ fillColor: '#FF0000', fillOpacity: 0.6 });
+          } else {
+            layer.setStyle({ fillColor: '#888888', fillOpacity: 0.5 });
+          }
+        });
       });
-    });
+    })();
   </script>
 </body>
 </html>
