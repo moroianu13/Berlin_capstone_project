@@ -11,19 +11,20 @@
 #neighborhood-list {
     flex: 1 1 100%; /* Takes full width on smaller screens */
     max-width: 900px;
-    background: rgba(255, 255, 255, 0.9);
+    background: linear-gradient(135deg, #ffffff 0%, #f8f9fa 100%);
     border-radius: var(--border-radius);
-    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+    box-shadow: var(--card-shadow);
     backdrop-filter: blur(10px);
     margin-bottom: 20px;
-    padding: 20px;
+    padding: 30px;
     text-align: center;
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    border: 1px solid rgba(0, 0, 0, 0.05);
+    transition: all var(--transition-ease);
 }
 
 #neighborhood-list:hover {
-    transform: translateX(-2px);
-    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.5);
+    transform: translateY(-5px);
+    box-shadow: var(--card-shadow-hover);
 }
 
 #neighborhood-list h4 {
@@ -52,21 +53,22 @@
 #neighborhood-items a {
     display: inline-block;
     width: auto;
-    padding: 12px 20px;
-    background: linear-gradient(135deg, var(--primary-color), var(--accent-color));
+    padding: 14px 24px;
+    background: linear-gradient(135deg, var(--primary-color), var(--highlight-color));
     color: #fff;
     text-decoration: none;
-    font-weight: bold;
+    font-weight: 600;
+    font-size: 14px;
     font-family: var(--font-family-body);
-    border-radius: var(--border-radius);
-    box-shadow: 0 3px 8px rgba(0, 0, 0, 0.2);
-    transition: background 0.3s ease, box-shadow 0.3s ease, transform 0.3s ease;
+    border-radius: 25px;
+    box-shadow: 0 4px 15px rgba(52, 152, 219, 0.3);
+    transition: all var(--transition-ease);
 }
 
 #neighborhood-items a:hover {
-    background: linear-gradient(135deg, var(--accent-color), #ffcc00);
-    transform: translateY(-3px);
-    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.3);
+    background: linear-gradient(135deg, var(--highlight-color), var(--primary-color));
+    transform: translateY(-4px) scale(1.05);
+    box-shadow: 0 8px 25px rgba(52, 152, 219, 0.4);
 }
 
 /* Map Styling */
@@ -75,14 +77,14 @@
     max-width: 900px;
     height: 500px;
     border-radius: var(--border-radius);
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+    box-shadow: var(--card-shadow);
     margin-bottom: 20px;
-    transition: box-shadow 0.3s ease;
+    border: 3px solid #ffffff;
+    transition: all var(--transition-ease);
 }
 
 #map:hover {
-    transform: translateX(-2px);
-    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.5);
+    box-shadow: var(--card-shadow-hover);
 }
 
 /* Charts Container */
@@ -99,17 +101,34 @@
 .chart-container {
     flex: 1 1 calc(50% - 20px); /* Each chart takes 50% width, minus the gap */
     max-width: 800px; /* Limit the size of each chart */
-    background: rgba(255, 255, 255, 0.95);
-    padding: 20px;
+    background: linear-gradient(135deg, #ffffff 0%, #f8f9fa 100%);
+    padding: 30px;
     border-radius: var(--border-radius);
-    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+    box-shadow: var(--card-shadow);
     text-align: center;
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    border: 1px solid rgba(0, 0, 0, 0.05);
+    transition: all var(--transition-ease);
 }
 
 .chart-container:hover {
-    transform: translateX(-2px);
-    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.5);
+    transform: translateY(-5px);
+    box-shadow: var(--card-shadow-hover);
+}
+
+.chart-container h2 {
+    color: var(--primary-color);
+    font-weight: 700;
+    margin-bottom: 15px;
+    font-size: 1.6em;
+    border-bottom: 3px solid var(--accent-color);
+    padding-bottom: 10px;
+}
+
+.chart-container p {
+    color: #666;
+    margin-bottom: 20px;
+    line-height: 1.6;
+    font-size: 0.95em;
 }
 
 .chart-container canvas {

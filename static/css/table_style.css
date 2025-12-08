@@ -19,20 +19,29 @@
 /* Borough Table Container Styles */
 .borough-table-container {
     width: 28%;
-    padding: 20px;
-    background-color: #ffffff;
+    padding: 30px;
+    background: linear-gradient(135deg, #ffffff 0%, #f8f9fa 100%);
     border-radius: var(--border-radius);
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    box-shadow: var(--card-shadow);
     max-width: 28%;
     flex-grow: 1;
     text-align: center;
+    border: 1px solid rgba(0, 0, 0, 0.05);
+    transition: all var(--transition-ease);
+}
+
+.borough-table-container:hover {
+    transform: translateY(-5px);
+    box-shadow: var(--card-shadow-hover);
 }
 
 .borough-table-container h2 {
-    font-size: 24px;
-    font-weight: bold;
-    margin-bottom: 20px;
-    color: #333;
+    font-size: 26px;
+    font-weight: 700;
+    margin-bottom: 25px;
+    color: var(--primary-color);
+    border-bottom: 3px solid var(--accent-color);
+    padding-bottom: 15px;
 }
 
 .borough-table-container table {
@@ -51,9 +60,12 @@
 }
 
 .borough-table-container th {
-    background-color: #f0f0f0;
-    font-weight: bold;
+    background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+    color: white;
+    font-weight: 600;
     text-transform: uppercase;
+    font-size: 14px;
+    letter-spacing: 0.5px;
 }
 
 .borough-table-container tr:nth-child(even) {
@@ -61,7 +73,9 @@
 }
 
 .borough-table-container tr:hover {
-    background-color: #f1f1f1;
+    background: linear-gradient(135deg, #e8f4f8 0%, #f0f8ff 100%);
+    transform: scale(1.01);
+    transition: all 0.2s ease;
 }
 
 .borough-table-container td {
@@ -77,21 +91,34 @@
 /* Berlin Map and Description Section */
 .berlin-map-container {
     width: 36%;
-    padding: 20px;
-    background-color: #ffffff;
+    padding: 30px;
+    background: linear-gradient(135deg, #ffffff 0%, #f8f9fa 100%);
     border-radius: var(--border-radius);
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    box-shadow: var(--card-shadow);
     max-width: 36%;
     text-align: center;
     flex-grow: 1;
+    border: 1px solid rgba(0, 0, 0, 0.05);
+    transition: all var(--transition-ease);
+}
+
+.berlin-map-container:hover {
+    transform: translateY(-5px);
+    box-shadow: var(--card-shadow-hover);
 }
 
 .berlin-map-container img {
     width: 100%;
     height: auto;
     margin-bottom: 20px;
-    border-radius: 10px;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+    border-radius: var(--border-radius);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+    transition: all var(--transition-ease);
+}
+
+.berlin-map-container img:hover {
+    transform: scale(1.02);
+    box-shadow: 0 12px 30px rgba(0, 0, 0, 0.2);
 }
 
 .berlin-map-container p {
@@ -105,20 +132,29 @@
 /* Symbols Section */
 .symbols-section {
     width: 28%;
-    padding: 20px;
-    background-color: #ffffff;
+    padding: 30px;
+    background: linear-gradient(135deg, #ffffff 0%, #f8f9fa 100%);
     border-radius: var(--border-radius);
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    box-shadow: var(--card-shadow);
     max-width: 28%;
     text-align: center;
     flex-grow: 1;
+    border: 1px solid rgba(0, 0, 0, 0.05);
+    transition: all var(--transition-ease);
+}
+
+.symbols-section:hover {
+    transform: translateY(-5px);
+    box-shadow: var(--card-shadow-hover);
 }
 
 .symbols-section h2 {
-    font-size: 24px;
-    font-weight: bold;
-    margin-bottom: 20px;
-    color: #333;
+    font-size: 26px;
+    font-weight: 700;
+    margin-bottom: 25px;
+    color: var(--primary-color);
+    border-bottom: 3px solid var(--accent-color);
+    padding-bottom: 15px;
 }
 
 .symbols-section .symbols {
@@ -139,8 +175,14 @@
     max-width: 100%;
     height: auto;
     margin-bottom: 10px;
-    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
-    border-radius: 5px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    border-radius: 8px;
+    transition: all var(--transition-ease);
+}
+
+.symbols-section .symbol img:hover {
+    transform: scale(1.1) rotate(2deg);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.25);
 }
 
 .symbols-section .symbol p {

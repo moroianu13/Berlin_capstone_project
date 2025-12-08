@@ -7,16 +7,18 @@
 
 #info {
     width: 25%;
-    padding: 20px;
-    background-color: #f8f9fa;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
+    padding: 25px;
+    background: linear-gradient(135deg, #ffffff 0%, #f8f9fa 100%);
+    box-shadow: var(--card-shadow);
     border-radius: var(--border-radius);
     margin-right: 20px;
+    border: 1px solid rgba(0, 0, 0, 0.05);
+    transition: all var(--transition-ease);
 }
 
 #info:hover {
-    transform: translateX(-2px);
-    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.5);
+    transform: translateY(-5px);
+    box-shadow: var(--card-shadow-hover);
 }
 
 #map-links-container {
@@ -29,21 +31,29 @@
     width: 100%;
     height: 600px;
     border-radius: var(--border-radius);
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.5);
+    box-shadow: var(--card-shadow);
+    border: 3px solid #ffffff;
+    transition: all var(--transition-ease);
+}
+
+#borough-map:hover {
+    box-shadow: var(--card-shadow-hover);
 }
 
 #filters {
     margin-top: 20px;
-    padding: 20px;
-    background-color: rgba(255, 255, 255, 0.85);
+    padding: 25px;
+    background: rgba(255, 255, 255, 0.95);
     border-radius: var(--border-radius);
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
-    backdrop-filter: blur(12px);
-    border: 1px solid rgba(255, 255, 255, 0.5);
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.1);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(0, 0, 0, 0.05);
+    transition: all var(--transition-ease);
 }
 
 #filters:hover{
-    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.5);
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.15);
+    transform: translateY(-2px);
 }
 
 #filters label {
@@ -92,11 +102,13 @@
 
 
 #filters h3 {
-    font-size: 18px;
-    font-weight: bold;
-    margin-bottom: 15px;
-    color: #333;
+    font-size: 20px;
+    font-weight: 700;
+    margin-bottom: 20px;
+    color: var(--primary-color);
     letter-spacing: 0.5px;
+    border-bottom: 3px solid var(--accent-color);
+    padding-bottom: 10px;
 }
 
 #filters button {

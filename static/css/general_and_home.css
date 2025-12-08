@@ -1,16 +1,19 @@
 
 /* Global Styles */
 :root {
-    --primary-color: #3e5060; /* Inspired by Berlin's urban architecture */
-    --secondary-color: #1a1a1a; /* For a sleek modern touch */
-    --accent-color: #d93030; /* Red tone reflecting historical Berlin brick buildings */
-    --highlight-color: #0073e6; /* Reflecting Berlin's modern edge */
-    --gradient-light-blue: #e0f7fa;
+    --primary-color: #2c3e50; /* Deep navy blue */
+    --secondary-color: #34495e; /* Slate gray */
+    --accent-color: #e74c3c; /* Vibrant red */
+    --highlight-color: #3498db; /* Bright blue */
+    --success-color: #27ae60; /* Green */
+    --gradient-light-blue: #e8f4f8;
     --gradient-white: #ffffff;
     --font-family-headline: 'Merriweather', serif;
     --font-family-body: 'Roboto', sans-serif;
-    --border-radius: 15px;
-    --transition-ease: 0.3s ease;
+    --border-radius: 12px;
+    --card-shadow: 0 8px 32px rgba(0, 0, 0, 0.12);
+    --card-shadow-hover: 0 12px 48px rgba(0, 0, 0, 0.18);
+    --transition-ease: 0.35s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 * {
@@ -21,22 +24,23 @@
 
 html, body {
     font-family: var(--font-family-body);
-    background: linear-gradient(135deg, var(--gradient-light-blue), var(--gradient-white));
-    color: #333;
+    background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+    color: #2c3e50;
     height: 100%;
     scroll-behavior: smooth;
+    line-height: 1.6;
 }
 
 /* Header Styles */
 header {
     display: flex;
     align-items: center;
-    padding: 20px;
+    padding: 30px 40px;
     height: 350px;
-    background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('/static/images/berlin_header_image.jpg') no-repeat center center/cover;
-    filter: brightness(0.8);
+    background: linear-gradient(rgba(44, 62, 80, 0.7), rgba(52, 73, 94, 0.85)), url('/static/images/berlin_header_image.jpg') no-repeat center center/cover;
     position: relative;
-    border-bottom: 5px solid var(--accent-color);
+    border-bottom: 4px solid var(--accent-color);
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
 }
 
 header .logo {
@@ -47,36 +51,44 @@ header .logo img {
     height: 200px;
     width: auto;
     border-radius: var(--border-radius);
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.5);
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4);
+    transition: transform var(--transition-ease), box-shadow var(--transition-ease);
+}
+
+header .logo img:hover {
+    transform: scale(1.05);
+    box-shadow: 0 12px 32px rgba(0, 0, 0, 0.5);
 }
 
 
 /* Header Button Styles */
 .header-button {
-    border: 2px solid rgba(255, 255, 255, 0.6);
-    background: rgba(255, 255, 255, 0.1);
+    border: 2px solid rgba(255, 255, 255, 0.8);
+    background: rgba(255, 255, 255, 0.15);
     color: white;
-    font-weight: bold;
-    padding: 12px 25px;
-    border-radius: 25px;
+    font-weight: 600;
+    font-size: 15px;
+    padding: 14px 30px;
+    border-radius: 30px;
     text-decoration: none;
     display: inline-block;
     text-align: center;
     cursor: pointer;
-    transition: background var(--transition-ease), transform 0.2s ease, box-shadow var(--transition-ease);
-    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.5);
+    transition: all var(--transition-ease);
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+    backdrop-filter: blur(10px);
 }
 
 .header-button:hover {
     background: rgba(255, 255, 255, 0.3);
-    transform: translateX(-2px);
-    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.5);
+    transform: translateY(-3px);
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
+    border-color: rgba(255, 255, 255, 1);
 }
 
 .header-button:active {
-    transform: translateY(1px);
-    background: rgba(255, 255, 255, 0.2);
-    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.5);
+    transform: translateY(-1px);
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
 }
 
 .header-button img {
@@ -88,16 +100,19 @@ header .logo img {
 
 /* Body Button Styles */
 .body-button {
-    padding: 12px 25px;
-    background: linear-gradient(135deg, var(--secondary-color), var(--accent-color));
+    padding: 14px 32px;
+    background: linear-gradient(135deg, var(--accent-color), #c0392b);
     color: white;
     border: none;
-    border-radius: 25px;
+    border-radius: 30px;
     cursor: pointer;
-    transition: background var(--transition-ease), transform 0.2s ease, box-shadow var(--transition-ease);
-    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.5);
-    font-weight: bold;
+    transition: all var(--transition-ease);
+    box-shadow: 0 6px 20px rgba(231, 76, 60, 0.3);
+    font-weight: 600;
+    font-size: 15px;
     text-decoration: none;
+    position: relative;
+    overflow: hidden;
     display: inline-block;
     text-align: center;
     backdrop-filter: blur(10px);
@@ -149,19 +164,22 @@ nav ul li a:hover {
 
 /* Search Section */
 .search-section {
-    background-color: transparent;
-    padding: 40px;
+    background: linear-gradient(135deg, rgba(44, 62, 80, 0.95) 0%, rgba(52, 73, 94, 0.9) 100%);
+    padding: 60px 40px;
     text-align: center;
     margin-top: 20px;
+    border-radius: var(--border-radius);
+    box-shadow: var(--card-shadow);
 }
 
 .search-section h2 {
     font-family: var(--font-family-headline);
-    font-size: 3em;
-    color: whitesmoke; /* Gold to represent Berlin's prestige */
-    margin-bottom: 30px;
+    font-size: 3.2em;
+    color: #ffffff;
+    margin-bottom: 35px;
     text-align: center;
-    text-shadow: 2px 2px 6px rgba(0, 0, 0, 0.7);
+    text-shadow: 3px 3px 8px rgba(0, 0, 0, 0.5);
+    letter-spacing: 1px;
 }
 
 .search-form {
@@ -184,18 +202,18 @@ nav ul li a:hover {
 }
 
 .property-card {
-    background-color: white;
-    border: 1px solid #ddd;
+    background: linear-gradient(135deg, #ffffff 0%, #f8f9fa 100%);
+    border: 1px solid rgba(0, 0, 0, 0.05);
     border-radius: var(--border-radius);
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
+    box-shadow: var(--card-shadow);
     overflow: hidden;
     position: relative;
-    transition: transform var(--transition-ease), box-shadow var(--transition-ease);
+    transition: all var(--transition-ease);
 }
 
 .property-card:hover {
-    transform: translateX(-2px);
-    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.5);
+    transform: translateY(-8px);
+    box-shadow: var(--card-shadow-hover);
 }
 
 

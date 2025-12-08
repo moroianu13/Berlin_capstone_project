@@ -7,16 +7,18 @@
 }
 body.neighborhood-details-page #info {
     width: 40%;
-    padding: 20px;
-    background-color: #f8f9fa;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
+    padding: 30px;
+    background: linear-gradient(135deg, #ffffff 0%, #f8f9fa 100%);
+    box-shadow: var(--card-shadow);
     border-radius: var(--border-radius);
     margin-right: 20px;
+    border: 1px solid rgba(0, 0, 0, 0.05);
+    transition: all var(--transition-ease);
 }
 
 body.neighborhood-details-page #info:hover{
-    transform: translateX(-2px);
-    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.5);
+    transform: translateY(-5px);
+    box-shadow: var(--card-shadow-hover);
 }
 
 body.neighborhood-details-page #map-links-container {
@@ -41,36 +43,44 @@ body.neighborhood-details-page #neighborhood-map {
     position: relative;
     top: 20px;
     height: 500px;
-    border: 2px solid #4CAF50;
-    border-radius: 12px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
+    border: 3px solid #ffffff;
+    border-radius: var(--border-radius);
+    box-shadow: var(--card-shadow);
     margin-bottom: 20px;
     display: block;
     visibility: visible;
+    transition: all var(--transition-ease);
+}
+
+body.neighborhood-details-page #neighborhood-map:hover {
+    box-shadow: var(--card-shadow-hover);
 }
 
 body.neighborhood-details-page #rental-links {
     height: auto;
     position: relative;
-    padding: 20px;
-    background-color: #f8f9fa;
+    padding: 30px;
+    background: linear-gradient(135deg, #ffffff 0%, #f8f9fa 100%);
     border-radius: var(--border-radius);
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.5);
+    box-shadow: var(--card-shadow);
     margin-top: 20px;
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    border: 1px solid rgba(0, 0, 0, 0.05);
+    transition: all var(--transition-ease);
 }
 
 body.neighborhood-details-page #rental-links:hover {
-    transform: translateX(-2px);
-    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.5);
+    transform: translateY(-5px);
+    box-shadow: var(--card-shadow-hover);
 }
 
 body.neighborhood-details-page #rental-links h2 {
-    font-size: 1.5em;
-    color: var(--secondary-color);
-    margin-bottom: 15px;
+    font-size: 1.8em;
+    color: var(--primary-color);
+    margin-bottom: 20px;
     text-align: center;
     font-family: var(--font-family-headline);
+    border-bottom: 3px solid var(--accent-color);
+    padding-bottom: 15px;
 }
 
 body.neighborhood-details-page #rental-links ul {
