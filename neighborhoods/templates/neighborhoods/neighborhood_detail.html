@@ -117,24 +117,24 @@
     </div>
 </div>
 
-    <!-- Mapbox GL JS -->
-    <script src="https://api.mapbox.com/mapbox-gl-js/v2.14.1/mapbox-gl.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/Turf.js/6.5.0/turf.min.js"></script>
+    <!-- Leaflet CSS and JS -->
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+    <script src="https://unpkg.com/@turf/turf@7/turf.min.js"></script>
 
     <!-- JavaScript for Charts and Map -->
     <script type="text/javascript">
-        mapboxgl.;
-
-        // Initialize the map
+        // Initialize the map with Leaflet
         const neighborhoodLongitude = parseFloat("{{ neighborhood.longitude }}");
         const neighborhoodLatitude = parseFloat("{{ neighborhood.latitude }}");
 
-        const neighborhoodMap  = new mapboxgl.Map({
-            container: 'neighborhood-map',
-            style: 'mapbox://styles/mapbox/streets-v11',
-            center: [neighborhoodLongitude, neighborhoodLatitude],
-            zoom: 16
-        });
+        const neighborhoodMap = L.map('neighborhood-map').setView([neighborhoodLatitude, neighborhoodLongitude], 16);
+
+        // Add OpenStreetMap tiles
+        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+            attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
+            maxZoom: 19
+        }).addTo(neighborhoodMap);
 
         fetch(`/neighborhood_data_api/{{ neighborhood.borough.slug }}/`)
             .then(response => response.json())
@@ -147,17 +147,16 @@
                     return;
                 }
                 const center = turf.centroid(neighborhoodFeature).geometry.coordinates;
-                neighborhoodMap.flyTo({ center: center, zoom: 12 });
-                neighborhoodMap.addSource('neighborhood-border', {
-                    'type': 'geojson',
-                    'data': { "type": "FeatureCollection", "features": [neighborhoodFeature] }
-                });
-                neighborhoodMap.addLayer({
-                    'id': 'neighborhood-border-layer',
-                    'type': 'line',
-                    'source': 'neighborhood-border',
-                    'paint': { 'line-color': '#ff0000', 'line-width': 2 }
-                });
+                neighborhoodMap.setView([center[1], center[0]], 12);
+                
+                // Add neighborhood border as GeoJSON layer
+                L.geoJSON(neighborhoodFeature, {
+                    style: {
+                        color: '#ff0000',
+                        weight: 2,
+                        fillOpacity: 0
+                    }
+                }).addTo(neighborhoodMap);
             })
             .catch(error => console.error('Error fetching neighborhood data:', error));
 
