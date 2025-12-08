@@ -1,24 +1,30 @@
-# Basis-Image
-FROM python:3.10-slim
+ARG PYTHON_VERSION=3.10-slim
 
-WORKDIR /usr/src/app
+FROM python:${PYTHON_VERSION}
 
+ENV PYTHONDONTWRITEBYTECODE 1
+ENV PYTHONUNBUFFERED 1
+
+# install psycopg2 dependencies.
 RUN apt-get update && apt-get install -y \
-    python3-dev \
-    build-essential \
     libpq-dev \
+    gcc \
     && rm -rf /var/lib/apt/lists/*
 
-COPY requirements.txt .
-RUN pip install -r requirements.txt
+RUN mkdir -p /code
 
-COPY . .
+WORKDIR /code
 
-RUN python manage.py collectstatic --clear --noinput
+COPY requirements.txt /tmp/requirements.txt
+RUN set -ex && \
+    pip install --upgrade pip && \
+    pip install -r /tmp/requirements.txt && \
+    rm -rf /root/.cache/
+COPY . /code
 
-
-RUN pip install gunicorn
+ENV SECRET_KEY "6NHdUvjuhBalcRImUgHXsH4N0tx4NC8BjgvLtZfEDkCSy6ho4t"
+RUN python manage.py collectstatic --noinput
 
 EXPOSE 8000
 
-CMD ["gunicorn",  "--workers", "3", "--bind", "0.0.0.0:8000", "rentfinder.wsgi:application"]
+CMD ["gunicorn","--bind",":8000","--workers","2","rentfinder.wsgi"]

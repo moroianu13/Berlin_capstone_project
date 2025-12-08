@@ -1,32 +1,41 @@
-app = "berlin-rentwise"
-primary_region = "fra"  # Frankfurt, closest to Berlin
+# fly.toml app configuration file generated for berlin-rentwise on 2025-12-08T22:03:41+01:00
+#
+# See https://fly.io/docs/reference/configuration/ for information about how to use this file.
+#
+
+app = 'berlin-rentwise'
+primary_region = 'fra'
+console_command = '/code/manage.py shell'
 
 [build]
 
+[deploy]
+  release_command = 'python manage.py migrate --noinput'
+
 [env]
-  PORT = "8000"
-  DJANGO_SETTINGS_MODULE = "rentfinder.settings"
+  DJANGO_SETTINGS_MODULE = 'rentfinder.settings'
+  PORT = '8000'
 
 [http_service]
   internal_port = 8000
   force_https = true
-  auto_stop_machines = "stop"
+  auto_stop_machines = 'stop'
   auto_start_machines = true
   min_machines_running = 0
-  processes = ["app"]
+  processes = ['app']
 
   [[http_service.checks]]
-    grace_period = "10s"
-    interval = "30s"
-    method = "GET"
-    timeout = "5s"
-    path = "/"
+    interval = '30s'
+    timeout = '5s'
+    grace_period = '10s'
+    method = 'GET'
+    path = '/'
 
 [[vm]]
-  memory = "512mb"
-  cpu_kind = "shared"
+  memory = '512mb'
+  cpu_kind = 'shared'
   cpus = 1
 
 [[statics]]
-  guest_path = "/usr/src/app/staticfiles"
-  url_prefix = "/static/"
+  guest_path = '/code/static'
+  url_prefix = '/static/'

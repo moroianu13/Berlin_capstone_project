@@ -1,14 +1,3 @@
-# Byte-compiled / Python compiled files
-__pycache__/
-*.pyc
-
-# Virtual environment
-myenv/
-env/
-venv/
-history/
-
-# Credentials
-.env
-.env_local
-.env_docker
+fly.toml
+.git/
+*.sqlite3
