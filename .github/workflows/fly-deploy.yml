@@ -2,13 +2,18 @@
 
 name: Fly Deploy
 on:
-  push:
+  workflow_run:
+    workflows: ["Django CI"]
+    types:
+      - completed
     branches:
       - main
 jobs:
   deploy:
     name: Deploy app
     runs-on: ubuntu-latest
+    # Only deploy if the CI workflow succeeded
+    if: ${{ github.event.workflow_run.conclusion == 'success' }}
     concurrency: deploy-group    # optional: ensure only one action runs at a time
     steps:
       - uses: actions/checkout@v4
