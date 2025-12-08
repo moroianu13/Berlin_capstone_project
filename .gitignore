@@ -1,6 +1,8 @@
 # Byte-compiled / Python compiled files
 __pycache__/
 *.pyc
+*.pyo
+*.pyd
 
 # Virtual environment
 myvenv/
@@ -10,10 +12,27 @@ history/
 
 # Credentials
 .env
+.env_local
 .env_docker
 
+# Coverage reports
+.coverage
+htmlcov/
+
+# Database dumps
+*.dump
+*.sql
+
 # Terraform
-.terraform
+.terraform/
 .terraform.lock.hcl
 terraform.tfstate
 terraform.tfstate.backup
+
+# IDEs
+.vscode/
+.idea/
+
+# OS files
+.DS_Store
+Thumbs.db
