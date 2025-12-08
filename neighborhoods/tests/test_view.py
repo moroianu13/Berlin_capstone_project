@@ -15,11 +15,11 @@ class ChatViewTest(TestCase):
     @patch('neighborhoods.views.get_predefined_response')
     def test_chat_view_post(self, mock_predefined_response, mock_wikipedia, mock_weather):
         # Test predefined response
-        mock_predefined_response.return_value = "Hello! How can I assist you?"
+        mock_predefined_response.return_value = "Hi there! How can I help you today?"
         response = self.client.post(reverse('chat_view'), {'message': 'Hi'})
         self.assertEqual(response.status_code, 200)
         self.assertIn('response', response.json())
-        self.assertEqual(response.json()['response'], "Hello! How can I assist you?")
+        self.assertEqual(response.json()['response'], "Hi there! How can I help you today?")
         mock_predefined_response.assert_called_once_with('hi', None)
 
         # Test weather response
@@ -62,9 +62,9 @@ class ChatViewTest(TestCase):
         manage_conversation_history(session_id, user_message, bot_message)
         print(conversation_history)
         self.assertIn(session_id, conversation_history)
-        self.assertEqual(len(conversation_history[session_id]), 2)
-        self.assertEqual(conversation_history[session_id][0], f"User: {user_message}")
-        self.assertEqual(conversation_history[session_id][1], f"Bot: {bot_message}")
+        self.assertEqual(len(conversation_history[session_id]['messages']), 2)
+        self.assertEqual(conversation_history[session_id]['messages'][0], f"User: {user_message}")
+        self.assertEqual(conversation_history[session_id]['messages'][1], f"Bot: {bot_message}")
 
         manage_conversation_history(session_id, "How are you?", "I'm fine.")
         manage_conversation_history(session_id, "What's your name?", "I'm ChatBot.")
