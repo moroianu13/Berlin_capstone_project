@@ -1,0 +1,32 @@
+app = "berlin-rentwise"
+primary_region = "fra"  # Frankfurt, closest to Berlin
+
+[build]
+
+[env]
+  PORT = "8000"
+  DJANGO_SETTINGS_MODULE = "rentfinder.settings"
+
+[http_service]
+  internal_port = 8000
+  force_https = true
+  auto_stop_machines = "stop"
+  auto_start_machines = true
+  min_machines_running = 0
+  processes = ["app"]
+
+  [[http_service.checks]]
+    grace_period = "10s"
+    interval = "30s"
+    method = "GET"
+    timeout = "5s"
+    path = "/"
+
+[[vm]]
+  memory = "512mb"
+  cpu_kind = "shared"
+  cpus = 1
+
+[[statics]]
+  guest_path = "/usr/src/app/staticfiles"
+  url_prefix = "/static/"
