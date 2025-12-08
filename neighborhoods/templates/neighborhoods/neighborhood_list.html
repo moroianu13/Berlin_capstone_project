@@ -5,10 +5,11 @@
     <meta charset="utf-8">
     <title>{{ borough.name }} Neighborhoods</title>
     <meta name="viewport" content="initial-scale=1,maximum-scale=1,user-scalable=no">
-    <link href="https://api.mapbox.com/mapbox-gl-js/v2.14.1/mapbox-gl.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
     <link rel="stylesheet" href="{% static 'css/general_and_home.css' %}">
     <link rel="stylesheet" href="{% static 'css/neighborhood_list.css' %}">
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
 </head>
 <body class="neighborhood-details-page">
     <header>
@@ -80,57 +81,71 @@
     </div>
       
 
-    <script </script>
     <script>
-        mapboxgl;
+        // Initialize Leaflet map with OpenStreetMap
+        const map = L.map('map').setView([{{ borough.latitude }}, {{ borough.longitude }}], 10.5);
 
-        const map = new mapboxgl.Map({
-            container: 'map',
-            style: 'mapbox://styles/mapbox/streets-v11',
-            center: [{{ borough.longitude }}, {{ borough.latitude }}],
-            zoom: 10.5
-        });
+        // Add OpenStreetMap tile layer
+        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+            attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
+            maxZoom: 19
+        }).addTo(map);
+
+        let neighborhoodsLayer;
+        const neighborhoodLayers = {};
 
         // Load GeoJSON data and handle hover effects
-        map.on('load', function () {
-            fetch(`/neighborhood_data_api/{{ borough.slug }}/`)
-                .then(response => response.json())
-                .then(data => {
-                    map.addSource('borough-neighborhoods', {
-                        type: 'geojson',
-                        data: data
-                    });
+        fetch(`/neighborhood_data_api/{{ borough.slug }}/`)
+            .then(response => response.json())
+            .then(data => {
+                neighborhoodsLayer = L.geoJSON(data, {
+                    style: {
+                        fillColor: '#888888',
+                        fillOpacity: 0.5,
+                        color: '#000000',
+                        weight: 2
+                    },
+                    onEachFeature: function(feature, layer) {
+                        if (feature.properties && feature.properties.name) {
+                            neighborhoodLayers[feature.properties.name.trim()] = layer;
+                        }
+                    }
+                }).addTo(map);
 
-                    map.addLayer({
-                        id: 'borough-neighborhoods-layer',
-                        type: 'fill',
-                        source: 'borough-neighborhoods',
-                        paint: {
-                            'fill-color': '#888888',
-                            'fill-opacity': 0.5,
-                            'fill-outline-color': '#000000'
+                // Highlight on hover
+                document.querySelectorAll('#neighborhood-items li').forEach(item => {
+                    item.addEventListener('mouseover', function () {
+                        const neighborhoodName = this.dataset.neighborhood.trim();
+                        
+                        // Reset all layers to default style
+                        neighborhoodsLayer.eachLayer(function(layer) {
+                            layer.setStyle({
+                                fillColor: '#888888',
+                                fillOpacity: 0.5
+                            });
+                        });
+                        
+                        // Highlight the hovered neighborhood
+                        if (neighborhoodLayers[neighborhoodName]) {
+                            neighborhoodLayers[neighborhoodName].setStyle({
+                                fillColor: '#00FF00',
+                                fillOpacity: 0.7
+                            });
                         }
                     });
 
-                    // Highlight on hover
-                    document.querySelectorAll('#neighborhood-items li').forEach(item => {
-                        item.addEventListener('mouseover', function () {
-                            const neighborhoodName = this.dataset.neighborhood.trim();
-
-                            map.setPaintProperty('borough-neighborhoods-layer', 'fill-color', [
-                                'case',
-                                ['==', ['get', 'name'], neighborhoodName], '#00FF00',
-                                '#888888'
-                            ]);
-                        });
-
-                        item.addEventListener('mouseout', function () {
-                            map.setPaintProperty('borough-neighborhoods-layer', 'fill-color', '#888888');
+                    item.addEventListener('mouseout', function () {
+                        // Reset all layers to default style
+                        neighborhoodsLayer.eachLayer(function(layer) {
+                            layer.setStyle({
+                                fillColor: '#888888',
+                                fillOpacity: 0.5
+                            });
                         });
                     });
-                })
-                .catch(error => console.error('Error loading GeoJSON:', error));
-        });
+                });
+            })
+            .catch(error => console.error('Error loading GeoJSON:', error));
 
         // Crime Data for Charts
 const crimeData = {
