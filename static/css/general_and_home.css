@@ -487,3 +487,144 @@ input {
 .responsive-image:hover{
     transform: translateX(-2px) scale(2);
 }
+
+/* Mobile Responsive Styles */
+@media (max-width: 768px) {
+    /* Header adjustments */
+    header {
+        flex-direction: column;
+        height: auto;
+        padding: 20px;
+        text-align: center;
+    }
+
+    header .logo {
+        margin-right: 0;
+        margin-bottom: 20px;
+    }
+
+    header .logo img {
+        height: 120px;
+    }
+
+    .header-button {
+        font-size: 14px;
+        padding: 12px 24px;
+        margin: 5px;
+    }
+
+    /* Search section */
+    .search-section {
+        padding: 40px 20px;
+    }
+
+    .search-section h2 {
+        font-size: 2em;
+    }
+
+    .search-form {
+        flex-direction: column;
+        gap: 15px;
+    }
+
+    /* Grid container */
+    .grid-container {
+        grid-template-columns: 1fr;
+        gap: 15px;
+    }
+
+    /* Introduction section */
+    .introduction-section {
+        padding: 40px 15px;
+    }
+
+    .introduction-section h1 {
+        font-size: 2em;
+    }
+
+    .introduction-section ul li {
+        flex-direction: column;
+        font-size: 1.1em;
+    }
+
+    .introduction-section ul li img {
+        max-width: 100%;
+    }
+
+    .introduction-section ul li strong {
+        font-size: 1.5em;
+    }
+
+    .introduction-section p {
+        font-size: 1.3em;
+    }
+
+    /* Footer */
+    footer {
+        height: 150px;
+    }
+
+    footer p {
+        padding-top: 80px;
+        font-size: 14px;
+    }
+
+    /* Navigation */
+    nav ul {
+        flex-direction: column;
+        gap: 10px;
+    }
+
+    nav ul li {
+        margin-left: 0;
+    }
+
+    /* Slideshow */
+    .slideshow-container {
+        height: 250px;
+    }
+
+    /* Property card */
+    .property-info h3 {
+        font-size: 1.3em;
+    }
+
+    /* Login container */
+    .login-container {
+        padding: 25px;
+    }
+
+    .content {
+        height: auto;
+        padding: 15px;
+    }
+
+    /* Disable hover scale on mobile for images */
+    .responsive-image:hover {
+        transform: none;
+    }
+}
+
+@media (max-width: 480px) {
+    header .logo img {
+        height: 80px;
+    }
+
+    .search-section h2 {
+        font-size: 1.5em;
+    }
+
+    .introduction-section h1 {
+        font-size: 1.5em;
+    }
+
+    .header-button {
+        font-size: 13px;
+        padding: 10px 20px;
+    }
+
+    .body-button {
+        font-size: 14px;
+        padding: 12px 24px;
+    }
+}

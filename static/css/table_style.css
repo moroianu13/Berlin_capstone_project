@@ -192,16 +192,103 @@
 }
 
 /* Adjusting media query to stack containers on small screens */
-@media (max-width: 768px) {
+@media (max-width: 968px) {
     .page-container {
         flex-direction: column;
         align-items: center;
+        padding: 15px;
+    }
+
+    .content-container {
+        flex-direction: column;
     }
 
     .borough-table-container,
     .berlin-map-container,
-    .symbols-section {
+    .symbols-section,
+    .berlin-description-container {
         width: 100%;
         max-width: 100%;
+        margin-bottom: 20px;
+        padding: 20px;
+    }
+
+    .borough-table-container h2,
+    .berlin-map-container h2,
+    .berlin-description-container h2 {
+        font-size: 22px;
+    }
+
+    .borough-table-container table {
+        font-size: 14px;
+    }
+
+    .borough-table-container th,
+    .borough-table-container td {
+        padding: 10px 8px;
+    }
+
+    #berlin-map {
+        height: 350px;
+    }
+}
+
+@media (max-width: 480px) {
+    .page-container {
+        padding: 10px;
+    }
+
+    .borough-table-container,
+    .berlin-map-container,
+    .symbols-section,
+    .berlin-description-container {
+        padding: 15px;
+    }
+
+    .borough-table-container h2,
+    .berlin-map-container h2,
+    .berlin-description-container h2 {
+        font-size: 18px;
+        margin-bottom: 15px;
+    }
+
+    .borough-table-container table {
+        font-size: 12px;
+    }
+
+    .borough-table-container th {
+        font-size: 11px;
+        padding: 8px 5px;
+    }
+
+    .borough-table-container td {
+        padding: 8px 5px;
+    }
+
+    #berlin-map {
+        height: 280px;
+    }
+
+    .berlin-description-container p {
+        font-size: 14px;
+    }
+
+    /* Make tables scrollable on very small screens */
+    .borough-table-container {
+        overflow-x: auto;
+    }
+
+    /* Adjust symbols section for mobile */
+    .symbols-section .symbol {
+        flex: 1 1 45%;
+        min-width: 120px;
+    }
+
+    .symbols-section .symbol img {
+        max-width: 50px;
+    }
+
+    .symbols-section .symbol p {
+        font-size: 12px;
     }
 }

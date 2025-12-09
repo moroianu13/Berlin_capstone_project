@@ -115,6 +115,66 @@
     margin-top: 10px;
 }
 
+/* Mobile Responsive Styles */
+@media (max-width: 768px) {
+    .container {
+        flex-direction: column;
+        padding: 15px;
+    }
 
+    #info {
+        width: 100%;
+        margin-right: 0;
+        margin-bottom: 20px;
+        padding: 20px;
+    }
 
+    #map-links-container {
+        width: 100%;
+    }
 
+    #borough-map {
+        height: 400px;
+    }
+
+    #filters {
+        margin-top: 15px;
+        padding: 20px;
+    }
+
+    #filters label {
+        font-size: 14px;
+    }
+
+    #filters h3 {
+        font-size: 18px;
+    }
+}
+
+@media (max-width: 480px) {
+    #borough-map {
+        height: 300px;
+    }
+
+    #info {
+        padding: 15px;
+    }
+
+    #filters {
+        padding: 15px;
+    }
+
+    #filters label {
+        font-size: 13px;
+    }
+
+    #filters h3 {
+        font-size: 16px;
+    }
+
+    #filters input[type="checkbox"] {
+        width: 18px;
+        height: 18px;
+        margin-right: 8px;
+    }
+}
