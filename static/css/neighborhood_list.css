@@ -29,6 +29,14 @@
 
 #neighborhood-list h4 {
     margin-bottom: 20px;
+    font-size: 1.6em;
+}
+
+#neighborhood-list img {
+    max-width: 150px;
+    height: auto;
+    margin: 20px auto;
+    display: block;
 }
 
 /* Neighborhood Items */
@@ -154,7 +162,12 @@
 
     #neighborhood-list h4 {
         font-size: 1.4em;
-        margin-bottom: 25px;
+        margin-bottom: 20px;
+    }
+
+    #neighborhood-list img {
+        max-width: 120px;
+        margin: 15px auto 20px;
     }
 
     #charts-container {
@@ -209,7 +222,12 @@
 
     #neighborhood-list h4 {
         font-size: 1.3em;
-        margin-bottom: 20px;
+        margin-bottom: 18px;
+    }
+
+    #neighborhood-list img {
+        max-width: 100px;
+        margin: 12px auto 18px;
     }
 
     #neighborhood-items {

@@ -56,6 +56,25 @@
     transform: translateY(-2px);
 }
 
+#filters > div {
+    margin-bottom: 20px;
+}
+
+#filters input[type="number"] {
+    width: 100%;
+    padding: 12px;
+    border: 2px solid #ddd;
+    border-radius: 8px;
+    font-size: 16px;
+    margin-top: 8px;
+    transition: border-color 0.3s ease;
+}
+
+#filters input[type="number"]:focus {
+    outline: none;
+    border-color: var(--highlight-color);
+}
+
 #filters label {
     display: flex;
     align-items: center;
@@ -64,6 +83,7 @@
     font-size: 16px;
     color: #333;
     cursor: pointer;
+    padding: 8px 0;
 }
 
 #filters input[type="checkbox"] {
@@ -145,22 +165,33 @@
 
     #filters {
         margin-top: 20px;
-        padding: 25px;
+        padding: 25px 20px;
+    }
+
+    #filters > div {
+        margin-bottom: 20px;
+    }
+
+    #filters input[type="number"] {
+        padding: 14px;
+        font-size: 16px;
+        width: 100%;
     }
 
     #filters label {
         font-size: 15px;
         margin: 12px 0;
+        padding: 10px 0;
+    }
+
+    #filters input[type="checkbox"] + label {
+        font-size: 15px;
         padding: 8px 0;
     }
 
     #filters h3 {
         font-size: 19px;
         margin-bottom: 25px;
-    }
-
-    #filters > div {
-        margin-bottom: 15px;
     }
 }
 
@@ -182,13 +213,22 @@
     }
 
     #filters {
-        padding: 20px;
+        padding: 20px 18px;
+    }
+
+    #filters > div {
+        margin-bottom: 18px;
+    }
+
+    #filters input[type="number"] {
+        padding: 14px;
+        font-size: 16px;
     }
 
     #filters label {
-        font-size: 14px;
+        font-size: 15px;
         margin: 10px 0;
-        padding: 6px 0;
+        padding: 8px 0;
     }
 
     #filters h3 {
@@ -197,13 +237,8 @@
     }
 
     #filters input[type="checkbox"] {
-        width: 20px;
-        height: 20px;
-        margin-right: 10px;
-    }
-
-    #filters input[type="number"] {
-        padding: 12px;
-        font-size: 15px;
+        width: 22px;
+        height: 22px;
+        margin-right: 12px;
     }
 }
