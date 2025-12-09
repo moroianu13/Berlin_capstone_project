@@ -45,6 +45,21 @@ input[type="password"] {
     appearance: none;
 }
 
+/* Force Leaflet maps to be responsive on mobile */
+@media (max-width: 768px) {
+    .leaflet-container {
+        width: 100% !important;
+        max-width: 100% !important;
+        box-sizing: border-box !important;
+    }
+    
+    #map, #borough-map, .map {
+        width: 100% !important;
+        max-width: 100% !important;
+        box-sizing: border-box !important;
+    }
+}
+
 /* Header Styles */
 header {
     display: flex;
