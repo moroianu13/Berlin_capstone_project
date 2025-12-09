@@ -119,14 +119,19 @@
 @media (max-width: 768px) {
     .container {
         flex-direction: column;
-        padding: 15px;
+        padding: 20px 15px;
     }
 
     #info {
         width: 100%;
         margin-right: 0;
+        margin-bottom: 25px;
+        padding: 25px;
+    }
+
+    #info h1 {
+        font-size: 1.8em;
         margin-bottom: 20px;
-        padding: 20px;
     }
 
     #map-links-container {
@@ -134,47 +139,71 @@
     }
 
     #borough-map {
-        height: 400px;
+        height: 450px;
+        margin-bottom: 20px;
     }
 
     #filters {
-        margin-top: 15px;
+        margin-top: 20px;
+        padding: 25px;
+    }
+
+    #filters label {
+        font-size: 15px;
+        margin: 12px 0;
+        padding: 8px 0;
+    }
+
+    #filters h3 {
+        font-size: 19px;
+        margin-bottom: 25px;
+    }
+
+    #filters > div {
+        margin-bottom: 15px;
+    }
+}
+
+@media (max-width: 480px) {
+    .container {
+        padding: 15px 10px;
+    }
+
+    #borough-map {
+        height: 350px;
+    }
+
+    #info {
+        padding: 20px;
+    }
+
+    #info h1 {
+        font-size: 1.6em;
+    }
+
+    #filters {
         padding: 20px;
     }
 
     #filters label {
         font-size: 14px;
+        margin: 10px 0;
+        padding: 6px 0;
     }
 
     #filters h3 {
-        font-size: 18px;
-    }
-}
-
-@media (max-width: 480px) {
-    #borough-map {
-        height: 300px;
-    }
-
-    #info {
-        padding: 15px;
-    }
-
-    #filters {
-        padding: 15px;
-    }
-
-    #filters label {
-        font-size: 13px;
-    }
-
-    #filters h3 {
-        font-size: 16px;
+        font-size: 17px;
+        margin-bottom: 20px;
     }
 
     #filters input[type="checkbox"] {
-        width: 18px;
-        height: 18px;
-        margin-right: 8px;
+        width: 20px;
+        height: 20px;
+        margin-right: 10px;
+    }
+
+    #filters input[type="number"] {
+        padding: 12px;
+        font-size: 15px;
     }
 }

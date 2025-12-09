@@ -196,7 +196,7 @@
     .page-container {
         flex-direction: column;
         align-items: center;
-        padding: 15px;
+        padding: 20px 15px;
     }
 
     .content-container {
@@ -209,68 +209,76 @@
     .berlin-description-container {
         width: 100%;
         max-width: 100%;
-        margin-bottom: 20px;
-        padding: 20px;
+        margin-bottom: 25px;
+        padding: 25px;
     }
 
     .borough-table-container h2,
     .berlin-map-container h2,
     .berlin-description-container h2 {
-        font-size: 22px;
+        font-size: 1.5em;
+        margin-bottom: 20px;
     }
 
     .borough-table-container table {
-        font-size: 14px;
+        font-size: 15px;
     }
 
     .borough-table-container th,
     .borough-table-container td {
-        padding: 10px 8px;
+        padding: 12px 10px;
     }
 
     #berlin-map {
-        height: 350px;
+        height: 400px;
+    }
+
+    .berlin-description-container p {
+        line-height: 1.7;
+        margin-bottom: 15px;
     }
 }
 
 @media (max-width: 480px) {
     .page-container {
-        padding: 10px;
+        padding: 15px 10px;
     }
 
     .borough-table-container,
     .berlin-map-container,
     .symbols-section,
     .berlin-description-container {
-        padding: 15px;
+        padding: 20px;
+        margin-bottom: 20px;
     }
 
     .borough-table-container h2,
     .berlin-map-container h2,
     .berlin-description-container h2 {
-        font-size: 18px;
-        margin-bottom: 15px;
+        font-size: 1.3em;
+        margin-bottom: 18px;
     }
 
     .borough-table-container table {
-        font-size: 12px;
+        font-size: 14px;
     }
 
     .borough-table-container th {
-        font-size: 11px;
-        padding: 8px 5px;
+        font-size: 12px;
+        padding: 10px 6px;
     }
 
     .borough-table-container td {
-        padding: 8px 5px;
+        padding: 10px 6px;
     }
 
     #berlin-map {
-        height: 280px;
+        height: 350px;
     }
 
     .berlin-description-container p {
-        font-size: 14px;
+        font-size: 15px;
+        line-height: 1.7;
     }
 
     /* Make tables scrollable on very small screens */
@@ -281,14 +289,16 @@
     /* Adjust symbols section for mobile */
     .symbols-section .symbol {
         flex: 1 1 45%;
-        min-width: 120px;
+        min-width: 140px;
+        padding: 15px;
     }
 
     .symbols-section .symbol img {
-        max-width: 50px;
+        max-width: 60px;
     }
 
     .symbols-section .symbol p {
-        font-size: 12px;
+        font-size: 13px;
+        margin-top: 8px;
     }
 }

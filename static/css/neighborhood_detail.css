@@ -187,14 +187,25 @@ body.neighborhood-details-page .transport-list li {
 @media (max-width: 768px) {
     .container {
         flex-direction: column;
-        padding: 15px;
+        padding: 20px 15px;
     }
 
     body.neighborhood-details-page #info {
         width: 100%;
         margin-right: 0;
+        margin-bottom: 25px;
+        padding: 25px;
+    }
+
+    body.neighborhood-details-page #info h1 {
+        font-size: 1.8em;
         margin-bottom: 20px;
-        padding: 20px;
+    }
+
+    body.neighborhood-details-page #info p {
+        line-height: 1.7;
+        margin-bottom: 12px;
+        font-size: 1em;
     }
 
     body.neighborhood-details-page #map-links-container {
@@ -202,68 +213,87 @@ body.neighborhood-details-page .transport-list li {
     }
 
     body.neighborhood-details-page #neighborhood-map {
-        height: 350px;
-        top: 10px;
+        height: 400px;
+        top: 0;
+        margin-bottom: 20px;
     }
 
     body.neighborhood-details-page #rental-links {
+        padding: 25px;
+        margin-top: 20px;
+    }
+
+    body.neighborhood-details-page #rental-links h2 {
+        font-size: 1.6em;
+        margin-bottom: 20px;
+    }
+
+    body.neighborhood-details-page #rental-links ul li a {
+        font-size: 15px;
+        padding: 12px 16px;
+        margin-bottom: 10px;
+    }
+
+    body.neighborhood-details-page #transport-stations {
         padding: 20px;
         margin-top: 15px;
     }
 
-    body.neighborhood-details-page #rental-links h2 {
-        font-size: 1.5em;
-    }
-
-    body.neighborhood-details-page #rental-links ul li a {
-        font-size: 14px;
-        padding: 10px;
-    }
-
-    body.neighborhood-details-page #transport-stations {
-        padding: 15px;
-    }
-
     body.neighborhood-details-page #transport-stations h2 {
-        font-size: 1.3em;
+        font-size: 1.4em;
+        margin-bottom: 15px;
     }
 
     body.neighborhood-details-page .transport-list li {
         font-size: 1em;
+        padding: 8px 0;
     }
 }
 
 @media (max-width: 480px) {
+    .container {
+        padding: 15px 10px;
+    }
+
     body.neighborhood-details-page #info {
-        padding: 15px;
+        padding: 20px;
+    }
+
+    body.neighborhood-details-page #info h1 {
+        font-size: 1.6em;
+    }
+
+    body.neighborhood-details-page #info p {
+        font-size: 0.95em;
     }
 
     body.neighborhood-details-page #neighborhood-map {
-        height: 280px;
+        height: 350px;
     }
 
     body.neighborhood-details-page #rental-links {
-        padding: 15px;
+        padding: 20px;
     }
 
     body.neighborhood-details-page #rental-links h2 {
-        font-size: 1.3em;
+        font-size: 1.4em;
     }
 
     body.neighborhood-details-page #rental-links ul li a {
-        font-size: 13px;
-        padding: 8px;
+        font-size: 14px;
+        padding: 11px 14px;
     }
 
     body.neighborhood-details-page #transport-stations {
-        padding: 12px;
+        padding: 18px;
     }
 
     body.neighborhood-details-page #transport-stations h2 {
-        font-size: 1.1em;
+        font-size: 1.3em;
     }
 
     body.neighborhood-details-page .transport-list li {
         font-size: 0.95em;
+        padding: 6px 0;
     }
 }

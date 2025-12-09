@@ -494,37 +494,53 @@ input {
     header {
         flex-direction: column;
         height: auto;
-        padding: 20px;
+        padding: 30px 20px;
         text-align: center;
     }
 
     header .logo {
         margin-right: 0;
-        margin-bottom: 20px;
+        margin-bottom: 25px;
     }
 
     header .logo img {
-        height: 120px;
+        height: 100px;
+    }
+
+    header nav ul {
+        gap: 15px;
+        justify-content: center;
     }
 
     .header-button {
-        font-size: 14px;
-        padding: 12px 24px;
-        margin: 5px;
+        font-size: 15px;
+        padding: 14px 28px;
+        margin: 8px;
+        min-width: 120px;
     }
 
     /* Search section */
     .search-section {
-        padding: 40px 20px;
+        padding: 50px 25px;
     }
 
     .search-section h2 {
-        font-size: 2em;
+        font-size: 1.8em;
+        margin-bottom: 30px;
+        line-height: 1.4;
     }
 
     .search-form {
         flex-direction: column;
-        gap: 15px;
+        gap: 20px;
+    }
+
+    .body-button {
+        width: 100%;
+        max-width: 300px;
+        margin: 0 auto;
+        padding: 16px 32px;
+        font-size: 16px;
     }
 
     /* Grid container */
@@ -535,28 +551,35 @@ input {
 
     /* Introduction section */
     .introduction-section {
-        padding: 40px 15px;
+        padding: 50px 20px;
     }
 
     .introduction-section h1 {
         font-size: 2em;
+        margin-bottom: 40px;
     }
 
     .introduction-section ul li {
         flex-direction: column;
-        font-size: 1.1em;
+        font-size: 1em;
+        padding: 25px;
+        margin-bottom: 30px;
     }
 
     .introduction-section ul li img {
         max-width: 100%;
+        margin-bottom: 20px;
     }
 
     .introduction-section ul li strong {
-        font-size: 1.5em;
+        font-size: 1.3em;
+        display: block;
+        margin-bottom: 15px;
     }
 
     .introduction-section p {
-        font-size: 1.3em;
+        font-size: 1.1em;
+        line-height: 1.8;
     }
 
     /* Footer */
@@ -606,25 +629,50 @@ input {
 }
 
 @media (max-width: 480px) {
+    header {
+        padding: 25px 15px;
+    }
+
     header .logo img {
         height: 80px;
     }
 
+    .header-button {
+        font-size: 14px;
+        padding: 12px 24px;
+        min-width: 110px;
+    }
+
+    .search-section {
+        padding: 40px 20px;
+    }
+
     .search-section h2 {
-        font-size: 1.5em;
+        font-size: 1.4em;
+        line-height: 1.5;
+    }
+
+    .introduction-section {
+        padding: 40px 15px;
     }
 
     .introduction-section h1 {
-        font-size: 1.5em;
+        font-size: 1.6em;
+        margin-bottom: 30px;
     }
 
-    .header-button {
-        font-size: 13px;
-        padding: 10px 20px;
+    .introduction-section ul li {
+        padding: 20px;
+        margin-bottom: 25px;
+        font-size: 0.95em;
+    }
+
+    .introduction-section ul li strong {
+        font-size: 1.2em;
     }
 
     .body-button {
-        font-size: 14px;
-        padding: 12px 24px;
+        font-size: 15px;
+        padding: 14px 28px;
     }
 }
