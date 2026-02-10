@@ -44,3 +44,17 @@ wikipedia==1.4.0
 google-generativeai==0.8.3
 whitenoise==6.8.2
 gunicorn==23.0.0
+
+# Security fixes for transitive dependencies
+setuptools>=78.1.1
+pip>=26.0
+filelock>=3.20.3
+protobuf>=5.29.6
+oauthlib>=3.2.1
+pyjwt>=2.4.0
+werkzeug>=3.1.5
+tornado>=6.5
+twisted>=24.7.0rc1
+zipp>=3.19.1
+wheel>=0.38.1
+pycryptodomex>=3.19.1
