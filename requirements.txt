@@ -6,7 +6,7 @@ cffi==2.0.0
 charset-normalizer==3.4.4
 cryptography==46.0.3
 dj-database-url==3.0.1
-Django==5.2.9
+Django==5.2.10
 djangorestframework==3.16.1
 drf-yasg==1.21.11
 fuzzywuzzy==0.18.0
