@@ -1,13 +1,16 @@
 # See https://fly.io/docs/app-guides/continuous-deployment-with-github-actions/
+# DISABLED - Fly.io instance closed to avoid charges
 
 name: Fly Deploy
 on:
-  workflow_run:
-    workflows: ["Django CI"]
-    types:
-      - completed
-    branches:
-      - main
+  workflow_dispatch:  # Manual trigger only
+  # Disabled automatic deployment
+  # workflow_run:
+  #   workflows: ["Django CI"]
+  #   types:
+  #     - completed
+  #   branches:
+  #     - main
 jobs:
   deploy:
     name: Deploy app
