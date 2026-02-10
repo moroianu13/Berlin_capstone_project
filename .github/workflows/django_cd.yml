@@ -3,43 +3,22 @@ name: Django CI/CD (EC2 - DISABLED)
 # This workflow is disabled because deployment is now handled by Fly.io
 # To re-enable EC2 deployment, uncomment the 'on:' section below and configure secrets
 
+on:
+  workflow_dispatch:  # Manual trigger only
+
+# Disabled automatic triggers:
 # on:
 #   workflow_run:
 #     workflows: ["Django CI"]
 #     types:
 #       - completed
-#   workflow_dispatch:
-
-on: []
 
 jobs:
   deploy:
     runs-on: ubuntu-latest
+    if: false  # Workflow completely disabled
     steps:
-      - name: Check out code
-        uses: actions/checkout@v4
-
-      - name: Deploy to EC2 with Docker Compose
-        env:
-          DEPLOY_HOST: ${{ secrets.DEPLOY_HOST }}
-          DEPLOY_USER: ${{ secrets.DEPLOY_USER }}
-          PEM_FILE: ${{ secrets.EC2_PEM_FILE }}
+      - name: Deployment Disabled
         run: |
-          mkdir -p ~/.ssh
-          printf "%s" "$PEM_FILE" > ~/.ssh/ec2_key.pem
-
-          chmod 600 ~/.ssh/ec2_key.pem
-
-          ssh-keyscan -H $DEPLOY_HOST >> ~/.ssh/known_hosts
-
-          ssh -i ~/.ssh/ec2_key.pem -o IdentitiesOnly=yes $DEPLOY_USER@$DEPLOY_HOST "
-            set -e  # Stop on errors
-            cd /home/ubuntu/backend &&
-            git pull origin main &&
-            sudo docker compose down -v &&
-            sudo docker compose build &&
-            sudo docker compose up -d
-          "
-
-          # Clean up the PEM file
-          rm -f ec2_key.pem
+          echo "This workflow is disabled. EC2 deployment is no longer active."
+          echo "To deploy, use Fly.io or manually configure EC2 deployment."
