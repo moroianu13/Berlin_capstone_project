@@ -22,8 +22,8 @@ RUN set -ex && \
     rm -rf /root/.cache/
 COPY . /code
 
-ENV SECRET_KEY "6NHdUvjuhBalcRImUgHXsH4N0tx4NC8BjgvLtZfEDkCSy6ho4t"
-RUN python manage.py collectstatic --noinput
+# A disposable build-only key is supplied only for static collection.
+RUN SECRET_KEY=build-only-static-collection-key python manage.py collectstatic --noinput
 
 EXPOSE 8000
 
