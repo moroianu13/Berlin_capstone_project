@@ -6,7 +6,7 @@ cffi==2.0.0
 charset-normalizer==3.4.4
 cryptography>=46.0.4
 dj-database-url==3.0.1
-Django==5.2.16
+Django==5.2.18
 djangorestframework==3.17.2
 drf-yasg==1.21.11
 fuzzywuzzy==0.18.0
@@ -34,12 +34,12 @@ requests==2.33.0
 resolvelib==1.2.1
 shapely==2.1.2
 six==1.17.0
-soupsieve==2.8.4
+soupsieve==2.10
 sqlparse==0.6.0
 typing_extensions==4.15.0
 tzdata==2025.2
 uritemplate==4.2.0
-urllib3>=2.6.3,<2.7.0
+urllib3==2.8.0
 wikipedia==1.4.0
 google-generativeai==0.8.3
 whitenoise==6.8.2
